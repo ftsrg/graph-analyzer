@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>eu.mondo.map</groupId>
+	<artifactId>eu.mondo.map.hg</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<emf.version>2.10.0-v20140514-1158</emf.version>
+	</properties>
+
+	<profiles>
+
+		<profile>
+			<id>all</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark</module>
+				<module>eu.mondo.map.hg.benchmark.blazegraph</module>
+				<module>eu.mondo.map.hg.config</module>
+				<module>eu.mondo.map.hg.generator</module>
+				<module>eu.mondo.map.hg.benchmark.allegro</module>
+				<module>eu.mondo.map.hg.benchmark.java</module>
+				<module>eu.mondo.map.hg.benchmark.jena</module>
+				<module>eu.mondo.map.hg.benchmark.mysql</module>
+				<module>eu.mondo.map.hg.benchmark.neo4j</module>
+				<module>eu.mondo.map.hg.benchmark.rdf</module>
+				<module>eu.mondo.map.hg.benchmark.sesame</module>
+				<module>eu.mondo.map.hg.benchmark.virtuoso</module>
+				<module>eu.mondo.map.hg.generator.graph</module>
+				<module>eu.mondo.map.hg.generator.sql</module>
+				<module>eu.mondo.map.hg.rdf</module>
+			</modules>
+		</profile>
+
+		<!-- core -->
+
+		<profile>
+			<id>core</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark</module>
+				<module>eu.mondo.map.hg.config</module>
+				<module>eu.mondo.map.hg.generator</module>
+			</modules>
+		</profile>
+
+		<!-- formats -->
+
+		<profile>
+			<id>graph</id>
+			<modules>
+				<module>eu.mondo.map.hg.generator.graph</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>emf</id>
+			<modules>
+				<module>eu.mondo.map.hg.emf</module>
+				<module>eu.mondo.map.hg.emf.model</module>
+				<module>eu.mondo.map.hg.generator.emf</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>rdf</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.rdf</module>
+				<module>eu.mondo.map.hg.generator.rdf</module>
+				<module>eu.mondo.map.hg.rdf</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>sql</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.sql</module>
+				<module>eu.mondo.map.hg.generator.sql</module>
+				<module>eu.mondo.map.hg.sql</module>
+			</modules>
+		</profile>
+
+		<!-- tools -->
+
+		<profile>
+			<id>allegro</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.allegro</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>blazegraph</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.sesame</module>
+				<module>eu.mondo.map.hg.benchmark.blazegraph</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>drools</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.drools5</module>
+				<module>eu.mondo.map.hg.benchmark.drools6</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>eclipseocl</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.eclipseocl</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>fourstore</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.fourstore</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>emfincquery</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.emfincquery</module>
+				<module>eu.mondo.map.hg.benchmark.emfincquery.patterns</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>java</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.java</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>jena</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.jena</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>memsql</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.memsql</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>mysql</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.mysql</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>neo4j</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.neo4j</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>postgresql</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.postgresql</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>orientdb</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.orientdb</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>sesame</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.sesame</module>
+			</modules>
+		</profile>
+
+		<profile>
+			<id>virtuoso</id>
+			<modules>
+				<module>eu.mondo.map.hg.benchmark.virtuoso</module>
+			</modules>
+		</profile>
+
+	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>package</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}/lib</outputDirectory>
+								<overWriteReleases>false</overWriteReleases>
+								<overWriteSnapshots>false</overWriteSnapshots>
+								<overWriteIfNewer>true</overWriteIfNewer>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-dependency-plugin
+										</artifactId>
+										<versionRange>
+											[2.1,)
+										</versionRange>
+										<goals>
+											<goal>
+												copy-dependencies
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

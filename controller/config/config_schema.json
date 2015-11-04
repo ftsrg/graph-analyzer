@@ -1,0 +1,349 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "Scenarios": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": [
+        {
+          "type": "string",
+          "enum": [
+            "Analyze",
+            "Describe",
+            "Inject",
+            "Repair",
+            "Batch"
+          ]
+        }
+      ],
+      "additionalItems": {
+        "type": "string",
+        "enum": [
+          "Analyze",
+          "Describe",
+          "Inject",
+          "Repair",
+          "Batch"
+        ]
+      }
+    },
+    "Model": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": [
+        {
+          "type": "string",
+          "enum": [
+            "Railway",
+            "Schedule-Hierarchical",
+            "Schedule-Random",
+            "Schedule-Real",
+            "Schedule-Scale-Free",
+            "Schedule-Scale-Free-Char",
+            "Schedule-Scale-Free-Het",
+            "Schedule-Scale-Free-Hom",
+            "Schedule-Watts-Strogatz-01",
+            "Schedule-Watts-Strogatz-001",
+            "Schedule-Watts-Strogatz-0001"
+          ]
+        }
+      ],
+      "additionalItems": {
+        "type": "string",
+        "enum": [
+          "Railway",
+          "Schedule-Hierarchical",
+          "Schedule-Random",
+          "Schedule-Real",
+          "Schedule-Scale-Free",
+          "Schedule-Scale-Free-Char",
+          "Schedule-Scale-Free-Het",
+          "Schedule-Scale-Free-Hom",
+          "Schedule-Watts-Strogatz-01",
+          "Schedule-Watts-Strogatz-001",
+          "Schedule-Watts-Strogatz-0001"
+        ]
+      }
+    },
+    "Submodel": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": [
+        {
+          "type": "string",
+          "enum": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+          ]
+        }
+      ],
+      "additionalItems": {
+        "type": "string",
+        "enum": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ]
+      }
+    },
+    "MAVEN_OPTS": {
+      "type": "object",
+      "properties": {
+        "Xmx": {
+          "type": "string",
+          "pattern": "^[0-9]+[m,g]",
+          "default": "512m"
+        },
+        "XX:MaxPermSize": {
+          "type": "string",
+          "pattern": "^[0-9]+[m,g]",
+          "default": "256m"
+        }
+      }
+    },
+    "JAVA_OPTS": {
+      "type": "object",
+      "properties": {
+        "xmx": {
+          "type": "string",
+          "pattern": "^[0-9]+[m,g]",
+          "default": "1g"
+        },
+        "maxPermSize": {
+          "type": "string",
+          "pattern": "^[0-9]+[m,g]",
+          "default": "256m"
+        }
+      }
+    },
+    "IterationCount": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 10
+    },
+    "MinSize": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "MaxSize": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 4
+    },
+    "ModificationMethod": {
+      "enum": [
+        "constant",
+        "resultSet"
+      ],
+      "default": "constant"
+    },
+    "ModificationConstant": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 10
+    },
+    "Series": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1
+    },
+    "Queries": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": [
+        {
+          "type": "string",
+          "enum": [
+            "AssociationCategories",
+            "AssociationDays",
+            "ConnectedSegments",
+            "PosLength",
+            "RouteSensor",
+            "ScheduleAttributes",
+            "ScheduleCheckIsolatedStations",
+            "ScheduleCheckLoopNeighbors",
+            "ScheduleDays",
+            "ScheduleIndicator",
+            "ScheduleNavigations",
+            "SchedulePlanning",
+            "ScheduleShortTermStatus",
+            "ScheduleStatus",
+            "SemaphoreNeighbor",
+            "StationsPath",
+            "SwitchSensor",
+            "SwitchSet"
+          ]
+        }
+      ],
+      "additionalItems": {
+        "type": "string",
+        "enum": [
+          "AssociationCategories",
+          "AssociationDays",
+          "ConnectedSegments",
+          "PosLength",
+          "RouteSensor",
+          "ScheduleAttributes",
+          "ScheduleCheckIsolatedStations",
+          "ScheduleCheckLoopNeighbors",
+          "ScheduleDays",
+          "ScheduleIndicator",
+          "ScheduleNavigations",
+          "SchedulePlanning",
+          "ScheduleShortTermStatus",
+          "ScheduleStatus",
+          "SemaphoreNeighbor",
+          "StationsPath",
+          "SwitchSensor",
+          "SwitchSet"
+        ]
+      }
+    },
+    "Tools": {
+      "type": "array",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": [
+        {
+          "type": "string",
+          "enum": [
+            "allegro",
+            "blazegraph",
+            "drools5",
+            "drools6",
+            "eclipseocl",
+            "emfincquery",
+            "fourstore",
+            "java",
+            "jena",
+            "memsql",
+            "mysql",
+            "neo4j",
+            "orientdb",
+            "sesame",
+            "postgresql",
+            "virtuoso"
+          ]
+        }
+      ],
+      "additionalItems": {
+        "type": "string",
+        "enum": [
+          "allegro",
+          "blazegraph",
+          "drools5",
+          "drools6",
+          "eclipseocl",
+          "emfincquery",
+          "fourstore",
+          "java",
+          "jena",
+          "memsql",
+          "mysql",
+          "neo4j",
+          "orientdb",
+          "sesame",
+          "postgresql",
+          "virtuoso"
+        ]
+      },
+      "default": [
+        "sesame"
+      ]
+    },
+    "UniqueConfigurations": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "required": [
+            "Tool"
+          ],
+          "properties": {
+            "Tool": {
+              "enum": [
+                "allegro",
+                "blazegraph",
+                "drools5",
+                "drools6",
+                "eclipseocl",
+                "emfincquery",
+                "fourstore",
+                "java",
+                "jena",
+                "memsql",
+                "mysql",
+                "neo4j",
+                "sesame",
+                "postgresql",
+                "virtuoso"
+              ]
+            },
+            "Queries": {
+              "$ref": "#/properties/Queries"
+            },
+            "Scenarios": {
+              "$ref": "#/properties/Scenarios"
+            },
+            "MinSize": {
+              "$ref": "#/properties/MinSize"
+            },
+            "MaxSize": {
+              "$ref": "#/properties/MaxSize"
+            }
+          }
+        }
+      ],
+      "additionalItems": {
+        "type": "object",
+        "required": [
+          "Tool"
+        ],
+        "properties": {
+          "Tool": {
+            "enum": [
+              "allegro",
+              "blazegraph",
+              "drools5",
+              "drools6",
+              "eclipseocl",
+              "emfincquery",
+              "fourstore",
+              "java",
+              "jena",
+              "memsql",
+              "mysql",
+              "neo4j",
+              "sesame",
+              "postgresql",
+              "virtuoso"
+            ]
+          },
+          "Queries": {
+            "$ref": "#/properties/Queries"
+          },
+          "Scenarios": {
+            "$ref": "#/properties/Scenarios"
+          },
+          "MinSize": {
+            "$ref": "#/properties/MinSize"
+          },
+          "MaxSize": {
+            "$ref": "#/properties/MaxSize"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,124 @@
+/*******************************************************************************
+ * Copyright (c) 2010-2015, Benedek Izso, Gabor Szarnyas, Istvan Rath and Daniel Varro
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Benedek Izso - initial API and implementation
+ *   Gabor Szarnyas - initial API and implementation
+ *******************************************************************************/
+
+package eu.mondo.map.hg.generator.concretes.schedule.scales;
+
+import static eu.mondo.map.hg.constants.schedule.ScheduleModelConstants.NEIGHBORS;
+import static eu.mondo.map.hg.constants.schedule.ScheduleModelConstants.SCHEDULE;
+import static eu.mondo.map.hg.constants.schedule.ScheduleModelConstants.STATION;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import eu.mondo.map.hg.generator.FormatGenerator;
+import eu.mondo.map.hg.generator.concretes.schedule.HomogeneousScheduleGenerator;
+import eu.mondo.map.hg.generator.config.GeneratorConfig;
+import eu.mondo.map.hg.generator.util.Node;
+
+public class HomogeneousScaleFreeGenerator extends HomogeneousScheduleGenerator implements ScaleFreeModel {
+
+	protected ScaleFreeGenerator sfg;
+	protected double averageDegree;
+	protected int minDegree;
+	protected double minDegreePercent;
+	protected int maxDegree;
+
+	public HomogeneousScaleFreeGenerator(FormatGenerator formatGenerator, GeneratorConfig generatorConfig) {
+		super(formatGenerator, generatorConfig);
+	}
+
+	@Override
+	protected void printMessage() {
+		System.out.print("Generate homogeneous scale-free model " + submodel + ", size: "
+				+ generatorConfig.getSize() + "...");
+	}
+
+	@Override
+	protected void initializeConstants() {
+		super.initializeConstants();
+		double edges = getEstimatedNumberOfNeighbors() / 2;
+		averageDegree = edges / maxNumberOfStations;
+		minDegree = (int) averageDegree;
+		maxDegree = (int) averageDegree + 1;
+		minDegreePercent = 1 - (averageDegree - minDegree);
+		sfg = new ScaleFreeGenerator(this);
+		sfg.initializeConstants();
+	}
+
+	@Override
+	protected void initializationStep() throws IOException {
+		sfg.initializationStep();
+	}
+
+	@Override
+	protected void generateStations() throws IOException {
+		while (currentNodes < maxNumberOfStations) {
+			addStation();
+			sfg.newStationConnections(NEIGHBORS, lastSt(), getNeighborsNumber());
+		}
+		for (int i = 0; i < stations.size(); i++) {
+			if (stations.get(i).conn.isEmpty()) {
+				sfg.newStationConnections(NEIGHBORS, i, getNeighborsNumber());
+			}
+		}
+	}
+
+	@Override
+	protected int getNeighborsNumber() {
+		if (random.nextDouble() < minDegreePercent) {
+			return minDegree;
+		} else {
+			return maxDegree;
+		}
+	}
+
+	@Override
+	protected boolean addDestination(final int sourceIndex, final int targetIndex) {
+		if (super.addDestination(sourceIndex, targetIndex)) {
+			sfg.increaseDegree(SCHEDULE, sourceIndex);
+			sfg.increaseDegree(STATION, targetIndex);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public ArrayList<Node> getStations() {
+		return stations;
+	}
+
+	@Override
+	public ArrayList<Node> getSchedules() {
+		return schedules;
+	}
+
+	@Override
+	public void addNewStation() throws IOException {
+		addStation();
+	}
+
+	@Override
+	public boolean addNewNeighbor(final int sourceIndex, final int targetIndex) {
+		return addNeighbor(sourceIndex, targetIndex);
+	}
+
+	@Override
+	public boolean addNewDestination(int sourceIndex, int targetIndex) {
+		return addDestination(sourceIndex, targetIndex);
+	}
+
+	@Override
+	public int getMaxNewNeighbors() {
+		return maxDegree;
+	}
+
+}

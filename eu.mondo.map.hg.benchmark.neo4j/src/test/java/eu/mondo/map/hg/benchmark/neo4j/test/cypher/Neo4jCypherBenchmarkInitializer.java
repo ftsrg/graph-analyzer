@@ -1,0 +1,30 @@
+/*******************************************************************************
+ * Copyright (c) 2010-2015, Benedek Izso, Gabor Szarnyas, Istvan Rath and Daniel Varro
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Benedek Izso - initial API and implementation
+ *   Gabor Szarnyas - initial API and implementation
+ *******************************************************************************/
+
+package eu.mondo.map.hg.benchmark.neo4j.test.cypher;
+
+import eu.mondo.map.hg.benchmark.neo4j.Neo4jBenchmarkLogic;
+import eu.mondo.map.hg.benchmark.neo4j.config.Neo4jBenchmarkConfig;
+import eu.mondo.map.hg.benchmark.test.TestBenchmarkInitializer;
+import eu.mondo.map.hg.constants.Query;
+import eu.mondo.map.hg.constants.ScenarioConstants;
+
+public class Neo4jCypherBenchmarkInitializer extends TestBenchmarkInitializer<Neo4jBenchmarkLogic> {
+
+	@Override
+	protected Neo4jBenchmarkLogic initializeBenchmark(final Query query, final ScenarioConstants scenario) {
+		final Neo4jBenchmarkConfig nbc = new Neo4jBenchmarkConfig(scenario, size, 1, query,
+				iterationCount, modificationMethod, modificationConstant, false, model);
+		return new Neo4jBenchmarkLogic(nbc);
+	}
+
+}

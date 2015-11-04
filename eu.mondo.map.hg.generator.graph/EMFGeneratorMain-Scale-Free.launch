@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/hu.bme.mit.trainbenchmark.generator.emf/src/main/java/hu/bme/mit/trainbenchmark/generator/emf/EMFGeneratorMain.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="hu.bme.mit.trainbenchmark.generator.emf.EMFGeneratorMain"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-scenario Describe -size 1 -model Schedule-Scale-Free-Hom"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="hu.bme.mit.trainbenchmark.generator.emf"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xmx3g -Xms3g"/>
+</launchConfiguration>
