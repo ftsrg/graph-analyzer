@@ -1,7 +1,0 @@
-.project
-.pydevproject
-__pycache__/*
-.Rhistory
-tb-env/
-init/*.zip
-log/
