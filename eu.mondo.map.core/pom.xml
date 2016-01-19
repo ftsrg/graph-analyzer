@@ -1,35 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>eu.mondo.map</groupId>
-	<artifactId>eu.mondo.map</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<parent>
+		<artifactId>eu.mondo.map</artifactId>
+		<groupId>eu.mondo.map</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>eu.mondo.map.core</artifactId>
 	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.showWarnings>true</maven.compiler.showWarnings>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
-		<emf.version>2.10.0-v20140514-1158</emf.version>
 	</properties>
 
-	<profiles>
+	<dependencies>
 
-		<profile>
-			<id>all</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>eu.mondo.map.core</module>
-				<module>eu.mondo.map.calc</module>
-			</modules>
-		</profile>
+		<dependency>
+			<groupId>eu.mondo.sam</groupId>
+			<artifactId>eu.mondo.sam.core</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
 
-	</profiles>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.4.4</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -106,5 +118,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>
