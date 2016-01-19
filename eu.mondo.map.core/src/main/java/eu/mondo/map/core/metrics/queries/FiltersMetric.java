@@ -10,34 +10,13 @@
  *   Gabor Szarnyas - initial API and implementation
  *******************************************************************************/
 
-package eu.mondo.map.core.analysis;
+package eu.mondo.map.core.metrics.queries;
 
-import java.util.ArrayList;
-import java.util.List;
+public class FiltersMetric extends QueryMetric {
 
-import eu.mondo.sam.core.metrics.BenchmarkMetric;
-
-public abstract class Analyzer {
-
-	protected ArrayList<BenchmarkMetric> metrics;
-
-	public List<BenchmarkMetric> calculateAll() {
-		calculateMetrics();
-		return null;
-	}
-
-	protected abstract void calculateMetrics();
-
-	public abstract void initializeMetrics();
-
-	public abstract void resetMetrics();
-
-	public ArrayList<BenchmarkMetric> getMetrics() {
-		return metrics;
-	}
-
-	public void setMetrics(ArrayList<BenchmarkMetric> metrics) {
-		this.metrics = metrics;
-	}
+//	@Override
+//	protected String getIdentifier() {
+//		return "Filters";
+//	}
 
 }

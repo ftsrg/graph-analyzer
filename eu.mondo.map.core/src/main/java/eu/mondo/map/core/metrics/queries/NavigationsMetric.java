@@ -10,7 +10,7 @@
  *   Gabor Szarnyas - initial API and implementation
  *******************************************************************************/
 
-package eu.mondo.map.core.analysis.metrics.queries;
+package eu.mondo.map.core.metrics.queries;
 
 public class NavigationsMetric extends QueryMetric {
 

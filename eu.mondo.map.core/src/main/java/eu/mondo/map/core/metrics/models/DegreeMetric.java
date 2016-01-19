@@ -1,10 +1,10 @@
-package eu.mondo.map.core.analysis.metrics.models;
+package eu.mondo.map.core.metrics.models;
 
 import eu.mondo.map.core.constants.EdgeDirection;
 
-public class DegreesMetric extends ModelMetric {
+public class DegreeMetric extends ModelMetric {
 
-	public DegreesMetric(EdgeDirection direction) {
+	public DegreeMetric(EdgeDirection direction) {
 		super(direction);
 	}
 

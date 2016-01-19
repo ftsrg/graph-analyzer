@@ -1,6 +1,6 @@
-package eu.mondo.map.core.analysis;
+package eu.mondo.map.core;
 
-import eu.mondo.map.core.analysis.metrics.models.ModelMetric;
+import eu.mondo.map.core.metrics.models.ModelMetric;
 import eu.mondo.sam.core.metrics.BenchmarkMetric;
 
 public abstract class ModelAnalyzer extends Analyzer {

@@ -1,4 +1,4 @@
-package eu.mondo.map.core.analysis.metrics.queries;
+package eu.mondo.map.core.metrics.queries;
 
 public class ConstantsMetric extends QueryMetric {
 

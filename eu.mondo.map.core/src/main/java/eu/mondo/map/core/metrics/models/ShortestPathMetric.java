@@ -1,4 +1,4 @@
-package eu.mondo.map.core.analysis.metrics.models;
+package eu.mondo.map.core.metrics.models;
 
 import java.util.ArrayList;
 import java.util.List;

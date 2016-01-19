@@ -1,4 +1,4 @@
-package eu.mondo.map.core.analysis;
+package eu.mondo.map.core;
 
 
 public abstract class QueryAnalyzer extends Analyzer {

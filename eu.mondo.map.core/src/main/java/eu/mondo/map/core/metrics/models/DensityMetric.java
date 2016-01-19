@@ -1,4 +1,4 @@
-package eu.mondo.map.core.analysis.metrics.models;
+package eu.mondo.map.core.metrics.models;
 
 import static eu.mondo.map.core.constants.EdgeDirection.BOTH;
 import eu.mondo.map.core.constants.EdgeDirection;
