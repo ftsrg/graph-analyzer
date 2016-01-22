@@ -1,7 +1,8 @@
 package eu.mondo.map.core.metrics.models;
 
+import eu.mondo.map.core.metrics.TypedAggregatedMetric;
 
-public class NumberOfNodes extends AggregatedMetric<Integer> {
+public class NumberOfNodes extends TypedAggregatedMetric<String, Integer> {
 
 	public void calculate(final DegreeList degreeList) {
 		value = degreeList.getValues().size();
@@ -17,9 +18,10 @@ public class NumberOfNodes extends AggregatedMetric<Integer> {
 		}
 	}
 
-//	@Override
-//	protected String getIdentifier() {
-//		return "NumOfNodes";
-//	}
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

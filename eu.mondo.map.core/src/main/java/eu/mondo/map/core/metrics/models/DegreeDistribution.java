@@ -1,15 +1,19 @@
 package eu.mondo.map.core.metrics.models;
 
+import eu.mondo.map.core.metrics.AggregatedMetric;
+
 public class DegreeDistribution extends AggregatedMetric<Double> {
 
-//	@Override
-//	public void calculate() {
-//		metricValue = analyzer.getNumberOfAverageDegree(direction)
-//				/ analyzer.getNumberOfNodes(withOutgoingDegree);
-//	}
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
 
-//	@Override
-//	protected String getIdentifier() {
-//		return "";
-//	}
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

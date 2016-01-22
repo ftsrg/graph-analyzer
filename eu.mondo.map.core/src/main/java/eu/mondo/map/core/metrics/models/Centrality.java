@@ -3,6 +3,8 @@ package eu.mondo.map.core.metrics.models;
 import java.util.HashMap;
 import java.util.Map;
 
+import eu.mondo.map.core.metrics.AggregatedMetric;
+
 public class Centrality extends AggregatedMetric<Double> {
 
 	protected Map<String, Integer> betweennessValues;
@@ -60,6 +62,18 @@ public class Centrality extends AggregatedMetric<Double> {
 
 	public void increasePairs() {
 		pairs++;
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

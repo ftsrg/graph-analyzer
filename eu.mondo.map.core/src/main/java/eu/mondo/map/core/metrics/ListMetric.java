@@ -1,4 +1,4 @@
-package eu.mondo.map.core.metrics.models;
+package eu.mondo.map.core.metrics;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 
-public abstract class ListMetric<T> {
+public abstract class ListMetric<T> implements Metric {
 
 	protected List<T> values;
 	protected ListMultimap<String, T> typedValues;

@@ -3,6 +3,8 @@ package eu.mondo.map.core.metrics.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.mondo.map.core.metrics.ListMetric;
+
 public class ShortestPathList extends ListMetric<Integer> {
 
 	private List<Integer> shortestPaths;

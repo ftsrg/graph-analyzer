@@ -2,19 +2,12 @@ package eu.mondo.map.core.metrics.models;
 
 import java.util.List;
 
+import eu.mondo.map.core.metrics.AggregatedMetric;
+
 public class ClusteringCoefficient extends AggregatedMetric<Double> {
 
-	private String type;
 //	protected double metricValue;
 	private List<Double> clusteringCoefficients;
-
-	public ClusteringCoefficient(String type) {
-		this.type = type;
-	}
-
-	public ClusteringCoefficient() {
-		type = null;
-	}
 
 //	@Override
 	public void calculate() {
@@ -63,6 +56,18 @@ public class ClusteringCoefficient extends AggregatedMetric<Double> {
 //			addClusteringCoefficient(connectedNeighbors, numberOfNeighbors, ALL);
 //		}
 
+	}
+
+	@Override
+	public void clear() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
