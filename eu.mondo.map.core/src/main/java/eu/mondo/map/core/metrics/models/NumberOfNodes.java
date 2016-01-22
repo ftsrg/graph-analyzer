@@ -1,28 +1,25 @@
 package eu.mondo.map.core.metrics.models;
 
-import eu.mondo.map.core.constants.EdgeDirection;
 
-public class NumberOfNodesMetric extends ModelMetric {
+public class NumberOfNodes extends AggregatedMetric<Integer> {
 
-	public NumberOfNodesMetric() {
-		super(EdgeDirection.BOTH);
+	public void calculate(final DegreeList degreeList) {
+		value = degreeList.getValues().size();
+	}
+
+	public void calculateOfTypes(final DegreeList degreeList) {
+		if (degreeList.getTypedValues().isEmpty()) {
+			throw new IllegalArgumentException(
+					"The typedValues field is empty in the degreeList parameter.");
+		}
+		for (String key : degreeList.getTypedValues().keys()) {
+			typedValues.put(key, degreeList.getTypedValues().get(key).size());
+		}
 	}
 
 //	@Override
-//	public void calculate() {
-//		metricValue = analyzer.getNumberOfNodes();
+//	protected String getIdentifier() {
+//		return "NumOfNodes";
 //	}
 
-	@Override
-	protected String getIdentifier() {
-		return "NumOfNodes";
-	}
-
-	public void setNumberOfNodes(final double numberOfNodes) {
-		metricValue = numberOfNodes;
-	}
-
-	public void increaseNodes() {
-		metricValue++;
-	}
 }

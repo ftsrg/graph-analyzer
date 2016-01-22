@@ -1,13 +1,6 @@
 package eu.mondo.map.core.metrics.models;
 
-import static eu.mondo.map.core.constants.EdgeDirection.BOTH;
-import eu.mondo.map.core.constants.EdgeDirection;
-
-public class DegreeDistributionMetric extends ModelMetric {
-
-	public DegreeDistributionMetric(EdgeDirection direction) {
-		super(direction);
-	}
+public class DegreeDistribution extends AggregatedMetric<Double> {
 
 //	@Override
 //	public void calculate() {
@@ -15,12 +8,8 @@ public class DegreeDistributionMetric extends ModelMetric {
 //				/ analyzer.getNumberOfNodes(withOutgoingDegree);
 //	}
 
-	@Override
-	protected String getIdentifier() {
-		if (direction == BOTH) {
-			return "AvgDegreeDist";
-		} else {
-			return "AvgOutgoingDegreeDist";
-		}
-	}
+//	@Override
+//	protected String getIdentifier() {
+//		return "";
+//	}
 }

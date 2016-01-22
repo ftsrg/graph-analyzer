@@ -3,9 +3,7 @@ package eu.mondo.map.core.metrics.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.mondo.map.core.constants.EdgeDirection;
-
-public class ShortestPathMetric extends ModelMetric {
+public class ShortestPathList extends ListMetric<Integer> {
 
 	private List<Integer> shortestPaths;
 
@@ -13,24 +11,23 @@ public class ShortestPathMetric extends ModelMetric {
 
 	private int pairs;
 
-	public ShortestPathMetric() {
-		super(EdgeDirection.OUTGOING);
+	public ShortestPathList() {
 		shortestPaths = new ArrayList<Integer>();
 		maxDepth = 50;
 		pairs = 100;
 	}
 
-	@Override
+//	@Override
 	public void calculate() {
-		if (shortestPaths.size() == 0) {
-			metricValue = 0;
-			return;
-		}
-		double sum = 0.0;
-		for (Integer distance : shortestPaths) {
-			sum += distance;
-		}
-		metricValue = sum / shortestPaths.size();
+//		if (shortestPaths.size() == 0) {
+//			metricValue = 0.0;
+//			return;
+//		}
+//		double sum = 0.0;
+//		for (Integer distance : shortestPaths) {
+//			sum += distance;
+//		}
+//		metricValue = sum / shortestPaths.size();
 
 	}
 
@@ -40,13 +37,13 @@ public class ShortestPathMetric extends ModelMetric {
 
 	public void clear() {
 		shortestPaths.clear();
-		metricValue = 0;
+//		metricValue = 0;
 	}
 
-	@Override
-	protected String getIdentifier() {
-		return "AvgShortestPath";
-	}
+//	@Override
+//	protected String getIdentifier() {
+//		return "AvgShortestPath";
+//	}
 
 	public int getMaxDepth() {
 		return maxDepth;

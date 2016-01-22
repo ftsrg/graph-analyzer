@@ -2,44 +2,35 @@ package eu.mondo.map.core.metrics.models;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
-import eu.mondo.map.core.constants.EdgeDirection;
-
-public class CentralityMetric extends ModelMetric {
+public class Centrality extends AggregatedMetric<Double> {
 
 	protected Map<String, Integer> betweennessValues;
 	protected double pairs;
 
-	public CentralityMetric() {
-		super(EdgeDirection.OUTGOING);
+//	protected double metricValue;
+
+	public Centrality() {
 		betweennessValues = new HashMap<String, Integer>();
 	}
 
-	@Override
+//	@Override
 	public void calculate() {
 //		double pairs = analyzer.getShortestPathMetric().getPairs();
-		metricValue = 0;
-		for (Entry<String, Integer> entry : betweennessValues.entrySet()) {
-			if (entry.getValue() > metricValue) {
-				metricValue = entry.getValue();
-			}
-		}
-		metricValue /= pairs;
+//		metricValue = 0;
+//		for (Entry<String, Integer> entry : betweennessValues.entrySet()) {
+//			if (entry.getValue() > metricValue) {
+//				metricValue = entry.getValue();
+//			}
+//		}
+//		metricValue /= pairs;
 
 	}
 
-	@Override
-	protected String getIdentifier() {
-		return "Betweenness";
-	}
-
-	@Override
-	public void clear() {
-		super.clear();
-		betweennessValues.clear();
-		pairs = 0;
-	}
+//	@Override
+//	protected String getIdentifier() {
+//		return "Betweenness";
+//	}
 
 	public void addBetweenness(final String nodeID) {
 		if (!betweennessValues.containsKey(nodeID)) {

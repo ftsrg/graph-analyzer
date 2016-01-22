@@ -2,53 +2,50 @@ package eu.mondo.map.core.metrics.models;
 
 import java.util.List;
 
-import eu.mondo.map.core.constants.EdgeDirection;
-
-public class ClusteringCoefficientMetric extends ModelMetric {
+public class ClusteringCoefficient extends AggregatedMetric<Double> {
 
 	private String type;
+//	protected double metricValue;
 	private List<Double> clusteringCoefficients;
 
-	public ClusteringCoefficientMetric(String type) {
-		super(EdgeDirection.OUTGOING);
+	public ClusteringCoefficient(String type) {
 		this.type = type;
 	}
 
-	public ClusteringCoefficientMetric() {
-		super(EdgeDirection.OUTGOING);
+	public ClusteringCoefficient() {
 		type = null;
 	}
 
-	@Override
+//	@Override
 	public void calculate() {
 		List<Double> values;
 
 		if (clusteringCoefficients == null) {
-			metricValue = 0;
+			value = 0.0;
 			return;
 		}
 		double sumCoef = 0.0;
 		for (Double coef : clusteringCoefficients) {
 			sumCoef += coef;
 		}
-		metricValue = sumCoef / clusteringCoefficients.size();
+		value = sumCoef / clusteringCoefficients.size();
 
 	}
 
-	@Override
-	protected String getIdentifier() {
-		if (type == null) {
-			return "AvgClustering";
-		} else {
-			return "AvgClustering" + type;
-		}
-	}
+//	@Override
+//	protected String getIdentifier() {
+//		if (type == null) {
+//			return "AvgClustering";
+//		} else {
+//			return "AvgClustering" + type;
+//		}
+//	}
 
-	@Override
-	public void clear() {
-		super.clear();
-		clusteringCoefficients.clear();
-	}
+//	@Override
+//	public void clear() {
+//		super.clear();
+//		clusteringCoefficients.clear();
+//	}
 
 	public void addClusteringCoefficient(final int connectedNeighbors, final int numberOfNeighbors,
 			final String type) {

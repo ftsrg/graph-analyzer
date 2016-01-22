@@ -12,25 +12,11 @@
 
 package eu.mondo.map.core.metrics.models;
 
-import eu.mondo.map.core.constants.EdgeDirection;
-import eu.mondo.sam.core.metrics.BenchmarkMetric;
+public abstract class ModelMetric {
 
-public abstract class ModelMetric extends BenchmarkMetric {
-
-	protected double metricValue;
-
-	protected EdgeDirection direction;
-
-	protected boolean withOutgoingDegree;
-
-	public ModelMetric(EdgeDirection direction) {
-		this.direction = direction;
-		withOutgoingDegree = (direction == EdgeDirection.OUTGOING);
-	}
-
-	public void calculate() {
-
-	};
+//	public void calculate() {
+//
+//	};
 
 //	public void loadValue(final JsonNode root) {
 //		List<JsonNode> nodes = root.get("PhaseResults").findValues("Metrics");
@@ -45,15 +31,11 @@ public abstract class ModelMetric extends BenchmarkMetric {
 //
 //	}
 
-	public void clear() {
-		metricValue = 0;
-	}
+//	protected abstract String getIdentifier();
 
-	protected abstract String getIdentifier();
-
-	@Override
-	public String getValue() {
-		return Double.toString(metricValue);
-	}
+//	@Override
+//	public String getValue() {
+//		return Double.toString(metricValue);
+//	}
 
 }

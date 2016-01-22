@@ -13,31 +13,37 @@
 package eu.mondo.map.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import eu.mondo.sam.core.metrics.BenchmarkMetric;
 
-public abstract class Analyzer {
+public class Analyzer {
 
 	protected ArrayList<BenchmarkMetric> metrics;
 
-	public List<BenchmarkMetric> calculateAll() {
-		calculateMetrics();
-		return null;
+	public Analyzer() {
+		metrics = new ArrayList<BenchmarkMetric>();
 	}
 
-	protected abstract void calculateMetrics();
+	public Analyzer(ArrayList<BenchmarkMetric> metrics) {
+		this.metrics = metrics;
+	}
 
-	public abstract void initializeMetrics();
-
-	public abstract void resetMetrics();
-
-	public ArrayList<BenchmarkMetric> getMetrics() {
-		return metrics;
+	public List<BenchmarkMetric> resolve() {
+		return null;
 	}
 
 	public void setMetrics(ArrayList<BenchmarkMetric> metrics) {
 		this.metrics = metrics;
+	}
+
+	public boolean addMetric(BenchmarkMetric e) {
+		return metrics.add(e);
+	}
+
+	public boolean addAllMetrics(Collection<? extends BenchmarkMetric> c) {
+		return metrics.addAll(c);
 	}
 
 }

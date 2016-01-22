@@ -1,39 +1,23 @@
 package eu.mondo.map.core.metrics.models;
 
-import static eu.mondo.map.core.constants.EdgeDirection.BOTH;
-import eu.mondo.map.core.constants.EdgeDirection;
-
-public class DensityMetric extends ModelMetric {
+public class Density extends AggregatedMetric<Double> {
 
 	protected double nodes;
 	protected double edges;
 
-	public DensityMetric(EdgeDirection direction) {
-		super(direction);
-	}
+//	protected double metricValue;
 
-	@Override
+//	@Override
 	public void calculate() {
 //		double numOfNodes = analyzer.getNumberOfNodes(withOutgoingDegree);
-		metricValue = edges / nodes;
-		metricValue /= (nodes - 1);
+		value = edges / nodes;
+		value /= (nodes - 1);
 	}
 
-	@Override
-	protected String getIdentifier() {
-		if (direction == BOTH) {
-			return "Density";
-		} else {
-			return "DensityWithOutgoing";
-		}
-	}
-
-	@Override
-	public void clear() {
-		super.clear();
-		nodes = 0;
-		edges = 0;
-	}
+//	@Override
+//	protected String getIdentifier() {
+//		return "";
+//	}
 
 	public double getNodes() {
 		return nodes;
