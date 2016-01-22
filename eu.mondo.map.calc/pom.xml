@@ -7,16 +7,39 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>eu.mondo.map.calc</artifactId>
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>eu.mondo.map</groupId>
+			<artifactId>eu.mondo.map.core</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.common</artifactId>
+			<version>${emf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+			<version>${emf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.emf</groupId>
+			<artifactId>org.eclipse.emf.ecore</artifactId>
+			<version>${emf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>hu.bme.mit.trainbenchmark</groupId>
+			<artifactId>hu.bme.mit.trainbenchmark.emf.model</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
+
 </project>
