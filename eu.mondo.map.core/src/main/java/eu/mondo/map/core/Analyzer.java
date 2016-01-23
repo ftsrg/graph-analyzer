@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import eu.mondo.map.core.metrics.Metric;
+import eu.mondo.map.core.metrics.Publishing;
 import eu.mondo.sam.core.metrics.BenchmarkMetric;
 
 public class Analyzer {
@@ -20,7 +21,13 @@ public class Analyzer {
 	}
 
 	public List<BenchmarkMetric> resolve() {
-		return null;
+		List<BenchmarkMetric> resolvedMetrics = new ArrayList<BenchmarkMetric>();
+		for (Metric metric : metrics) {
+			if (metric instanceof Publishing) {
+				resolvedMetrics.addAll(((Publishing) metric).resolve());
+			}
+		}
+		return resolvedMetrics;
 	}
 
 	public void setMetrics(ArrayList<Metric> metrics) {
