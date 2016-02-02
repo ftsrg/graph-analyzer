@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+// TODO change this to scalar
 public abstract class TypedAggregatedMetric<K, V> extends AggregatedMetric<V> {
 
 	protected Map<K, V> typedValues;

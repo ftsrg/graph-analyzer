@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petrinet:PetriNet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:petrinet="http://inf.mit.bme.hu/petrinet/2014">
+  <places name="p1" inArcs="//@transitions.1/@outArcs.0">
+    <outArcs target="//@transitions.0"/>
+    <tokens/>
+  </places>
+  <places name="p2" inArcs="//@transitions.0/@outArcs.0">
+    <outArcs target="//@transitions.1"/>
+  </places>
+  <transitions name="t1" inArcs="//@places.0/@outArcs.0">
+    <outArcs target="//@places.1"/>
+  </transitions>
+  <transitions name="t2" inArcs="//@places.1/@outArcs.0">
+    <outArcs target="//@places.0"/>
+    <outArcs/>
+    <outArcs/>
+  </transitions>
+</petrinet:PetriNet>
