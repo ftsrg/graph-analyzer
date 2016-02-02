@@ -74,7 +74,7 @@ class Model2Yed{
 					outline	"#000000"
 					fill	"#FFFFFF"
 					fontSize	«titleSize»
-					fontName	"Consolas"
+					fontName	"Monospace"
 					autoSizePolicy	"node_width"
 					anchor	"t"
 					borderDistance	0.0
