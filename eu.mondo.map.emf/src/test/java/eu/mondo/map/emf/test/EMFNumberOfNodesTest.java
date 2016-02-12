@@ -14,12 +14,12 @@ import com.google.common.collect.Table;
 import eu.mondo.map.core.metrics.models.scalar.NumberOfNodes;
 import eu.mondo.map.emf.metrics.EMFDegreeList;
 
-public class EMFNumberOfNodesTester extends EMFMetricTester {
+public class EMFNumberOfNodesTest extends EMFMetricTester {
 
 	protected static Map<String, Integer> expectedNodes;
 	protected static Table<String, String, Integer> expectedTypedNodes = HashBasedTable.create();
 
-	public EMFNumberOfNodesTester(String modelPath, String key) {
+	public EMFNumberOfNodesTest(String modelPath, String key) {
 		super(modelPath, key);
 	}
 

@@ -34,7 +34,7 @@ public class EMFNumberOfEdges extends NumberOfEdges {
 		while (contents.hasNext()) {
 			object = contents.next();
 			references = object.eClass().getEAllReferences();
-			
+
 			for (EReference ref : references) {
 				degree = EMFAnalyzerUtility.getDegree(object, ref);
 				name = ref.getName();

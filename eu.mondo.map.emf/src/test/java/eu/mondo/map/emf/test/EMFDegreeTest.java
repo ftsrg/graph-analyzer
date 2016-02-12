@@ -14,12 +14,12 @@ import com.google.common.primitives.Ints;
 import eu.mondo.map.emf.metrics.EMFDegreeList;
 import groovy.util.GroovyCollections;
 
-public class EMFDegreeTester extends EMFMetricTester {
+public class EMFDegreeTest extends EMFMetricTester {
 
 	protected static ListMultimap<String, Integer> expectedDegrees = ArrayListMultimap.create();
 	protected static Table<String, String, Integer> expectedTypedDegrees = HashBasedTable.create();
 
-	public EMFDegreeTester(String modelPath, String key) {
+	public EMFDegreeTest(String modelPath, String key) {
 		super(modelPath, key);
 	}
 
