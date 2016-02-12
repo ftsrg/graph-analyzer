@@ -3,31 +3,31 @@ package eu.mondo.map.core.metrics;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-public abstract class MultitypedScalarMetric<T, K, V> extends TypedScalarMetric<K, V> {
+public abstract class MultitypedScalarMetric<Type, Key, Value> extends TypedScalarMetric<Key, Value> {
 
-	protected Table<T, K, V> multitypedValues;
+	protected Table<Type, Key, Value> multitypedValues;
 
 	public MultitypedScalarMetric() {
 		multitypedValues = HashBasedTable.create();
 	}
 
-	public Table<T, K, V> getMultitypedValues() {
+	public Table<Type, Key, Value> getMultitypedValues() {
 		return multitypedValues;
 	}
 
-	public void setMultitypedValues(Table<T, K, V> multitypedValues) {
+	public void setMultitypedValues(Table<Type, Key, Value> multitypedValues) {
 		this.multitypedValues = multitypedValues;
 	}
 
-	public V get(Object rowKey, Object columnKey) {
+	public Value get(Object rowKey, Object columnKey) {
 		return multitypedValues.get(rowKey, columnKey);
 	}
 
-	public V put(T rowKey, K columnKey, V value) {
+	public Value put(Type rowKey, Key columnKey, Value value) {
 		return multitypedValues.put(rowKey, columnKey, value);
 	}
 
-	public void putAll(Table<? extends T, ? extends K, ? extends V> table) {
+	public void putAll(Table<? extends Type, ? extends Key, ? extends Value> table) {
 		multitypedValues.putAll(table);
 	}
 

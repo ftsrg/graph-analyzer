@@ -31,8 +31,8 @@ public abstract class TypedScalarMetric<K, V> extends ScalarMetric<V> {
 	public List<PublishedMetric> resolve() {
 		List<PublishedMetric> metrics = new ArrayList<PublishedMetric>();
 		for (Entry<K, V> entry : typedValues.entrySet()) {
-			metrics.add(new PublishedMetric(entry.getValue().toString(), entry.getKey()
-					.toString()));
+			metrics.add(new PublishedMetric(entry.getValue().toString(), getName() + "-"
+					+ entry.getKey().toString()));
 		}
 		return metrics;
 	}

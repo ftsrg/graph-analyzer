@@ -1,13 +1,12 @@
 package eu.mondo.map.core.metrics.models;
 
-import eu.mondo.map.core.metrics.ListMetric;
+import eu.mondo.map.core.metrics.TypedListMetric;
 
+public class DegreeList extends TypedListMetric<String, Integer> {
 
-public class DegreeList extends ListMetric<Integer> {
-
-//	public DegreeList() {
-//		values = new ArrayList<Integer>();
-//		typedValues = ArrayListMultimap.create();
-//	}
+	@Override
+	public String getName() {
+		return "DegreeList";
+	}
 
 }

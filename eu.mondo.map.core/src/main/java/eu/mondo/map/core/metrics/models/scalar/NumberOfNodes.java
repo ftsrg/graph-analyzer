@@ -21,8 +21,7 @@ public class NumberOfNodes extends TypedScalarMetric<String, Integer> {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "NumberOfNodes";
 	}
 
 }

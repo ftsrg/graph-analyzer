@@ -63,4 +63,9 @@ public class ShortestPathList extends ListMetric<Integer> {
 		this.pairs = pairs;
 	}
 
+	@Override
+	public String getName() {
+		return "ShortestPathList";
+	}
+
 }

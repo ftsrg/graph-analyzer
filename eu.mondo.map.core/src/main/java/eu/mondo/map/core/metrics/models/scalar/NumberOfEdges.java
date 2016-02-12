@@ -12,6 +12,6 @@ public class NumberOfEdges extends TypedScalarMetric<String, Integer> {
 
 	@Override
 	public String getName() {
-		return null;
+		return "NumberOfEdges";
 	}
 }
