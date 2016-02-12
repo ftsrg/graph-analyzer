@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import eu.mondo.map.core.metrics.models.aggregated.NumberOfEdges;
+import eu.mondo.map.core.metrics.models.scalar.NumberOfEdges;
 import eu.mondo.map.emf.metrics.EMFDegreeList;
 import eu.mondo.map.emf.metrics.EMFNumberOfEdges;
 

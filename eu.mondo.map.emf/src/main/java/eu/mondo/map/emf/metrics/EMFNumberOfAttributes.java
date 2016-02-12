@@ -6,7 +6,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 
-import eu.mondo.map.core.metrics.models.aggregated.NumberOfAttributes;
+import eu.mondo.map.core.metrics.models.scalar.NumberOfAttributes;
 
 public class EMFNumberOfAttributes extends NumberOfAttributes {
 

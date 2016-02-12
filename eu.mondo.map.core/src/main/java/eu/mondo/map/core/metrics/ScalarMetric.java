@@ -3,7 +3,7 @@ package eu.mondo.map.core.metrics;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AggregatedMetric<T> implements Publishing {
+public abstract class ScalarMetric<T> implements Publishing {
 
 	protected T value;
 

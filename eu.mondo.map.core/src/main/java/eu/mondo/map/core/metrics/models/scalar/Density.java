@@ -1,8 +1,8 @@
-package eu.mondo.map.core.metrics.models.aggregated;
+package eu.mondo.map.core.metrics.models.scalar;
 
-import eu.mondo.map.core.metrics.AggregatedMetric;
+import eu.mondo.map.core.metrics.ScalarMetric;
 
-public class Density extends AggregatedMetric<Double> {
+public class Density extends ScalarMetric<Double> {
 
 	@Override
 	public void clear() {

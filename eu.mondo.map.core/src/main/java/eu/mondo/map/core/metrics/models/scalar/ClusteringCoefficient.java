@@ -1,10 +1,10 @@
-package eu.mondo.map.core.metrics.models.aggregated;
+package eu.mondo.map.core.metrics.models.scalar;
 
 import java.util.List;
 
-import eu.mondo.map.core.metrics.AggregatedMetric;
+import eu.mondo.map.core.metrics.ScalarMetric;
 
-public class ClusteringCoefficient extends AggregatedMetric<Double> {
+public class ClusteringCoefficient extends ScalarMetric<Double> {
 
 //	protected double metricValue;
 	private List<Double> clusteringCoefficients;

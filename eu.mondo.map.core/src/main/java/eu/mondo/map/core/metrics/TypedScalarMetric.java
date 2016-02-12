@@ -6,12 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-// TODO change this to scalar
-public abstract class TypedAggregatedMetric<K, V> extends AggregatedMetric<V> {
+public abstract class TypedScalarMetric<K, V> extends ScalarMetric<V> {
 
 	protected Map<K, V> typedValues;
 
-	public TypedAggregatedMetric() {
+	public TypedScalarMetric() {
 		typedValues = new HashMap<K, V>();
 	}
 

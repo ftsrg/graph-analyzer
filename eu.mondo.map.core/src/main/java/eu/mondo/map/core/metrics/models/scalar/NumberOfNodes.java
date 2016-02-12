@@ -1,9 +1,9 @@
-package eu.mondo.map.core.metrics.models.aggregated;
+package eu.mondo.map.core.metrics.models.scalar;
 
-import eu.mondo.map.core.metrics.TypedAggregatedMetric;
+import eu.mondo.map.core.metrics.TypedScalarMetric;
 import eu.mondo.map.core.metrics.models.DegreeList;
 
-public class NumberOfNodes extends TypedAggregatedMetric<String, Integer> {
+public class NumberOfNodes extends TypedScalarMetric<String, Integer> {
 
 	public void calculate(final DegreeList degreeList) {
 		value = degreeList.getValues().size();

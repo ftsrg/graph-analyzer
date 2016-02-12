@@ -5,7 +5,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import eu.mondo.map.core.metrics.models.aggregated.NumberOfEdges;
+import eu.mondo.map.core.metrics.models.scalar.NumberOfEdges;
 import eu.mondo.map.emf.EMFAnalyzerUtility;
 
 public class EMFNumberOfEdges extends NumberOfEdges {

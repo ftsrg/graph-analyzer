@@ -3,11 +3,11 @@ package eu.mondo.map.core.metrics;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-public abstract class MultitypedAggregatedMetric<T, K, V> extends TypedAggregatedMetric<K, V> {
+public abstract class MultitypedScalarMetric<T, K, V> extends TypedScalarMetric<K, V> {
 
 	protected Table<T, K, V> multitypedValues;
 
-	public MultitypedAggregatedMetric() {
+	public MultitypedScalarMetric() {
 		multitypedValues = HashBasedTable.create();
 	}
 

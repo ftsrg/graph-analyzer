@@ -1,11 +1,11 @@
-package eu.mondo.map.core.metrics.models.aggregated;
+package eu.mondo.map.core.metrics.models.scalar;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import eu.mondo.map.core.metrics.AggregatedMetric;
+import eu.mondo.map.core.metrics.ScalarMetric;
 
-public class Centrality extends AggregatedMetric<Double> {
+public class Centrality extends ScalarMetric<Double> {
 
 	protected Map<String, Integer> betweennessValues;
 	protected double pairs;
