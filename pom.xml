@@ -25,7 +25,7 @@
 			</activation>
 			<modules>
 				<module>eu.mondo.map.core</module>
-                <module>eu.mondo.map.calc</module>
+                <module>eu.mondo.map.emf</module>
                 <module>eu.mondo.map.emf2yed</module>
 			</modules>
 		</profile>
