@@ -5,24 +5,24 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import eu.mondo.map.core.metrics.models.scalar.NumberOfEdges;
 import eu.mondo.map.emf.EMFAnalyzerUtility;
+import eu.mondo.map.modelmetrics.scalar.typed.NumberOfTypedEdges;
 
-public class EMFNumberOfEdges extends NumberOfEdges {
+public class EMFNumberOfTypedEdges extends NumberOfTypedEdges {
+
+//	public void calculate(final TreeIterator<EObject> contents) {
+//		EObject object;
+//		EList<EReference> references;
+//		value = 0;
+//
+//		while (contents.hasNext()) {
+//			object = contents.next();
+//			references = object.eClass().getEAllReferences();
+//			value += EMFAnalyzerUtility.getDegree(object, references);
+//		}
+//	}
 
 	public void calculate(final TreeIterator<EObject> contents) {
-		EObject object;
-		EList<EReference> references;
-		value = 0;
-
-		while (contents.hasNext()) {
-			object = contents.next();
-			references = object.eClass().getEAllReferences();
-			value += EMFAnalyzerUtility.getDegree(object, references);
-		}
-	}
-
-	public void calculateOfTypes(final TreeIterator<EObject> contents) {
 		EObject object;
 		EList<EReference> references;
 		typedValues.clear();

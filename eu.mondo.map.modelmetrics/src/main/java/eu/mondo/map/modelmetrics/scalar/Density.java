@@ -1,8 +1,8 @@
-package eu.mondo.map.core.metrics.models.scalar;
+package eu.mondo.map.modelmetrics.scalar;
 
 import eu.mondo.map.core.metrics.ScalarMetric;
 
-public class DegreeDistribution extends ScalarMetric<Double> {
+public class Density extends ScalarMetric<Double> {
 
 	@Override
 	public void clear() {

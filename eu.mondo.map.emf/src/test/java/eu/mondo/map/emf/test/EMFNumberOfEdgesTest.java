@@ -11,9 +11,9 @@ import org.junit.Test;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import eu.mondo.map.core.metrics.models.scalar.NumberOfEdges;
-import eu.mondo.map.emf.metrics.EMFDegreeList;
-import eu.mondo.map.emf.metrics.EMFNumberOfEdges;
+import eu.mondo.map.emf.metrics.EMFNumberOfTypedEdges;
+import eu.mondo.map.emf.metrics.EMFTypedDegreeList;
+import eu.mondo.map.modelmetrics.scalar.NumberOfEdges;
 
 public class EMFNumberOfEdgesTest extends EMFMetricTester {
 
@@ -35,8 +35,8 @@ public class EMFNumberOfEdgesTest extends EMFMetricTester {
 		expectedEdges.put(SWITCHSET, 8);
 
 		expectedTypedEdges.clear();
-		expectedTypedEdges.put(POSLENGTH, ELEMENTS, 1);		
-		
+		expectedTypedEdges.put(POSLENGTH, ELEMENTS, 1);
+
 		expectedTypedEdges.put(CONNECTEDSEGMENTS, ELEMENTS, 6);
 		expectedTypedEdges.put(CONNECTEDSEGMENTS, MONITOREDBY, 6);
 		expectedTypedEdges.put(CONNECTEDSEGMENTS, CONNECTSTO, 5);
@@ -79,27 +79,27 @@ public class EMFNumberOfEdgesTest extends EMFMetricTester {
 	@Test
 	public void testNumberOfEdgesFromDegrees() {
 		NumberOfEdges edges = new NumberOfEdges();
-		EMFDegreeList degreeList = new EMFDegreeList();
+		EMFTypedDegreeList degreeList = new EMFTypedDegreeList();
 		degreeList.calculate(container.eAllContents());
 		edges.calculate(degreeList);
 		Assert.assertEquals(expectedEdges.get(currentKey), edges.getValue());
 	}
 
-	@Test
-	public void testNumberOfEdgesFromModel() {
-		EMFNumberOfEdges edges = new EMFNumberOfEdges();
-		edges.calculate(container.eAllContents());
-		Assert.assertEquals(expectedEdges.get(currentKey), edges.getValue());
-	}
+//	@Test
+//	public void testNumberOfEdgesFromModel() {
+//		EMFNumberOfTypedEdges typedEdges = new EMFNumberOfTypedEdges();
+//		typedEdges.calculate(container.eAllContents());
+//		Assert.assertEquals(expectedEdges.get(currentKey), typedEdges.getValue());
+//	}
 
 	@Test
 	public void testNumberOfTypedEdgesFromModel() {
-		EMFNumberOfEdges edges = new EMFNumberOfEdges();
-		edges.calculateOfTypes(container.eAllContents());
+		EMFNumberOfTypedEdges edges = new EMFNumberOfTypedEdges();
+		edges.calculate(container.eAllContents());
 		for (String keyType : expectedTypedEdges.rowMap().get(currentKey).keySet()) {
-			Assert.assertTrue(keyType, edges.getTypedValues().containsKey(keyType));
+			Assert.assertTrue(keyType, edges.getValues().containsKey(keyType));
 			Assert.assertEquals(keyType, expectedTypedEdges.get(currentKey, keyType), edges
-					.getTypedValues().get(keyType));
+					.getValues().get(keyType));
 		}
 	}
 

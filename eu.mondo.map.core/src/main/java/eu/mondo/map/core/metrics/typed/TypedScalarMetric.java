@@ -1,4 +1,4 @@
-package eu.mondo.map.core.metrics;
+package eu.mondo.map.core.metrics.typed;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public abstract class TypedScalarMetric<K, V> extends ScalarMetric<V> {
+import eu.mondo.map.core.metrics.Metric;
+import eu.mondo.map.core.metrics.PublishedMetric;
+import eu.mondo.map.core.metrics.Publishing;
+
+public abstract class TypedScalarMetric<K, V> implements Metric, Publishing {
 
 	protected Map<K, V> typedValues;
 
@@ -14,7 +18,7 @@ public abstract class TypedScalarMetric<K, V> extends ScalarMetric<V> {
 		typedValues = new HashMap<K, V>();
 	}
 
-	public Map<K, V> getTypedValues() {
+	public Map<K, V> getValues() {
 		return typedValues;
 	}
 

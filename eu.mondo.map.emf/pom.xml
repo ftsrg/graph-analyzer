@@ -99,7 +99,7 @@
 
 		<dependency>
 			<groupId>eu.mondo.map</groupId>
-			<artifactId>eu.mondo.map.core</artifactId>
+			<artifactId>eu.mondo.map.modelmetrics</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 

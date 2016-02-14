@@ -25,6 +25,7 @@
 			</activation>
 			<modules>
 				<module>eu.mondo.map.core</module>
+				<module>eu.mondo.map.modelmetrics</module>
                 <module>eu.mondo.map.emf</module>
                 <module>eu.mondo.map.emf2yed</module>
 			</modules>

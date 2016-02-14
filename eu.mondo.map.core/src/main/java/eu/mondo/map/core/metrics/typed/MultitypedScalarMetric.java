@@ -1,14 +1,21 @@
-package eu.mondo.map.core.metrics;
+package eu.mondo.map.core.metrics.typed;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-public abstract class MultitypedScalarMetric<Type, Key, Value> extends TypedScalarMetric<Key, Value> {
+import eu.mondo.map.core.metrics.Metric;
+
+public abstract class MultitypedScalarMetric<Type, Key, Value> implements Metric {
 
 	protected Table<Type, Key, Value> multitypedValues;
 
 	public MultitypedScalarMetric() {
 		multitypedValues = HashBasedTable.create();
+	}
+
+	@Override
+	public void clear() {
+		multitypedValues.clear();
 	}
 
 	public Table<Type, Key, Value> getMultitypedValues() {

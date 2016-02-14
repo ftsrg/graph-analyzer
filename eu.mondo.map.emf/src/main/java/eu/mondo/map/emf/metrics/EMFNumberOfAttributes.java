@@ -6,9 +6,9 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 
-import eu.mondo.map.core.metrics.models.scalar.NumberOfAttributes;
+import eu.mondo.map.modelmetrics.composite.typed.NumberOfTypedAttributes;
 
-public class EMFNumberOfAttributes extends NumberOfAttributes {
+public class EMFNumberOfAttributes extends NumberOfTypedAttributes {
 
 	public void calculate(final TreeIterator<EObject> contents) {
 		EObject object;

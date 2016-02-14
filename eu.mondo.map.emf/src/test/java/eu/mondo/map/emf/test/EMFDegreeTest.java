@@ -11,7 +11,7 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Table;
 import com.google.common.primitives.Ints;
 
-import eu.mondo.map.emf.metrics.EMFDegreeList;
+import eu.mondo.map.emf.metrics.EMFTypedDegreeList;
 import groovy.util.GroovyCollections;
 
 public class EMFDegreeTest extends EMFMetricTester {
@@ -66,25 +66,25 @@ public class EMFDegreeTest extends EMFMetricTester {
 		readModel();
 	}
 
-	@Test
-	public void testDegreeList() {
-		EMFDegreeList degreeList = new EMFDegreeList();
-		degreeList.calculate(container.eAllContents());
-		Assert.assertArrayEquals(degreeList.getValues().toArray(), expectedDegrees.get(currentKey)
-				.toArray());
-	}
+//	@Test
+//	public void testDegreeList() {
+//		EMFTypedDegreeList degreeList = new EMFTypedDegreeList();
+//		degreeList.calculate(container.eAllContents());
+//		Assert.assertArrayEquals(degreeList.getValues().toArray(), expectedDegrees.get(currentKey)
+//				.toArray());
+//	}
 
 	@Test
 	public void testTypedDegreeList() {
-		EMFDegreeList degreeList = new EMFDegreeList();
-		degreeList.calculateOfTypes(container.eAllContents());
+		EMFTypedDegreeList degreeList = new EMFTypedDegreeList();
+		degreeList.calculate(container.eAllContents());
 		for (String keyType : expectedTypedDegrees.rowMap().get(currentKey).keySet()) {
-			Assert.assertTrue(degreeList.getTypedValues().containsKey(keyType));
+			Assert.assertTrue(degreeList.getValues().containsKey(keyType));
 			Assert.assertEquals(
 					keyType,
 					expectedTypedDegrees.get(currentKey, keyType),
-					(Integer) GroovyCollections.sum(degreeList.getTypedValues()
-							.get(keyType).toArray()));
+					(Integer) GroovyCollections.sum(degreeList.getValues().get(keyType)
+							.toArray()));
 		}
 
 	}

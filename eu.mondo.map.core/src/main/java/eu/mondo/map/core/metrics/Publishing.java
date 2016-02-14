@@ -2,7 +2,7 @@ package eu.mondo.map.core.metrics;
 
 import java.util.List;
 
-public interface Publishing extends Metric {
+public interface Publishing {
 
 	public List<PublishedMetric> resolve();
 

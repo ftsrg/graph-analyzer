@@ -14,6 +14,7 @@ public class EMFAnalyzerUtility {
 		return degree;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static int getDegree(final EObject object, final EReference reference) {
 		int degree = 0;
 		if (reference.isMany()) {

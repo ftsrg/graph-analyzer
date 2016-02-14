@@ -1,0 +1,19 @@
+package eu.mondo.map.modelmetrics.scalar.typed;
+
+import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
+import eu.mondo.map.modelmetrics.composite.typed.TypedDegreeList;
+
+public class NumberOfTypedNodes extends TypedScalarMetric<String, Integer> {
+
+	public void calculate(final TypedDegreeList degreeList) {
+		for (String key : degreeList.getValues().keySet()) {
+			typedValues.put(key, degreeList.getValues().get(key).size());
+		}
+	}
+
+	@Override
+	public String getName() {
+		return "NumberOfTypedNodes";
+	}
+
+}

@@ -1,4 +1,4 @@
-package eu.mondo.map.core.metrics.models.scalar;
+package eu.mondo.map.modelmetrics.scalar;
 
 import java.util.List;
 
