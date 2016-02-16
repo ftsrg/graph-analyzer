@@ -7,18 +7,16 @@ import java.util.Set;
 
 public class Node<T> {
 
-	protected int id;
 	protected T object;
 	protected Set<String> dimensions;
-	protected List<T> incomingNeighbors;
-	protected List<T> outgoingNeighbors;
+	protected List<Neighbor<T>> incomingNeighbors;
+	protected List<Neighbor<T>> outgoingNeighbors;
 
-	public Node(int id, T object) {
-		this.id = id;
+	public Node(T object) {
 		this.object = object;
 		dimensions = new HashSet<String>();
-		incomingNeighbors = new ArrayList<T>();
-		outgoingNeighbors = new ArrayList<T>();
+		incomingNeighbors = new ArrayList<Neighbor<T>>();
+		outgoingNeighbors = new ArrayList<Neighbor<T>>();
 	}
 
 	public T getObject() {
@@ -29,14 +27,6 @@ public class Node<T> {
 		this.object = object;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public Set<String> getDimensions() {
 		return dimensions;
 	}
@@ -45,19 +35,19 @@ public class Node<T> {
 		this.dimensions = dimensions;
 	}
 
-	public List<T> getIncomingNeighbor() {
+	public List<Neighbor<T>> getIncomingNeighbor() {
 		return incomingNeighbors;
 	}
 
-	public void setIncomingNeighbor(List<T> incomingNeighbor) {
+	public void setIncomingNeighbor(List<Neighbor<T>> incomingNeighbor) {
 		this.incomingNeighbors = incomingNeighbor;
 	}
 
-	public List<T> getOutgoingNeighbor() {
+	public List<Neighbor<T>> getOutgoingNeighbor() {
 		return outgoingNeighbors;
 	}
 
-	public void setOutgoingNeighbor(List<T> outgoingNeighbor) {
+	public void setOutgoingNeighbor(List<Neighbor<T>> outgoingNeighbor) {
 		this.outgoingNeighbors = outgoingNeighbor;
 	}
 
@@ -77,12 +67,12 @@ public class Node<T> {
 		return incomingNeighbors.size() + outgoingNeighbors.size();
 	}
 
-	public boolean addIncomingNeighbor(final T neighbor) {
-		return incomingNeighbors.add(neighbor);
+	public boolean addIncomingNeighbor(final Node<T> neighbor, final String dimension) {
+		return incomingNeighbors.add(new Neighbor<T>(neighbor, dimension));
 	}
 
-	public boolean addOutgoingNeighbor(final T neighbor) {
-		return outgoingNeighbors.add(neighbor);
+	public boolean addOutgoingNeighbor(final Node<T> neighbor, final String dimension) {
+		return outgoingNeighbors.add(new Neighbor<T>(neighbor, dimension));
 	}
 
 }

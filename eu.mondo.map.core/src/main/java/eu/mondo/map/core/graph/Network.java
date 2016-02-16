@@ -53,8 +53,8 @@ public class Network<N> {
 			targetNode.addDimension(dimension);
 			nodesOnDimensions.put(dimension, targetNode);
 		}
-		sourceNode.addOutgoingNeighbor(targetObject);
-		targetNode.addIncomingNeighbor(sourceObject);
+		sourceNode.addOutgoingNeighbor(targetNode, dimension);
+		targetNode.addIncomingNeighbor(sourceNode, dimension);
 	}
 
 	public void addLoopEdge(final String dimension, final N object) {
@@ -62,8 +62,7 @@ public class Network<N> {
 	}
 
 	protected Node<N> newNode(final N object) {
-		int newId = nodes.size();
-		Node<N> newNode = new Node<N>(newId, object);
+		Node<N> newNode = new Node<N>(object);
 		nodes.add(newNode);
 		nodesOnObjects.put(object, newNode);
 		return newNode;
