@@ -2,6 +2,7 @@ package eu.mondo.map.core.graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.BiMap;
@@ -75,6 +76,22 @@ public class Network<N> {
 			node = newNode(object);
 		}
 		return node;
+	}
+
+	public int numberOfNodes() {
+		return nodes.size();
+	}
+
+	public Set<String> getDimensions() {
+		return nodesOnDimensions.keySet();
+	}
+
+	public int numberOfNodes(final String dimension) {
+		if (!nodesOnDimensions.containsKey(dimension)) {
+			throw new IllegalArgumentException("Dimension does not exist in the map as a key: "
+					+ dimension);
+		}
+		return nodesOnDimensions.get(dimension).size();
 	}
 
 	public ListMultimap<String, Node<N>> getNodesOnDimensions() {

@@ -2,6 +2,8 @@ package eu.mondo.map.modelmetrics.scalar.typed;
 
 import java.util.Map;
 
+import eu.mondo.map.core.graph.Network;
+import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
 import eu.mondo.map.modelmetrics.scalar.NumberOfNodes;
 
@@ -33,7 +35,6 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 			throw new IllegalArgumentException("The dimension does not exist in the map:"
 					+ dimension);
 		}
-		clear();
 		putRatio(dimension, numberOfNodes.getValue(), typedEdges.getValues());
 	}
 
@@ -48,6 +49,39 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 		clear();
 		for (String key : typedEdges.getValues().keySet()) {
 			putRatio(key, numberOfNodes.getValue(), typedEdges.getValues());
+		}
+	}
+
+	public void calculate(final String dimension, final Network<?> network) {
+		typedValues.put(dimension,
+				(double) (network.numberOfNodes() / network.numberOfNodes(dimension)));
+
+	}
+
+	public void calculateExclusive(final String dimension, final Network<?> network) {
+		if (!network.getNodesOnDimensions().containsKey(dimension)) {
+			throw new IllegalArgumentException("Dimension does not exist: " + dimension);
+		}
+		int numOfNodes = 0;
+		for (Node<?> node : network.getNodesOnDimensions().get(dimension)) {
+			if (node.getDimensions().size() == 1) {
+				numOfNodes++;
+			}
+		}
+		typedValues.put(dimension, (double) numOfNodes / network.numberOfNodes());
+	}
+
+	public void calculate(final Network<?> network) {
+		clear();
+		for (String dimension : network.getDimensions()) {
+			calculate(dimension, network);
+		}
+	}
+
+	public void calculateExclusive(final Network<?> network) {
+		clear();
+		for (String dimension : network.getDimensions()) {
+			calculateExclusive(dimension, network);
 		}
 	}
 

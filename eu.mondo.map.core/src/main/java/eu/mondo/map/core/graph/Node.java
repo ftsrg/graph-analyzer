@@ -19,6 +19,21 @@ public class Node<T> {
 		outgoingNeighbors = new ArrayList<Neighbor<T>>();
 	}
 
+	public int numberOfNeighborsWithDimension(final String dimension) {
+		int numOfneighbors = 0;
+		for (Neighbor<T> neighbor : incomingNeighbors) {
+			if (dimension.equals(neighbor.getDimension())) {
+				numOfneighbors++;
+			}
+		}
+		for (Neighbor<T> neighbor : outgoingNeighbors) {
+			if (dimension.equals(neighbor.getDimension())) {
+				numOfneighbors++;
+			}
+		}
+		return numOfneighbors;
+	}
+
 	public T getObject() {
 		return object;
 	}
