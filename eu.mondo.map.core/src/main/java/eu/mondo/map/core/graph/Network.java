@@ -78,7 +78,7 @@ public class Network<N> {
 		return node;
 	}
 
-	public int numberOfNodes() {
+	public int getNumberOfNodes() {
 		return nodes.size();
 	}
 
@@ -86,12 +86,25 @@ public class Network<N> {
 		return nodesOnDimensions.keySet();
 	}
 
-	public int numberOfNodes(final String dimension) {
+	public int getNumberOfNodes(final String dimension) {
+		checkDimension(dimension);
+		return nodesOnDimensions.get(dimension).size();
+	}
+
+	public int getNumberOfEdges() {
+		int sumOfEdges = 0;
+		for (Node<N> node : nodes) {
+			sumOfEdges += node.getDegree();
+		}
+		sumOfEdges /= 2;
+		return sumOfEdges;
+	}
+
+	protected void checkDimension(final String dimension) {
 		if (!nodesOnDimensions.containsKey(dimension)) {
 			throw new IllegalArgumentException("Dimension does not exist in the map as a key: "
 					+ dimension);
 		}
-		return nodesOnDimensions.get(dimension).size();
 	}
 
 	public ListMultimap<String, Node<N>> getNodesOnDimensions() {
@@ -102,7 +115,12 @@ public class Network<N> {
 		return nodesOnObjects.get(object);
 	}
 
-	public List<Node<N>> getNodes() {
+	public List<Node<N>> getNodes(final String dimension) {
+		checkDimension(dimension);
+		return nodesOnDimensions.get(dimension);
+	}
+
+	public List<Node<N>> getAllNodes() {
 		return nodes;
 	}
 

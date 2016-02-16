@@ -16,7 +16,7 @@ public class NumberOfTypedEdges extends TypedScalarMetric<String, Integer> {
 		for (String dimension : network.getNodesOnDimensions().keySet()) {
 			int sumOfEdges = 0;
 			for (Node<?> node : network.getNodesOnDimensions().get(dimension)) {
-				sumOfEdges += node.numberOfNeighborsWithDimension(dimension);
+				sumOfEdges += node.getNumberOfNeighbors(dimension);
 			}
 			sumOfEdges /= 2;
 			typedValues.put(dimension, sumOfEdges);
