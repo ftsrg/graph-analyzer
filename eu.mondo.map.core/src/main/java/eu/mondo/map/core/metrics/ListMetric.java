@@ -17,7 +17,7 @@ public abstract class ListMetric<Value> implements Metric, Publishing {
 		List<PublishedMetric> resolvedMetrics = new ArrayList<PublishedMetric>();
 		for (int i = 0; i < values.size(); i++) {
 			resolvedMetrics.add(new PublishedMetric(values.get(i).toString(), String.format(
-					getName(), "-", i)));
+					"%s-%d", getName(), i)));
 		}
 		return resolvedMetrics;
 	}

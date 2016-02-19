@@ -10,18 +10,6 @@ import eu.mondo.map.modelmetrics.scalar.typed.NumberOfTypedEdges;
 
 public class EMFNumberOfTypedEdges extends NumberOfTypedEdges {
 
-//	public void calculate(final TreeIterator<EObject> contents) {
-//		EObject object;
-//		EList<EReference> references;
-//		value = 0;
-//
-//		while (contents.hasNext()) {
-//			object = contents.next();
-//			references = object.eClass().getEAllReferences();
-//			value += EMFAnalyzerUtility.getDegree(object, references);
-//		}
-//	}
-
 	public void calculate(final TreeIterator<EObject> contents) {
 		EObject object;
 		EList<EReference> references;
