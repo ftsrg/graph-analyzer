@@ -16,14 +16,9 @@ public class PairwiseMultiplexity extends TypedScalarMetric<String, Double> {
 				calculate(network, firstDimension, secondDimension, false));
 	}
 
-//	private String newName(final String firstDimension, final String secondDimension) {
-//		name = String.format("%%s-%s", defaultName, firstDimension, secondDimension);
-//		return name;
-//	}
-
 	public void calculateExclusive(final Network<?> network, final String firstDimension,
 			final String secondDimension) {
-		typedValues.put(String.format("%s-%s", firstDimension, secondDimension),
+		typedValues.put(String.format("%s-%s-Exclusive", firstDimension, secondDimension),
 				calculate(network, firstDimension, secondDimension, true));
 	}
 
