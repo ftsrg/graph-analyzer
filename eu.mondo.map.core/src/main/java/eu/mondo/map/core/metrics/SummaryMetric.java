@@ -1,6 +1,6 @@
 package eu.mondo.map.core.metrics;
 
-public class SummaryMetric<T extends Comparable<? super T>> extends ScalarMetric<T> {
+public class SummaryMetric<V extends Comparable<? super V>, M extends ListMetric<V>> extends ScalarMetric<V> {
 
 	@Override
 	public void clear() {
@@ -12,21 +12,21 @@ public class SummaryMetric<T extends Comparable<? super T>> extends ScalarMetric
 		return "SummaryMetric";
 	}
 
-	public void calculateMinimum(final ListMetric<T> list) {
-		T min = list.getValues().get(0);
-		for (int i = 1; i < list.getValues().size(); i++) {
-			if (list.getValues().get(i).compareTo(min) < 0) {
-				min = list.getValues().get(i);
+	public void calculateMinimum(final M list) {
+		V min = list.get(0);
+		for (int i = 1; i < list.size(); i++) {
+			if (list.get(i).compareTo(min) < 0) {
+				min = list.get(i);
 			}
 		}
 		value = min;
 	}
 
-	public void calculateMaximum(final ListMetric<T> list) {
-		T max = list.getValues().get(0);
-		for (int i = 1; i < list.getValues().size(); i++) {
-			if (list.getValues().get(i).compareTo(max) > 0) {
-				max = list.getValues().get(i);
+	public void calculateMaximum(final M list) {
+		V max = list.get(0);
+		for (int i = 1; i < list.size(); i++) {
+			if (list.get(i).compareTo(max) > 0) {
+				max = list.get(i);
 			}
 		}
 		value = max;

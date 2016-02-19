@@ -2,7 +2,8 @@ package eu.mondo.map.core.metrics.typed;
 
 import groovy.util.GroovyCollections;
 
-public class TypedAggregatedMetric<Type> extends TypedScalarMetric<Type, Double> {
+public class TypedAggregatedMetric<Type, M extends TypedListMetric<Type, ?>> extends
+		TypedScalarMetric<Type, Double> {
 
 	@Override
 	public String getName() {

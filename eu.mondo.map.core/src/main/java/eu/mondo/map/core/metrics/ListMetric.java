@@ -43,4 +43,12 @@ public abstract class ListMetric<Value> implements Metric, Publishing {
 		values.clear();
 	}
 
+	public int size() {
+		return values.size();
+	}
+
+	public Value get(int index) {
+		return values.get(index);
+	}
+
 }
