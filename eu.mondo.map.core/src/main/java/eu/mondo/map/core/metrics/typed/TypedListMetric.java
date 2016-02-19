@@ -33,8 +33,8 @@ public abstract class TypedListMetric<Type, Value> implements Metric, Publishing
 		for (Type key : typedValues.keySet()) {
 			for (int i = 0; i < typedValues.get(key).size(); i++) {
 				resolvedMetrics.add(new PublishedMetric(typedValues.get(key).get(i)
-						.toString(), String.format(getName(), "-", key.toString(),
-						"-", i)));
+						.toString(), String.format("%s-%s-%d", getName(),
+						key.toString(), i)));
 			}
 		}
 		return resolvedMetrics;
