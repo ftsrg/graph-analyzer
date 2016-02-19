@@ -1,5 +1,6 @@
 package eu.mondo.map.modelmetrics.scalar;
 
+import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.metrics.ScalarMetric;
 import eu.mondo.map.modelmetrics.composite.DegreeList;
 import eu.mondo.map.modelmetrics.composite.typed.TypedDegreeList;
@@ -8,15 +9,20 @@ import groovy.util.GroovyCollections;
 public class NumberOfEdges extends ScalarMetric<Integer> {
 
 	public void calculate(final DegreeList degreeList) {
-		value = (Integer) GroovyCollections.sum(degreeList.getValues().toArray());
+		value = (Integer) GroovyCollections.sum(degreeList.getValues().toArray()) / 2;
 	}
 
 	public void calculate(final TypedDegreeList typedDegreeList) {
-		value = 0;
+		clear();
 		for (String key : typedDegreeList.getValues().keySet()) {
 			value += (Integer) GroovyCollections.sum(typedDegreeList.getValues().get(key)
 					.toArray());
 		}
+		value /= 2;
+	}
+
+	public void calculate(final Network<?> network) {
+		value = network.getNumberOfEdges();
 	}
 
 	@Override

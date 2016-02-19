@@ -1,5 +1,6 @@
 package eu.mondo.map.modelmetrics.scalar;
 
+import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.metrics.ScalarMetric;
 import eu.mondo.map.modelmetrics.composite.DegreeList;
 import eu.mondo.map.modelmetrics.composite.typed.TypedDegreeList;
@@ -15,6 +16,10 @@ public class NumberOfNodes extends ScalarMetric<Integer> {
 		for (String key : typedDegreeList.getValues().keySet()) {
 			value += typedDegreeList.getValues().get(key).size();
 		}
+	}
+
+	public void calculate(final Network<?> network) {
+		value = network.getNumberOfNodes();
 	}
 
 	@Override

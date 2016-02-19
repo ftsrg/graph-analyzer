@@ -21,7 +21,6 @@ public class NumberOfTypedEdges extends TypedScalarMetric<String, Integer> {
 			sumOfEdges /= 2;
 			typedValues.put(dimension, sumOfEdges);
 		}
-
 	}
 
 }
