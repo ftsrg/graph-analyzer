@@ -11,13 +11,14 @@ import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.PublishedMetric;
 import eu.mondo.map.core.metrics.Publishing;
 
-public abstract class TypedListMetric<Type, Value> implements Metric, Publishing {
+public abstract class TypedListMetric<Type, Value> extends Metric implements Publishing {
+
+	public TypedListMetric(String defaultName) {
+		super(defaultName);
+		typedValues = ArrayListMultimap.create();
+	}
 
 	protected ListMultimap<Type, Value> typedValues;
-
-	public TypedListMetric() {
-		this.typedValues = ArrayListMultimap.create();
-	}
 
 	public ListMultimap<Type, Value> getValues() {
 		return typedValues;
@@ -33,8 +34,8 @@ public abstract class TypedListMetric<Type, Value> implements Metric, Publishing
 		for (Type key : typedValues.keySet()) {
 			for (int i = 0; i < typedValues.get(key).size(); i++) {
 				resolvedMetrics.add(new PublishedMetric(typedValues.get(key).get(i)
-						.toString(), String.format("%s-%s-%d", getName(),
-						key.toString(), i)));
+						.toString(), String.format("%s-%s-%d", name, key.toString(),
+						i)));
 			}
 		}
 		return resolvedMetrics;

@@ -4,15 +4,14 @@ import eu.mondo.map.core.metrics.ScalarMetric;
 
 public class Density extends ScalarMetric<Double> {
 
+	public Density() {
+		super("Density");
+	}
+
 	@Override
 	public void clear() {
 		value = 0.0;
 
-	}
-
-	@Override
-	public String getName() {
-		return "Density";
 	}
 
 	public void calculate(final NumberOfNodes nodes, final NumberOfEdges edges) {

@@ -10,6 +10,10 @@ import eu.mondo.map.modelmetrics.composite.typed.NumberOfTypedAttributes;
 
 public class EMFNumberOfAttributes extends NumberOfTypedAttributes {
 
+	public EMFNumberOfAttributes() {
+		super("EMFNumberOfAttributes");
+	}
+
 	public void calculate(final TreeIterator<EObject> contents) {
 		EObject object;
 		List<EAttribute> attributes;

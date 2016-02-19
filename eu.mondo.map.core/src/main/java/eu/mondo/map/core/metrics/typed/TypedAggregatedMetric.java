@@ -5,9 +5,8 @@ import groovy.util.GroovyCollections;
 public class TypedAggregatedMetric<Type, M extends TypedListMetric<Type, ?>> extends
 		TypedScalarMetric<Type, Double> {
 
-	@Override
-	public String getName() {
-		return "TypedAggregatedMetric";
+	public TypedAggregatedMetric() {
+		super("TypedAggregatedMetric");
 	}
 
 	public void calculateAverage(final TypedListMetric<Type, ?> list) {

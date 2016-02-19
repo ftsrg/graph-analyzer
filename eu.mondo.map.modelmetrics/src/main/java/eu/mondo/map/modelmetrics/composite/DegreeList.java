@@ -6,9 +6,8 @@ import eu.mondo.map.core.metrics.ListMetric;
 
 public class DegreeList extends ListMetric<Integer> {
 
-	@Override
-	public String getName() {
-		return "DegreeList";
+	public DegreeList() {
+		super("DegreeList");
 	}
 
 	public void calculate(final Network<?> network) {

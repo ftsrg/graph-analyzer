@@ -6,9 +6,8 @@ import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
 
 public class NumberOfTypedEdges extends TypedScalarMetric<String, Integer> {
 
-	@Override
-	public String getName() {
-		return "NumberOfTypedEdges";
+	public NumberOfTypedEdges() {
+		super("NumberOfTypedEdges");
 	}
 
 	public void calculate(final Network<?> network) {

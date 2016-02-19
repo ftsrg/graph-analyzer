@@ -5,9 +5,8 @@ import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
 
 public class LayerActivity extends TypedScalarMetric<String, Integer> {
 
-	@Override
-	public String getName() {
-		return "LayerActivityList";
+	public LayerActivity() {
+		super("LayerActivityList");
 	}
 
 	public void calculate(final Network<?> network) {

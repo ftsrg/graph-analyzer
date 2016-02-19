@@ -8,6 +8,10 @@ import groovy.util.GroovyCollections;
 
 public class NumberOfEdges extends ScalarMetric<Integer> {
 
+	public NumberOfEdges() {
+		super("NumberOfEdges");
+	}
+
 	public void calculate(final DegreeList degreeList) {
 		value = (Integer) GroovyCollections.sum(degreeList.getValues().toArray()) / 2;
 	}
@@ -23,11 +27,6 @@ public class NumberOfEdges extends ScalarMetric<Integer> {
 
 	public void calculate(final Network<?> network) {
 		value = network.getNumberOfEdges();
-	}
-
-	@Override
-	public String getName() {
-		return "NumberOfEdges";
 	}
 
 	@Override

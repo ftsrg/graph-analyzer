@@ -7,17 +7,16 @@ import eu.mondo.map.core.metrics.ScalarMetric;
 
 public class Centrality extends ScalarMetric<Double> {
 
-	protected Map<String, Integer> betweennessValues;
-	protected double pairs;
-
-//	protected double metricValue;
-
 	public Centrality() {
+		super("Centrality");
 		betweennessValues = new HashMap<String, Integer>();
 	}
 
+	protected Map<String, Integer> betweennessValues;
+	protected double pairs;
+
 //	@Override
-	public void calculate() {
+//	public void calculate() {
 //		double pairs = analyzer.getShortestPathMetric().getPairs();
 //		metricValue = 0;
 //		for (Entry<String, Integer> entry : betweennessValues.entrySet()) {
@@ -26,8 +25,8 @@ public class Centrality extends ScalarMetric<Double> {
 //			}
 //		}
 //		metricValue /= pairs;
-
-	}
+//
+//	}
 
 //	@Override
 //	protected String getIdentifier() {
@@ -68,12 +67,6 @@ public class Centrality extends ScalarMetric<Double> {
 	public void clear() {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

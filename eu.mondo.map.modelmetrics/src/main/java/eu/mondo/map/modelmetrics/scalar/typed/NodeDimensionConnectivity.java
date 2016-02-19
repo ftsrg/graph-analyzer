@@ -14,9 +14,8 @@ import eu.mondo.map.modelmetrics.scalar.NumberOfNodes;
  */
 public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double> {
 
-	@Override
-	public String getName() {
-		return "NodeDimensionConnectivity";
+	public NodeDimensionConnectivity() {
+		super("NodeDimensionConnectivity");
 	}
 
 	/**

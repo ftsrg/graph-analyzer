@@ -5,13 +5,14 @@ import com.google.common.collect.Table;
 
 import eu.mondo.map.core.metrics.Metric;
 
-public abstract class MultitypedScalarMetric<Type, Key, Value> implements Metric {
+public abstract class MultitypedScalarMetric<Type, Key, Value> extends Metric {
 
-	protected Table<Type, Key, Value> multitypedValues;
-
-	public MultitypedScalarMetric() {
+	public MultitypedScalarMetric(String defaultName) {
+		super(defaultName);
 		multitypedValues = HashBasedTable.create();
 	}
+
+	protected Table<Type, Key, Value> multitypedValues;
 
 	@Override
 	public void clear() {

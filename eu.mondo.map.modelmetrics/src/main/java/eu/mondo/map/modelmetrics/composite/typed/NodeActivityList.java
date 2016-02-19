@@ -6,9 +6,8 @@ import eu.mondo.map.core.metrics.ListMetric;
 
 public class NodeActivityList extends ListMetric<Integer> {
 
-	@Override
-	public String getName() {
-		return "NodeActivityList";
+	public NodeActivityList() {
+		super("NodeActivityList");
 	}
 
 	public void calculate(final Network<?> network) {

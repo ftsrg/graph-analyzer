@@ -7,6 +7,10 @@ import eu.mondo.map.modelmetrics.composite.typed.TypedDegreeList;
 
 public class NumberOfNodes extends ScalarMetric<Integer> {
 
+	public NumberOfNodes() {
+		super("NumberOfNodes");
+	}
+
 	public void calculate(final DegreeList degreeList) {
 		value = degreeList.getValues().size();
 	}
@@ -20,11 +24,6 @@ public class NumberOfNodes extends ScalarMetric<Integer> {
 
 	public void calculate(final Network<?> network) {
 		value = network.getNumberOfNodes();
-	}
-
-	@Override
-	public String getName() {
-		return "NumberOfNodes";
 	}
 
 	@Override

@@ -4,9 +4,8 @@ import eu.mondo.map.core.metrics.typed.TypedListMetric;
 
 public abstract class TypedDegreeList extends TypedListMetric<String, Integer> {
 
-	@Override
-	public String getName() {
-		return "TypedDegreeList";
+	public TypedDegreeList() {
+		super("TypedDegreeList");
 	}
 
 }

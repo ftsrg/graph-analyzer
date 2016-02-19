@@ -9,9 +9,8 @@ import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
 
 public class EdgeDimensionConnectivity extends TypedScalarMetric<String, Double> {
 
-	@Override
-	public String getName() {
-		return "EdgeDimensionConnectivity";
+	public EdgeDimensionConnectivity() {
+		super("EdgeDimensionConnectivity");
 	}
 
 	public void calculate(final String dimension, final Network<?> network) {

@@ -2,14 +2,13 @@ package eu.mondo.map.core.metrics;
 
 public class SummaryMetric<V extends Comparable<? super V>, M extends ListMetric<V>> extends ScalarMetric<V> {
 
-	@Override
-	public void clear() {
-		value = null;
+	public SummaryMetric() {
+		super("SummaryMetric");
 	}
 
 	@Override
-	public String getName() {
-		return "SummaryMetric";
+	public void clear() {
+		value = null;
 	}
 
 	public void calculateMinimum(final M list) {

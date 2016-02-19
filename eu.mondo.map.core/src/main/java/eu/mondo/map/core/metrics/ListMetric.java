@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class ListMetric<Value> implements Metric, Publishing {
+public abstract class ListMetric<Value> extends Metric implements Publishing {
 
-	protected List<Value> values;
-
-	public ListMetric() {
+	public ListMetric(String defaultName) {
+		super(defaultName);
 		this.values = new ArrayList<Value>();
 	}
+
+	protected List<Value> values;
 
 	@Override
 	public List<PublishedMetric> resolve() {
 		List<PublishedMetric> resolvedMetrics = new ArrayList<PublishedMetric>();
 		for (int i = 0; i < values.size(); i++) {
 			resolvedMetrics.add(new PublishedMetric(values.get(i).toString(), String.format(
-					"%s-%d", getName(), i)));
+					"%s-%d", name, i)));
 		}
 		return resolvedMetrics;
 	}
