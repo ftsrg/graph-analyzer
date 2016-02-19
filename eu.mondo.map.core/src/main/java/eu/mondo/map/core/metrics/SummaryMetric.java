@@ -8,7 +8,7 @@ public class SummaryMetric<V extends Comparable<? super V>, M extends ListMetric
 
 	@Override
 	public void clear() {
-		value = null;
+
 	}
 
 	public void calculateMinimum(final M list) {

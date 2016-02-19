@@ -15,7 +15,7 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 
 	@Override
 	public void clear() {
-		value = null;
+		value = 0.0;
 	}
 
 	public void calculateAverage(final M list) {

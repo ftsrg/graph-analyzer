@@ -1,5 +1,6 @@
 package eu.mondo.map.core.metrics;
 
+
 public abstract class Metric {
 
 	protected String name;
@@ -11,10 +12,6 @@ public abstract class Metric {
 	}
 
 	public abstract void clear();
-
-//	public String getName() {
-//		return name;
-//	}
 
 	public void setName(String name) {
 		this.name = name;
