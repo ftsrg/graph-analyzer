@@ -38,6 +38,10 @@ public class Node<T> {
 		return neighbors;
 	}
 
+	public int getNumberOfDimensions() {
+		return dimensions.size();
+	}
+
 	public List<Neighbor<T>> getNeighbors() {
 		List<Neighbor<T>> neighbors = new ArrayList<Neighbor<T>>();
 		neighbors.addAll(incomingNeighbors);

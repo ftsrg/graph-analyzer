@@ -43,7 +43,7 @@ public class PairwiseMultiplexityTest {
 
 	private void checkMutiplexityExclusive(String dim1, String dim2, double expected) {
 		Assert.assertEquals(expected,
-				pairwiseMultiplexity.getValues().get(dim1 + "-" + dim2 + "-Exclusive")
+				pairwiseMultiplexity.getValues().get(dim1 + "-" + dim2 + "-exclusive")
 						.doubleValue(), 0.01);
 
 	}
