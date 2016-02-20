@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 
 public class Node<T> {
@@ -25,6 +26,14 @@ public class Node<T> {
 		return getNeighbors(dimension).size();
 	}
 
+	public int getNumberOfNeighbors() {
+		return incomingNeighbors.size() + outgoingNeighbors.size();
+	}
+
+	public int getNumberOfDisjunctNeighbors() {
+		return getNeighbors().size();
+	}
+
 	public List<Node<T>> getNeighbors(final String dimension) {
 		return dimensions.get(dimension);
 	}
@@ -35,16 +44,20 @@ public class Node<T> {
 
 	public List<Node<T>> getNeighbors() {
 		List<Node<T>> neighbors = new ArrayList<Node<T>>();
-		for (String dim : dimensions.keySet()) {
-			neighbors.addAll(dimensions.get(dim));
-		}
 		neighbors.addAll(incomingNeighbors.keySet());
 		neighbors.addAll(outgoingNeighbors.keySet());
 		return neighbors;
 	}
 
-	public boolean hasNeighbor(final Node<T> node) {
-		return incomingNeighbors.containsKey(node) || outgoingNeighbors.containsKey(node);
+	public Set<Node<T>> getDisjunctNeighbors() {
+		List<Node<T>> neighbors = new ArrayList<Node<T>>();
+		neighbors.addAll(incomingNeighbors.keySet());
+		neighbors.addAll(outgoingNeighbors.keySet());
+		return ImmutableSet.copyOf(neighbors);
+	}
+
+	public boolean hasNeighbor(final Node<?> neighbor2) {
+		return incomingNeighbors.containsKey(neighbor2) || outgoingNeighbors.containsKey(neighbor2);
 	}
 
 	public boolean hasIncomingNeighbor(final Node<T> node) {
@@ -113,6 +126,11 @@ public class Node<T> {
 
 	public void addIncomingNeighbor(final Node<T> node, final String dimension) {
 		incomingNeighbors.put(node, dimension);
+	}
+
+	@Override
+	public String toString() {
+		return "Node [object=" + object + "]";
 	}
 
 }
