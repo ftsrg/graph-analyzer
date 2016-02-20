@@ -1,39 +1,17 @@
 package eu.mondo.map.modelmetrics.tests;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.modelmetrics.scalar.typed.PairwiseMultiplexity;
 
-public class PairwiseMultiplexityTest {
+public class PairwiseMultiplexityTest extends ModelMetricTest {
 
 	protected PairwiseMultiplexity pairwiseMultiplexity;
-	protected Network<String> network;
-	protected String dim1;
-	protected String dim2;
-	protected String dim3;
-	protected String node1;
-	protected String node2;
-	protected String node3;
-	protected String node4;
-	protected String node5;
-	protected String node6;
 
-	@Before
-	public void init() {
-		network = new Network<String>();
+	@Override
+	public void initMetric() {
 		pairwiseMultiplexity = new PairwiseMultiplexity();
-		node1 = "node1";
-		node2 = "node2";
-		node3 = "node3";
-		node4 = "node4";
-		node5 = "node5";
-		node6 = "node6";
-		dim1 = "dim1";
-		dim2 = "dim2";
-		dim3 = "dim3";
 	}
 
 	public void checkMutiplexity(String dim1, String dim2, double expected) {
@@ -138,4 +116,5 @@ public class PairwiseMultiplexityTest {
 		checkMutiplexityExclusive(dim1, dim3, 0.4);
 		checkMutiplexityExclusive(dim2, dim3, 0.2);
 	}
+
 }

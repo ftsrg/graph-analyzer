@@ -11,20 +11,36 @@ public class ClusteringCoefficientList extends ListMetric<Double> {
 	}
 
 	public void calculate(final Network<?> network) {
+		clear();
 		for (Node<?> node : network.getAllNodes()) {
-			int interConnected = 0;
-			for (Node<?> neighbor1 : node.getDisjunctNeighbors()) {
-				for (Node<?> neighbor2 : node.getDisjunctNeighbors()) {
-					if (neighbor1 != neighbor2) {
-						if (neighbor1.hasNeighbor(neighbor2)) {
-							interConnected++;
-						}
-					}
-				}
-				int numberOfNeighbors = node.getNumberOfDisjunctNeighbors();
-				values.add(interConnected
-						/ (double) (numberOfNeighbors * (numberOfNeighbors - 1)));
-			}
+			calculate(node);
 		}
 	}
+
+	public double calculate(final Node<?> node) {
+		int interConnected = 0;
+		int numberOfNeighbors = 0;
+		for (Node<?> neighbor1 : node.getDisjunctNeighbors()) {
+			for (Node<?> neighbor2 : node.getDisjunctNeighbors()) {
+				if (neighbor1 != neighbor2) {
+					if (neighbor1.hasNeighbor(neighbor2)) {
+						interConnected++;
+					}
+				}
+			}
+		}
+
+		numberOfNeighbors = node.getNumberOfDisjunctNeighbors();
+		double clusteringCoef = 0.0;
+		if (numberOfNeighbors < 2) {
+			clusteringCoef = 0.0;
+		} else {
+			clusteringCoef = interConnected
+					/ (double) (numberOfNeighbors * (numberOfNeighbors - 1));
+
+		}
+		values.add(clusteringCoef);
+		return clusteringCoef;
+	}
+
 }
