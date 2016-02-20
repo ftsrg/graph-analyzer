@@ -114,8 +114,8 @@ public class NetworkTest {
 //		Assert.assertEquals(node2, node.getIncomingNeighbor().get(0).getNode());
 //		Assert.assertEquals(node, node2.getIncomingNeighbor().get(0).getNode());
 
-		Assert.assertEquals(1, node.getDimensions().size());
-		Assert.assertEquals(1, node2.getDimensions().size());
+		Assert.assertEquals(2, node.getDimensions().size());
+		Assert.assertEquals(2, node2.getDimensions().size());
 
 		Assert.assertEquals(2, network.getNodesOnDimensions().get("dim1").size());
 		Assert.assertEquals(node, network.getNodesOnDimensions().get("dim1").get(0));

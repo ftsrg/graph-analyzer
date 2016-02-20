@@ -46,12 +46,10 @@ public class Network<N> {
 		Node<N> targetNode = findOrCreateNode(targetObject);
 
 		if (!sourceNode.hasDimension(dimension)) {
-			sourceNode.addDimension(dimension, targetNode);
 			nodesOnDimensions.put(dimension, sourceNode);
 
 		}
 		if (!targetNode.hasDimension(dimension)) {
-			targetNode.addDimension(dimension, sourceNode);
 			nodesOnDimensions.put(dimension, targetNode);
 		}
 		sourceNode.addOutgoingNeighbor(targetNode, dimension);
@@ -94,6 +92,10 @@ public class Network<N> {
 		}
 		sumOfEdges /= 2;
 		return sumOfEdges;
+	}
+
+	public int getNumberOfDimensions() {
+		return nodesOnDimensions.keySet().size();
 	}
 
 	protected void checkDimension(final String dimension) {

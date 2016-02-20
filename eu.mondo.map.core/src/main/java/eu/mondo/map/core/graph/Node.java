@@ -122,10 +122,12 @@ public class Node<T> {
 
 	public void addOutgoingNeighbor(final Node<T> node, final String dimension) {
 		outgoingNeighbors.put(node, dimension);
+		addDimension(dimension, node);
 	}
 
 	public void addIncomingNeighbor(final Node<T> node, final String dimension) {
 		incomingNeighbors.put(node, dimension);
+		addDimension(dimension, node);
 	}
 
 	@Override
