@@ -34,6 +34,10 @@ public class Node<T> {
 		return getNeighbors().size();
 	}
 
+	public int getNumberOfDisjunctNeighbors(final String dimension) {
+		return getDisjunctNeighbors(dimension).size();
+	}
+
 	public List<Node<T>> getNeighbors(final String dimension) {
 		return dimensions.get(dimension);
 	}
@@ -56,8 +60,25 @@ public class Node<T> {
 		return ImmutableSet.copyOf(neighbors);
 	}
 
-	public boolean hasNeighbor(final Node<?> neighbor2) {
-		return incomingNeighbors.containsKey(neighbor2) || outgoingNeighbors.containsKey(neighbor2);
+	public Set<Node<T>> getDisjunctNeighbors(final String dimension) {
+		return ImmutableSet.copyOf(dimensions.get(dimension));
+	}
+
+	public boolean hasNeighbor(final Node<?> neighbor) {
+		return incomingNeighbors.containsKey(neighbor) || outgoingNeighbors.containsKey(neighbor);
+	}
+
+	public boolean hasNeighbor(final Node<?> neighbor, final String dimension) {
+		if (incomingNeighbors.containsKey(neighbor)) {
+			if (incomingNeighbors.get((Node<T>) neighbor).contains(dimension)) {
+				return true;
+			}
+		}
+		if (outgoingNeighbors.containsKey(neighbor)) {
+			return outgoingNeighbors.get((Node<T>) neighbor).contains(dimension);
+		}
+		return false;
+
 	}
 
 	public boolean hasIncomingNeighbor(final Node<T> node) {
@@ -134,5 +155,4 @@ public class Node<T> {
 	public String toString() {
 		return "Node [object=" + object + "]";
 	}
-
 }
