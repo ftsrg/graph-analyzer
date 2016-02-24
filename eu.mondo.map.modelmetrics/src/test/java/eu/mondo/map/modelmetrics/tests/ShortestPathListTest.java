@@ -258,9 +258,7 @@ public class ShortestPathListTest extends ModelMetricTest {
 
 		List<Path> paths = calculate(node1, node6);
 		checkDepth(3, paths);
-		for (Path p : paths) {
-//			System.out.println(p);
-		}
+
 		checkPathNumber(3, paths);
 		containsPath(paths, Lists.newArrayList(node6, node4, node2, node1));
 		containsPath(paths, Lists.newArrayList(node6, node5, node3, node1));

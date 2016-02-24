@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
+
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.ListMetric;
 
@@ -17,7 +20,7 @@ public class ShortestPathList extends ListMetric<Integer> {
 		super("ShortestPathList");
 	}
 
-	protected Map<Node<?>, Node<?>> visits;
+	protected ListMultimap<Node<?>, Node<?>> visits;
 	protected Map<Node<?>, Integer> depths;
 	protected Map<Node<?>, Integer> results;
 
@@ -50,6 +53,8 @@ public class ShortestPathList extends ListMetric<Integer> {
 					visit(neighborNode, currentNode);
 					depth = depths.get(neighborNode);
 					queue.add(neighborNode);
+				} else if (depths.get(currentNode) < depths.get(neighborNode)) {
+					visits.put(neighborNode, currentNode);
 				}
 			}
 		}
@@ -66,19 +71,37 @@ public class ShortestPathList extends ListMetric<Integer> {
 
 	protected List<Path> resolveResults(final Node<?> targetNode) {
 		int depth = depths.get(targetNode);
-		List<Path> paths = new ArrayList<Path>();
+		List<Path> allPaths = new ArrayList<Path>();
 		for (Node<?> node : results.keySet()) {
 			Path path = new Path(depth);
 			path.add(targetNode);
 			path.add(node);
-			Node<?> parent;
-			while ((parent = visits.get(node)) != null) {
-				path.add(parent);
-				node = parent;
-			}
-			paths.add(path);
+			allPaths.add(path);
+			resolvePaths(allPaths, path, node);
 		}
-		return paths;
+		return allPaths;
+	}
+
+	private void resolvePaths(List<Path> allPaths, Path path, Node<?> node) {
+		if (reachedSourceNode(node)) {
+			return;
+		}
+		List<Node<?>> neighbors = visits.get(node);
+		for (int i = 1; i < neighbors.size(); i++) {
+			Path newPath = new Path(path);
+			newPath.add(neighbors.get(i));
+			allPaths.add(newPath);
+			resolvePaths(allPaths, newPath, neighbors.get(i));
+		}
+		path.add(neighbors.get(0));
+		resolvePaths(allPaths, path, neighbors.get(0));
+	}
+
+	protected boolean reachedSourceNode(Node<?> node) {
+		if (visits.get(node).get(0) == null) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -99,7 +122,7 @@ public class ShortestPathList extends ListMetric<Integer> {
 
 	protected void init() {
 		if (visits == null) {
-			visits = new HashMap<Node<?>, Node<?>>();
+			visits = ArrayListMultimap.create();
 		}
 		if (depths == null) {
 			depths = new HashMap<Node<?>, Integer>();
@@ -135,6 +158,15 @@ public class ShortestPathList extends ListMetric<Integer> {
 		public Path(int depth) {
 			path = new ArrayList<Node<?>>();
 			this.depth = depth;
+		}
+
+		public Path(Path path2) {
+			this.path = new ArrayList<Node<?>>();
+			this.depth = path2.depth;
+//			for (Node<?> node : path2.getPath()) {
+//				path.add(node);
+//			}
+			this.path.addAll(path2.getPath());
 		}
 
 		public boolean isEmpty() {
