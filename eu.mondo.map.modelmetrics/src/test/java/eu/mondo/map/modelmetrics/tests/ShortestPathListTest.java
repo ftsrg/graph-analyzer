@@ -170,6 +170,33 @@ public class ShortestPathListTest extends ModelMetricTest {
 	}
 
 	@Test
+	public void singlePath5() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		network.addEdge(dim1, node1, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node2, node8);
+		network.addEdge(dim1, node2, node6);
+		network.addEdge(dim1, node3, node6);
+		network.addEdge(dim1, node4, node7);
+		network.addEdge(dim1, node4, node6);
+		network.addEdge(dim1, node5, node8);
+		network.addEdge(dim1, node6, node8);
+		network.addEdge(dim1, node7, node8);
+
+		List<Path> paths = calculate(node1, node8);
+		checkDepth(2, paths);
+
+		checkPathNumber(1, paths);
+		checkPath(paths.get(0), Lists.newArrayList(node8, node2, node1));
+//		containsPath(paths, Lists.newArrayList(node8, node5, node2, node1));
+//		containsPath(paths, Lists.newArrayList(node8, node6, node3, node1));
+//		containsPath(paths, Lists.newArrayList(node8, node6, node2, node1));
+//		containsPath(paths, Lists.newArrayList(node8, node6, node4, node1));
+//		containsPath(paths, Lists.newArrayList(node8, node7, node4, node1));
+	}
+
+	@Test
 	public void singlePathMultiDimensional() {
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node2, node1);
@@ -263,6 +290,123 @@ public class ShortestPathListTest extends ModelMetricTest {
 		containsPath(paths, Lists.newArrayList(node6, node4, node2, node1));
 		containsPath(paths, Lists.newArrayList(node6, node5, node3, node1));
 		containsPath(paths, Lists.newArrayList(node6, node5, node2, node1));
+	}
+
+	@Test
+	public void multiplePath6() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		network.addEdge(dim1, node2, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node3, node5);
+		network.addEdge(dim1, node3, node2);
+		network.addEdge(dim1, node4, node6);
+		network.addEdge(dim1, node4, node3);
+		network.addEdge(dim1, node5, node6);
+
+		List<Path> paths = calculate(node1, node6);
+		checkDepth(3, paths);
+
+		checkPathNumber(3, paths);
+		containsPath(paths, Lists.newArrayList(node6, node4, node2, node1));
+		containsPath(paths, Lists.newArrayList(node6, node5, node3, node1));
+		containsPath(paths, Lists.newArrayList(node6, node5, node2, node1));
+	}
+
+	@Test
+	public void multiplePath7() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		network.addEdge(dim1, node2, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node3, node5);
+		network.addEdge(dim1, node4, node3);
+		network.addEdge(dim1, node4, node6);
+		network.addEdge(dim1, node4, node3);
+		network.addEdge(dim1, node5, node6);
+
+		List<Path> paths = calculate(node1, node6);
+		checkDepth(3, paths);
+
+		checkPathNumber(3, paths);
+		containsPath(paths, Lists.newArrayList(node6, node4, node2, node1));
+		containsPath(paths, Lists.newArrayList(node6, node5, node3, node1));
+		containsPath(paths, Lists.newArrayList(node6, node5, node2, node1));
+	}
+
+	@Test
+	public void multiplePath8() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		network.addEdge(dim1, node1, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node2, node6);
+		network.addEdge(dim1, node3, node6);
+		network.addEdge(dim1, node4, node7);
+		network.addEdge(dim1, node4, node6);
+		network.addEdge(dim1, node5, node8);
+		network.addEdge(dim1, node6, node8);
+		network.addEdge(dim1, node7, node8);
+
+		List<Path> paths = calculate(node1, node8);
+		checkDepth(3, paths);
+
+		checkPathNumber(5, paths);
+		containsPath(paths, Lists.newArrayList(node8, node5, node2, node1));
+		containsPath(paths, Lists.newArrayList(node8, node6, node3, node1));
+		containsPath(paths, Lists.newArrayList(node8, node6, node2, node1));
+		containsPath(paths, Lists.newArrayList(node8, node6, node4, node1));
+		containsPath(paths, Lists.newArrayList(node8, node7, node4, node1));
+	}
+
+	@Test
+	public void multiplePath9() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		network.addEdge(dim1, node1, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node2, node6);
+		network.addEdge(dim1, node3, node6);
+		network.addEdge(dim1, node4, node7);
+		network.addEdge(dim1, node4, node6);
+		network.addEdge(dim1, node5, node6);
+		network.addEdge(dim1, node5, node8);
+		network.addEdge(dim1, node6, node8);
+		network.addEdge(dim1, node7, node8);
+
+		List<Path> paths = calculate(node1, node8);
+		checkDepth(3, paths);
+
+		checkPathNumber(5, paths);
+		containsPath(paths, Lists.newArrayList(node8, node5, node2, node1));
+		containsPath(paths, Lists.newArrayList(node8, node6, node3, node1));
+		containsPath(paths, Lists.newArrayList(node8, node6, node2, node1));
+		containsPath(paths, Lists.newArrayList(node8, node6, node4, node1));
+		containsPath(paths, Lists.newArrayList(node8, node7, node4, node1));
+	}
+
+	@Test
+	public void multiplePath10() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		network.addEdge(dim1, node1, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node2, node6);
+		network.addEdge(dim1, node3, node6);
+		network.addEdge(dim1, node4, node7);
+		network.addEdge(dim1, node4, node6);
+		network.addEdge(dim1, node5, node6);
+		network.addEdge(dim1, node5, node8);
+		network.addEdge(dim1, node6, node8);
+		network.addEdge(dim1, node7, node8);
+
+		List<Path> paths = calculate(node1, node6);
+		checkDepth(2, paths);
+
+		checkPathNumber(3, paths);
+		containsPath(paths, Lists.newArrayList(node6, node2, node1));
+		containsPath(paths, Lists.newArrayList(node6, node3, node1));
+		containsPath(paths, Lists.newArrayList(node6, node4, node1));
 	}
 
 }

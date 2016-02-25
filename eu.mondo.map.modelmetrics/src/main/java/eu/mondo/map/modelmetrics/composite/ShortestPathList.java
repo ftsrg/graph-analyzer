@@ -11,6 +11,7 @@ import java.util.Queue;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 
+import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.ListMetric;
 
@@ -23,6 +24,14 @@ public class ShortestPathList extends ListMetric<Integer> {
 	protected ListMultimap<Node<?>, Node<?>> visits;
 	protected Map<Node<?>, Integer> depths;
 	protected Map<Node<?>, Integer> results;
+
+	public void calculate(final Network<?> network) {
+
+	}
+
+	public void calculate(final Network<?> network, final int numberOfRandomPairs) {
+
+	}
 
 	public List<Path> calculate(final Node<?> sourceNode, final Node<?> targetNode) {
 		if (sourceNode == null) {
@@ -163,9 +172,6 @@ public class ShortestPathList extends ListMetric<Integer> {
 		public Path(Path path2) {
 			this.path = new ArrayList<Node<?>>();
 			this.depth = path2.depth;
-//			for (Node<?> node : path2.getPath()) {
-//				path.add(node);
-//			}
 			this.path.addAll(path2.getPath());
 		}
 
