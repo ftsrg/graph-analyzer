@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Modelmetrics
+Bundle-SymbolicName: eu.mondo.map.modelmetrics
+Bundle-Version: 1.0.0.qualifier
+Export-Package: eu.mondo.map.modelmetrics.composite,
+ eu.mondo.map.modelmetrics.composite.typed,
+ eu.mondo.map.modelmetrics.scalar,
+ eu.mondo.map.modelmetrics.scalar.typed,
+ eu.mondo.map.modelmetrics.tests
+Require-Bundle: com.google.guava;bundle-version="15.0.0",
+ com.google.guava.source;bundle-version="15.0.0",
+ org.junit;bundle-version="4.11.0"

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core
+Bundle-SymbolicName: eu.mondo.map.core
+Bundle-Version: 1.0.0.qualifier
+Export-Package: eu.mondo.map.core,
+ eu.mondo.map.core.graph,
+ eu.mondo.map.core.metrics,
+ eu.mondo.map.core.metrics.typed,
+ eu.mondo.map.core.tests
