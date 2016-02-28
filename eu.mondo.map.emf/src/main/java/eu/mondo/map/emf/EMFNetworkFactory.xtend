@@ -16,13 +16,16 @@ class EMFNetworkFactory {
 			obj = objects.next()
 			network.addNode(obj)
 			for (EReference ref : obj.eClass.EAllReferences) {
-				if (ref.many) {
-					for (EObject neighbor : obj.eGet(ref, true) as EList<EObject>) {
-						network.addEdge(ref.name, obj, neighbor)
+//				if (!ref.derived){
+				// TODO do something with derived features
+					if (ref.many) {
+						for (EObject neighbor : obj.eGet(ref, true) as EList<EObject>) {
+							network.addEdge(ref.name, obj, neighbor)
+						}
+					} else {
+						network.addEdge(ref.name, obj, obj.eGet(ref, true) as EObject)
 					}
-				} else {
-					network.addEdge(ref.name, obj, obj.eGet(ref, true) as EObject)
-				}
+//				}
 			}
 		}
 		return network

@@ -6,7 +6,7 @@ import java.util.List;
 
 import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.Publishing;
-import eu.mondo.sam.core.metrics.BenchmarkMetric;
+import eu.mondo.map.core.metrics.PublishedMetric;;
 
 public class Analyzer {
 
@@ -20,8 +20,8 @@ public class Analyzer {
 		this.metrics = metrics;
 	}
 
-	public List<BenchmarkMetric> resolve() {
-		List<BenchmarkMetric> resolvedMetrics = new ArrayList<BenchmarkMetric>();
+	public List<PublishedMetric> resolve() {
+		List<PublishedMetric> resolvedMetrics = new ArrayList<PublishedMetric>();
 		for (Metric metric : metrics) {
 			if (metric instanceof Publishing) {
 				resolvedMetrics.addAll(((Publishing) metric).resolve());

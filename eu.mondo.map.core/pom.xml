@@ -17,11 +17,6 @@
 
 	<dependencies>
 
-		<dependency>
-			<groupId>eu.mondo.sam</groupId>
-			<artifactId>eu.mondo.sam.core</artifactId>
-			<version>0.2.0-SNAPSHOT</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.google.guava</groupId>
