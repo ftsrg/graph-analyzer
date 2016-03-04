@@ -20,8 +20,9 @@ public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<S
 	public void calculate(final Network<?> network, final Node<?> node) {
 		int interConnected = 0;
 		int numberOfNeighbors = 0;
-
 		for (String dimension : node.getDimensionsAsSet()) {
+			interConnected = 0;
+			numberOfNeighbors = 0;
 			for (Node<?> neighbor1 : node.getDisjunctNeighbors(dimension)) {
 				for (Node<?> neighbor2 : node.getDisjunctNeighbors(dimension)) {
 					if (neighbor1 != neighbor2) {

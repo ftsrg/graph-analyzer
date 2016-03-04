@@ -32,12 +32,16 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		Assert.assertEquals(expected, metric.calculateFirstDefinition(network, network.getNode(node)), 0.01);
 	}
 
+	protected void calculateFirstDefinition() {
+		metric.calculateFirstDefinition(network);
+	}
+
 	@Test
 	public void calculate1() {
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node1, node3);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
 		checkValue(0.0, node1);
@@ -51,7 +55,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim2, node1, node3);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
 		checkValue(0.0, node1);
@@ -66,7 +70,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim1, node1, node3);
 		network.addEdge(dim1, node2, node3);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
 		checkValue(0.0, node1);
@@ -81,7 +85,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim1, node1, node3);
 		network.addEdge(dim2, node2, node3);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
 		checkValue(1.0, node1);
@@ -96,7 +100,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim2, node2, node3);
 		network.addEdge(dim1, node2, node3);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
 		checkValue(1.0, node1);
@@ -112,7 +116,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim1, node2, node3);
 		network.addEdge(dim2, node1, node4);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(4);
 		metric.clear();
 		checkValue(1.0, node1);
@@ -130,7 +134,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim2, node1, node4);
 		network.addEdge(dim2, node1, node5);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(5);
 		metric.clear();
 		checkValue(0.5, node1);
@@ -150,7 +154,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim2, node1, node5);
 		network.addEdge(dim2, node2, node5);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(5);
 		metric.clear();
 		checkValue(0.5, node1);
@@ -171,7 +175,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim2, node2, node5);
 		network.addEdge(dim1, node2, node4);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(5);
 		metric.clear();
 		checkValue(0.5, node1);
@@ -190,7 +194,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim2, node1, node4);
 		network.addEdge(dim3, node1, node4);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(4);
 		metric.clear();
 		checkValue(0.0, node1);
@@ -209,7 +213,7 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.addEdge(dim3, node1, node4);
 		network.addEdge(dim3, node2, node4);
 
-		metric.calculateFirstDefinition(network);
+		calculateFirstDefinition();
 		checkSize(4);
 		metric.clear();
 		checkValue(0.25, node1);
