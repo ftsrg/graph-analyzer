@@ -1,17 +1,16 @@
 package eu.mondo.map.core.metrics.typed;
 
-import groovy.util.GroovyCollections;
+import eu.mondo.map.core.util.MathUtils;
 
-public class TypedAggregatedMetric<Type, M extends TypedListMetric<Type, ?>> extends
-		TypedScalarMetric<Type, Double> {
+public class TypedAggregatedMetric<Type, M extends TypedListMetric<Type, ?>> extends TypedScalarMetric<Type, Double> {
 
 	public TypedAggregatedMetric() {
 		super("TypedAggregatedMetric");
 	}
 
-	public void calculateAverage(final TypedListMetric<Type, ?> list) {
+	public void calculateAverage(final TypedListMetric<Type, ? extends Number> list) {
 		for (Type t : list.getValues().keySet()) {
-			double sum = (double) GroovyCollections.sum(list.getValues().get(t).toArray());
+			double sum = MathUtils.sumDouble(list.getValues().get(t));
 			typedValues.put(t, sum / list.getValues().size());
 		}
 	}

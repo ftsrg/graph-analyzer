@@ -2,9 +2,9 @@ package eu.mondo.map.modelmetrics.scalar;
 
 import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.metrics.ScalarMetric;
+import eu.mondo.map.core.util.MathUtils;
 import eu.mondo.map.modelmetrics.composite.DegreeList;
 import eu.mondo.map.modelmetrics.composite.typed.TypedDegreeList;
-import groovy.util.GroovyCollections;
 
 public class NumberOfEdges extends ScalarMetric<Integer> {
 
@@ -13,14 +13,13 @@ public class NumberOfEdges extends ScalarMetric<Integer> {
 	}
 
 	public void calculate(final DegreeList degreeList) {
-		value = (Integer) GroovyCollections.sum(degreeList.getValues().toArray()) / 2;
+		value = MathUtils.sumInt(degreeList.getValues());
 	}
 
 	public void calculate(final TypedDegreeList typedDegreeList) {
 		clear();
 		for (String key : typedDegreeList.getValues().keySet()) {
-			value += (Integer) GroovyCollections.sum(typedDegreeList.getValues().get(key)
-					.toArray());
+			value += MathUtils.sumInt(typedDegreeList.getValues().get(key));
 		}
 		value /= 2;
 	}
