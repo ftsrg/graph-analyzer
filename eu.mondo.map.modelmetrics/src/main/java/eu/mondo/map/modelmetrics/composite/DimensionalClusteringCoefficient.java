@@ -10,6 +10,13 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 		super("DimensionalClusteringCoefficient");
 	}
 
+	public void calculateNullDefinition(final Network<?> network, final String dimension) {
+		clear();
+		for (Node<?> node : network.getAllNodes()) {
+			calculateNullDefinition(network, node);
+		}
+	}
+
 	public void calculateFirstDefinition(final Network<?> network) {
 		clear();
 		for (Node<?> node : network.getAllNodes()) {
@@ -24,6 +31,12 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 		}
 	}
 
+	public double calculateNullDefinition(final Network<?> network, final Node<?> node) {
+		double coef = 0.0;
+
+		return coef;
+	}
+
 	public double calculateFirstDefinition(final Network<?> network, final Node<?> node) {
 		int interConnected = 0;
 		int numberOfNeighbors = 0;
@@ -36,8 +49,7 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 					if (neighbor1 != neighbor2) {
 						for (String dimension2 : neighbor1.getDimensionsAsSet()) {
 							if (!dimension1.equals(dimension2)) {
-								if (neighbor1.hasNeighbor(neighbor2,
-										dimension2)) {
+								if (neighbor1.hasNeighbor(neighbor2, dimension2)) {
 									interConnected++;
 								}
 							}
@@ -61,8 +73,10 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 		return coef;
 	}
 
-	public void calculateSecondDefinition(final Network<?> network, final Node<?> node) {
+	public double calculateSecondDefinition(final Network<?> network, final Node<?> node) {
+		double coef = 0.0;
 
+		return coef;
 	}
 
 }

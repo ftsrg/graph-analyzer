@@ -1,5 +1,18 @@
 package eu.mondo.map.modelmetrics.tests;
 
+import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.dim3;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.network;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node4;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node6;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node7;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node8;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +22,26 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import eu.mondo.map.core.graph.Node;
+import eu.mondo.map.core.metrics.tests.ListMetricTest;
 import eu.mondo.map.modelmetrics.composite.ShortestPathList;
 import eu.mondo.map.modelmetrics.composite.ShortestPathList.Path;
 
-public class ShortestPathListTest extends ModelMetricTest {
+public class ShortestPathListTest extends ListMetricTest<ShortestPathList> {
 
-	protected ShortestPathList shortestPathList;
+	protected ModelContext mc;
+
+	public ShortestPathListTest() {
+		mc = new ModelContext();
+	}
 
 	@Override
-	public void initMetric() {
-		shortestPathList = new ShortestPathList();
+	public ShortestPathList initMetric() {
+		return new ShortestPathList();
+	}
+
+	@Override
+	public void clear() {
+		network.clear();
 	}
 
 	protected void checkDepth(int expected, List<Path> paths) {
@@ -61,7 +84,7 @@ public class ShortestPathListTest extends ModelMetricTest {
 		Node<String> sourceNode = network.getNode(source);
 		Node<String> targetNode = network.getNode(target);
 
-		List<Path> paths = shortestPathList.calculate(sourceNode, targetNode);
+		List<Path> paths = metric.calculate(sourceNode, targetNode);
 		return paths;
 	}
 
@@ -189,15 +212,25 @@ public class ShortestPathListTest extends ModelMetricTest {
 
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node8, node2, node1));
-//		containsPath(paths, Lists.newArrayList(node8, node5, node2, node1));
-//		containsPath(paths, Lists.newArrayList(node8, node6, node3, node1));
-//		containsPath(paths, Lists.newArrayList(node8, node6, node2, node1));
-//		containsPath(paths, Lists.newArrayList(node8, node6, node4, node1));
-//		containsPath(paths, Lists.newArrayList(node8, node7, node4, node1));
+		// containsPath(paths, Lists.newArrayList(node8,
+		// node5, node2,
+		// node1));
+		// containsPath(paths, Lists.newArrayList(node8,
+		// node6, node3,
+		// node1));
+		// containsPath(paths, Lists.newArrayList(node8,
+		// node6, node2,
+		// node1));
+		// containsPath(paths, Lists.newArrayList(node8,
+		// node6, node4,
+		// node1));
+		// containsPath(paths, Lists.newArrayList(node8,
+		// node7, node4,
+		// node1));
 	}
 
 	@Test
-	public void singlePathMultiDimensional() {
+	public void singlePathMultidimensional() {
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node2, node1);
 		network.addEdge(dim2, node2, node3);
@@ -209,7 +242,7 @@ public class ShortestPathListTest extends ModelMetricTest {
 	}
 
 	@Test
-	public void singlePathMultiDimensional2() {
+	public void singlePathMultidimensional2() {
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node2, node3);
 		network.addEdge(dim2, node2, node3);

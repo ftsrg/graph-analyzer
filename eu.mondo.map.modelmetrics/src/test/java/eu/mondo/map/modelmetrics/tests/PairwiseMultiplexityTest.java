@@ -1,38 +1,51 @@
 package eu.mondo.map.modelmetrics.tests;
 
+import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.dim3;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.network;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node4;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.node6;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import eu.mondo.map.core.metrics.tests.TypedScalarMetricTest;
 import eu.mondo.map.modelmetrics.scalar.typed.PairwiseMultiplexity;
 
-public class PairwiseMultiplexityTest extends ModelMetricTest {
-
-	protected PairwiseMultiplexity pairwiseMultiplexity;
+public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMultiplexity> {
 
 	@Override
-	public void initMetric() {
-		pairwiseMultiplexity = new PairwiseMultiplexity();
+	public PairwiseMultiplexity initMetric() {
+		return new PairwiseMultiplexity();
+	}
+
+	@Override
+	public void clear() {
+		network.clear();
 	}
 
 	public void checkMutiplexity(String dim1, String dim2, double expected) {
-		Assert.assertEquals(expected, pairwiseMultiplexity.getValues().get(dim1 + "-" + dim2)
-				.doubleValue(), 0.01);
+		Assert.assertEquals(expected, metric.getValues().get(dim1 + "-" + dim2).doubleValue(), 0.01);
 	}
 
 	private void checkMutiplexityExclusive(String dim1, String dim2, double expected) {
-		Assert.assertEquals(expected,
-				pairwiseMultiplexity.getValues().get(dim1 + "-" + dim2 + "-exclusive")
-						.doubleValue(), 0.01);
+		Assert.assertEquals(expected, metric.getValues().get(dim1 + "-" + dim2 + "-exclusive").doubleValue(),
+				0.01);
 
 	}
 
 	private void calculateMultiplexity() {
-		pairwiseMultiplexity.calculate(network, dim1, dim2);
-		pairwiseMultiplexity.calculate(network, dim1, dim3);
-		pairwiseMultiplexity.calculate(network, dim2, dim3);
-		pairwiseMultiplexity.calculateExclusive(network, dim1, dim2);
-		pairwiseMultiplexity.calculateExclusive(network, dim1, dim3);
-		pairwiseMultiplexity.calculateExclusive(network, dim2, dim3);
+		metric.calculate(network, dim1, dim2);
+		metric.calculate(network, dim1, dim3);
+		metric.calculate(network, dim2, dim3);
+		metric.calculateExclusive(network, dim1, dim2);
+		metric.calculateExclusive(network, dim1, dim3);
+		metric.calculateExclusive(network, dim2, dim3);
 	}
 
 	@Test

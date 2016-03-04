@@ -1,4 +1,4 @@
-package eu.mondo.map.core.tests;
+package eu.mondo.map.core.graph.tests;
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -21,6 +21,12 @@ public class Network<N> {
 		nodesOnObjects = HashBiMap.create();
 	}
 
+	public void clear() {
+		nodesOnDimensions.clear();
+		nodes.clear();
+		nodesOnObjects.clear();
+	}
+
 	public Network(int expectedNumberOfNodes) {
 		nodesOnDimensions = ArrayListMultimap.create();
 		nodes = new ArrayList<Node<N>>();
@@ -100,8 +106,8 @@ public class Network<N> {
 
 	protected void checkDimension(final String dimension) {
 		if (!nodesOnDimensions.containsKey(dimension)) {
-			throw new IllegalArgumentException("Dimension does not exist in the map as a key: "
-					+ dimension);
+			throw new IllegalArgumentException(
+					"Dimension does not exist in the map as a key: " + dimension);
 		}
 	}
 
