@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import eu.mondo.map.core.metrics.Metric;
-import eu.mondo.map.core.metrics.Publishing;
-import eu.mondo.map.core.metrics.PublishedMetric;;
+import eu.mondo.map.core.metrics.PublishedMetric;
+import eu.mondo.map.core.metrics.Publishing;;
 
 public class Analyzer {
 
@@ -16,8 +16,16 @@ public class Analyzer {
 		metrics = new ArrayList<Metric>();
 	}
 
-	public Analyzer(ArrayList<Metric> metrics) {
+	public Analyzer(final ArrayList<Metric> metrics) {
 		this.metrics = metrics;
+	}
+
+	public boolean addAllMetrics(final Collection<? extends Metric> c) {
+		return metrics.addAll(c);
+	}
+
+	public boolean addMetric(final Metric e) {
+		return metrics.add(e);
 	}
 
 	public List<PublishedMetric> resolve() {
@@ -30,16 +38,8 @@ public class Analyzer {
 		return resolvedMetrics;
 	}
 
-	public void setMetrics(ArrayList<Metric> metrics) {
+	public void setMetrics(final ArrayList<Metric> metrics) {
 		this.metrics = metrics;
-	}
-
-	public boolean addMetric(Metric e) {
-		return metrics.add(e);
-	}
-
-	public boolean addAllMetrics(Collection<? extends Metric> c) {
-		return metrics.addAll(c);
 	}
 
 }

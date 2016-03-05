@@ -5,18 +5,14 @@ import java.util.List;
 
 public abstract class ScalarMetric<T> extends Metric implements Publishing {
 
-	public ScalarMetric(String defaultName) {
+	protected T value;
+
+	public ScalarMetric(final String defaultName) {
 		super(defaultName);
 	}
 
-	protected T value;
-
 	public T getValue() {
 		return value;
-	}
-
-	public void setValue(T value) {
-		this.value = value;
 	}
 
 	@Override
@@ -24,6 +20,10 @@ public abstract class ScalarMetric<T> extends Metric implements Publishing {
 		List<PublishedMetric> metrics = new ArrayList<PublishedMetric>();
 		metrics.add(new PublishedMetric(value.toString(), name));
 		return metrics;
+	}
+
+	public void setValue(final T value) {
+		this.value = value;
 	}
 
 }

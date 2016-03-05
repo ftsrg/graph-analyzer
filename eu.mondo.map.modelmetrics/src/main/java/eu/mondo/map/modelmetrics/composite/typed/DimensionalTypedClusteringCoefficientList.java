@@ -6,6 +6,8 @@ import eu.mondo.map.core.metrics.typed.TypedListMetric;
 
 public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<String, Double> {
 
+	int i = 0;
+
 	public DimensionalTypedClusteringCoefficientList() {
 		super("DimensionalTypedClusteringCoefficientList");
 	}
@@ -18,13 +20,18 @@ public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<S
 	}
 
 	public void calculate(final Network<?> network, final Node<?> node) {
+		i++;
+		System.out.println(i);
+
 		int interConnected = 0;
 		int numberOfNeighbors = 0;
 		for (String dimension : node.getDimensionsAsSet()) {
 			interConnected = 0;
 			numberOfNeighbors = 0;
 			for (Node<?> neighbor1 : node.getDisjunctNeighbors(dimension)) {
+				// System.out.println("N1");
 				for (Node<?> neighbor2 : node.getDisjunctNeighbors(dimension)) {
+					// System.out.println("N2");
 					if (neighbor1 != neighbor2) {
 						if (neighbor1.hasNeighbor(neighbor2, dimension)) {
 							interConnected++;

@@ -6,12 +6,33 @@ import java.util.List;
 
 public abstract class ListMetric<Value> extends Metric implements Publishing {
 
-	public ListMetric(String defaultName) {
+	protected List<Value> values;
+
+	public ListMetric(final String defaultName) {
 		super(defaultName);
 		this.values = new ArrayList<Value>();
 	}
 
-	protected List<Value> values;
+	public boolean add(final Value e) {
+		return values.add(e);
+	}
+
+	public boolean addAll(final Collection<? extends Value> c) {
+		return values.addAll(c);
+	}
+
+	@Override
+	public void clear() {
+		values.clear();
+	}
+
+	public Value get(final int index) {
+		return values.get(index);
+	}
+
+	public List<Value> getValues() {
+		return values;
+	}
 
 	@Override
 	public List<PublishedMetric> resolve() {
@@ -23,33 +44,12 @@ public abstract class ListMetric<Value> extends Metric implements Publishing {
 		return resolvedMetrics;
 	}
 
-	public List<Value> getValues() {
-		return values;
-	}
-
-	public void setMetricValues(List<Value> metricValues) {
+	public void setMetricValues(final List<Value> metricValues) {
 		this.values = metricValues;
-	}
-
-	public boolean add(Value e) {
-		return values.add(e);
-	}
-
-	public boolean addAll(Collection<? extends Value> c) {
-		return values.addAll(c);
-	}
-
-	@Override
-	public void clear() {
-		values.clear();
 	}
 
 	public int size() {
 		return values.size();
-	}
-
-	public Value get(int index) {
-		return values.get(index);
 	}
 
 }

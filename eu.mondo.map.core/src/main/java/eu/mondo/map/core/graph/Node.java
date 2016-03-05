@@ -15,42 +15,37 @@ public class Node<T> {
 	protected ListMultimap<Node<T>, String> incomingNeighbors;
 	protected ListMultimap<Node<T>, String> outgoingNeighbors;
 
-	public Node(T object) {
+	public Node(final T object) {
 		this.object = object;
 		dimensions = ArrayListMultimap.create();
 		incomingNeighbors = ArrayListMultimap.create();
 		outgoingNeighbors = ArrayListMultimap.create();
 	}
 
-	public int getNumberOfNeighbors(final String dimension) {
-		return getNeighbors(dimension).size();
+	public boolean addDimension(final String dimension, final Node<T> node) {
+		return dimensions.put(dimension, node);
 	}
 
-	public int getNumberOfNeighbors() {
+	public void addIncomingNeighbor(final Node<T> node, final String dimension) {
+		incomingNeighbors.put(node, dimension);
+		addDimension(dimension, node);
+	}
+
+	public void addOutgoingNeighbor(final Node<T> node, final String dimension) {
+		outgoingNeighbors.put(node, dimension);
+		addDimension(dimension, node);
+	}
+
+	public int getDegree() {
 		return incomingNeighbors.size() + outgoingNeighbors.size();
 	}
 
-	public int getNumberOfDisjunctNeighbors() {
-		return getNeighbors().size();
+	public ListMultimap<String, Node<T>> getDimensions() {
+		return dimensions;
 	}
 
-	public int getNumberOfDisjunctNeighbors(final String dimension) {
-		return getDisjunctNeighbors(dimension).size();
-	}
-
-	public List<Node<T>> getNeighbors(final String dimension) {
-		return dimensions.get(dimension);
-	}
-
-	public int getNumberOfDimensions() {
-		return dimensions.size();
-	}
-
-	public List<Node<T>> getNeighbors() {
-		List<Node<T>> neighbors = new ArrayList<Node<T>>();
-		neighbors.addAll(incomingNeighbors.keySet());
-		neighbors.addAll(outgoingNeighbors.keySet());
-		return neighbors;
+	public Set<String> getDimensionsAsSet() {
+		return dimensions.keySet();
 	}
 
 	public Set<Node<T>> getDisjunctNeighbors() {
@@ -61,7 +56,59 @@ public class Node<T> {
 	}
 
 	public Set<Node<T>> getDisjunctNeighbors(final String dimension) {
+		System.out.println("getDisjunctNeighbors in");
 		return ImmutableSet.copyOf(dimensions.get(dimension));
+	}
+
+	public ListMultimap<Node<T>, String> getIncomingNeighbors() {
+		return incomingNeighbors;
+	}
+
+	public List<Node<T>> getNeighbors() {
+		List<Node<T>> neighbors = new ArrayList<Node<T>>();
+		neighbors.addAll(incomingNeighbors.keySet());
+		neighbors.addAll(outgoingNeighbors.keySet());
+		return neighbors;
+	}
+
+	public List<Node<T>> getNeighbors(final String dimension) {
+		return dimensions.get(dimension);
+	}
+
+	public int getNumberOfDimensions() {
+		return dimensions.size();
+	}
+
+	public int getNumberOfDisjunctNeighbors() {
+		return getNeighbors().size();
+	}
+
+	public int getNumberOfDisjunctNeighbors(final String dimension) {
+		return getDisjunctNeighbors(dimension).size();
+	}
+
+	public int getNumberOfNeighbors() {
+		return incomingNeighbors.size() + outgoingNeighbors.size();
+	}
+
+	public int getNumberOfNeighbors(final String dimension) {
+		return getNeighbors(dimension).size();
+	}
+
+	public T getObject() {
+		return object;
+	}
+
+	public ListMultimap<Node<T>, String> getOutgoingNeighbors() {
+		return outgoingNeighbors;
+	}
+
+	public boolean hasDimension(final String dimension) {
+		return dimensions.containsKey(dimension);
+	}
+
+	public boolean hasIncomingNeighbor(final Node<T> node) {
+		return incomingNeighbors.containsKey(node);
 	}
 
 	public boolean hasNeighbor(final Node<?> neighbor) {
@@ -69,6 +116,7 @@ public class Node<T> {
 	}
 
 	public boolean hasNeighbor(final Node<?> neighbor, final String dimension) {
+		System.out.println("hasNeighbor");
 		if (incomingNeighbors.containsKey(neighbor)) {
 			if (incomingNeighbors.get((Node<T>) neighbor).contains(dimension)) {
 				return true;
@@ -81,74 +129,28 @@ public class Node<T> {
 
 	}
 
-	public boolean hasIncomingNeighbor(final Node<T> node) {
-		return incomingNeighbors.containsKey(node);
-	}
-
 	public boolean hasOutgoingNeighbor(final Node<T> node) {
 		return outgoingNeighbors.containsKey(node);
-	}
-
-	public T getObject() {
-		return object;
-	}
-
-	public void setObject(T object) {
-		this.object = object;
-	}
-
-	public ListMultimap<String, Node<T>> getDimensions() {
-		return dimensions;
-	}
-
-	public Set<String> getDimensionsAsSet() {
-		return dimensions.keySet();
-	}
-
-	public void setDimensions(ListMultimap<String, Node<T>> dimensions) {
-		this.dimensions = dimensions;
-	}
-
-	public ListMultimap<Node<T>, String> getIncomingNeighbors() {
-		return incomingNeighbors;
-	}
-
-	public void setIncomingNeighbors(ListMultimap<Node<T>, String> incomingNeighbors) {
-		this.incomingNeighbors = incomingNeighbors;
-	}
-
-	public ListMultimap<Node<T>, String> getOutgoingNeighbors() {
-		return outgoingNeighbors;
-	}
-
-	public void setOutgoingNeighbors(ListMultimap<Node<T>, String> outgoingNeighbors) {
-		this.outgoingNeighbors = outgoingNeighbors;
 	}
 
 	public int numberOfDimensions() {
 		return dimensions.size();
 	}
 
-	public boolean hasDimension(String dimension) {
-		return dimensions.containsKey(dimension);
+	public void setDimensions(final ListMultimap<String, Node<T>> dimensions) {
+		this.dimensions = dimensions;
 	}
 
-	public boolean addDimension(String dimension, final Node<T> node) {
-		return dimensions.put(dimension, node);
+	public void setIncomingNeighbors(final ListMultimap<Node<T>, String> incomingNeighbors) {
+		this.incomingNeighbors = incomingNeighbors;
 	}
 
-	public int getDegree() {
-		return incomingNeighbors.size() + outgoingNeighbors.size();
+	public void setObject(final T object) {
+		this.object = object;
 	}
 
-	public void addOutgoingNeighbor(final Node<T> node, final String dimension) {
-		outgoingNeighbors.put(node, dimension);
-		addDimension(dimension, node);
-	}
-
-	public void addIncomingNeighbor(final Node<T> node, final String dimension) {
-		incomingNeighbors.put(node, dimension);
-		addDimension(dimension, node);
+	public void setOutgoingNeighbors(final ListMultimap<Node<T>, String> outgoingNeighbors) {
+		this.outgoingNeighbors = outgoingNeighbors;
 	}
 
 	@Override

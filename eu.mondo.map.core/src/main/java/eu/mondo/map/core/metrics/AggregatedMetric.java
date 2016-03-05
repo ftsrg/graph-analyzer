@@ -13,11 +13,6 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 		useDefault = true;
 	}
 
-	@Override
-	public void clear() {
-		value = 0.0;
-	}
-
 	public void calculateAverage(final M list) {
 		double sum = 0.0;
 		for (int i = 0; i < list.size(); i++) {
@@ -25,6 +20,11 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 		}
 		value = sum / list.size();
 		listMetricName = "Average";
+	}
+
+	@Override
+	public void clear() {
+		value = 0.0;
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 	}
 
 	@Override
-	public void setName(String name) {
+	public void setName(final String name) {
 		super.setName(name);
 		useDefault = false;
 	}

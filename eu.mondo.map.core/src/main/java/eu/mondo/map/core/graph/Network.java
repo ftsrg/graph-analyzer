@@ -1,36 +1,67 @@
 package eu.mondo.map.core.graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Table;
 
 public class Network<N> {
 
+	/**
+	 * Stores the dimensions as keys and the corresponding nodes as values.
+	 * Every dimension, so every key has a list of such nodes that have at
+	 * least one edge labeled with that dimension. The possible duplication
+	 * among nodes in a list is prevented.
+	 */
 	protected ListMultimap<String, Node<N>> nodesOnDimensions;
 	protected List<Node<N>> nodes;
 	protected BiMap<N, Node<N>> nodesOnObjects;
+	protected Table<Node<N>, Node<N>, Set<String>> adjacency;
 
 	public Network() {
 		nodesOnDimensions = ArrayListMultimap.create();
 		nodes = new ArrayList<Node<N>>();
 		nodesOnObjects = HashBiMap.create();
+		adjacency = HashBasedTable.create();
 	}
 
-	public void clear() {
-		nodesOnDimensions.clear();
-		nodes.clear();
-		nodesOnObjects.clear();
-	}
-
-	public Network(int expectedNumberOfNodes) {
+	public Network(final int expectedNumberOfNodes) {
 		nodesOnDimensions = ArrayListMultimap.create();
 		nodes = new ArrayList<Node<N>>();
 		nodesOnObjects = HashBiMap.create(expectedNumberOfNodes);
+	}
+
+	public void addEdge(final String dimension, final N sourceObject, final N targetObject) {
+		Node<N> sourceNode = findOrCreateNode(sourceObject);
+		Node<N> targetNode = findOrCreateNode(targetObject);
+
+		if (!sourceNode.hasDimension(dimension)) {
+			nodesOnDimensions.put(dimension, sourceNode);
+		}
+		if (!targetNode.hasDimension(dimension)) {
+			nodesOnDimensions.put(dimension, targetNode);
+		}
+
+		setAdjacent(dimension, sourceNode, targetNode);
+		sourceNode.addOutgoingNeighbor(targetNode, dimension);
+		targetNode.addIncomingNeighbor(sourceNode, dimension);
+	}
+
+	public void setAdjacent(final String dimension, final Node<N> sourceNode, final Node<N> targetNode) {
+		if (!adjacency.contains(sourceNode, targetNode)) {
+			Set<String> dimSet = new HashSet<String>();
+			dimSet.add(dimension);
+			adjacency.put(sourceNode, targetNode, dimSet);
+		} else {
+			adjacency.get(sourceNode, targetNode).add(dimension);
+		}
 	}
 
 	public Node<N> addNode(final N object) {
@@ -40,33 +71,24 @@ public class Network<N> {
 		return newNode(object);
 	}
 
-	public Node<N> addNode(final N object, boolean replace) {
+	public Node<N> addNode(final N object, final boolean replace) {
 		if (nodesOnObjects.containsKey(object) && !replace) {
 			return nodesOnObjects.get(object);
 		}
 		return newNode(object);
 	}
 
-	public void addEdge(final String dimension, final N sourceObject, final N targetObject) {
-		Node<N> sourceNode = findOrCreateNode(sourceObject);
-		Node<N> targetNode = findOrCreateNode(targetObject);
-
-		if (!sourceNode.hasDimension(dimension)) {
-			nodesOnDimensions.put(dimension, sourceNode);
-
+	protected void checkDimension(final String dimension) {
+		if (!nodesOnDimensions.containsKey(dimension)) {
+			throw new IllegalArgumentException(
+					"Dimension does not exist in the map as a key: " + dimension);
 		}
-		if (!targetNode.hasDimension(dimension)) {
-			nodesOnDimensions.put(dimension, targetNode);
-		}
-		sourceNode.addOutgoingNeighbor(targetNode, dimension);
-		targetNode.addIncomingNeighbor(sourceNode, dimension);
 	}
 
-	protected Node<N> newNode(final N object) {
-		Node<N> newNode = new Node<N>(object);
-		nodes.add(newNode);
-		nodesOnObjects.put(object, newNode);
-		return newNode;
+	public void clear() {
+		nodesOnDimensions.clear();
+		nodes.clear();
+		nodesOnObjects.clear();
 	}
 
 	protected Node<N> findOrCreateNode(final N object) {
@@ -78,41 +100,16 @@ public class Network<N> {
 		return node;
 	}
 
-	public int getNumberOfNodes() {
-		return nodes.size();
+	public Table<Node<N>, Node<N>, Set<String>> getAdjacency() {
+		return adjacency;
+	}
+
+	public List<Node<N>> getAllNodes() {
+		return nodes;
 	}
 
 	public Set<String> getDimensions() {
 		return nodesOnDimensions.keySet();
-	}
-
-	public int getNumberOfNodes(final String dimension) {
-		checkDimension(dimension);
-		return nodesOnDimensions.get(dimension).size();
-	}
-
-	public int getNumberOfEdges() {
-		int sumOfEdges = 0;
-		for (Node<N> node : nodes) {
-			sumOfEdges += node.getDegree();
-		}
-		sumOfEdges /= 2;
-		return sumOfEdges;
-	}
-
-	public int getNumberOfDimensions() {
-		return nodesOnDimensions.keySet().size();
-	}
-
-	protected void checkDimension(final String dimension) {
-		if (!nodesOnDimensions.containsKey(dimension)) {
-			throw new IllegalArgumentException(
-					"Dimension does not exist in the map as a key: " + dimension);
-		}
-	}
-
-	public ListMultimap<String, Node<N>> getNodesOnDimensions() {
-		return nodesOnDimensions;
 	}
 
 	public Node<N> getNode(final N object) {
@@ -124,12 +121,52 @@ public class Network<N> {
 		return nodesOnDimensions.get(dimension);
 	}
 
-	public List<Node<N>> getAllNodes() {
-		return nodes;
+	public ListMultimap<String, Node<N>> getNodesOnDimensions() {
+		return nodesOnDimensions;
 	}
 
 	public BiMap<N, Node<N>> getNodesOnObjects() {
 		return nodesOnObjects;
+	}
+
+	public int getNumberOfDimensions() {
+		return nodesOnDimensions.keySet().size();
+	}
+
+	public int getNumberOfEdges() {
+		int sumOfEdges = 0;
+		for (Node<N> node : nodes) {
+			sumOfEdges += node.getDegree();
+		}
+		sumOfEdges /= 2;
+		return sumOfEdges;
+	}
+
+	public int getNumberOfNodes() {
+		return nodes.size();
+	}
+
+	public int getNumberOfNodes(final String dimension) {
+		checkDimension(dimension);
+		return nodesOnDimensions.get(dimension).size();
+	}
+
+	public boolean isAdjacent(final Node<N> sourceNode, final Node<N> targetNode) {
+		return adjacency.contains(sourceNode, targetNode);
+	}
+
+	public boolean isAdjacent(final Node<N> sourceNode, final Node<N> targetNode, final String dimension) {
+		if (adjacency.contains(sourceNode, targetNode)) {
+			return adjacency.get(sourceNode, targetNode).contains(dimension);
+		}
+		return false;
+	}
+
+	protected Node<N> newNode(final N object) {
+		Node<N> newNode = new Node<N>(object);
+		nodes.add(newNode);
+		nodesOnObjects.put(object, newNode);
+		return newNode;
 	}
 
 }

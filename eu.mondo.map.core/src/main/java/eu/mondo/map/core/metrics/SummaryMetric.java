@@ -6,8 +6,21 @@ public class SummaryMetric<V extends Comparable<? super V>, M extends ListMetric
 		super("SummaryMetric");
 	}
 
-	@Override
-	public void clear() {
+	public void calculateLowerQuartile() {
+
+	}
+
+	public void calculateMaximum(final M list) {
+		V max = list.get(0);
+		for (int i = 1; i < list.size(); i++) {
+			if (list.get(i).compareTo(max) > 0) {
+				max = list.get(i);
+			}
+		}
+		value = max;
+	}
+
+	public void calculateMedian() {
 
 	}
 
@@ -21,25 +34,12 @@ public class SummaryMetric<V extends Comparable<? super V>, M extends ListMetric
 		value = min;
 	}
 
-	public void calculateMaximum(final M list) {
-		V max = list.get(0);
-		for (int i = 1; i < list.size(); i++) {
-			if (list.get(i).compareTo(max) > 0) {
-				max = list.get(i);
-			}
-		}
-		value = max;
-	}
-
-	public void calculateLowerQuartile() {
-
-	}
-
-	public void calculateMedian() {
-
-	}
-
 	public void calculateUpperQuartile() {
+
+	}
+
+	@Override
+	public void clear() {
 
 	}
 }
