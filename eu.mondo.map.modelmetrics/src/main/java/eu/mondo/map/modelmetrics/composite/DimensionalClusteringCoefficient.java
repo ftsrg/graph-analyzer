@@ -31,8 +31,8 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 		double coef = 0.0;
 
 		for (String dimension1 : node.getDimensionsAsSet()) {
-			for (Node<?> neighbor1 : node.getDisjunctNeighbors(dimension1)) {
-				for (Node<?> neighbor2 : node.getDisjunctNeighbors(dimension1)) {
+			for (Node<?> neighbor1 : node.getNeighbors(dimension1)) {
+				for (Node<?> neighbor2 : node.getNeighbors(dimension1)) {
 					if (neighbor1 != neighbor2) {
 						for (String dimension2 : neighbor1.getDimensionsAsSet()) {
 							if (!dimension1.equals(dimension2)) {
@@ -61,7 +61,46 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 	}
 
 	public double calculateSecondDefinition(final Network<?> network, final Node<?> node) {
+		int numberOfNeighbors = 0;
+		int interConnected = 0;
+		int numberOfPossibleConnections = 0;
 		double coef = 0.0;
+
+		for (String dimension1 : node.getDimensionsAsSet()) {
+			for (String dimension2 : node.getDimensionsAsSet()) {
+				if (!dimension1.equals(dimension2)) {
+					for (Node<?> neighbor1 : node.getNeighbors(dimension1)) {
+						for (Node<?> neighbor2 : node.getNeighbors(dimension2)) {
+							if (neighbor1 != neighbor2) {
+								for (String dimension3 : neighbor1
+										.getDimensionsAsSet()) {
+									if (!dimension1.equals(dimension3)
+											&& !dimension2.equals(
+													dimension3)) {
+										if (neighbor1.hasNeighbor(neighbor2,
+												dimension3)) {
+											interConnected++;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension1);
+			if (numberOfNeighbors > 1) {
+				numberOfPossibleConnections += (numberOfNeighbors) * (numberOfNeighbors - 1);
+			}
+		}
+
+		numberOfPossibleConnections *= (network.getNumberOfDimensions() - 2);
+		if (numberOfPossibleConnections == 0) {
+			coef = 0.0;
+		} else {
+			coef = interConnected / (double) numberOfPossibleConnections;
+		}
+		values.add(coef);
 
 		return coef;
 	}

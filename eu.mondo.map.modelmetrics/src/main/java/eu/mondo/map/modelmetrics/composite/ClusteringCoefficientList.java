@@ -35,8 +35,7 @@ public class ClusteringCoefficientList extends ListMetric<Double> {
 		if (numberOfNeighbors < 2) {
 			clusteringCoef = 0.0;
 		} else {
-			clusteringCoef = interConnected
-					/ (double) (numberOfNeighbors * (numberOfNeighbors - 1));
+			clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
 
 		}
 		values.add(clusteringCoef);
