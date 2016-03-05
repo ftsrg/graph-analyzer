@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Random;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -17,19 +18,76 @@ import eu.mondo.map.core.metrics.ListMetric;
 
 public class ShortestPathList extends ListMetric<Integer> {
 
-	public ShortestPathList() {
-		super("ShortestPathList");
-	}
-
 	protected ListMultimap<Node<?>, Node<?>> visits;
 	protected Map<Node<?>, Integer> depths;
 	protected Map<Node<?>, Integer> results;
 
+	public ShortestPathList() {
+		super("ShortestPathList");
+	}
+
 	public void calculate(final Network<?> network) {
+		clear();
+		for (Node<?> sourceNode : network.getNodes()) {
+			for (Node<?> targetNode : network.getNodes()) {
+				if (sourceNode != targetNode) {
+					addDepth(calculate(sourceNode, targetNode));
+				}
+			}
+		}
 
 	}
 
 	public void calculate(final Network<?> network, final int numberOfRandomPairs) {
+		clear();
+		int numberOfNodes = network.getNumberOfNodes();
+		checkNumberOfRandomPairs(numberOfNodes, numberOfRandomPairs);
+
+		ListMultimap<Integer, Integer> pairs = ArrayListMultimap.create();
+		Random random = new Random();
+		int iteration = 0;
+		int firstIndex = 0;
+		int secondIndex = 0;
+		while (iteration < numberOfRandomPairs) {
+			firstIndex = random.nextInt(numberOfNodes);
+			secondIndex = random.nextInt(numberOfNodes);
+			if (firstIndex == secondIndex) {
+				continue;
+			}
+			if (!pairs.containsEntry(firstIndex, secondIndex)) {
+				pairs.put(firstIndex, secondIndex);
+				iteration++;
+			}
+		}
+
+		Node<?> sourceNode;
+		Node<?> targetNode;
+		for (Integer sourceIndex : pairs.keySet()) {
+			sourceNode = network.getNodes().get(sourceIndex);
+			for (Integer targetIndex : pairs.get(sourceIndex)) {
+				targetNode = network.getNodes().get(targetIndex);
+				addDepth(calculate(sourceNode, targetNode));
+			}
+		}
+	}
+
+	protected void addDepth(final List<Path> paths) {
+		if (paths.isEmpty()) {
+			values.add(0);
+		} else {
+			values.add(paths.get(0).getDepth());
+		}
+	}
+
+	protected void checkNumberOfRandomPairs(int numberOfNodes, int numberOfRandomPairs) {
+		if (numberOfRandomPairs < 1) {
+			throw new IllegalArgumentException("The numberOfRandomPairs parameter must be positive");
+		}
+		if (numberOfRandomPairs > (numberOfNodes * (numberOfNodes - 1))) {
+			throw new IllegalArgumentException(
+					"The numberOfRandomPairs parameter is invalid, cannot find as many number of shortest paths as "
+							+ numberOfRandomPairs);
+		}
 
 	}
 
@@ -118,10 +176,11 @@ public class ShortestPathList extends ListMetric<Integer> {
 	 * @param currentNode
 	 * @param expectedDepth
 	 * 
-	 * @return true if the results Map is not empty and the currentNode's depth is higher or equal than
-	 *         the expectedDepth, false otherwise
+	 * @return true if the results Map is not empty and the currentNode's
+	 *         depth is higher or equal than the expectedDepth, false
+	 *         otherwise
 	 */
-	private boolean higherDepth(final Node<?> currentNode, final int expectedDepth) {
+	protected boolean higherDepth(final Node<?> currentNode, final int expectedDepth) {
 		if (!results.isEmpty()) {
 			return depths.get(currentNode) >= expectedDepth;
 		}

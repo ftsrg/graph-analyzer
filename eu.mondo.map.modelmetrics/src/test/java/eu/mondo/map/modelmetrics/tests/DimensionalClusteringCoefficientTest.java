@@ -17,7 +17,7 @@ import org.junit.Test;
 import eu.mondo.map.core.metrics.tests.ListMetricTest;
 import eu.mondo.map.modelmetrics.composite.DimensionalClusteringCoefficient;
 
-public class DimensionalClusteringCoefficientTest extends ListMetricTest<DimensionalClusteringCoefficient> {
+public class DimensionalClusteringCoefficientTest extends ListMetricTest<Double, DimensionalClusteringCoefficient> {
 
 	@Override
 	public DimensionalClusteringCoefficient initMetric() {

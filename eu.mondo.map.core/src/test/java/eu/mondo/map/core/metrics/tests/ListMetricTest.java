@@ -4,10 +4,50 @@ import org.junit.Assert;
 
 import eu.mondo.map.core.metrics.ListMetric;
 
-public abstract class ListMetricTest<M extends ListMetric<?>> extends MetricTest<M> {
+/**
+ * 
+ *
+ * @param <V>
+ *                represents the generic Value in ListMetric
+ * @param <M>
+ *                derived from ListMetric
+ * 
+ * @see ListMetric
+ */
+public abstract class ListMetricTest<V, M extends ListMetric<V>> extends MetricTest<M> {
 
-	protected void checkSize(int expected) {
+	public void checkSize(int expected) {
 		Assert.assertEquals(expected, metric.size());
+	}
+
+	public void checkAppearance(int expecpectedAppearance, final V value) {
+		int appearance = 0;
+		for (int i = 0; i < metric.size(); i++) {
+			if (value.equals(metric.get(i))) {
+				appearance++;
+			}
+		}
+		Assert.assertEquals(expecpectedAppearance, appearance);
+	}
+
+	public void checkMinAppearance(int expecpectedMinAppearance, final V value) {
+		int appearance = 0;
+		for (int i = 0; i < metric.size(); i++) {
+			if (value.equals(metric.get(i))) {
+				appearance++;
+			}
+		}
+		Assert.assertTrue(appearance >= expecpectedMinAppearance);
+	}
+
+	public void checkMaxAppearance(int expecpectedMaxAppearance, final V value) {
+		int appearance = 0;
+		for (int i = 0; i < metric.size(); i++) {
+			if (value.equals(metric.get(i))) {
+				appearance++;
+			}
+		}
+		Assert.assertTrue(appearance <= expecpectedMaxAppearance);
 	}
 
 }

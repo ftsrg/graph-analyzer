@@ -26,7 +26,7 @@ import eu.mondo.map.core.metrics.tests.ListMetricTest;
 import eu.mondo.map.modelmetrics.composite.ShortestPathList;
 import eu.mondo.map.modelmetrics.composite.ShortestPathList.Path;
 
-public class ShortestPathListTest extends ListMetricTest<ShortestPathList> {
+public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathList> {
 
 	protected ModelContext mc;
 
@@ -88,6 +88,14 @@ public class ShortestPathListTest extends ListMetricTest<ShortestPathList> {
 		return paths;
 	}
 
+	protected void calculate() {
+		metric.calculate(network);
+	}
+
+	protected void calculate(int numberOfRandomPairs) {
+		metric.calculate(network, numberOfRandomPairs);
+	}
+
 	@Test
 	public void nullPath() {
 		network.addEdge(dim1, node1, node2);
@@ -95,6 +103,7 @@ public class ShortestPathListTest extends ListMetricTest<ShortestPathList> {
 
 		List<Path> paths = calculate(node3, node2);
 		Assert.assertTrue(paths.isEmpty());
+
 	}
 
 	@Test
@@ -212,21 +221,6 @@ public class ShortestPathListTest extends ListMetricTest<ShortestPathList> {
 
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node8, node2, node1));
-		// containsPath(paths, Lists.newArrayList(node8,
-		// node5, node2,
-		// node1));
-		// containsPath(paths, Lists.newArrayList(node8,
-		// node6, node3,
-		// node1));
-		// containsPath(paths, Lists.newArrayList(node8,
-		// node6, node2,
-		// node1));
-		// containsPath(paths, Lists.newArrayList(node8,
-		// node6, node4,
-		// node1));
-		// containsPath(paths, Lists.newArrayList(node8,
-		// node7, node4,
-		// node1));
 	}
 
 	@Test
@@ -440,6 +434,92 @@ public class ShortestPathListTest extends ListMetricTest<ShortestPathList> {
 		containsPath(paths, Lists.newArrayList(node6, node2, node1));
 		containsPath(paths, Lists.newArrayList(node6, node3, node1));
 		containsPath(paths, Lists.newArrayList(node6, node4, node1));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testRandomSampleException1() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		calculate(-2);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testRandomSampleException2() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		calculate(0);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testRandomSampleException3() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+		calculate(7);
+	}
+
+	@Test
+	public void testRandomSample1() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+
+		calculate(3);
+		checkSize(3);
+	}
+
+	@Test
+	public void testRandomSample2() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+
+		calculate(6);
+		checkSize(6);
+		checkAppearance(2, 1);
+		checkAppearance(4, 0);
+	}
+
+	@Test
+	public void testRandomSample3() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node2, node3);
+		network.addEdge(dim1, node2, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node4, node5);
+
+		calculate(20);
+		checkSize(20);
+		checkAppearance(12, 0);
+		checkAppearance(5, 1);
+		checkAppearance(3, 2);
+		checkAppearance(0, 3);
+	}
+
+	@Test
+	public void testCalculationforAll1() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node1, node3);
+
+		calculate();
+
+		checkSize(6);
+		checkAppearance(2, 1);
+		checkAppearance(4, 0);
+	}
+
+	@Test
+	public void testCalculationforAll2() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim1, node2, node3);
+		network.addEdge(dim1, node2, node4);
+		network.addEdge(dim1, node2, node5);
+		network.addEdge(dim1, node4, node5);
+
+		calculate();
+
+		checkSize(20);
+		checkAppearance(12, 0);
+		checkAppearance(5, 1);
+		checkAppearance(3, 2);
+		checkAppearance(0, 3);
 	}
 
 }
