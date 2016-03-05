@@ -12,7 +12,7 @@ public class ClusteringCoefficientList extends ListMetric<Double> {
 
 	public void calculate(final Network<?> network) {
 		clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			calculate(node);
 		}
 	}

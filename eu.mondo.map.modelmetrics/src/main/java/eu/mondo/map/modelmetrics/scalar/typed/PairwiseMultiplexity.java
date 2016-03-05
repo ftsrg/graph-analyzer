@@ -58,7 +58,7 @@ public class PairwiseMultiplexity extends TypedScalarMetric<String, Double> {
 
 	protected void findDimensionPairs(final Network<?> network) {
 		dimensionPairs.clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			for (String dim1 : node.getDimensionsAsSet()) {
 				for (String dim2 : node.getDimensionsAsSet()) {
 					if (!dim1.equals(dim2)) {

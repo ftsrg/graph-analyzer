@@ -110,7 +110,7 @@ public class Network<N> {
 		return adjacency;
 	}
 
-	public List<Node<N>> getAllNodes() {
+	public List<Node<N>> getNodes() {
 		return nodes;
 	}
 

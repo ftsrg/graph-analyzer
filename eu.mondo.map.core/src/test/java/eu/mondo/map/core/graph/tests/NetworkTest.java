@@ -27,8 +27,8 @@ public class NetworkTest {
 		Assert.assertEquals(0, node.getDimensions().size());
 		Assert.assertEquals("node1", node.getObject());
 
-		Assert.assertEquals(1, network.getAllNodes().size());
-		Assert.assertEquals(node, network.getAllNodes().get(0));
+		Assert.assertEquals(1, network.getNodes().size());
+		Assert.assertEquals(node, network.getNodes().get(0));
 		Assert.assertEquals(node, network.getNodesOnObjects().get("node1"));
 
 	}
@@ -56,7 +56,7 @@ public class NetworkTest {
 		Assert.assertTrue(node.hasNeighbor(node2));
 		Assert.assertTrue(node.hasDimension("dim1"));
 
-		Assert.assertEquals(2, network.getAllNodes().size());
+		Assert.assertEquals(2, network.getNodes().size());
 		Assert.assertEquals(2, network.getNumberOfNodes("dim1"));
 		Assert.assertEquals(2, network.getNodesOnObjects().size());
 
@@ -78,7 +78,7 @@ public class NetworkTest {
 		node2 = network.getNode("node2");
 
 		Assert.assertEquals(1, node.getDegree());
-		Assert.assertEquals(node, network.getAllNodes().get(0));
+		Assert.assertEquals(node, network.getNodes().get(0));
 		Assert.assertTrue(network.isAdjacent(node, node2));
 		Assert.assertTrue(network.isAdjacent(node, node2, "dim1"));
 
@@ -92,9 +92,9 @@ public class NetworkTest {
 		node2 = network.addNode("node2");
 		network.addEdge("dim1", "node1", "node2");
 
-		Assert.assertEquals(node, network.getAllNodes().get(0));
-		Assert.assertEquals(node2, network.getAllNodes().get(1));
-		Assert.assertEquals(2, network.getAllNodes().size());
+		Assert.assertEquals(node, network.getNodes().get(0));
+		Assert.assertEquals(node2, network.getNodes().get(1));
+		Assert.assertEquals(2, network.getNodes().size());
 
 		Assert.assertTrue(node.hasNeighbor(node2));
 		Assert.assertTrue(node.hasDimension("dim1"));

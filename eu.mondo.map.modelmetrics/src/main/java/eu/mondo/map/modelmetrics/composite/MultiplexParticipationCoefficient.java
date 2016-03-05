@@ -12,14 +12,14 @@ public class MultiplexParticipationCoefficient extends ListMetric<Double> {
 
 	public void calculate(final Network<?> network) {
 		clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			calculate(network, node, false);
 		}
 	}
 
 	public void calculateExclusive(final Network<?> network) {
 		clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			calculate(network, node, true);
 		}
 	}

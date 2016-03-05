@@ -12,14 +12,14 @@ public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<S
 
 	public void calculate(final Network<?> network) {
 		clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			calculate(network, node, false, 0);
 		}
 	}
 
 	public void calculate(final Network<?> network, final int maxNumberOfNeighbors) {
 		clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			calculate(network, node, true, maxNumberOfNeighbors);
 		}
 	}

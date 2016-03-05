@@ -12,14 +12,14 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 
 	public void calculateFirstDefinition(final Network<?> network) {
 		clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			calculateFirstDefinition(network, node);
 		}
 	}
 
 	public void calculateSecondDefinition(final Network<?> network) {
 		clear();
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			calculateSecondDefinition(network, node);
 		}
 	}

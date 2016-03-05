@@ -11,7 +11,7 @@ public class DegreeList extends ListMetric<Integer> {
 	}
 
 	public void calculate(final Network<?> network) {
-		for (Node<?> node : network.getAllNodes()) {
+		for (Node<?> node : network.getNodes()) {
 			values.add(node.getDegree());
 		}
 	}
