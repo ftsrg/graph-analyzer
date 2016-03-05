@@ -6,8 +6,6 @@ import eu.mondo.map.core.metrics.typed.TypedListMetric;
 
 public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<String, Double> {
 
-	int i = 0;
-
 	public DimensionalTypedClusteringCoefficientList() {
 		super("DimensionalTypedClusteringCoefficientList");
 	}
@@ -15,33 +13,47 @@ public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<S
 	public void calculate(final Network<?> network) {
 		clear();
 		for (Node<?> node : network.getAllNodes()) {
-			calculate(network, node);
+			calculate(network, node, false, 0);
 		}
 	}
 
-	public void calculate(final Network<?> network, final Node<?> node) {
-		i++;
-		System.out.println(i);
+	public void calculate(final Network<?> network, final int maxNumberOfNeighbors) {
+		clear();
+		for (Node<?> node : network.getAllNodes()) {
+			calculate(network, node, true, maxNumberOfNeighbors);
+		}
+	}
 
+	public void calculate(final Network<?> network, final Node<?> node, final int maxNumberOfNeighbors) {
+		calculate(network, node, true, maxNumberOfNeighbors);
+	}
+
+	public void calculate(final Network<?> network, final Node<?> node) {
+		calculate(network, node, false, 0);
+	}
+
+	protected void calculate(final Network<?> network, final Node<?> node, final boolean bounded,
+			final int maxNumberOfNeighbors) {
 		int interConnected = 0;
 		int numberOfNeighbors = 0;
 		for (String dimension : node.getDimensionsAsSet()) {
 			interConnected = 0;
 			numberOfNeighbors = 0;
-			for (Node<?> neighbor1 : node.getDisjunctNeighbors(dimension)) {
-				// System.out.println("N1");
-				for (Node<?> neighbor2 : node.getDisjunctNeighbors(dimension)) {
-					// System.out.println("N2");
+			numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension);
+			if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
+				typedValues.put(dimension, 0.0);
+				continue;
+			}
+			for (Node<?> neighbor1 : node.getNeighbors(dimension)) {
+				for (Node<?> neighbor2 : node.getNeighbors(dimension)) {
 					if (neighbor1 != neighbor2) {
-						if (neighbor1.hasNeighbor(neighbor2, dimension)) {
+						if (network.isAdjacentUndirected(neighbor1, neighbor2, dimension)) {
 							interConnected++;
 						}
 					}
 
 				}
-
 			}
-			numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension);
 			double clusteringCoef = 0.0;
 			if (numberOfNeighbors < 2) {
 				clusteringCoef = 0.0;
