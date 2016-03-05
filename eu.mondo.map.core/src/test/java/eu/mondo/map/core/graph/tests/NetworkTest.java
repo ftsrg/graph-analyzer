@@ -66,6 +66,9 @@ public class NetworkTest {
 		Assert.assertTrue(network.isAdjacent(node, node2));
 		Assert.assertTrue(network.isAdjacent(node, node2, "dim1"));
 		Assert.assertFalse(network.isAdjacent(node, node2, "dim2"));
+
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2, "dim1"));
 	}
 
 	@Test
@@ -78,6 +81,9 @@ public class NetworkTest {
 		Assert.assertEquals(node, network.getAllNodes().get(0));
 		Assert.assertTrue(network.isAdjacent(node, node2));
 		Assert.assertTrue(network.isAdjacent(node, node2, "dim1"));
+
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2, "dim1"));
 	}
 
 	@Test
@@ -102,6 +108,8 @@ public class NetworkTest {
 
 		Assert.assertTrue(network.isAdjacent(node, node2));
 		Assert.assertTrue(network.isAdjacent(node, node2, "dim1"));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2, "dim1"));
 	}
 
 	@Test
@@ -125,8 +133,13 @@ public class NetworkTest {
 
 		Assert.assertTrue(network.isAdjacent(node, node2));
 		Assert.assertTrue(network.isAdjacent(node, node2, "dim1"));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2, "dim1"));
+
 		Assert.assertTrue(network.isAdjacent(node2, node));
 		Assert.assertTrue(network.isAdjacent(node2, node, "dim1"));
+		Assert.assertTrue(network.isAdjacentUndirected(node2, node));
+		Assert.assertTrue(network.isAdjacentUndirected(node2, node, "dim1"));
 
 	}
 
@@ -156,10 +169,16 @@ public class NetworkTest {
 		Assert.assertTrue(network.isAdjacent(node, node2));
 		Assert.assertTrue(network.isAdjacent(node, node2, "dim1"));
 		Assert.assertFalse(network.isAdjacent(node, node2, "dim2"));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2, "dim1"));
+		Assert.assertTrue(network.isAdjacentUndirected(node, node2, "dim2"));
 
 		Assert.assertTrue(network.isAdjacent(node2, node));
 		Assert.assertTrue(network.isAdjacent(node2, node, "dim2"));
 		Assert.assertFalse(network.isAdjacent(node2, node, "dim1"));
+		Assert.assertTrue(network.isAdjacentUndirected(node2, node));
+		Assert.assertTrue(network.isAdjacentUndirected(node2, node, "dim1"));
+		Assert.assertTrue(network.isAdjacentUndirected(node2, node, "dim2"));
 
 	}
 

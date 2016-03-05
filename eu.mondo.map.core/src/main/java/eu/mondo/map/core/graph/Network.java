@@ -23,6 +23,12 @@ public class Network<N> {
 	protected ListMultimap<String, Node<N>> nodesOnDimensions;
 	protected List<Node<N>> nodes;
 	protected BiMap<N, Node<N>> nodesOnObjects;
+
+	/**
+	 * Represents an adjacency matrix between nodes. A pair of nodes appear
+	 * in the Table if exists a connection among them. The dimension of the
+	 * connection is stored in Set<String> parameter.
+	 */
 	protected Table<Node<N>, Node<N>, Set<String>> adjacency;
 
 	public Network() {
@@ -151,15 +157,32 @@ public class Network<N> {
 		return nodesOnDimensions.get(dimension).size();
 	}
 
-	public boolean isAdjacent(final Node<N> sourceNode, final Node<N> targetNode) {
+	public boolean isAdjacent(final Node<?> sourceNode, final Node<?> targetNode) {
 		return adjacency.contains(sourceNode, targetNode);
 	}
 
-	public boolean isAdjacent(final Node<N> sourceNode, final Node<N> targetNode, final String dimension) {
+	public boolean isAdjacent(final Node<?> sourceNode, final Node<?> targetNode, final String dimension) {
 		if (adjacency.contains(sourceNode, targetNode)) {
 			return adjacency.get(sourceNode, targetNode).contains(dimension);
 		}
 		return false;
+	}
+
+	public boolean isAdjacentUndirected(final Node<?> sourceNode, final Node<?> targetNode) {
+		if (isAdjacent(sourceNode, targetNode)) {
+			return true;
+		} else {
+			return isAdjacent(targetNode, sourceNode);
+		}
+	}
+
+	public boolean isAdjacentUndirected(final Node<?> sourceNode, final Node<?> targetNode,
+			final String dimension) {
+		if (isAdjacent(sourceNode, targetNode, dimension)) {
+			return true;
+		} else {
+			return isAdjacent(targetNode, sourceNode, dimension);
+		}
 	}
 
 	protected Node<N> newNode(final N object) {
