@@ -23,6 +23,9 @@ public class Node<T> {
 	}
 
 	public boolean addDimension(final String dimension, final Node<T> node) {
+		if (dimensions.containsEntry(dimension, node)) {
+			return false;
+		}
 		return dimensions.put(dimension, node);
 	}
 
@@ -56,7 +59,6 @@ public class Node<T> {
 	}
 
 	public Set<Node<T>> getDisjunctNeighbors(final String dimension) {
-		System.out.println("getDisjunctNeighbors in");
 		return ImmutableSet.copyOf(dimensions.get(dimension));
 	}
 
@@ -116,7 +118,6 @@ public class Node<T> {
 	}
 
 	public boolean hasNeighbor(final Node<?> neighbor, final String dimension) {
-		System.out.println("hasNeighbor");
 		if (incomingNeighbors.containsKey(neighbor)) {
 			if (incomingNeighbors.get((Node<T>) neighbor).contains(dimension)) {
 				return true;
@@ -135,10 +136,6 @@ public class Node<T> {
 
 	public int numberOfDimensions() {
 		return dimensions.size();
-	}
-
-	public void setDimensions(final ListMultimap<String, Node<T>> dimensions) {
-		this.dimensions = dimensions;
 	}
 
 	public void setIncomingNeighbors(final ListMultimap<Node<T>, String> incomingNeighbors) {
