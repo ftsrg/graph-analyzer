@@ -72,6 +72,7 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 					for (Node<?> neighbor1 : node.getNeighbors(dimension1)) {
 						for (Node<?> neighbor2 : node.getNeighbors(dimension2)) {
 							if (neighbor1 != neighbor2) {
+								numberOfPossibleConnections++;
 								for (String dimension3 : neighbor1
 										.getDimensionsAsSet()) {
 									if (!dimension1.equals(dimension3)
@@ -87,10 +88,6 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 						}
 					}
 				}
-			}
-			numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension1);
-			if (numberOfNeighbors > 1) {
-				numberOfPossibleConnections += (numberOfNeighbors) * (numberOfNeighbors - 1);
 			}
 		}
 

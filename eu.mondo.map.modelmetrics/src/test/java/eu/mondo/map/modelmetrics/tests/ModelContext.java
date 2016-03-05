@@ -9,6 +9,7 @@ public class ModelContext {
 	public static String dim1;
 	public static String dim2;
 	public static String dim3;
+	public static String dim4;
 	public static String node1;
 	public static String node2;
 	public static String node3;
@@ -33,6 +34,7 @@ public class ModelContext {
 		dim1 = "dim1";
 		dim2 = "dim2";
 		dim3 = "dim3";
+		dim4 = "dim4";
 	}
 
 }

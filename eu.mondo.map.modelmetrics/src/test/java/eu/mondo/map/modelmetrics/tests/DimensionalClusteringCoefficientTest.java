@@ -3,6 +3,7 @@ package eu.mondo.map.modelmetrics.tests;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim3;
+import static eu.mondo.map.modelmetrics.tests.ModelContext.dim4;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.network;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
@@ -28,12 +29,20 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		network.clear();
 	}
 
-	protected void checkValue(double expected, String node) {
+	protected void checkFirstValue(double expected, String node) {
 		Assert.assertEquals(expected, metric.calculateFirstDefinition(network, network.getNode(node)), 0.01);
+	}
+
+	protected void checkSecondValue(double expected, String node) {
+		Assert.assertEquals(expected, metric.calculateSecondDefinition(network, network.getNode(node)), 0.01);
 	}
 
 	protected void calculateFirstDefinition() {
 		metric.calculateFirstDefinition(network);
+	}
+
+	protected void calculateSecondDefinition() {
+		metric.calculateSecondDefinition(network);
 	}
 
 	@Test
@@ -44,10 +53,15 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
-		checkValue(0.0, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
+		checkFirstValue(0.0, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
 
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
 	}
 
 	@Test
@@ -58,9 +72,15 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
-		checkValue(0.0, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
+		checkFirstValue(0.0, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
 
 	}
 
@@ -73,9 +93,15 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
-		checkValue(0.0, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
+		checkFirstValue(0.0, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
 
 	}
 
@@ -88,9 +114,15 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
-		checkValue(1.0, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
+		checkFirstValue(1.0, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
 	}
 
 	@Test
@@ -103,9 +135,15 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(3);
 		metric.clear();
-		checkValue(1.0, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
+		checkFirstValue(1.0, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
 	}
 
 	@Test
@@ -119,10 +157,17 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(4);
 		metric.clear();
-		checkValue(1.0, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
-		checkValue(0.0, node4);
+		checkFirstValue(1.0, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+		checkFirstValue(0.0, node4);
+
+		calculateSecondDefinition();
+		checkSize(4);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
+		checkSecondValue(0.0, node4);
 	}
 
 	@Test
@@ -137,11 +182,19 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(5);
 		metric.clear();
-		checkValue(0.5, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
-		checkValue(0.0, node4);
-		checkValue(0.0, node5);
+		checkFirstValue(0.5, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+		checkFirstValue(0.0, node4);
+		checkFirstValue(0.0, node5);
+
+		calculateSecondDefinition();
+		checkSize(5);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
+		checkSecondValue(0.0, node4);
+		checkSecondValue(0.0, node5);
 	}
 
 	@Test
@@ -157,11 +210,19 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(5);
 		metric.clear();
-		checkValue(0.5, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
-		checkValue(0.0, node4);
-		checkValue(1.0, node5);
+		checkFirstValue(0.5, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+		checkFirstValue(0.0, node4);
+		checkFirstValue(1.0, node5);
+
+		calculateSecondDefinition();
+		checkSize(5);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
+		checkSecondValue(0.0, node4);
+		checkSecondValue(0.0, node5);
 	}
 
 	@Test
@@ -178,11 +239,19 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(5);
 		metric.clear();
-		checkValue(0.5, node1);
-		checkValue(0.25, node2);
-		checkValue(0.0, node3);
-		checkValue(0.0, node4);
-		checkValue(1.0, node5);
+		checkFirstValue(0.5, node1);
+		checkFirstValue(0.25, node2);
+		checkFirstValue(0.0, node3);
+		checkFirstValue(0.0, node4);
+		checkFirstValue(1.0, node5);
+
+		calculateSecondDefinition();
+		checkSize(5);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
+		checkSecondValue(0.0, node4);
+		checkSecondValue(0.0, node5);
 	}
 
 	@Test
@@ -197,10 +266,17 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(4);
 		metric.clear();
-		checkValue(0.0, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
-		checkValue(0.0, node4);
+		checkFirstValue(0.0, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+		checkFirstValue(0.0, node4);
+
+		calculateSecondDefinition();
+		checkSize(4);
+		checkSecondValue(0.0, node1);
+		checkSecondValue(0.0, node2);
+		checkSecondValue(0.0, node3);
+		checkSecondValue(0.0, node4);
 	}
 
 	@Test
@@ -216,10 +292,75 @@ public class DimensionalClusteringCoefficientTest extends ListMetricTest<Dimensi
 		calculateFirstDefinition();
 		checkSize(4);
 		metric.clear();
-		checkValue(0.25, node1);
-		checkValue(0.0, node2);
-		checkValue(0.0, node3);
-		checkValue(1.0, node4);
+		checkFirstValue(0.25, node1);
+		checkFirstValue(0.0, node2);
+		checkFirstValue(0.0, node3);
+		checkFirstValue(1.0, node4);
+
+		calculateSecondDefinition();
+		checkSize(4);
+		checkSecondValue(0.2857, node1);
+		checkSecondValue(1.0, node2);
+		checkSecondValue(0.0, node3);
+		checkSecondValue(1.0, node4);
+	}
+
+	@Test
+	public void calculate12() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim2, node1, node3);
+		network.addEdge(dim3, node2, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(1.0, node1);
+		checkSecondValue(1.0, node2);
+		checkSecondValue(1.0, node3);
+	}
+
+	@Test
+	public void calculate13() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim2, node1, node3);
+		network.addEdge(dim3, node2, node3);
+		network.addEdge(dim4, node2, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(1.0, node1);
+		checkSecondValue(0.5, node2);
+		checkSecondValue(0.5, node3);
+	}
+
+	@Test
+	public void calculate14() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim2, node1, node3);
+		network.addEdge(dim2, node2, node3);
+		network.addEdge(dim3, node2, node3);
+		network.addEdge(dim4, node2, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(1.0, node1);
+		checkSecondValue(0.33, node2);
+		checkSecondValue(0.5, node3);
+	}
+
+	@Test
+	public void calculate15() {
+		network.addEdge(dim1, node1, node2);
+		network.addEdge(dim2, node1, node3);
+		network.addEdge(dim1, node2, node3);
+		network.addEdge(dim2, node2, node3);
+		network.addEdge(dim3, node2, node3);
+		network.addEdge(dim4, node2, node3);
+
+		calculateSecondDefinition();
+		checkSize(3);
+		checkSecondValue(1.0, node1);
+		checkSecondValue(0.33, node2);
+		checkSecondValue(0.33, node3);
 	}
 
 }
