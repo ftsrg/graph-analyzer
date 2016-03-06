@@ -349,7 +349,6 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node3, node5);
 		network.addEdge(dim1, node4, node3);
 		network.addEdge(dim1, node4, node6);
-		network.addEdge(dim1, node4, node3);
 		network.addEdge(dim1, node5, node6);
 
 		List<Path> paths = calculate(node1, node6);
