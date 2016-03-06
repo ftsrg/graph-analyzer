@@ -40,9 +40,23 @@ public class ShortestPathList extends ListMetric<Integer> {
 
 	public void calculate(final Network<?> network, final int numberOfRandomPairs) {
 		clear();
+		ListMultimap<Integer, Integer> pairs = determineRandomPairs(network, numberOfRandomPairs);
+
+		Node<?> sourceNode;
+		Node<?> targetNode;
+		for (Integer sourceIndex : pairs.keySet()) {
+			sourceNode = network.getNodes().get(sourceIndex);
+			for (Integer targetIndex : pairs.get(sourceIndex)) {
+				targetNode = network.getNodes().get(targetIndex);
+				addDepth(calculate(sourceNode, targetNode));
+			}
+		}
+	}
+
+	protected ListMultimap<Integer, Integer> determineRandomPairs(final Network<?> network,
+			final int numberOfRandomPairs) {
 		int numberOfNodes = network.getNumberOfNodes();
 		checkNumberOfRandomPairs(numberOfNodes, numberOfRandomPairs);
-
 		ListMultimap<Integer, Integer> pairs = ArrayListMultimap.create();
 		Random random = new Random();
 		int iteration = 0;
@@ -59,16 +73,7 @@ public class ShortestPathList extends ListMetric<Integer> {
 				iteration++;
 			}
 		}
-
-		Node<?> sourceNode;
-		Node<?> targetNode;
-		for (Integer sourceIndex : pairs.keySet()) {
-			sourceNode = network.getNodes().get(sourceIndex);
-			for (Integer targetIndex : pairs.get(sourceIndex)) {
-				targetNode = network.getNodes().get(targetIndex);
-				addDepth(calculate(sourceNode, targetNode));
-			}
-		}
+		return pairs;
 	}
 
 	protected void addDepth(final List<Path> paths) {
