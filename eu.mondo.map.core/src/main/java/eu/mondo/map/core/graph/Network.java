@@ -55,6 +55,10 @@ public class Network<N> {
 			nodesOnDimensions.put(dimension, targetNode);
 		}
 
+		if (isAdjacent(sourceNode, targetNode, dimension)) {
+			throw new RuntimeException("A connection in " + dimension
+					+ " does already exist between the nodes: " + sourceNode + ", " + targetNode);
+		}
 		setAdjacent(dimension, sourceNode, targetNode);
 		sourceNode.addOutgoingNeighbor(targetNode, dimension);
 		targetNode.addIncomingNeighbor(sourceNode, dimension);
@@ -66,7 +70,9 @@ public class Network<N> {
 			dimSet.add(dimension);
 			adjacency.put(sourceNode, targetNode, dimSet);
 		} else {
-			adjacency.get(sourceNode, targetNode).add(dimension);
+			Set<String> dimSet = adjacency.get(sourceNode, targetNode);
+			dimSet.add(dimension);
+			adjacency.put(sourceNode, targetNode, dimSet);
 		}
 	}
 
