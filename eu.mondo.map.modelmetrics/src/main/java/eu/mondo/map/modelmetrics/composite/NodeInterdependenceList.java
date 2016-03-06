@@ -54,26 +54,55 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 			return;
 		}
 
-		int mixedPath = 0;
-		for (Path p : paths) {
-			if (numberOfDimensions(network, p) >= 2) {
-				mixedPath++;
-			}
-		}
-		double interdependence = mixedPath / (double) paths.size();
+		double interdependence = calculate(network, paths);
 		values.add(interdependence);
 	}
 
-	protected int numberOfDimensions(final Network<?> network, final Path path) {
-		List<Node<?>> nodesPaths = path.getPath();
-		Set<String> dimensions;
-		Set<String> allDimensions = new HashSet<String>();
+	public double calculate(final Network<?> network, final List<Path> paths) {
+		int allPossibleRoutes = 0;
+		int allMultidimensionalRoutes = 0;
+		int possibleRoutesInPath = 1;
+		int multiDimensionalRoutesInPath = 0;
+		Set<String> firstDimensions;
 
-		for (int i = 0; i < nodesPaths.size() - 1; i++) {
-			dimensions = network.getAdjacency().get(nodesPaths.get(i), nodesPaths.get(i + 1));
-			allDimensions.addAll(dimensions);
+		for (Path path : paths) {
+			List<Node<?>> nodesInPath = getCheckedNodes(path);
+			Set<String> dimensions = getCheckedDimensions(network, nodesInPath, 1, 0);
+			firstDimensions = new HashSet<String>();
+			firstDimensions.addAll(dimensions);
+
+			possibleRoutesInPath = 1;
+			multiDimensionalRoutesInPath = 0;
+			for (int i = 0; i < nodesInPath.size() - 1; i++) {
+				dimensions = getCheckedDimensions(network, nodesInPath, i + 1, i);
+				possibleRoutesInPath *= dimensions.size();
+				firstDimensions.retainAll(dimensions);
+			}
+			multiDimensionalRoutesInPath = possibleRoutesInPath - firstDimensions.size();
+			allPossibleRoutes += possibleRoutesInPath;
+			allMultidimensionalRoutes += multiDimensionalRoutesInPath;
 		}
-		return allDimensions.size();
+		return allMultidimensionalRoutes / (double) allPossibleRoutes;
+	}
+
+	protected Set<String> getCheckedDimensions(final Network<?> network, final List<Node<?>> nodesInPath,
+			final int sourceIndex, final int targetIndex) {
+		Set<String> dimensions = network.getAdjacency().get(nodesInPath.get(sourceIndex),
+				nodesInPath.get(targetIndex));
+		if (dimensions == null || dimensions.isEmpty()) {
+//			System.out.println(network.getAdjacency());
+			throw new RuntimeException("There is no dimension between the nodes: "
+					+ nodesInPath.get(sourceIndex) + ", " + nodesInPath.get(targetIndex));
+		}
+		return dimensions;
+	}
+
+	protected List<Node<?>> getCheckedNodes(final Path path) {
+		List<Node<?>> nodesInPath = path.getPath();
+		if (nodesInPath.size() < 2) {
+			throw new IllegalArgumentException("The path size is not acceptable, it is lower than 2.");
+		}
+		return nodesInPath;
 	}
 
 }
