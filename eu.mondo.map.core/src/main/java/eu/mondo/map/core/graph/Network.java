@@ -15,19 +15,16 @@ import com.google.common.collect.Table;
 public class Network<N> {
 
 	/**
-	 * Stores the dimensions as keys and the corresponding nodes as values.
-	 * Every dimension, so every key has a list of such nodes that have at
-	 * least one edge labeled with that dimension. The possible duplication
-	 * among nodes in a list is prevented.
+	 * Stores the dimensions as keys and the corresponding nodes as values. Every dimension, so every key has a list of such nodes that have
+	 * at least one edge labeled with that dimension. The possible duplication among nodes in a list is prevented.
 	 */
 	protected ListMultimap<String, Node<N>> nodesOnDimensions;
 	protected List<Node<N>> nodes;
 	protected BiMap<N, Node<N>> nodesOnObjects;
 
 	/**
-	 * Represents an adjacency matrix between nodes. A pair of nodes appear
-	 * in the Table if exists a connection among them. The dimension of the
-	 * connection is stored in Set<String> parameter.
+	 * Represents an adjacency matrix between nodes. A pair of nodes appear in the Table if exists a connection among them. The dimension of
+	 * the connection is stored in Set<String> parameter.
 	 */
 	protected Table<Node<N>, Node<N>, Set<String>> adjacency;
 
@@ -56,12 +53,15 @@ public class Network<N> {
 		}
 
 		if (isAdjacent(sourceNode, targetNode, dimension)) {
-			throw new RuntimeException("A connection in " + dimension
-					+ " does already exist between the nodes: " + sourceNode + ", " + targetNode);
+			// do nothing
+
+			// throw new RuntimeException("A connection in " + dimension
+			// + " does already exist between the nodes: " + sourceNode + ", " + targetNode);
+		} else {
+			setAdjacent(dimension, sourceNode, targetNode);
+			sourceNode.addOutgoingNeighbor(targetNode, dimension);
+			targetNode.addIncomingNeighbor(sourceNode, dimension);
 		}
-		setAdjacent(dimension, sourceNode, targetNode);
-		sourceNode.addOutgoingNeighbor(targetNode, dimension);
-		targetNode.addIncomingNeighbor(sourceNode, dimension);
 	}
 
 	public void setAdjacent(final String dimension, final Node<N> sourceNode, final Node<N> targetNode) {
@@ -92,8 +92,7 @@ public class Network<N> {
 
 	protected void checkDimension(final String dimension) {
 		if (!nodesOnDimensions.containsKey(dimension)) {
-			throw new IllegalArgumentException(
-					"Dimension does not exist in the map as a key: " + dimension);
+			throw new IllegalArgumentException("Dimension does not exist in the map as a key: " + dimension);
 		}
 	}
 
@@ -163,18 +162,18 @@ public class Network<N> {
 		return nodesOnDimensions.get(dimension).size();
 	}
 
-	public boolean isAdjacent(final Node<?> sourceNode, final Node<?> targetNode) {
+	public boolean isAdjacent(final Node<N> sourceNode, final Node<N> targetNode) {
 		return adjacency.contains(sourceNode, targetNode);
 	}
 
-	public boolean isAdjacent(final Node<?> sourceNode, final Node<?> targetNode, final String dimension) {
+	public boolean isAdjacent(final Node<N> sourceNode, final Node<N> targetNode, final String dimension) {
 		if (adjacency.contains(sourceNode, targetNode)) {
 			return adjacency.get(sourceNode, targetNode).contains(dimension);
 		}
 		return false;
 	}
 
-	public boolean isAdjacentUndirected(final Node<?> sourceNode, final Node<?> targetNode) {
+	public boolean isAdjacentUndirected(final Node<N> sourceNode, final Node<N> targetNode) {
 		if (isAdjacent(sourceNode, targetNode)) {
 			return true;
 		} else {
@@ -182,8 +181,7 @@ public class Network<N> {
 		}
 	}
 
-	public boolean isAdjacentUndirected(final Node<?> sourceNode, final Node<?> targetNode,
-			final String dimension) {
+	public boolean isAdjacentUndirected(final Node<N> sourceNode, final Node<N> targetNode, final String dimension) {
 		if (isAdjacent(sourceNode, targetNode, dimension)) {
 			return true;
 		} else {

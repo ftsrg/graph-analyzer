@@ -10,29 +10,29 @@ public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<S
 		super("DimensionalTypedClusteringCoefficientList");
 	}
 
-	public void calculate(final Network<?> network) {
+	public <N> void calculate(final Network<N> network) {
 		clear();
-		for (Node<?> node : network.getNodes()) {
+		for (Node<N> node : network.getNodes()) {
 			calculate(network, node, false, 0);
 		}
 	}
 
-	public void calculate(final Network<?> network, final int maxNumberOfNeighbors) {
+	public <N> void calculate(final Network<N> network, final int maxNumberOfNeighbors) {
 		clear();
-		for (Node<?> node : network.getNodes()) {
+		for (Node<N> node : network.getNodes()) {
 			calculate(network, node, true, maxNumberOfNeighbors);
 		}
 	}
 
-	public void calculate(final Network<?> network, final Node<?> node, final int maxNumberOfNeighbors) {
+	public <N> void calculate(final Network<N> network, final Node<N> node, final int maxNumberOfNeighbors) {
 		calculate(network, node, true, maxNumberOfNeighbors);
 	}
 
-	public void calculate(final Network<?> network, final Node<?> node) {
+	public <N> void calculate(final Network<N> network, final Node<N> node) {
 		calculate(network, node, false, 0);
 	}
 
-	protected void calculate(final Network<?> network, final Node<?> node, final boolean bounded,
+	protected <N> void calculate(final Network<N> network, final Node<N> node, final boolean bounded,
 			final int maxNumberOfNeighbors) {
 		int interConnected = 0;
 		int numberOfNeighbors = 0;
@@ -44,8 +44,8 @@ public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<S
 				typedValues.put(dimension, 0.0);
 				continue;
 			}
-			for (Node<?> neighbor1 : node.getNeighbors(dimension)) {
-				for (Node<?> neighbor2 : node.getNeighbors(dimension)) {
+			for (Node<N> neighbor1 : node.getNeighbors(dimension)) {
+				for (Node<N> neighbor2 : node.getNeighbors(dimension)) {
 					if (neighbor1 != neighbor2) {
 						if (network.isAdjacentUndirected(neighbor1, neighbor2, dimension)) {
 							interConnected++;
