@@ -4,6 +4,7 @@ Bundle-Name: Modelmetrics
 Bundle-SymbolicName: eu.mondo.map.modelmetrics
 Bundle-Version: 1.0.0.qualifier
 Export-Package: eu.mondo.map.modelmetrics.composite,
+ eu.mondo.map.modelmetrics.composite.data,
  eu.mondo.map.modelmetrics.composite.typed,
  eu.mondo.map.modelmetrics.scalar,
  eu.mondo.map.modelmetrics.scalar.typed,

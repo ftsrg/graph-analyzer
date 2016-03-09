@@ -9,6 +9,7 @@ import com.google.common.collect.ListMultimap;
 import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.ListMetric;
+import eu.mondo.map.modelmetrics.composite.data.Path;
 
 public class NodeInterdependenceList<N> extends ListMetric<Double> {
 
