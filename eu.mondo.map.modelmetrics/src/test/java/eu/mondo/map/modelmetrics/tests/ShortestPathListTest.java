@@ -23,10 +23,10 @@ import com.google.common.collect.Lists;
 
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.tests.ListMetricTest;
+import eu.mondo.map.modelmetrics.composite.Path;
 import eu.mondo.map.modelmetrics.composite.ShortestPathList;
-import eu.mondo.map.modelmetrics.composite.ShortestPathList.Path;
 
-public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathList> {
+public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathList<String>> {
 
 	protected ModelContext mc;
 
@@ -35,8 +35,8 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 	}
 
 	@Override
-	public ShortestPathList initMetric() {
-		return new ShortestPathList();
+	public ShortestPathList<String> initMetric() {
+		return new ShortestPathList<>();
 	}
 
 	@Override
@@ -44,13 +44,13 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.clear();
 	}
 
-	protected void checkDepth(int expected, List<Path> paths) {
-		for (Path path : paths) {
+	protected void checkDepth(int expected, List<Path<String>> paths) {
+		for (Path<String> path : paths) {
 			Assert.assertEquals(expected, path.getDepth());
 		}
 	}
 
-	protected void checkPath(Path path, List<String> vertices) {
+	protected void checkPath(Path<String> path, List<String> vertices) {
 		List<Node<String>> nodes = new ArrayList<Node<String>>();
 		for (String vertex : vertices) {
 			nodes.add(network.getNode(vertex));
@@ -60,18 +60,18 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 
 	}
 
-	protected void checkPathNumber(int expected, List<Path> paths) {
+	protected void checkPathNumber(int expected, List<Path<String>> paths) {
 		Assert.assertEquals(expected, paths.size());
 
 	}
 
-	protected void containsPath(List<Path> paths, ArrayList<String> vertices) {
+	protected void containsPath(List<Path<String>> paths, ArrayList<String> vertices) {
 		List<Node<String>> nodes = new ArrayList<Node<String>>();
 		for (String vertex : vertices) {
 			nodes.add(network.getNode(vertex));
 		}
 		boolean contains = false;
-		for (Path p : paths) {
+		for (Path<String> p : paths) {
 			if (p.getPath().equals(nodes)) {
 				contains = true;
 			}
@@ -80,11 +80,11 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 
 	}
 
-	protected List<Path> calculate(String source, String target) {
+	protected List<Path<String>> calculate(String source, String target) {
 		Node<String> sourceNode = network.getNode(source);
 		Node<String> targetNode = network.getNode(target);
 
-		List<Path> paths = metric.calculate(sourceNode, targetNode);
+		List<Path<String>> paths = metric.calculate(sourceNode, targetNode);
 		return paths;
 	}
 
@@ -101,7 +101,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node2, node3);
 
-		List<Path> paths = calculate(node3, node2);
+		List<Path<String>> paths = calculate(node3, node2);
 		Assert.assertTrue(paths.isEmpty());
 
 	}
@@ -112,7 +112,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node3, node4);
 		network.addEdge(dim1, node2, node4);
 
-		List<Path> paths = calculate(node1, node3);
+		List<Path<String>> paths = calculate(node1, node3);
 		Assert.assertTrue(paths.isEmpty());
 	}
 
@@ -138,7 +138,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node2, node3);
 		network.addNode(node4);
 
-		List<Path> paths = calculate(node4, node3);
+		List<Path<String>> paths = calculate(node4, node3);
 		Assert.assertTrue(paths.isEmpty());
 	}
 
@@ -148,7 +148,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node2, node3);
 		network.addNode(node4);
 
-		List<Path> paths = calculate(node1, node4);
+		List<Path<String>> paths = calculate(node1, node4);
 		Assert.assertTrue(paths.isEmpty());
 	}
 
@@ -157,7 +157,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node2, node3);
 
-		List<Path> paths = calculate(node1, node3);
+		List<Path<String>> paths = calculate(node1, node3);
 		checkDepth(2, paths);
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node3, node2, node1));
@@ -169,7 +169,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node2, node3);
 
-		List<Path> paths = calculate(node2, node3);
+		List<Path<String>> paths = calculate(node2, node3);
 		checkDepth(1, paths);
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node3, node2));
@@ -181,7 +181,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node2, node3);
 		network.addEdge(dim1, node1, node3);
 
-		List<Path> paths = calculate(node1, node3);
+		List<Path<String>> paths = calculate(node1, node3);
 		checkDepth(1, paths);
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node3, node1));
@@ -195,7 +195,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node2, node1);
 		network.addEdge(dim1, node2, node3);
 
-		List<Path> paths = calculate(node1, node3);
+		List<Path<String>> paths = calculate(node1, node3);
 		checkDepth(2, paths);
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node3, node2, node1));
@@ -216,7 +216,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node6, node8);
 		network.addEdge(dim1, node7, node8);
 
-		List<Path> paths = calculate(node1, node8);
+		List<Path<String>> paths = calculate(node1, node8);
 		checkDepth(2, paths);
 
 		checkPathNumber(1, paths);
@@ -229,7 +229,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node2, node1);
 		network.addEdge(dim2, node2, node3);
 
-		List<Path> paths = calculate(node1, node3);
+		List<Path<String>> paths = calculate(node1, node3);
 		checkDepth(2, paths);
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node3, node2, node1));
@@ -241,7 +241,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node2, node3);
 		network.addEdge(dim2, node2, node3);
 
-		List<Path> paths = calculate(node1, node3);
+		List<Path<String>> paths = calculate(node1, node3);
 		checkDepth(2, paths);
 		checkPathNumber(1, paths);
 		checkPath(paths.get(0), Lists.newArrayList(node3, node2, node1));
@@ -255,7 +255,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim2, node2, node3);
 		network.addEdge(dim1, node4, node3);
 
-		List<Path> paths = calculate(node1, node3);
+		List<Path<String>> paths = calculate(node1, node3);
 		checkDepth(2, paths);
 		checkPathNumber(2, paths);
 		containsPath(paths, Lists.newArrayList(node3, node2, node1));
@@ -271,7 +271,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node4, node6);
 		network.addEdge(dim1, node5, node6);
 
-		List<Path> paths = calculate(node1, node6);
+		List<Path<String>> paths = calculate(node1, node6);
 		checkDepth(3, paths);
 		checkPathNumber(2, paths);
 		containsPath(paths, Lists.newArrayList(node6, node4, node2, node1));
@@ -292,7 +292,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim2, node5, node6);
 		network.addEdge(dim3, node5, node6);
 
-		List<Path> paths = calculate(node1, node6);
+		List<Path<String>> paths = calculate(node1, node6);
 		checkDepth(3, paths);
 		checkPathNumber(2, paths);
 		containsPath(paths, Lists.newArrayList(node6, node4, node2, node1));
@@ -310,7 +310,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node4, node3);
 		network.addEdge(dim1, node5, node6);
 
-		List<Path> paths = calculate(node1, node6);
+		List<Path<String>> paths = calculate(node1, node6);
 		checkDepth(3, paths);
 
 		checkPathNumber(3, paths);
@@ -331,7 +331,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node4, node3);
 		network.addEdge(dim1, node5, node6);
 
-		List<Path> paths = calculate(node1, node6);
+		List<Path<String>> paths = calculate(node1, node6);
 		checkDepth(3, paths);
 
 		checkPathNumber(3, paths);
@@ -351,7 +351,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node4, node6);
 		network.addEdge(dim1, node5, node6);
 
-		List<Path> paths = calculate(node1, node6);
+		List<Path<String>> paths = calculate(node1, node6);
 		checkDepth(3, paths);
 
 		checkPathNumber(3, paths);
@@ -374,7 +374,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node6, node8);
 		network.addEdge(dim1, node7, node8);
 
-		List<Path> paths = calculate(node1, node8);
+		List<Path<String>> paths = calculate(node1, node8);
 		checkDepth(3, paths);
 
 		checkPathNumber(5, paths);
@@ -400,7 +400,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node6, node8);
 		network.addEdge(dim1, node7, node8);
 
-		List<Path> paths = calculate(node1, node8);
+		List<Path<String>> paths = calculate(node1, node8);
 		checkDepth(3, paths);
 
 		checkPathNumber(5, paths);
@@ -426,7 +426,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node6, node8);
 		network.addEdge(dim1, node7, node8);
 
-		List<Path> paths = calculate(node1, node6);
+		List<Path<String>> paths = calculate(node1, node6);
 		checkDepth(2, paths);
 
 		checkPathNumber(3, paths);

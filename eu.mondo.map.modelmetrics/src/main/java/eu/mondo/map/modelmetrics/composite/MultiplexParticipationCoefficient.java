@@ -10,29 +10,29 @@ public class MultiplexParticipationCoefficient extends ListMetric<Double> {
 		super("MultiplexParticipationCoefficient");
 	}
 
-	public void calculate(final Network<?> network) {
+	public <N> void calculate(final Network<N> network) {
 		clear();
-		for (Node<?> node : network.getNodes()) {
+		for (Node<N> node : network.getNodes()) {
 			calculate(network, node, false);
 		}
 	}
 
-	public void calculateExclusive(final Network<?> network) {
+	public <N> void calculateExclusive(final Network<N> network) {
 		clear();
-		for (Node<?> node : network.getNodes()) {
+		for (Node<N> node : network.getNodes()) {
 			calculate(network, node, true);
 		}
 	}
 
-	public void calculate(final Network<?> network, final Node<?> node) {
+	public <N> void calculate(final Network<N> network, final Node<N> node) {
 		calculate(network, node, false);
 	}
 
-	public void calculateExclusive(final Network<?> network, final Node<?> node) {
+	public <N> void calculateExclusive(final Network<N> network, final Node<N> node) {
 		calculate(network, node, true);
 	}
 
-	protected void calculate(final Network<?> network, final Node<?> node, final boolean exclusive) {
+	protected <N> void calculate(final Network<N> network, final Node<N> node, final boolean exclusive) {
 		int numOfDimensions = 0;
 		if (exclusive) {
 			numOfDimensions = node.getNumberOfDimensions();

@@ -20,11 +20,11 @@ import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.tests.ListMetricTest;
 import eu.mondo.map.modelmetrics.composite.NodeInterdependenceList;
 
-public class NodeInterdependenceTest extends ListMetricTest<Double, NodeInterdependenceList> {
+public class NodeInterdependenceTest extends ListMetricTest<Double, NodeInterdependenceList<String>> {
 
 	@Override
-	public NodeInterdependenceList initMetric() {
-		return new NodeInterdependenceList();
+	public NodeInterdependenceList<String> initMetric() {
+		return new NodeInterdependenceList<>();
 	}
 
 	@Override

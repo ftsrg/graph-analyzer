@@ -13,7 +13,7 @@ import org.junit.Test;
 import eu.mondo.map.core.metrics.tests.ListMetricTest;
 import eu.mondo.map.modelmetrics.composite.MultiplexParticipationCoefficient;
 
-public class MultiplexParticipationCoefficientTest extends ListMetricTest<Double, MultiplexParticipationCoefficient> {
+public class MultiplexParticipationCoefficientTest<N> extends ListMetricTest<Double, MultiplexParticipationCoefficient> {
 
 	@Override
 	public MultiplexParticipationCoefficient initMetric() {
