@@ -51,7 +51,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 	}
 
 	protected void checkPath(Path<String> path, List<String> vertices) {
-		List<Node<String>> nodes = new ArrayList<Node<String>>();
+		List<Node<String>> nodes = new ArrayList<>();
 		for (String vertex : vertices) {
 			nodes.add(network.getNode(vertex));
 		}
@@ -66,7 +66,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 	}
 
 	protected void containsPath(List<Path<String>> paths, ArrayList<String> vertices) {
-		List<Node<String>> nodes = new ArrayList<Node<String>>();
+		List<Node<String>> nodes = new ArrayList<>();
 		for (String vertex : vertices) {
 			nodes.add(network.getNode(vertex));
 		}

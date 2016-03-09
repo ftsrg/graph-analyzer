@@ -134,7 +134,7 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 		if (!results.isEmpty()) {
 			paths = resolveResults(targetNode);
 		} else {
-			paths = new ArrayList<Path<N>>();
+			paths = new ArrayList<>();
 		}
 
 		clearFields();
@@ -143,7 +143,7 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 
 	protected List<Path<N>> resolveResults(final Node<N> targetNode) {
 		int depth = depths.get(targetNode);
-		List<Path<N>> allPaths = new ArrayList<Path<N>>();
+		List<Path<N>> allPaths = new ArrayList<>();
 		for (Node<N> node : results.keySet()) {
 			Path<N> path = new Path<>(depth);
 			path.add(targetNode);
@@ -177,10 +177,10 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param currentNode
 	 * @param expectedDepth
-	 * 
+	 *
 	 * @return true if the results Map is not empty and the currentNode's
 	 *         depth is higher or equal than the expectedDepth, false
 	 *         otherwise

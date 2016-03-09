@@ -52,7 +52,7 @@ public class Node<T> {
 	}
 
 	public Set<Node<T>> getDisjunctNeighbors() {
-		List<Node<T>> neighbors = new ArrayList<Node<T>>();
+		List<Node<T>> neighbors = new ArrayList<>();
 		neighbors.addAll(incomingNeighbors.keySet());
 		neighbors.addAll(outgoingNeighbors.keySet());
 		return ImmutableSet.copyOf(neighbors);
@@ -67,7 +67,7 @@ public class Node<T> {
 	}
 
 	public List<Node<T>> getNeighbors() {
-		List<Node<T>> neighbors = new ArrayList<Node<T>>();
+		List<Node<T>> neighbors = new ArrayList<>();
 		neighbors.addAll(incomingNeighbors.keySet());
 		neighbors.addAll(outgoingNeighbors.keySet());
 		return neighbors;

@@ -12,16 +12,16 @@ public class Path<N>  {
 	protected int depth;
 
 	public Path() {
-		path = new ArrayList<Node<N>>();
+		path = new ArrayList<>();
 	}
 
 	public Path(int depth) {
-		path = new ArrayList<Node<N>>();
+		path = new ArrayList<>();
 		this.depth = depth;
 	}
 
 	public Path(Path<N> path2) {
-		this.path = new ArrayList<Node<N>>();
+		this.path = new ArrayList<>();
 		this.depth = path2.depth;
 		this.path.addAll(path2.getPath());
 	}

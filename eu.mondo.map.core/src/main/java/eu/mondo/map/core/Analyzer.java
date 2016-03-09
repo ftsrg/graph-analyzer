@@ -13,10 +13,10 @@ public class Analyzer {
 	protected List<Metric> metrics;
 
 	public Analyzer() {
-		metrics = new ArrayList<Metric>();
+		metrics = new ArrayList<>();
 	}
 
-	public Analyzer(final ArrayList<Metric> metrics) {
+	public Analyzer(final List<Metric> metrics) {
 		this.metrics = metrics;
 	}
 
@@ -29,7 +29,7 @@ public class Analyzer {
 	}
 
 	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> resolvedMetrics = new ArrayList<PublishedMetric>();
+		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
 		for (Metric metric : metrics) {
 			if (metric instanceof Publishing) {
 				resolvedMetrics.addAll(((Publishing) metric).resolve());
@@ -38,7 +38,7 @@ public class Analyzer {
 		return resolvedMetrics;
 	}
 
-	public void setMetrics(final ArrayList<Metric> metrics) {
+	public void setMetrics(final List<Metric> metrics) {
 		this.metrics = metrics;
 	}
 

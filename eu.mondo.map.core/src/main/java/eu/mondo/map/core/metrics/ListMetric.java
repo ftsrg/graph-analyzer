@@ -10,7 +10,7 @@ public abstract class ListMetric<Value> extends Metric implements Publishing {
 
 	public ListMetric(final String defaultName) {
 		super(defaultName);
-		this.values = new ArrayList<Value>();
+		this.values = new ArrayList<>();
 	}
 
 	public boolean add(final Value e) {
@@ -36,7 +36,7 @@ public abstract class ListMetric<Value> extends Metric implements Publishing {
 
 	@Override
 	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> resolvedMetrics = new ArrayList<PublishedMetric>();
+		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
 		for (int i = 0; i < values.size(); i++) {
 			resolvedMetrics.add(
 					new PublishedMetric(values.get(i).toString(), String.format("%s-%d", name, i)));

@@ -30,14 +30,14 @@ public class Network<N> {
 
 	public Network() {
 		nodesOnDimensions = ArrayListMultimap.create();
-		nodes = new ArrayList<Node<N>>();
+		nodes = new ArrayList<>();
 		nodesOnObjects = HashBiMap.create();
 		adjacency = HashBasedTable.create();
 	}
 
 	public Network(final int expectedNumberOfNodes) {
 		nodesOnDimensions = ArrayListMultimap.create();
-		nodes = new ArrayList<Node<N>>();
+		nodes = new ArrayList<>();
 		nodesOnObjects = HashBiMap.create(expectedNumberOfNodes);
 	}
 

@@ -34,7 +34,7 @@ public abstract class TypedScalarMetric<K, V> extends Metric implements Publishi
 
 	@Override
 	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> metrics = new ArrayList<PublishedMetric>();
+		List<PublishedMetric> metrics = new ArrayList<>();
 		for (Entry<K, V> entry : typedValues.entrySet()) {
 			metrics.add(new PublishedMetric(entry.getValue().toString(), name + "-"
 					+ entry.getKey().toString()));

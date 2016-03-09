@@ -30,7 +30,7 @@ public abstract class TypedListMetric<Type, Value> extends Metric implements Pub
 
 	@Override
 	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> resolvedMetrics = new ArrayList<PublishedMetric>();
+		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
 		for (Type key : typedValues.keySet()) {
 			for (int i = 0; i < typedValues.get(key).size(); i++) {
 				resolvedMetrics.add(new PublishedMetric(typedValues.get(key).get(i).toString(),

@@ -17,7 +17,7 @@ public abstract class ScalarMetric<T> extends Metric implements Publishing {
 
 	@Override
 	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> metrics = new ArrayList<PublishedMetric>();
+		List<PublishedMetric> metrics = new ArrayList<>();
 		metrics.add(new PublishedMetric(value.toString(), name));
 		return metrics;
 	}

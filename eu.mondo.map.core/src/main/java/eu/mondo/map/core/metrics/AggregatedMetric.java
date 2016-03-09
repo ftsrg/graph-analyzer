@@ -29,7 +29,7 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 
 	@Override
 	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> metrics = new ArrayList<PublishedMetric>();
+		List<PublishedMetric> metrics = new ArrayList<>();
 		metrics.add(new PublishedMetric(value.toString(), resolveName()));
 		return metrics;
 	}
