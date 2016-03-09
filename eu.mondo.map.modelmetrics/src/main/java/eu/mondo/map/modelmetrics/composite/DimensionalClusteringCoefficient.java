@@ -10,29 +10,29 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 		super("DimensionalClusteringCoefficient");
 	}
 
-	public void calculateFirstDefinition(final Network<?> network) {
+	public <N> void calculateFirstDefinition(final Network<N> network) {
 		clear();
-		for (Node<?> node : network.getNodes()) {
+		for (Node<N> node : network.getNodes()) {
 			calculateFirstDefinition(network, node);
 		}
 	}
 
-	public void calculateSecondDefinition(final Network<?> network) {
+	public <N> void calculateSecondDefinition(final Network<N> network) {
 		clear();
-		for (Node<?> node : network.getNodes()) {
+		for (Node<N> node : network.getNodes()) {
 			calculateSecondDefinition(network, node);
 		}
 	}
 
-	public double calculateFirstDefinition(final Network<?> network, final Node<?> node) {
+	public <N> double calculateFirstDefinition(final Network<N> network, final Node<N> node) {
 		int interConnected = 0;
 		int numberOfNeighbors = 0;
 		int numberOfPossibleConnections = 0;
 		double coef = 0.0;
 
 		for (String dimension1 : node.getDimensionsAsSet()) {
-			for (Node<?> neighbor1 : node.getNeighbors(dimension1)) {
-				for (Node<?> neighbor2 : node.getNeighbors(dimension1)) {
+			for (Node<N> neighbor1 : node.getNeighbors(dimension1)) {
+				for (Node<N> neighbor2 : node.getNeighbors(dimension1)) {
 					if (neighbor1 != neighbor2) {
 						for (String dimension2 : neighbor1.getDimensionsAsSet()) {
 							if (!dimension1.equals(dimension2)) {
@@ -60,8 +60,8 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 		return coef;
 	}
 
-	public double calculateSecondDefinition(final Network<?> network, final Node<?> node) {
-		int numberOfNeighbors = 0;
+	public <N> double calculateSecondDefinition(final Network<N> network, final Node<N> node) {
+		// int numberOfNeighbors = 0;
 		int interConnected = 0;
 		int numberOfPossibleConnections = 0;
 		double coef = 0.0;
@@ -69,17 +69,13 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 		for (String dimension1 : node.getDimensionsAsSet()) {
 			for (String dimension2 : node.getDimensionsAsSet()) {
 				if (!dimension1.equals(dimension2)) {
-					for (Node<?> neighbor1 : node.getNeighbors(dimension1)) {
-						for (Node<?> neighbor2 : node.getNeighbors(dimension2)) {
+					for (Node<N> neighbor1 : node.getNeighbors(dimension1)) {
+						for (Node<N> neighbor2 : node.getNeighbors(dimension2)) {
 							if (neighbor1 != neighbor2) {
 								numberOfPossibleConnections++;
-								for (String dimension3 : neighbor1
-										.getDimensionsAsSet()) {
-									if (!dimension1.equals(dimension3)
-											&& !dimension2.equals(
-													dimension3)) {
-										if (neighbor1.hasNeighbor(neighbor2,
-												dimension3)) {
+								for (String dimension3 : neighbor1.getDimensionsAsSet()) {
+									if (!dimension1.equals(dimension3) && !dimension2.equals(dimension3)) {
+										if (neighbor1.hasNeighbor(neighbor2, dimension3)) {
 											interConnected++;
 										}
 									}

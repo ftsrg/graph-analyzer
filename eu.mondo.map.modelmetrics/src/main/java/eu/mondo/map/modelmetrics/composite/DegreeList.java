@@ -10,8 +10,8 @@ public class DegreeList extends ListMetric<Integer> {
 		super("DegreeList");
 	}
 
-	public void calculate(final Network<?> network) {
-		for (Node<?> node : network.getNodes()) {
+	public <N> void calculate(final Network<N> network) {
+		for (Node<N> node : network.getNodes()) {
 			values.add(node.getDegree());
 		}
 	}

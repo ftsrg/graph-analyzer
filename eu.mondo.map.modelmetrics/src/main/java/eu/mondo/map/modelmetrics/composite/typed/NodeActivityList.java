@@ -10,9 +10,9 @@ public class NodeActivityList extends ListMetric<Integer> {
 		super("NodeActivityList");
 	}
 
-	public void calculate(final Network<?> network) {
+	public <N> void calculate(final Network<N> network) {
 		clear();
-		for (Node<?> node : network.getNodes()) {
+		for (Node<N> node : network.getNodes()) {
 			values.add(node.getDimensions().size());
 		}
 	}

@@ -20,10 +20,10 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 		shortestPathList = new ShortestPathList();
 	}
 
-	public void calculate(final Network<?> network) {
+	public <N> void calculate(final Network<N> network) {
 		clear();
-		for (Node<?> sourceNode : network.getNodes()) {
-			for (Node<?> targetNode : network.getNodes()) {
+		for (Node<N> sourceNode : network.getNodes()) {
+			for (Node<N> targetNode : network.getNodes()) {
 				if (sourceNode != targetNode) {
 					calculate(network, sourceNode, targetNode);
 				}
@@ -32,13 +32,13 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 		shortestPathList.calculate(network);
 	}
 
-	public void calculate(final Network<?> network, final int numberOfRandomPairs) {
+	public <N> void calculate(final Network<N> network, final int numberOfRandomPairs) {
 		clear();
 		ListMultimap<Integer, Integer> pairs = shortestPathList.determineRandomPairs(network,
 				numberOfRandomPairs);
 
-		Node<?> sourceNode;
-		Node<?> targetNode;
+		Node<N> sourceNode;
+		Node<N> targetNode;
 		for (Integer sourceIndex : pairs.keySet()) {
 			sourceNode = network.getNodes().get(sourceIndex);
 			for (Integer targetIndex : pairs.get(sourceIndex)) {
@@ -48,7 +48,7 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 		}
 	}
 
-	public void calculate(final Network<?> network, final Node<?> sourceNode, final Node<?> targetNode) {
+	public <N> void calculate(final Network<N> network, final Node<N> sourceNode, final Node<N> targetNode) {
 		List<Path> paths = shortestPathList.calculate(sourceNode, targetNode);
 		if (paths.isEmpty()) {
 			return;
@@ -58,7 +58,7 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 		values.add(interdependence);
 	}
 
-	public double calculate(final Network<?> network, final List<Path> paths) {
+	public <N> double calculate(final Network<N> network, final List<Path> paths) {
 		int allPossibleRoutes = 0;
 		int allMultidimensionalRoutes = 0;
 		int possibleRoutesInPath = 1;
@@ -66,7 +66,7 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 		Set<String> firstDimensions;
 
 		for (Path path : paths) {
-			List<Node<?>> nodesInPath = getCheckedNodes(path);
+			List<Node<N>> nodesInPath = getCheckedNodes(path);
 			Set<String> dimensions = getCheckedDimensions(network, nodesInPath, 1, 0);
 			firstDimensions = new HashSet<String>();
 			firstDimensions.addAll(dimensions);
@@ -85,7 +85,7 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 		return allMultidimensionalRoutes / (double) allPossibleRoutes;
 	}
 
-	protected Set<String> getCheckedDimensions(final Network<?> network, final List<Node<?>> nodesInPath,
+	protected <N> Set<String> getCheckedDimensions(final Network<N> network, final List<Node<N>> nodesInPath,
 			final int sourceIndex, final int targetIndex) {
 		Set<String> dimensions = network.getAdjacency().get(nodesInPath.get(sourceIndex),
 				nodesInPath.get(targetIndex));
@@ -97,8 +97,8 @@ public class NodeInterdependenceList extends ListMetric<Double> {
 		return dimensions;
 	}
 
-	protected List<Node<?>> getCheckedNodes(final Path path) {
-		List<Node<?>> nodesInPath = path.getPath();
+	protected <N> List<Node<N>> getCheckedNodes(final Path path) {
+		List<Node<N>> nodesInPath = path.getPath();
 		if (nodesInPath.size() < 2) {
 			throw new IllegalArgumentException("The path size is not acceptable, it is lower than 2.");
 		}

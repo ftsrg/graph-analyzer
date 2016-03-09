@@ -219,22 +219,22 @@ public class ShortestPathList extends ListMetric<Integer> {
 		depths.put(child, depth);
 	}
 
-	public static class Path {
+	public static class Path<N>  {
 
-		protected List<Node<?>> path;
+		protected List<Node<N>> path;
 		protected int depth;
 
 		public Path() {
-			path = new ArrayList<Node<?>>();
+			path = new ArrayList<Node<N>>();
 		}
 
 		public Path(int depth) {
-			path = new ArrayList<Node<?>>();
+			path = new ArrayList<Node<N>>();
 			this.depth = depth;
 		}
 
 		public Path(Path path2) {
-			this.path = new ArrayList<Node<?>>();
+			this.path = new ArrayList<Node<N>>();
 			this.depth = path2.depth;
 			this.path.addAll(path2.getPath());
 		}
@@ -243,7 +243,7 @@ public class ShortestPathList extends ListMetric<Integer> {
 			return path.isEmpty();
 		}
 
-		public List<Node<?>> getPath() {
+		public List<Node<N>> getPath() {
 			return path;
 		}
 
@@ -259,11 +259,11 @@ public class ShortestPathList extends ListMetric<Integer> {
 			return path.size();
 		}
 
-		public boolean add(Node<?> e) {
+		public boolean add(Node<N> e) {
 			return path.add(e);
 		}
 
-		public boolean addAll(Collection<? extends Node<?>> c) {
+		public boolean addAll(Collection<? extends Node<N>> c) {
 			return path.addAll(c);
 		}
 

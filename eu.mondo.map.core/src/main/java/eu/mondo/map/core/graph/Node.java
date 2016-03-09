@@ -113,11 +113,11 @@ public class Node<T> {
 		return incomingNeighbors.containsKey(node);
 	}
 
-	public boolean hasNeighbor(final Node<?> neighbor) {
+	public boolean hasNeighbor(final Node<T> neighbor) {
 		return incomingNeighbors.containsKey(neighbor) || outgoingNeighbors.containsKey(neighbor);
 	}
 
-	public boolean hasNeighbor(final Node<?> neighbor, final String dimension) {
+	public boolean hasNeighbor(final Node<T> neighbor, final String dimension) {
 		if (incomingNeighbors.containsKey(neighbor)) {
 			if (incomingNeighbors.get((Node<T>) neighbor).contains(dimension)) {
 				return true;

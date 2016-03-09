@@ -15,11 +15,11 @@ import org.junit.Test;
 import eu.mondo.map.core.metrics.tests.ListMetricTest;
 import eu.mondo.map.modelmetrics.composite.ClusteringCoefficientList;
 
-public class ClusteringCoefficientTest extends ListMetricTest<Double, ClusteringCoefficientList> {
+public class ClusteringCoefficientTest extends ListMetricTest<Double, ClusteringCoefficientList<String>> {
 
 	@Override
-	public ClusteringCoefficientList initMetric() {
-		return new ClusteringCoefficientList();
+	public ClusteringCoefficientList<String> initMetric() {
+		return new ClusteringCoefficientList<>();
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import eu.mondo.map.core.metrics.Publishing;;
 
 public class Analyzer {
 
-	protected ArrayList<Metric> metrics;
+	protected List<Metric> metrics;
 
 	public Analyzer() {
 		metrics = new ArrayList<Metric>();
