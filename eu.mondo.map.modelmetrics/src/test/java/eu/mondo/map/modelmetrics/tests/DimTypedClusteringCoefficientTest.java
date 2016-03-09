@@ -15,11 +15,11 @@ import eu.mondo.map.core.metrics.tests.TypedListMetricTest;
 import eu.mondo.map.modelmetrics.composite.typed.DimensionalTypedClusteringCoefficientList;
 
 public class DimTypedClusteringCoefficientTest
-		extends TypedListMetricTest<String, Double, DimensionalTypedClusteringCoefficientList> {
+		extends TypedListMetricTest<String, Double, DimensionalTypedClusteringCoefficientList<String>> {
 
 	@Override
-	public DimensionalTypedClusteringCoefficientList initMetric() {
-		return new DimensionalTypedClusteringCoefficientList();
+	public DimensionalTypedClusteringCoefficientList<String> initMetric() {
+		return new DimensionalTypedClusteringCoefficientList<>();
 	}
 
 	@Override

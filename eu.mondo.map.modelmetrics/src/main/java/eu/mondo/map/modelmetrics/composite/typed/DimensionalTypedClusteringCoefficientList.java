@@ -4,35 +4,35 @@ import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.typed.TypedListMetric;
 
-public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<String, Double> {
+public class DimensionalTypedClusteringCoefficientList<N> extends TypedListMetric<String, Double> {
 
 	public DimensionalTypedClusteringCoefficientList() {
 		super("DimensionalTypedClusteringCoefficientList");
 	}
 
-	public <N> void calculate(final Network<N> network) {
+	public void calculate(final Network<N> network) {
 		clear();
 		for (Node<N> node : network.getNodes()) {
 			calculate(network, node, false, 0);
 		}
 	}
 
-	public <N> void calculate(final Network<N> network, final int maxNumberOfNeighbors) {
+	public void calculate(final Network<N> network, final int maxNumberOfNeighbors) {
 		clear();
 		for (Node<N> node : network.getNodes()) {
 			calculate(network, node, true, maxNumberOfNeighbors);
 		}
 	}
 
-	public <N> void calculate(final Network<N> network, final Node<N> node, final int maxNumberOfNeighbors) {
+	public void calculate(final Network<N> network, final Node<N> node, final int maxNumberOfNeighbors) {
 		calculate(network, node, true, maxNumberOfNeighbors);
 	}
 
-	public <N> void calculate(final Network<N> network, final Node<N> node) {
+	public void calculate(final Network<N> network, final Node<N> node) {
 		calculate(network, node, false, 0);
 	}
 
-	protected <N> void calculate(final Network<N> network, final Node<N> node, final boolean bounded,
+	protected void calculate(final Network<N> network, final Node<N> node, final boolean bounded,
 			final int maxNumberOfNeighbors) {
 		int interConnected = 0;
 		int numberOfNeighbors = 0;
