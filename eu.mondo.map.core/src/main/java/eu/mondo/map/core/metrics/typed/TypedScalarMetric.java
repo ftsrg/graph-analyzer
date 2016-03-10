@@ -10,7 +10,7 @@ import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.PublishedMetric;
 import eu.mondo.map.core.metrics.Publishing;
 
-public abstract class TypedScalarMetric<K, V> extends Metric implements Publishing {
+public abstract class TypedScalarMetric<K, V extends Number> extends Metric implements Publishing {
 
 	public TypedScalarMetric(String defaultName) {
 		super(defaultName);
@@ -36,8 +36,8 @@ public abstract class TypedScalarMetric<K, V> extends Metric implements Publishi
 	public List<PublishedMetric> resolve() {
 		List<PublishedMetric> metrics = new ArrayList<>();
 		for (Entry<K, V> entry : typedValues.entrySet()) {
-			metrics.add(new PublishedMetric(entry.getValue().toString(), name + "-"
-					+ entry.getKey().toString()));
+			PublishedMetric metric = new PublishedMetric(name).setInstance(entry.getKey().toString()).setValue(entry.getValue());
+			metrics.add(metric);
 		}
 		return metrics;
 	}

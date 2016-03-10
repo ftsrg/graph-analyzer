@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class ListMetric<Value> extends Metric implements Publishing {
+public abstract class ListMetric<Value extends Number> extends Metric implements Publishing {
 
 	protected List<Value> values;
 
@@ -37,9 +37,9 @@ public abstract class ListMetric<Value> extends Metric implements Publishing {
 	@Override
 	public List<PublishedMetric> resolve() {
 		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
-		for (int i = 0; i < values.size(); i++) {
-			resolvedMetrics.add(
-					new PublishedMetric(values.get(i).toString(), String.format("%s-%d", name, i)));
+		for (Integer i = 0; i < values.size(); i++) {
+			PublishedMetric metric = new PublishedMetric(name).setIndex(i).setValue(values.get(i));
+			resolvedMetrics.add(metric);
 		}
 		return resolvedMetrics;
 	}

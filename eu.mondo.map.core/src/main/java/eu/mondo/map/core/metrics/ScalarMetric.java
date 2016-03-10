@@ -3,7 +3,7 @@ package eu.mondo.map.core.metrics;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ScalarMetric<T> extends Metric implements Publishing {
+public abstract class ScalarMetric<T extends Number> extends Metric implements Publishing {
 
 	protected T value;
 
@@ -18,7 +18,8 @@ public abstract class ScalarMetric<T> extends Metric implements Publishing {
 	@Override
 	public List<PublishedMetric> resolve() {
 		List<PublishedMetric> metrics = new ArrayList<>();
-		metrics.add(new PublishedMetric(value.toString(), name));
+		PublishedMetric metric = new PublishedMetric(name).setValue(value);
+		metrics.add(metric);
 		return metrics;
 	}
 

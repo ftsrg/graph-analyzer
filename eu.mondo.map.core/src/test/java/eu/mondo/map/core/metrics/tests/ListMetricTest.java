@@ -14,7 +14,7 @@ import eu.mondo.map.core.metrics.ListMetric;
  * 
  * @see ListMetric
  */
-public abstract class ListMetricTest<V, M extends ListMetric<V>> extends MetricTest<M> {
+public abstract class ListMetricTest<V extends Number, M extends ListMetric<V>> extends MetricTest<M> {
 
 	public void checkSize(int expected) {
 		Assert.assertEquals(expected, metric.size());

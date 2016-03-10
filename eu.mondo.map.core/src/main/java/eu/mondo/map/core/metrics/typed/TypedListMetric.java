@@ -11,7 +11,7 @@ import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.PublishedMetric;
 import eu.mondo.map.core.metrics.Publishing;
 
-public abstract class TypedListMetric<Type, Value> extends Metric implements Publishing {
+public abstract class TypedListMetric<Type, Value extends Number> extends Metric implements Publishing {
 
 	protected ListMultimap<Type, Value> typedValues;
 
@@ -33,8 +33,8 @@ public abstract class TypedListMetric<Type, Value> extends Metric implements Pub
 		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
 		for (Type key : typedValues.keySet()) {
 			for (int i = 0; i < typedValues.get(key).size(); i++) {
-				resolvedMetrics.add(new PublishedMetric(typedValues.get(key).get(i).toString(),
-						String.format("%s-%s-%d", name, key.toString(), i)));
+				PublishedMetric metric = new PublishedMetric(name).setInstance(key.toString()).setIndex(i).setValue(typedValues.get(key).get(i));
+				resolvedMetrics.add(metric);
 			}
 		}
 		return resolvedMetrics;

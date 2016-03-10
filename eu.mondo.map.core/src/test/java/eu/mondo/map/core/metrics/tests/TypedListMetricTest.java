@@ -16,7 +16,7 @@ import eu.mondo.map.core.metrics.typed.TypedListMetric;
  * 
  * @see TypedListMetric
  */
-public abstract class TypedListMetricTest<T, V, M extends TypedListMetric<T, V>> extends MetricTest<M> {
+public abstract class TypedListMetricTest<T, V extends Number, M extends TypedListMetric<T, V>> extends MetricTest<M> {
 
 	public void checkSize(final int expectedSize) {
 		Assert.assertEquals(expectedSize, metric.getValues().size());

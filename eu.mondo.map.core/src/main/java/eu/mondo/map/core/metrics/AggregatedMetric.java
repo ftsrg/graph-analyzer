@@ -30,17 +30,18 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 	@Override
 	public List<PublishedMetric> resolve() {
 		List<PublishedMetric> metrics = new ArrayList<>();
-		metrics.add(new PublishedMetric(value.toString(), resolveName()));
+		PublishedMetric metric = new PublishedMetric(name).setInstance(listMetricName).setValue(value);
+		metrics.add(metric);
 		return metrics;
 	}
 
-	protected String resolveName() {
-		if (useDefault) {
-			return String.format("%s-%s", name, listMetricName);
-		} else {
-			return name;
-		}
-	}
+//	protected String resolveName() {
+//		if (useDefault) {
+//			return String.format("%s-%s", name, listMetricName);
+//		} else {
+//			return name;
+//		}
+//	}
 
 	@Override
 	public void setName(final String name) {
