@@ -77,9 +77,7 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 	}
 
 	protected void addDepth(final List<Path<N>> paths) {
-		if (paths.isEmpty()) {
-			values.add(0);
-		} else {
+		if (!paths.isEmpty()) {
 			values.add(paths.get(0).getDepth());
 		}
 	}

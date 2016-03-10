@@ -457,23 +457,13 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 	}
 
 	@Test
-	public void testRandomSample1() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-
-		calculate(3);
-		checkSize(3);
-	}
-
-	@Test
 	public void testRandomSample2() {
 		network.addEdge(dim1, node1, node2);
 		network.addEdge(dim1, node1, node3);
 
 		calculate(6);
-		checkSize(6);
+		checkSize(2);
 		checkAppearance(2, 1);
-		checkAppearance(4, 0);
 	}
 
 	@Test
@@ -485,8 +475,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 		network.addEdge(dim1, node4, node5);
 
 		calculate(20);
-		checkSize(20);
-		checkAppearance(12, 0);
+		checkSize(8);
 		checkAppearance(5, 1);
 		checkAppearance(3, 2);
 		checkAppearance(0, 3);
@@ -499,9 +488,8 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 
 		calculate();
 
-		checkSize(6);
+		checkSize(2);
 		checkAppearance(2, 1);
-		checkAppearance(4, 0);
 	}
 
 	@Test
@@ -514,8 +502,7 @@ public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathLi
 
 		calculate();
 
-		checkSize(20);
-		checkAppearance(12, 0);
+		checkSize(8);
 		checkAppearance(5, 1);
 		checkAppearance(3, 2);
 		checkAppearance(0, 3);
