@@ -10,6 +10,7 @@ public class DimensionActivity extends TypedScalarMetric<String, Integer> {
 	}
 
 	public void calculate(final Network<?> network) {
+		clear();
 		for (String dimension : network.getNodesOnDimensions().keySet()) {
 			typedValues.put(dimension, network.getNumberOfNodes(dimension));
 		}
