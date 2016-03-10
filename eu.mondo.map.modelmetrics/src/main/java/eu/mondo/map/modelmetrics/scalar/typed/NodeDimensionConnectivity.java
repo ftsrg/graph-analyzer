@@ -8,7 +8,8 @@ import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
 import eu.mondo.map.modelmetrics.scalar.NumberOfNodes;
 
 /**
- * Takes values in [0,1] and computes the ratio of nodes of the network that belong to a particular dimension.
+ * Takes values in [0,1] and computes the ratio of nodes of the network that
+ * belong to a particular dimension.
  * 
  *
  */
@@ -19,7 +20,8 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 	}
 
 	/**
-	 * Calculates the Node Dimension Connectivity for a particular dimension.
+	 * Calculates the Node Dimension Connectivity for a particular
+	 * dimension.
 	 * 
 	 * @param dimension
 	 *                String representing the dimension
@@ -31,15 +33,14 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 	public void calculate(final String dimension, final NumberOfTypedEdges typedEdges,
 			final NumberOfNodes numberOfNodes) {
 		if (!typedEdges.getValues().containsKey(dimension)) {
-			throw new IllegalArgumentException("The dimension does not exist in the map:"
-					+ dimension);
+			throw new IllegalArgumentException("The dimension does not exist in the map:" + dimension);
 		}
 		putRatio(dimension, numberOfNodes.getValue(), typedEdges.getValues());
 	}
 
 	/**
-	 * Calculates the Node Dimension Connectivity for every possible dimension that can be found in the
-	 * given parameter.
+	 * Calculates the Node Dimension Connectivity for every possible
+	 * dimension that can be found in the given parameter.
 	 * 
 	 * @param typedEdges
 	 *                NumberOfTypedEdges object
@@ -52,9 +53,7 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 	}
 
 	public void calculate(final String dimension, final Network<?> network) {
-		typedValues.put(dimension,
-				(double) (network.getNumberOfNodes() / network.getNumberOfNodes(dimension)));
-
+		typedValues.put(dimension, (double) (network.getNumberOfNodes(dimension) / network.getNumberOfNodes()));
 	}
 
 	public void calculateExclusive(final String dimension, final Network<?> network) {
@@ -84,9 +83,8 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 		}
 	}
 
-	protected void putRatio(final String dimension, final double allNodes,
-			final Map<String, Integer> edges) {
-		typedValues.put(dimension, (edges.get(dimension) * 2) / allNodes);
+	protected void putRatio(final String dimension, final double allNodes, final Map<String, Integer> edges) {
+		typedValues.put(dimension, edges.get(dimension) / allNodes);
 	}
 
 }
