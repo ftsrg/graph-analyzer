@@ -7,7 +7,7 @@ public class PublishedMetric {
 	protected String category;
 	protected Optional<String> instance = Optional.absent();
 	protected Optional<Integer> index = Optional.absent();
-	protected Optional<Number> value = Optional.absent();
+	protected Number value;
 
 	public PublishedMetric(String category) {
 		this.category = category;
@@ -24,7 +24,7 @@ public class PublishedMetric {
 	}
 
 	public PublishedMetric setValue(Number value) {
-		this.value = Optional.fromNullable(value);
+		this.value = value;
 		return this;
 	}
 
@@ -32,19 +32,15 @@ public class PublishedMetric {
 		return category;
 	}
 
-	public Optional<String> getInstance() {
-		return instance;
+	public String getInstanceString() {
+		return instance.isPresent() ? instance.get().toString() : "";
 	}
 
-	public Optional<Integer> getIndex() {
-		return index;
-	}
-	
 	public String getIndexString() {
-		return index.or(supplier);
+		return index.isPresent() ? index.get().toString() : "";
 	}
 
-	public Optional<Number> getValue() {
+	public Number getValue() {
 		return value;
 	}
 
