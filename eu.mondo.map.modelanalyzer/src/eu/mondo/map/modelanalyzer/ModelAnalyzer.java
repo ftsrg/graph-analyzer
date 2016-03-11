@@ -19,7 +19,6 @@ import eu.mondo.map.modelmetrics.scalar.NumberOfEdges;
 import eu.mondo.map.modelmetrics.scalar.NumberOfNodes;
 import eu.mondo.map.modelmetrics.scalar.typed.DimensionActivity;
 import eu.mondo.map.modelmetrics.scalar.typed.EdgeDimensionConnectivity;
-import eu.mondo.map.modelmetrics.scalar.typed.LayerActivity;
 import eu.mondo.map.modelmetrics.scalar.typed.NodeDimensionConnectivity;
 import eu.mondo.map.modelmetrics.scalar.typed.NumberOfTypedEdges;
 import eu.mondo.map.modelmetrics.scalar.typed.NumberOfTypedNodes;
@@ -31,15 +30,13 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected Network<N> network;
 
 	// scalar metrics
-	// protected Centrality centrality = new Centrality();
-	protected Density density = new Density();
 	protected NumberOfEdges numberOfEdges = new NumberOfEdges();
 	protected NumberOfNodes numberOfNodes = new NumberOfNodes();
+	protected Density density = new Density();
 
 	// typed scalar metrics
 	protected DimensionActivity dimensionActivity = new DimensionActivity();
 	protected EdgeDimensionConnectivity edgeDimensionConnectivity = new EdgeDimensionConnectivity();
-	protected LayerActivity layerActivity = new LayerActivity();
 	protected NodeDimensionConnectivity nodeDimensionConnectivity = new NodeDimensionConnectivity();
 	protected NumberOfTypedNodes numberOfTypedNodes = new NumberOfTypedNodes();
 	protected NumberOfTypedEdges numberOfTypedEdges = new NumberOfTypedEdges();
@@ -56,8 +53,6 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	// typed composite metrics
 	protected DimensionalTypedClusteringCoefficientList<N> dimensionalTypedClusteringCoefficientList = new DimensionalTypedClusteringCoefficientList<>();
 	protected NodeActivityList<N> nodeActivityList = new NodeActivityList<>();
-	// protected NumberOfTypedAttributes numberOfTypedAttributes = new NumberOfTypedAttributes(); //?
-	// protected TypedDegreeList typedDegreeList = new TypedDegreeList();
 
 	// init methods
 	protected abstract void initNetwork() throws IOException;
@@ -74,7 +69,6 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 	protected void initFields() {
 		// scalar metrics
-		// addMetric(centrality);
 		addMetric(density);
 		addMetric(numberOfEdges);
 		addMetric(numberOfNodes);
@@ -82,7 +76,6 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		// typed scalar metrics
 		addMetric(dimensionActivity);
 		addMetric(edgeDimensionConnectivity);
-		addMetric(layerActivity);
 		addMetric(nodeDimensionConnectivity);
 		addMetric(numberOfTypedNodes);
 		addMetric(numberOfTypedEdges);
@@ -99,13 +92,12 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		// typed composite metrics
 		addMetric(dimensionalTypedClusteringCoefficientList);
 		addMetric(nodeActivityList);
-		// addMetric(numberOfTypedAttributes);
-		// addMetric(typedDegreeList);
 
 		System.out.println("Initialized fields");
 	}
 
 	protected void calculateMetrics() {
+		// TODO print if finished
 		// scalar metrics
 		numberOfNodes.calculate(network);
 		numberOfEdges.calculate(network);
@@ -114,11 +106,10 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		// typed scalar metrics
 		dimensionActivity.calculate(network);
 		edgeDimensionConnectivity.calculate(network);
-		layerActivity.calculate(network);
 		nodeDimensionConnectivity.calculate(network);
-		// numberOfTypedNodes.calculate(degreeList);
 		numberOfTypedEdges.calculate(network);
-		// pairwiseMultiplexity.calculate(network, firstDimension, secondDimension);
+		pairwiseMultiplexity.calculateAllPairs(network, true);
+		pairwiseMultiplexity.calculateAllPairsExclusive(network, true);
 
 		// composite metrics
 		clusteringCoefficientList.calculate(network);
@@ -126,8 +117,8 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		dimensionalClusteringCoefficient.calculateFirstDefinition(network);
 		dimensionalClusteringCoefficient.calculateSecondDefinition(network);
 		multiplexParticipationCoefficient.calculate(network);
-		nodeInterdependenceList.calculate(network);
 		shortestPathList.calculate(network);
+		nodeInterdependenceList.calculate(network);
 
 		// typed composite metrics
 		dimensionalTypedClusteringCoefficientList.calculate(network);
@@ -136,13 +127,12 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		System.out.println("Calculated metrics");
 	}
 
-
 	protected static final String NEWLINE = "\n";
 	protected static final String DELIMITER = "\t";
 	protected static final String HEADER = "Category" + DELIMITER + "Instance" + DELIMITER + "Index" + DELIMITER + "Value";
 
 	protected void saveMetrics() throws IOException {
-		
+
 		try (FileWriter fileWriter = new FileWriter(modelName + ".tsv");) {
 			fileWriter.append(HEADER);
 			fileWriter.append(NEWLINE);
