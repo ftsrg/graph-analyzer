@@ -60,6 +60,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected abstract void initModel() throws IOException;
 
 	public void run() throws IOException {
+		System.out.println("Calculating metrics for: " + modelName);
 		initModel();
 		initNetwork();
 		initFields();
