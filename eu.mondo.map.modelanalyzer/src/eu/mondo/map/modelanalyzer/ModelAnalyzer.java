@@ -100,29 +100,62 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected void calculateMetrics() {
 		// TODO print if finished
 		// scalar metrics
+		System.out.println(numberOfNodes.getClass());
 		numberOfNodes.calculate(network);
+		
+		System.out.println(numberOfEdges.getClass());
 		numberOfEdges.calculate(network);
+		
+		System.out.println(density.getClass());
 		density.calculate(numberOfNodes, numberOfEdges);
 
 		// typed scalar metrics
+
+		System.out.println(dimensionActivity.getClass());
 		dimensionActivity.calculate(network);
+		
+		System.out.println(edgeDimensionConnectivity.getClass());
 		edgeDimensionConnectivity.calculate(network);
+		
+		System.out.println(nodeDimensionConnectivity.getClass());
 		nodeDimensionConnectivity.calculate(network);
+		
+		System.out.println(numberOfTypedEdges.getClass());
 		numberOfTypedEdges.calculate(network);
+		
+		System.out.println(pairwiseMultiplexity.getClass());
 		pairwiseMultiplexity.calculateAllPairs(network, true);
+		
+		System.out.println(pairwiseMultiplexity.getClass());
 		pairwiseMultiplexity.calculateAllPairsExclusive(network, true);
 
 		// composite metrics
+		System.out.println(clusteringCoefficientList.getClass());
 		clusteringCoefficientList.calculate(network);
+		
+		System.out.println(degreeList.getClass());
 		degreeList.calculate(network);
+		
+		System.out.println(dimensionalClusteringCoefficient.getClass());
 		dimensionalClusteringCoefficient.calculateFirstDefinition(network);
+		
+		System.out.println(dimensionalClusteringCoefficient.getClass());
 		dimensionalClusteringCoefficient.calculateSecondDefinition(network);
+		
+		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
+		
+		System.out.println(shortestPathList.getClass());
 		shortestPathList.calculate(network);
+		
+		System.out.println(nodeInterdependenceList.getClass());
 		nodeInterdependenceList.calculate(network);
 
 		// typed composite metrics
+		System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
 		dimensionalTypedClusteringCoefficientList.calculate(network);
+		
+		System.out.println(nodeActivityList.getClass());
 		nodeActivityList.calculate(network);
 
 		System.out.println("Calculated metrics");
