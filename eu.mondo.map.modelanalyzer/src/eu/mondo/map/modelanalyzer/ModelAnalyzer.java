@@ -53,6 +53,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	// typed composite metrics
 	protected DimensionalTypedClusteringCoefficientList<N> dimensionalTypedClusteringCoefficientList = new DimensionalTypedClusteringCoefficientList<>();
 	protected NodeActivityList<N> nodeActivityList = new NodeActivityList<>();
+	protected int SAMPLE_COUNT = 100;
 
 	// init methods
 	protected abstract void initNetwork() throws IOException;
@@ -102,10 +103,10 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		// scalar metrics
 		System.out.println(numberOfNodes.getClass());
 		numberOfNodes.calculate(network);
-		
+
 		System.out.println(numberOfEdges.getClass());
 		numberOfEdges.calculate(network);
-		
+
 		System.out.println(density.getClass());
 		density.calculate(numberOfNodes, numberOfEdges);
 
@@ -113,48 +114,52 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 		System.out.println(dimensionActivity.getClass());
 		dimensionActivity.calculate(network);
-		
+
 		System.out.println(edgeDimensionConnectivity.getClass());
 		edgeDimensionConnectivity.calculate(network);
-		
+
 		System.out.println(nodeDimensionConnectivity.getClass());
 		nodeDimensionConnectivity.calculate(network);
-		
+
 		System.out.println(numberOfTypedEdges.getClass());
 		numberOfTypedEdges.calculate(network);
-		
+
 		System.out.println(pairwiseMultiplexity.getClass());
 		pairwiseMultiplexity.calculateAllPairs(network, true);
-		
+
 		System.out.println(pairwiseMultiplexity.getClass());
 		pairwiseMultiplexity.calculateAllPairsExclusive(network, true);
 
 		// composite metrics
 		System.out.println(clusteringCoefficientList.getClass());
 		clusteringCoefficientList.calculate(network);
-		
+
 		System.out.println(degreeList.getClass());
 		degreeList.calculate(network);
-		
+
 		System.out.println(dimensionalClusteringCoefficient.getClass());
 		dimensionalClusteringCoefficient.calculateFirstDefinition(network);
-		
+
 		System.out.println(dimensionalClusteringCoefficient.getClass());
 		dimensionalClusteringCoefficient.calculateSecondDefinition(network);
-		
+
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
-		
+
 		System.out.println(shortestPathList.getClass());
-		shortestPathList.calculate(network);
-		
+		if (SAMPLE_COUNT == 0) {
+			shortestPathList.calculate(network);
+		} else {
+			shortestPathList.calculate(network, SAMPLE_COUNT);
+		}
+
 		System.out.println(nodeInterdependenceList.getClass());
 		nodeInterdependenceList.calculate(network);
 
 		// typed composite metrics
 		System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
 		dimensionalTypedClusteringCoefficientList.calculate(network);
-		
+
 		System.out.println(nodeActivityList.getClass());
 		nodeActivityList.calculate(network);
 
@@ -167,7 +172,8 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 	protected void saveMetrics() throws IOException {
 
-		try (FileWriter fileWriter = new FileWriter(modelName + ".tsv");) {
+		Object samplePostfix = SAMPLE_COUNT == 0 ? "" : "-" + SAMPLE_COUNT;
+		try (FileWriter fileWriter = new FileWriter(modelName + samplePostfix + ".tsv");) {
 			fileWriter.append(HEADER);
 			fileWriter.append(NEWLINE);
 			for (PublishedMetric metric : resolve()) {
