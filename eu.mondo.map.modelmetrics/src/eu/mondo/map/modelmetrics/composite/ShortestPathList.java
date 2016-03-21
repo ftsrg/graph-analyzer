@@ -82,10 +82,11 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 		}
 	}
 
-	protected void checkNumberOfRandomPairs(int numberOfNodes, int numberOfRandomPairs) {
+	protected void checkNumberOfRandomPairs(long numberOfNodes, long numberOfRandomPairs) {
 		if (numberOfRandomPairs < 1) {
 			throw new IllegalArgumentException("The numberOfRandomPairs parameter must be positive");
 		}
+
 		if (numberOfRandomPairs > (numberOfNodes * (numberOfNodes - 1))) {
 			throw new IllegalArgumentException(
 					"The numberOfRandomPairs parameter is invalid, cannot find as many number of shortest paths as "
