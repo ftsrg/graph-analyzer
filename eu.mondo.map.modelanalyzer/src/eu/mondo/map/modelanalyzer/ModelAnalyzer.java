@@ -138,27 +138,36 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		degreeList.calculate(network);
 
 		System.out.println(dimensionalClusteringCoefficient.getClass());
+		dimensionalClusteringCoefficient.setName("DimensionalClusteringCoefficientDef1");
 		dimensionalClusteringCoefficient.calculateFirstDefinition(network);
 
 		System.out.println(dimensionalClusteringCoefficient.getClass());
+		dimensionalClusteringCoefficient.setName("DimensionalClusteringCoefficientDef2");
 		dimensionalClusteringCoefficient.calculateSecondDefinition(network);
 
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
 
-		System.out.println(shortestPathList.getClass());
-		if (SAMPLE_COUNT == 0) {
-			shortestPathList.calculate(network);
-		} else {
-			shortestPathList.calculate(network, SAMPLE_COUNT);
-		}
-
-		System.out.println(nodeInterdependenceList.getClass());
-		nodeInterdependenceList.calculate(network);
-
 		// typed composite metrics
-		System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
-		dimensionalTypedClusteringCoefficientList.calculate(network);
+		if (SAMPLE_COUNT == 0) {
+			System.out.println(shortestPathList.getClass());
+			shortestPathList.calculate(network);
+
+			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
+			dimensionalTypedClusteringCoefficientList.calculate(network);
+
+			System.out.println(nodeInterdependenceList.getClass());
+			nodeInterdependenceList.calculate(network);
+		} else {
+			System.out.println(shortestPathList.getClass());
+			shortestPathList.calculate(network, SAMPLE_COUNT);
+
+			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
+			dimensionalTypedClusteringCoefficientList.calculate(network, SAMPLE_COUNT);
+
+			System.out.println(nodeInterdependenceList.getClass());
+			nodeInterdependenceList.calculate(network, SAMPLE_COUNT);
+		}
 
 		System.out.println(nodeActivityList.getClass());
 		nodeActivityList.calculate(network);
