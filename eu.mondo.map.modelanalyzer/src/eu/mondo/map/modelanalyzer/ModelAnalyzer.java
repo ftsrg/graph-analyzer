@@ -45,7 +45,8 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	// composite metrics
 	protected ClusteringCoefficientList<N> clusteringCoefficientList = new ClusteringCoefficientList<>();
 	protected DegreeList degreeList = new DegreeList();
-	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficient = new DimensionalClusteringCoefficient();
+	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficientDef1 = new DimensionalClusteringCoefficient();
+	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficientDef2 = new DimensionalClusteringCoefficient();
 	protected MultiplexParticipationCoefficient multiplexParticipationCoefficient = new MultiplexParticipationCoefficient();
 	protected NodeInterdependenceList<N> nodeInterdependenceList = new NodeInterdependenceList<>();
 	protected ShortestPathList<N> shortestPathList = new ShortestPathList<>();
@@ -53,7 +54,8 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	// typed composite metrics
 	protected DimensionalTypedClusteringCoefficientList<N> dimensionalTypedClusteringCoefficientList = new DimensionalTypedClusteringCoefficientList<>();
 	protected NodeActivityList<N> nodeActivityList = new NodeActivityList<>();
-	protected int SAMPLE_COUNT = 100;
+//	protected int SAMPLE_COUNT = 100;
+	protected int SAMPLE_COUNT = 0;
 
 	// init methods
 	protected abstract void initNetwork() throws IOException;
@@ -86,7 +88,8 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		// composite metrics
 		addMetric(clusteringCoefficientList);
 		addMetric(degreeList);
-		addMetric(dimensionalClusteringCoefficient);
+		addMetric(dimensionalClusteringCoefficientDef1);
+		addMetric(dimensionalClusteringCoefficientDef2);
 		addMetric(multiplexParticipationCoefficient);
 		addMetric(nodeInterdependenceList);
 		addMetric(shortestPathList);
@@ -99,7 +102,6 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	}
 
 	protected void calculateMetrics() {
-		// TODO print if finished
 		// scalar metrics
 		System.out.println(numberOfNodes.getClass());
 		numberOfNodes.calculate(network);
@@ -137,13 +139,13 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		System.out.println(degreeList.getClass());
 		degreeList.calculate(network);
 
-		System.out.println(dimensionalClusteringCoefficient.getClass());
-		dimensionalClusteringCoefficient.setName("DimensionalClusteringCoefficientDef1");
-		dimensionalClusteringCoefficient.calculateFirstDefinition(network);
+		System.out.println(dimensionalClusteringCoefficientDef1.getClass());
+		dimensionalClusteringCoefficientDef1.setName("DimensionalClusteringCoefficientDef1");
+		dimensionalClusteringCoefficientDef1.calculateFirstDefinition(network);
 
-		System.out.println(dimensionalClusteringCoefficient.getClass());
-		dimensionalClusteringCoefficient.setName("DimensionalClusteringCoefficientDef2");
-		dimensionalClusteringCoefficient.calculateSecondDefinition(network);
+		System.out.println(dimensionalClusteringCoefficientDef2.getClass());
+		dimensionalClusteringCoefficientDef2.setName("DimensionalClusteringCoefficientDef2");
+		dimensionalClusteringCoefficientDef2.calculateSecondDefinition(network);
 
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
