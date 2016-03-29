@@ -39,6 +39,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected DimensionActivity dimensionActivity = new DimensionActivity();
 	protected EdgeDimensionConnectivity edgeDimensionConnectivity = new EdgeDimensionConnectivity();
 	protected NodeDimensionConnectivity nodeDimensionConnectivity = new NodeDimensionConnectivity();
+	protected NodeDimensionConnectivity nodeExclusiveDimensionConnectivity = new NodeDimensionConnectivity();
 	protected NumberOfTypedNodes numberOfTypedNodes = new NumberOfTypedNodes();
 	protected NumberOfTypedEdges numberOfTypedEdges = new NumberOfTypedEdges();
 	protected PairwiseMultiplexity pairwiseMultiplexity = new PairwiseMultiplexity();
@@ -56,13 +57,16 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected DimensionalTypedClusteringCoefficientList<N> dimensionalTypedClusteringCoefficientList = new DimensionalTypedClusteringCoefficientList<>();
 	protected NodeActivityList<N> nodeActivityList = new NodeActivityList<>();
 	protected DimensionalDegreeList<N> dimensionalDegreeList = new DimensionalDegreeList<>();
-	protected int SAMPLE_COUNT = 100;
-//	protected int SAMPLE_COUNT = 0;
+	protected final int sampleSize;
 
 	// init methods
 	protected abstract void initNetwork() throws IOException;
 
 	protected abstract void initModel() throws IOException;
+
+	public ModelAnalyzer(final int sampleSize) {
+		this.sampleSize = sampleSize;
+	}
 
 	public void run() throws IOException {
 		System.out.println("Calculating metrics for: " + modelName);
@@ -126,6 +130,10 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		System.out.println(nodeDimensionConnectivity.getClass());
 		nodeDimensionConnectivity.calculate(network);
 
+		nodeExclusiveDimensionConnectivity.setName("NodeExclusiveDimensionConnectivity");
+		System.out.println(nodeExclusiveDimensionConnectivity.getClass());
+		nodeExclusiveDimensionConnectivity.calculate(network);
+
 		System.out.println(numberOfTypedEdges.getClass());
 		numberOfTypedEdges.calculate(network);
 
@@ -153,7 +161,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
 
-		if (SAMPLE_COUNT == 0) {
+		if (sampleSize == 0) {
 			System.out.println(shortestPathList.getClass());
 			shortestPathList.calculate(network);
 
@@ -161,22 +169,22 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 			nodeInterdependenceList.calculate(network);
 		} else {
 			System.out.println(shortestPathList.getClass());
-			shortestPathList.calculate(network, SAMPLE_COUNT);
+			shortestPathList.calculate(network, sampleSize);
 
 			System.out.println(nodeInterdependenceList.getClass());
-			nodeInterdependenceList.calculate(network, SAMPLE_COUNT);
+			nodeInterdependenceList.calculate(network, sampleSize);
 		}
-		
+
 		// typed composite metrics
 		System.out.println(dimensionalDegreeList.getClass());
 		dimensionalDegreeList.calculate(network);
 
-		if (SAMPLE_COUNT == 0) {
+		if (sampleSize == 0) {
 			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
 			dimensionalTypedClusteringCoefficientList.calculate(network);
 		} else {
 			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
-			dimensionalTypedClusteringCoefficientList.calculate(network, SAMPLE_COUNT);			
+			dimensionalTypedClusteringCoefficientList.calculate(network, sampleSize);
 		}
 
 		System.out.println(nodeActivityList.getClass());
@@ -191,7 +199,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 	protected void saveMetrics() throws IOException {
 
-		Object samplePostfix = SAMPLE_COUNT == 0 ? "" : "-" + SAMPLE_COUNT;
+		Object samplePostfix = sampleSize == 0 ? "" : "-" + sampleSize;
 		try (FileWriter fileWriter = new FileWriter(modelName + samplePostfix + ".tsv");) {
 			fileWriter.append(HEADER);
 			fileWriter.append(NEWLINE);

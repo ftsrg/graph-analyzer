@@ -9,6 +9,10 @@ import eu.mondo.map.emf.EMFNetworkFactory;
 
 public class EMFModelAnalyzer extends ModelAnalyzer<EObject> {
 
+	public EMFModelAnalyzer(int sampleCount) {
+		super(sampleCount);
+	}
+
 	protected Resource resource;
 
 	public void initNetwork() {
