@@ -12,6 +12,7 @@ import eu.mondo.map.modelmetrics.composite.DimensionalClusteringCoefficient;
 import eu.mondo.map.modelmetrics.composite.MultiplexParticipationCoefficient;
 import eu.mondo.map.modelmetrics.composite.NodeInterdependenceList;
 import eu.mondo.map.modelmetrics.composite.ShortestPathList;
+import eu.mondo.map.modelmetrics.composite.typed.DimensionalDegreeList;
 import eu.mondo.map.modelmetrics.composite.typed.DimensionalTypedClusteringCoefficientList;
 import eu.mondo.map.modelmetrics.composite.typed.NodeActivityList;
 import eu.mondo.map.modelmetrics.scalar.Density;
@@ -54,8 +55,9 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	// typed composite metrics
 	protected DimensionalTypedClusteringCoefficientList<N> dimensionalTypedClusteringCoefficientList = new DimensionalTypedClusteringCoefficientList<>();
 	protected NodeActivityList<N> nodeActivityList = new NodeActivityList<>();
-//	protected int SAMPLE_COUNT = 100;
-	protected int SAMPLE_COUNT = 0;
+	protected DimensionalDegreeList<N> dimensionalDegreeList = new DimensionalDegreeList<>();
+	protected int SAMPLE_COUNT = 100;
+//	protected int SAMPLE_COUNT = 0;
 
 	// init methods
 	protected abstract void initNetwork() throws IOException;
@@ -95,6 +97,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		addMetric(shortestPathList);
 
 		// typed composite metrics
+		addMetric(dimensionalDegreeList);
 		addMetric(dimensionalTypedClusteringCoefficientList);
 		addMetric(nodeActivityList);
 
@@ -150,13 +153,9 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
 
-		// typed composite metrics
 		if (SAMPLE_COUNT == 0) {
 			System.out.println(shortestPathList.getClass());
 			shortestPathList.calculate(network);
-
-			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
-			dimensionalTypedClusteringCoefficientList.calculate(network);
 
 			System.out.println(nodeInterdependenceList.getClass());
 			nodeInterdependenceList.calculate(network);
@@ -164,11 +163,20 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 			System.out.println(shortestPathList.getClass());
 			shortestPathList.calculate(network, SAMPLE_COUNT);
 
-			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
-			dimensionalTypedClusteringCoefficientList.calculate(network, SAMPLE_COUNT);
-
 			System.out.println(nodeInterdependenceList.getClass());
 			nodeInterdependenceList.calculate(network, SAMPLE_COUNT);
+		}
+		
+		// typed composite metrics
+		System.out.println(dimensionalDegreeList.getClass());
+		dimensionalDegreeList.calculate(network);
+
+		if (SAMPLE_COUNT == 0) {
+			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
+			dimensionalTypedClusteringCoefficientList.calculate(network);
+		} else {
+			System.out.println(dimensionalTypedClusteringCoefficientList.getClass());
+			dimensionalTypedClusteringCoefficientList.calculate(network, SAMPLE_COUNT);			
 		}
 
 		System.out.println(nodeActivityList.getClass());
