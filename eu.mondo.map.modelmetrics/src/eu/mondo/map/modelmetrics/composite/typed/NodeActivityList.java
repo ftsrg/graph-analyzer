@@ -13,7 +13,7 @@ public class NodeActivityList<N> extends ListMetric<Integer> {
 	public void calculate(final Network<N> network) {
 		clear();
 		for (Node<N> node : network.getNodes()) {
-			values.add(node.getDimensions().size());
+			values.add(node.getDimensions().keys().size());
 		}
 	}
 
