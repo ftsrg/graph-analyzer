@@ -87,6 +87,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		addMetric(dimensionActivity);
 		addMetric(edgeDimensionConnectivity);
 		addMetric(nodeDimensionConnectivity);
+		addMetric(nodeExclusiveDimensionConnectivity);
 		addMetric(numberOfTypedNodes);
 		addMetric(numberOfTypedEdges);
 		addMetric(pairwiseMultiplexity);
