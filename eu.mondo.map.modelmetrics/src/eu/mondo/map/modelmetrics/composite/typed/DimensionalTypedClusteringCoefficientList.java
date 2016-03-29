@@ -34,8 +34,8 @@ public class DimensionalTypedClusteringCoefficientList<N> extends TypedListMetri
 
 	protected void calculate(final Network<N> network, final Node<N> node, final boolean bounded,
 			final int maxNumberOfNeighbors) {
-		int interConnected = 0;
-		int numberOfNeighbors = 0;
+		long interConnected = 0;
+		long numberOfNeighbors = 0;
 		for (String dimension : node.getDimensionsAsSet()) {
 			interConnected = 0;
 			numberOfNeighbors = 0;
