@@ -46,7 +46,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 	// composite metrics
 	protected ClusteringCoefficientList<N> clusteringCoefficientList = new ClusteringCoefficientList<>();
-	protected DegreeList degreeList = new DegreeList();
+	protected DegreeList<N> degreeList = new DegreeList<>();
 	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficientDef1 = new DimensionalClusteringCoefficient();
 	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficientDef2 = new DimensionalClusteringCoefficient();
 	protected MultiplexParticipationCoefficient multiplexParticipationCoefficient = new MultiplexParticipationCoefficient();
@@ -163,14 +163,14 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		multiplexParticipationCoefficient.calculate(network);
 
 		if (sampleSize == 0) {
-			System.out.println(shortestPathList.getClass());
-			shortestPathList.calculate(network);
+//			System.out.println(shortestPathList.getClass());
+//			shortestPathList.calculate(network);
 
 			System.out.println(nodeInterdependenceList.getClass());
 			nodeInterdependenceList.calculate(network);
 		} else {
-			System.out.println(shortestPathList.getClass());
-			shortestPathList.calculate(network, sampleSize);
+//			System.out.println(shortestPathList.getClass());
+//			shortestPathList.calculate(network, sampleSize);
 
 			System.out.println(nodeInterdependenceList.getClass());
 			nodeInterdependenceList.calculate(network, sampleSize);

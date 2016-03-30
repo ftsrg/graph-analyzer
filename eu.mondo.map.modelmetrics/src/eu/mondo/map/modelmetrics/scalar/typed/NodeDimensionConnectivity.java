@@ -62,7 +62,7 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 		}
 		int numOfNodes = 0;
 		for (Node<?> node : network.getNodesOnDimensions().get(dimension)) {
-			if (node.getDimensions().size() == 1) {
+			if (node.getDimensions().keySet().size() == 1) {
 				numOfNodes++;
 			}
 		}
