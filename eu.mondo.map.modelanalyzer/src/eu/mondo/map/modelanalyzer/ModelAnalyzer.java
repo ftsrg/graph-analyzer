@@ -162,19 +162,19 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
 
-		if (sampleSize == 0) {
+//		if (sampleSize == 0) {
 //			System.out.println(shortestPathList.getClass());
 //			shortestPathList.calculate(network);
-
-			System.out.println(nodeInterdependenceList.getClass());
-			nodeInterdependenceList.calculate(network);
-		} else {
+//
+//			System.out.println(nodeInterdependenceList.getClass());
+//			nodeInterdependenceList.calculate(network);
+//		} else {
 //			System.out.println(shortestPathList.getClass());
 //			shortestPathList.calculate(network, sampleSize);
-
-			System.out.println(nodeInterdependenceList.getClass());
-			nodeInterdependenceList.calculate(network, sampleSize);
-		}
+//
+//			System.out.println(nodeInterdependenceList.getClass());
+//			nodeInterdependenceList.calculate(network, sampleSize);
+//		}
 
 		// typed composite metrics
 		System.out.println(dimensionalDegreeList.getClass());
