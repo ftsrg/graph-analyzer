@@ -18,7 +18,7 @@ import eu.mondo.map.rdf.RDFNetworkFactory;
 public class RDFModelAnalyzer extends ModelAnalyzer<Resource> {
 
 	public static final int SAMPLE_SIZE = 100;
-	public static final String TRAINBENCHMARK_MODEL_DIR = Constants.MODEL_DIR;
+	public static final String TRAINBENCHMARK_MODEL_DIR = Constants.MODEL_DIR + "rdf/";
 
 
 	public RDFModelAnalyzer(String modelFile) {
