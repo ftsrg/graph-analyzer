@@ -60,15 +60,15 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected final int sampleSize;
 
 	// init methods
-	protected abstract void initNetwork() throws IOException;
+	protected abstract void initNetwork() throws Exception;
 
-	protected abstract void initModel() throws IOException;
+	protected abstract void initModel() throws Exception;
 
 	public ModelAnalyzer(final int sampleSize) {
 		this.sampleSize = sampleSize;
 	}
 
-	public void run() throws IOException {
+	public void run() throws Exception {
 		System.out.println("Calculating metrics for: " + modelName);
 		initModel();
 		initNetwork();

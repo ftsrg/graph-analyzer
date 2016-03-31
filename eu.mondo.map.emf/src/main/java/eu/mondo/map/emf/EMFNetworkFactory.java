@@ -11,7 +11,7 @@ import eu.mondo.map.core.graph.Network;
 public class EMFNetworkFactory {
 
 	public static Network<EObject> createNetwork(Iterator<EObject> objects) {
-		Network<EObject> network = new Network<EObject>();
+		Network<EObject> network = new Network<>();
 		EObject obj;
 
 		while (objects.hasNext()) {
