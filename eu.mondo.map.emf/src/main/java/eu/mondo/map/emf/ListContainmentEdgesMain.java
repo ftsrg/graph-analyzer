@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 public class ListContainmentEdgesMain {
 
+	private static final String SEPARATOR = ",";
+
 	public static void main(final String[] args) {
 		listContainments(args[0]);
 	}
@@ -19,20 +21,25 @@ public class ListContainmentEdgesMain {
 	protected static void listContainments(final String ecorePath) {
 		EcorePackage.eINSTANCE.eClass();
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("ecore", new XMIResourceFactoryImpl());
-		
+
 		final ResourceSetImpl resourceSet = new ResourceSetImpl();
 		final Resource resource = resourceSet.getResource(URI.createFileURI(ecorePath), true);
-		
+
 		final EPackage ePackage = (EPackage) resource.getContents().get(0);
 		final TreeIterator<EObject> contents = ePackage.eAllContents();
 
 		while (contents.hasNext()) {
 			EObject next = contents.next();
 			if (next instanceof EReference) {
-				EReference reference = (EReference) next;
-				System.out.println(reference.getName() + "," + reference.isContainment());
-			}	
+				final EReference reference = (EReference) next;
+
+				final String sourceName = reference.getEContainingClass().getName();
+				final String referenceName = reference.getName();
+				final String containment = Boolean.toString(reference.isContainment());
+
+				System.out.println(String.join(SEPARATOR, sourceName + "." + referenceName, containment));
+			}
 		}
 	}
-	
+
 }
