@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
+import com.google.common.base.Joiner;
+
 public class ListContainmentEdgesMain {
 
 	private static final String SEPARATOR = ",";
@@ -36,8 +38,8 @@ public class ListContainmentEdgesMain {
 				final String sourceName = reference.getEContainingClass().getName();
 				final String referenceName = reference.getName();
 				final String containment = Boolean.toString(reference.isContainment());
-
-				System.out.println(String.join(SEPARATOR, sourceName + "." + referenceName, containment));
+				
+				System.out.println(Joiner.on(SEPARATOR).join(sourceName + "." + referenceName, containment));
 			}
 		}
 	}
