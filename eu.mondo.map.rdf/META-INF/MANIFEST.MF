@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Emf
-Bundle-SymbolicName: eu.mondo.map.emf
+Bundle-SymbolicName: eu.mondo.map.rdf
 Bundle-Version: 1.0.0.qualifier
 Export-Package: eu.mondo.map.rdf,
  eu.mondo.map.rdf.analyzer
