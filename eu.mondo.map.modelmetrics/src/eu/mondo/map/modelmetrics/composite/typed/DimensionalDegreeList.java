@@ -19,4 +19,9 @@ public class DimensionalDegreeList<N> extends TypedListMetric<String, Integer> {
 		}
 	}
 
+	@Override
+	protected boolean isSkippable(Integer value) {
+		return value.equals(0);
+	}
+
 }

@@ -33,12 +33,18 @@ public abstract class TypedListMetric<Type, Value extends Number> extends Metric
 		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
 		for (Type key : typedValues.keySet()) {
 			for (int i = 0; i < typedValues.get(key).size(); i++) {
-				PublishedMetric metric = new PublishedMetric(name).setInstance(key.toString()).setIndex(i).setValue(typedValues.get(key).get(i));
+				Value value = typedValues.get(key).get(i);
+				if (isSkippable(value)) {
+					continue;
+				}				
+				PublishedMetric metric = new PublishedMetric(name).setInstance(key.toString()).setIndex(i).setValue(value);
 				resolvedMetrics.add(metric);
 			}
 		}
 		return resolvedMetrics;
 	}
+	
+	protected abstract boolean isSkippable(Value value);
 
 	@Override
 	public void clear() {
