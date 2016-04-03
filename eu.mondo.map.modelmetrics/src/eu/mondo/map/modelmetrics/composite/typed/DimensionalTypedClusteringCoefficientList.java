@@ -67,7 +67,7 @@ public class DimensionalTypedClusteringCoefficientList<N> extends TypedListMetri
 
 	@Override
 	protected boolean isSkippable(Double value) {
-		return false;
+		return value.equals(0.0);
 	}
 
 }
