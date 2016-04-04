@@ -49,6 +49,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected DegreeList<N> degreeList = new DegreeList<>();
 	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficientDef1 = new DimensionalClusteringCoefficient();
 	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficientDef2 = new DimensionalClusteringCoefficient();
+	protected DimensionalClusteringCoefficient dimensionalClusteringCoefficientDef3 = new DimensionalClusteringCoefficient();
 	protected MultiplexParticipationCoefficient multiplexParticipationCoefficient = new MultiplexParticipationCoefficient();
 	protected NodeInterdependenceList<N> nodeInterdependenceList = new NodeInterdependenceList<>();
 	protected ShortestPathList<N> shortestPathList = new ShortestPathList<>();
@@ -97,6 +98,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		addMetric(degreeList);
 		addMetric(dimensionalClusteringCoefficientDef1);
 		addMetric(dimensionalClusteringCoefficientDef2);
+		addMetric(dimensionalClusteringCoefficientDef3);
 		addMetric(multiplexParticipationCoefficient);
 		addMetric(nodeInterdependenceList);
 		addMetric(shortestPathList);
@@ -159,6 +161,10 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		dimensionalClusteringCoefficientDef2.setName("DimensionalClusteringCoefficientDef2");
 		dimensionalClusteringCoefficientDef2.calculateSecondDefinition(network);
 
+		System.out.println(dimensionalClusteringCoefficientDef3.getClass());
+		dimensionalClusteringCoefficientDef3.setName("DimensionalClusteringCoefficientDef3");
+		dimensionalClusteringCoefficientDef3.calculateSecondDefinition(network);
+
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
 
@@ -196,7 +202,8 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 	protected static final String NEWLINE = "\n";
 	protected static final String DELIMITER = "\t";
-	protected static final String HEADER = "Category" + DELIMITER + "Instance" + DELIMITER + "Index" + DELIMITER + "Value";
+	protected static final String HEADER = "Category" + DELIMITER + "Instance" + DELIMITER + "Index" + DELIMITER
+			+ "Value";
 
 	protected void saveMetrics() throws IOException {
 
