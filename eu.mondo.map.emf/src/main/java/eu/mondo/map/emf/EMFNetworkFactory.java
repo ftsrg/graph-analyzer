@@ -12,20 +12,19 @@ public class EMFNetworkFactory {
 
 	public static Network<EObject> createNetwork(Iterator<EObject> objects) {
 		Network<EObject> network = new Network<>();
-		EObject obj;
-
+		
 		while (objects.hasNext()) {
-			obj = objects.next();
-			network.addNode(obj);
-			for (EReference ref : obj.eClass().getEAllReferences()) {
-				if (!ref.isDerived()) {
-					String referenceWithContainingClass = ref.getEContainingClass().getName() + "." + ref.getName();
-					if (ref.isMany()) {
-						for (EObject neighbor : (EList<EObject>) obj.eGet(ref, true)) {
-							network.addEdge(referenceWithContainingClass, obj, neighbor);
+			final EObject object = objects.next();
+			network.addNode(object);
+			for (final EReference reference : object.eClass().getEAllReferences()) {
+				if (!reference.isDerived()) {
+					final String referenceWithContainingClass = reference.getEContainingClass().getName() + "." + reference.getName();
+					if (reference.isMany()) {
+						for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
+							network.addEdge(referenceWithContainingClass, object, neighbor);
 						}
 					} else {
-						network.addEdge(referenceWithContainingClass, obj, (EObject) obj.eGet(ref, true));
+						network.addEdge(referenceWithContainingClass, object, (EObject) object.eGet(reference, true));
 					}
 				}
 			}
