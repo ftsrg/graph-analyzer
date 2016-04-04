@@ -12,23 +12,63 @@ public class EMFNetworkFactory {
 
 	public static Network<EObject> createNetwork(Iterator<EObject> objects) {
 		Network<EObject> network = new Network<>();
-		
+
 		while (objects.hasNext()) {
 			final EObject object = objects.next();
 			network.addNode(object);
 			for (final EReference reference : object.eClass().getEAllReferences()) {
 				if (!reference.isDerived()) {
-					final String referenceWithContainingClass = reference.getEContainingClass().getName() + "." + reference.getName();
+					final String referenceWithContainingClass = reference.getEContainingClass()
+							.getName() + "." + reference.getName();
 					if (reference.isMany()) {
-						for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
+						for (final EObject neighbor : (EList<EObject>) object.eGet(reference,
+								true)) {
 							network.addEdge(referenceWithContainingClass, object, neighbor);
 						}
 					} else {
-						network.addEdge(referenceWithContainingClass, object, (EObject) object.eGet(reference, true));
+						network.addEdge(referenceWithContainingClass, object,
+								(EObject) object.eGet(reference, true));
 					}
 				}
 			}
 		}
 		return network;
 	}
+
+	public static Network<EObject> createNetworkWithContainmentSeparation(Iterator<EObject> objects) {
+		Network<EObject> network = new Network<>();
+
+		String containment = "containment";
+		String nonContainment = "nonContainemnt";
+
+		while (objects.hasNext()) {
+			final EObject object = objects.next();
+			network.addNode(object);
+			for (final EReference reference : object.eClass().getEAllReferences()) {
+				if (!reference.isDerived()) {
+					if (reference.isMany()) {
+						for (final EObject neighbor : (EList<EObject>) object.eGet(reference,
+								true)) {
+							if (reference.isContainment()) {
+								network.addEdge(containment, object, neighbor);
+							} else {
+								network.addEdge(nonContainment, object, neighbor);
+							}
+
+						}
+					} else {
+						if (reference.isContainment()) {
+							network.addEdge(containment, object,
+									(EObject) object.eGet(reference, true));
+						} else {
+							network.addEdge(nonContainment, object,
+									(EObject) object.eGet(reference, true));
+						}
+					}
+				}
+			}
+		}
+		return network;
+	}
+
 }
