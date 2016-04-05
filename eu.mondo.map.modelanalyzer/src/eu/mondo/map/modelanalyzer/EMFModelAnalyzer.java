@@ -7,10 +7,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 import eu.mondo.map.emf.EMFNetworkFactory;
 
-public class EMFModelAnalyzer extends ModelAnalyzer<EObject> {
+public abstract class EMFModelAnalyzer extends ModelAnalyzer<EObject> {
 
-	public EMFModelAnalyzer(int sampleCount) {
-		super(sampleCount);
+	public EMFModelAnalyzer(final String modelName, final int sampleSize) {
+		super(modelName, sampleSize);
 	}
 
 	protected Resource resource;
@@ -21,7 +21,7 @@ public class EMFModelAnalyzer extends ModelAnalyzer<EObject> {
 
 	@Override
 	protected void initModel() throws IOException {
-				
+
 	}
 
 }

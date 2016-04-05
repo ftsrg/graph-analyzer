@@ -27,7 +27,13 @@ import eu.mondo.map.modelmetrics.scalar.typed.PairwiseMultiplexity;
 
 public abstract class ModelAnalyzer<N> extends Analyzer {
 
-	protected String modelName;
+	public ModelAnalyzer(final String modelName, final int sampleSize) {
+		this.modelName = modelName;
+		this.sampleSize = sampleSize;
+	}
+
+	protected final int sampleSize;
+	protected final String modelName;
 	protected Network<N> network;
 
 	// scalar metrics
@@ -58,16 +64,11 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected DimensionalTypedClusteringCoefficientList<N> dimensionalTypedClusteringCoefficientList = new DimensionalTypedClusteringCoefficientList<>();
 	protected NodeActivityList<N> nodeActivityList = new NodeActivityList<>();
 	protected DimensionalDegreeList<N> dimensionalDegreeList = new DimensionalDegreeList<>();
-	protected final int sampleSize;
 
 	// init methods
 	protected abstract void initNetwork() throws Exception;
 
 	protected abstract void initModel() throws Exception;
-
-	public ModelAnalyzer(final int sampleSize) {
-		this.sampleSize = sampleSize;
-	}
 
 	public void run() throws Exception {
 		System.out.println("Calculating metrics for: " + modelName);
@@ -172,19 +173,19 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
 
-//		if (sampleSize == 0) {
-//			System.out.println(shortestPathList.getClass());
-//			shortestPathList.calculate(network);
-//
-//			System.out.println(nodeInterdependenceList.getClass());
-//			nodeInterdependenceList.calculate(network);
-//		} else {
-//			System.out.println(shortestPathList.getClass());
-//			shortestPathList.calculate(network, sampleSize);
-//
-//			System.out.println(nodeInterdependenceList.getClass());
-//			nodeInterdependenceList.calculate(network, sampleSize);
-//		}
+		// if (sampleSize == 0) {
+		// System.out.println(shortestPathList.getClass());
+		// shortestPathList.calculate(network);
+		//
+		// System.out.println(nodeInterdependenceList.getClass());
+		// nodeInterdependenceList.calculate(network);
+		// } else {
+		// System.out.println(shortestPathList.getClass());
+		// shortestPathList.calculate(network, sampleSize);
+		//
+		// System.out.println(nodeInterdependenceList.getClass());
+		// nodeInterdependenceList.calculate(network, sampleSize);
+		// }
 
 		// typed composite metrics
 		System.out.println(dimensionalDegreeList.getClass());
@@ -206,8 +207,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 	protected static final String NEWLINE = "\n";
 	protected static final String DELIMITER = "\t";
-	protected static final String HEADER = "Category" + DELIMITER + "Instance" + DELIMITER + "Index" + DELIMITER
-			+ "Value";
+	protected static final String HEADER = "Category" + DELIMITER + "Instance" + DELIMITER + "Index" + DELIMITER + "Value";
 
 	protected void saveMetrics() throws IOException {
 
