@@ -6,17 +6,33 @@ import eu.mondo.map.core.metrics.ListMetric;
 
 public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 
+	protected int maxNeighbours = 1000;
+	protected boolean useHeuristic = false;
+
 	public DimensionalClusteringCoefficient() {
 		super("DimensionalClusteringCoefficient");
 	}
 
+	public int getMaxNeighbours() {
+		return maxNeighbours;
+	}
+
+	public void setMaxNeighbours(int maxNeighbours) {
+		this.maxNeighbours = maxNeighbours;
+	}
+
+	public boolean isUseHeuristic() {
+		return useHeuristic;
+	}
+
+	public void setUseHeuristic(boolean useHeuristic) {
+		this.useHeuristic = useHeuristic;
+	}
+
 	public <N> void calculateFirstDefinition(final Network<N> network) {
 		clear();
-		int i = 0;
 		for (Node<N> node : network.getNodes()) {
 			calculateFirstDefinition(network, node);
-			i++;
-//			System.out.println(i + "-------------------");
 		}
 	}
 
@@ -35,7 +51,7 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 
 		for (String dimension1 : node.getDimensionsAsSet()) {
 			numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension1);
-			if (numberOfNeighbors > 1000) {
+			if (useHeuristic && numberOfNeighbors > maxNeighbours) {
 				coef = 0.0;
 				values.add(coef);
 				return coef;
@@ -48,7 +64,6 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 								numberOfPossibleConnections++;
 								if (network.isAdjacentUndirected(neighbor1, neighbor2,
 										dimension2)) {
-//								if (neighbor1.hasNeighbor(neighbor2, dimension2)) {
 									interConnected++;
 								}
 							}
@@ -57,36 +72,40 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 					}
 				}
 			}
-//			numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension1);
-//			System.out.println(numberOfNeighbors + ":" + dimension1);
-//			if (numberOfNeighbors > 1) {
-//				numberOfPossibleConnections += (numberOfNeighbors) * (numberOfNeighbors - 1);
-//			}
 		}
-//		numberOfPossibleConnections *= (network.getNumberOfDimensions() - 1);
 		if (numberOfPossibleConnections == 0) {
 			coef = 0.0;
 		} else {
 			coef = interConnected / (double) numberOfPossibleConnections;
 		}
 		values.add(coef);
-//		System.out.println(coef);
 		return coef;
 	}
 
 	public <N> double calculateSecondDefinition(final Network<N> network, final Node<N> node) {
-		// int numberOfNeighbors = 0;
 		long interConnected = 0;
 		long numberOfPossibleConnections = 0;
 		double coef = 0.0;
+		int numberOfNeighbors = 0;
 
 		for (String dimension1 : node.getDimensionsAsSet()) {
 			for (String dimension2 : node.getDimensionsAsSet()) {
 				if (!dimension1.equals(dimension2)) {
+					numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension1);
+					if (useHeuristic && numberOfNeighbors > maxNeighbours) {
+						coef = 0.0;
+						values.add(coef);
+						return coef;
+					}
+					numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension2);
+					if (useHeuristic && numberOfNeighbors > maxNeighbours) {
+						coef = 0.0;
+						values.add(coef);
+						return coef;
+					}
 					for (Node<N> neighbor1 : node.getNeighbors(dimension1)) {
 						for (Node<N> neighbor2 : node.getNeighbors(dimension2)) {
 							if (neighbor1 != neighbor2) {
-//							numberOfPossibleConnections++;
 								for (String dimension3 : neighbor1
 										.getDimensionsAsSet()) {
 									if (!dimension1.equals(dimension3)
@@ -106,7 +125,6 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 			}
 		}
 
-//		numberOfPossibleConnections *= (network.getNumberOfDimensions() - 2);
 		if (numberOfPossibleConnections == 0) {
 			coef = 0.0;
 		} else {
@@ -118,28 +136,36 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 	}
 
 	public <N> double calculateThirdDefinition(final Network<N> network, final Node<N> node) {
-		// int numberOfNeighbors = 0;
 		long interConnected = 0;
 		long numberOfPossibleConnections = 0;
 		double coef = 0.0;
+		int numberOfNeighbors = 0;
 
 		for (String dimension1 : node.getDimensionsAsSet()) {
 			for (String dimension2 : node.getDimensionsAsSet()) {
 				if (!dimension1.equals(dimension2)) {
+					numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension1);
+					if (useHeuristic && numberOfNeighbors > maxNeighbours) {
+						coef = 0.0;
+						values.add(coef);
+						return coef;
+					}
+					numberOfNeighbors = node.getNumberOfDisjunctNeighbors(dimension2);
+					if (useHeuristic && numberOfNeighbors > maxNeighbours) {
+						coef = 0.0;
+						values.add(coef);
+						return coef;
+					}
 					for (Node<N> neighbor1 : node.getNeighbors(dimension1)) {
 						for (Node<N> neighbor2 : node.getNeighbors(dimension2)) {
 							if (neighbor1 != neighbor2) {
 								for (String dimension3 : neighbor1
 										.getDimensionsAsSet()) {
 									numberOfPossibleConnections++;
-//									if (!dimension1.equals(dimension3)
-//											&& !dimension2.equals(
-//													dimension3)) {
 									if (neighbor1.hasNeighbor(neighbor2,
 											dimension3)) {
 										interConnected++;
 									}
-//									}
 								}
 							}
 						}
@@ -148,7 +174,6 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 			}
 		}
 
-//		numberOfPossibleConnections *= (network.getNumberOfDimensions() - 2);
 		if (numberOfPossibleConnections == 0) {
 			coef = 0.0;
 		} else {

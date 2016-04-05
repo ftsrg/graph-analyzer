@@ -148,6 +148,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 		// composite metrics
 		System.out.println(clusteringCoefficientList.getClass());
+		clusteringCoefficientList.setUseHeuristic(true);
 		clusteringCoefficientList.calculate(network);
 
 		System.out.println(degreeList.getClass());
@@ -155,14 +156,17 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 		System.out.println(dimensionalClusteringCoefficientDef1.getClass());
 		dimensionalClusteringCoefficientDef1.setName("DimensionalClusteringCoefficientDef1");
+		dimensionalClusteringCoefficientDef1.setUseHeuristic(true);
 		dimensionalClusteringCoefficientDef1.calculateFirstDefinition(network);
 
 		System.out.println(dimensionalClusteringCoefficientDef2.getClass());
 		dimensionalClusteringCoefficientDef2.setName("DimensionalClusteringCoefficientDef2");
+		dimensionalClusteringCoefficientDef2.setUseHeuristic(true);
 		dimensionalClusteringCoefficientDef2.calculateSecondDefinition(network);
 
 		System.out.println(dimensionalClusteringCoefficientDef3.getClass());
 		dimensionalClusteringCoefficientDef3.setName("DimensionalClusteringCoefficientDef3");
+		dimensionalClusteringCoefficientDef3.setUseHeuristic(true);
 		dimensionalClusteringCoefficientDef3.calculateSecondDefinition(network);
 
 		System.out.println(multiplexParticipationCoefficient.getClass());

@@ -6,20 +6,49 @@ import eu.mondo.map.core.metrics.ListMetric;
 
 public class ClusteringCoefficientList<N> extends ListMetric<Double> {
 
+	protected int maxNeighbours = 1000;
+	protected boolean useHeuristic = false;
+
 	public ClusteringCoefficientList() {
 		super("ClusteringCoefficientList");
 	}
 
+	public int getMaxNeighbours() {
+		return maxNeighbours;
+	}
+
+	public void setMaxNeighbours(int maxNeighbours) {
+		this.maxNeighbours = maxNeighbours;
+	}
+
+	public boolean isUseHeuristic() {
+		return useHeuristic;
+	}
+
+	public void setUseHeuristic(boolean useHeuristic) {
+		this.useHeuristic = useHeuristic;
+	}
+
 	public void calculate(final Network<N> network) {
 		clear();
+		int i = 0;
 		for (Node<N> node : network.getNodes()) {
 			calculate(node);
+			i++;
+			if (i % 10000 == 0) {
+				System.out.println(i);
+			}
 		}
 	}
 
 	public double calculate(final Node<N> node) {
 		long interConnected = 0;
 		long numberOfNeighbors = 0;
+		double clusteringCoef = 0.0;
+		if (useHeuristic && node.getNumberOfDisjunctNeighbors() > maxNeighbours) {
+			values.add(clusteringCoef);
+			return clusteringCoef;
+		}
 		for (Node<N> neighbor1 : node.getDisjunctNeighbors()) {
 			for (Node<N> neighbor2 : node.getDisjunctNeighbors()) {
 				if (neighbor1 != neighbor2) {
@@ -31,7 +60,6 @@ public class ClusteringCoefficientList<N> extends ListMetric<Double> {
 		}
 
 		numberOfNeighbors = node.getNumberOfDisjunctNeighbors();
-		double clusteringCoef = 0.0;
 		if (numberOfNeighbors < 2) {
 			clusteringCoef = 0.0;
 		} else {
