@@ -39,7 +39,7 @@ public class EMFNetworkFactory {
 		Network<EObject> network = new Network<>();
 
 		String containment = "containment";
-		String nonContainment = "nonContainemnt";
+		String nonContainment = "nonContainment";
 
 		while (objects.hasNext()) {
 			final EObject object = objects.next();
