@@ -103,6 +103,9 @@ public class Network<N> {
 	}
 
 	protected Node<N> findOrCreateNode(final N object) {
+		if (object == null) {
+			throw new NullPointerException("Cannot create node for null object.");
+		}
 		Node<N> node;
 		node = nodesOnObjects.get(object);
 		if (node == null) {
