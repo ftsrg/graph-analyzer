@@ -9,19 +9,27 @@ import eu.mondo.map.emf.EMFNetworkFactory;
 
 public abstract class EMFModelAnalyzer extends ModelAnalyzer<EObject> {
 
-	public EMFModelAnalyzer(final String modelName, final int sampleSize) {
+	protected boolean containmentOnly;
+
+	public EMFModelAnalyzer(final String modelName, final int sampleSize, final boolean containmentOnly) {
 		super(modelName, sampleSize);
+		this.containmentOnly = containmentOnly;
 	}
 
 	protected Resource resource;
 
 	public void initNetwork() {
-		network = EMFNetworkFactory.createNetwork(resource.getAllContents());
+		network = EMFNetworkFactory.createNetwork(resource.getAllContents(), containmentOnly);
 	}
 
 	@Override
 	protected void initModel() throws IOException {
 
+	}
+
+	@Override
+	protected String getPostfix() {
+		return containmentOnly ? "-2d" : "-nd";
 	}
 
 }

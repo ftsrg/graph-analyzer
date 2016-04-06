@@ -210,12 +210,11 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected static final String HEADER = "Category" + DELIMITER + "Instance" + DELIMITER + "Index" + DELIMITER + "Value";
 
 	protected void saveMetrics() throws IOException {
-
-		Object samplePostfix = sampleSize == 0 ? "" : "-" + sampleSize;
-		try (FileWriter fileWriter = new FileWriter(modelName + samplePostfix + ".tsv");) {
+		final Object samplePostfix = sampleSize == 0 ? "" : "-" + sampleSize;
+		try (final FileWriter fileWriter = new FileWriter(modelName + samplePostfix + getPostfix() + ".tsv");) {
 			fileWriter.append(HEADER);
 			fileWriter.append(NEWLINE);
-			for (PublishedMetric metric : resolve()) {
+			for (final PublishedMetric metric : resolve()) {
 				fileWriter.append(metric.getCategory());
 				fileWriter.append(DELIMITER);
 				fileWriter.append(metric.getInstanceString());
@@ -228,5 +227,9 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 			fileWriter.flush();
 		}
 		System.out.println("Saved results");
+	}
+
+	protected String getPostfix() {
+		return "";
 	}
 }

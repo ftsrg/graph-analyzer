@@ -10,7 +10,15 @@ import eu.mondo.map.core.graph.Network;
 
 public class EMFNetworkFactory {
 
-	public static Network<EObject> createNetwork(Iterator<EObject> objects) {
+	public static Network<EObject> createNetwork(final Iterator<EObject> objects, final boolean containmentOnly) {
+		if (containmentOnly) {
+			return createNetworkWithContainments(objects);
+		} else {
+			return createNetworkWithAllDimensions(objects);
+		}
+	}
+
+	protected static Network<EObject> createNetworkWithAllDimensions(final Iterator<EObject> objects) {
 		Network<EObject> network = new Network<>();
 
 		while (objects.hasNext()) {
@@ -32,7 +40,7 @@ public class EMFNetworkFactory {
 		return network;
 	}
 
-	public static Network<EObject> createNetworkWithContainmentSeparation(Iterator<EObject> objects) {
+	protected static Network<EObject> createNetworkWithContainments(final Iterator<EObject> objects) {
 		Network<EObject> network = new Network<>();
 
 		String containment = "containment";
