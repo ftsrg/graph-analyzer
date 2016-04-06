@@ -53,7 +53,7 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 	}
 
 	public void calculate(final String dimension, final Network<?> network) {
-		typedValues.put(dimension, (double) (network.getNumberOfNodes(dimension) / network.getNumberOfNodes()));
+		typedValues.put(dimension, ((double) network.getNumberOfNodes(dimension) / network.getNumberOfNodes()));
 	}
 
 	public void calculateExclusive(final String dimension, final Network<?> network) {
