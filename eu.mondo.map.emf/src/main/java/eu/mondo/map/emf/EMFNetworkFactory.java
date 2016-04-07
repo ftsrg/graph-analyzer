@@ -27,22 +27,24 @@ public class EMFNetworkFactory {
 			network.addNode(object);
 
 			for (final EReference reference : object.eClass().getEAllReferences()) {
-				if (!reference.isDerived() && object.eIsSet(reference)) {
-					final String referenceWithContainingClass = reference.getEContainingClass().getName() + "." + reference.getName();
+				// skip derived and unset references
+				if (skippable(object, reference)) {
+					continue;
+				}
+				final String referenceWithContainingClass = reference.getEContainingClass().getName() + "." + reference.getName();
 
-					if (reference.isMany()) { // many
-						for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
-							network.addEdge(referenceWithContainingClass, object, neighbor);
+				if (reference.isMany()) { // many
+					for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
+						network.addEdge(referenceWithContainingClass, object, neighbor);
 
-							if (reference.isContainment()) {
-								k++;
-							}
-						}
-					} else { // single
-						network.addEdge(referenceWithContainingClass, object, (EObject) object.eGet(reference, true));
 						if (reference.isContainment()) {
 							k++;
 						}
+					}
+				} else { // single
+					network.addEdge(referenceWithContainingClass, object, (EObject) object.eGet(reference, true));
+					if (reference.isContainment()) {
+						k++;
 					}
 				}
 			}
@@ -62,37 +64,50 @@ public class EMFNetworkFactory {
 			final EObject object = objects.next();
 			network.addNode(object);
 			for (final EReference reference : object.eClass().getEAllReferences()) {
-				if (!reference.isDerived() && object.eIsSet(reference)) {
-					if (reference.isMany()) { // many
-						for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
-							if (reference.isContainment()) {
-								network.addEdge(containment, object, neighbor);
-								// System.out.println(object.eClass().getName() + "-[" + reference.getName() + "]->"+
-								// neighbor.eClass().getName());
-								k++;
-							} else {
-								network.addEdge(nonContainment, object, neighbor);
-							}
-
-						}
-					} else { // single
-						final EObject neighbor = (EObject) object.eGet(reference, true);
+				// skip derived and unset references
+				if (skippable(object, reference)) {
+					continue;
+				}
+				if (reference.isMany()) { // many
+					for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
 						if (reference.isContainment()) {
 							network.addEdge(containment, object, neighbor);
-							// System.out.println(object);
-							// System.out.println(neighbor);
 							// System.out.println(object.eClass().getName() + "-[" + reference.getName() + "]->"+
 							// neighbor.eClass().getName());
 							k++;
 						} else {
 							network.addEdge(nonContainment, object, neighbor);
 						}
+
+					}
+				} else { // single
+					final EObject neighbor = (EObject) object.eGet(reference, true);
+					if (reference.isContainment()) {
+						network.addEdge(containment, object, neighbor);
+						// System.out.println(object);
+						// System.out.println(neighbor);
+						// System.out.println(object.eClass().getName() + "-[" + reference.getName() + "]->"+
+						// neighbor.eClass().getName());
+						k++;
+					} else {
+						network.addEdge(nonContainment, object, neighbor);
 					}
 				}
+
 			}
 		}
 		// System.out.println(k);
 		return network;
 	}
+
+	private static boolean skippable(final EObject object, final EReference reference) {
+		// return reference.isDerived() || !object.eIsSet(reference);
+		return reference.isDerived() || !object.eIsSet(reference) || containmentOpposite(reference);
+	}
+
+	private static boolean containmentOpposite(final EReference reference) {
+		return reference.getEOpposite() != null && reference.getEOpposite().isContainment();
+	}
+
 
 }
