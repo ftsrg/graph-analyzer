@@ -35,7 +35,7 @@ public class ClusteringCoefficientList<N> extends ListMetric<Double> {
 		for (Node<N> node : network.getNodes()) {
 			calculate(node);
 			i++;
-			if (i % 10000 == 0) {
+			if (i % 100000 == 0) {
 				System.out.println(i);
 			}
 		}
