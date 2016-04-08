@@ -1,5 +1,8 @@
 package eu.mondo.map.modelmetrics.composite;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.ListMetric;
@@ -59,7 +62,10 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 			for (Node<N> neighbor1 : node.getDisjunctNeighbors(dimension1)) {
 				for (Node<N> neighbor2 : node.getDisjunctNeighbors(dimension1)) {
 					if (neighbor1 != neighbor2) {
-						for (String dimension2 : neighbor1.getDimensionsAsSet()) {
+						Set<String> dimensions = new HashSet<String>();
+						dimensions.addAll(neighbor1.getDimensionsAsSet());
+						dimensions.addAll(neighbor2.getDimensionsAsSet());
+						for (String dimension2 : dimensions) {
 							if (!dimension1.equals(dimension2)) {
 								numberOfPossibleConnections++;
 								if (network.isAdjacentUndirected(neighbor1, neighbor2,
@@ -106,14 +112,25 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 					for (Node<N> neighbor1 : node.getNeighbors(dimension1)) {
 						for (Node<N> neighbor2 : node.getNeighbors(dimension2)) {
 							if (neighbor1 != neighbor2) {
-								for (String dimension3 : neighbor1
-										.getDimensionsAsSet()) {
+								Set<String> dimensions = new HashSet<String>();
+								dimensions.addAll(neighbor1.getDimensionsAsSet());
+								dimensions.addAll(neighbor2.getDimensionsAsSet());
+//								System.out.println(dimensions);
+
+								for (String dimension3 : dimensions) {
+//									System.out.println("-----");
+//									System.out.println(dimension1);
+//									System.out.println(dimension2);
+//									System.out.println(dimension3);
 									if (!dimension1.equals(dimension3)
 											&& !dimension2.equals(
 													dimension3)) {
 										numberOfPossibleConnections++;
 										if (neighbor1.hasNeighbor(neighbor2,
 												dimension3)) {
+//											System.out.println(neighbor1);
+//											System.out.println(neighbor2);
+//											System.out.println(dimension3);
 											interConnected++;
 										}
 									}
@@ -159,12 +176,20 @@ public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 					for (Node<N> neighbor1 : node.getNeighbors(dimension1)) {
 						for (Node<N> neighbor2 : node.getNeighbors(dimension2)) {
 							if (neighbor1 != neighbor2) {
-								for (String dimension3 : neighbor1
-										.getDimensionsAsSet()) {
+								Set<String> dimensions = new HashSet<String>();
+								dimensions.addAll(neighbor1.getDimensionsAsSet());
+								dimensions.addAll(neighbor2.getDimensionsAsSet());
+								for (String dimension3 : dimensions) {
+//									System.out.println(neighbor1);
+//									System.out.println(neighbor2);
+//									System.out.println(dimension3);
 									numberOfPossibleConnections++;
 									if (neighbor1.hasNeighbor(neighbor2,
 											dimension3)) {
 										interConnected++;
+//										System.out.println(neighbor1);
+//										System.out.println(neighbor2);
+//										System.out.println(dimension3);
 									}
 								}
 							}
