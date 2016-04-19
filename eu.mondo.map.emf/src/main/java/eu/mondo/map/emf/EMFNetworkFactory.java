@@ -91,12 +91,10 @@ public class EMFNetworkFactory {
 
 			}
 		}
-		// System.out.println(k);
 		return network;
 	}
 
 	private static boolean skippable(final EObject object, final EReference reference) {
-		// return reference.isDerived() || !object.eIsSet(reference);
 		return reference.isDerived() || !object.eIsSet(reference) || hasPrecedingOpposite(reference);
 	}
 
