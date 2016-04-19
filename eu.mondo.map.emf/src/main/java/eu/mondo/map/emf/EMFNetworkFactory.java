@@ -5,6 +5,7 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import eu.mondo.map.core.graph.Network;
 
@@ -72,8 +73,6 @@ public class EMFNetworkFactory {
 					for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
 						if (reference.isContainment()) {
 							network.addEdge(containment, object, neighbor);
-							// System.out.println(object.eClass().getName() + "-[" + reference.getName() + "]->"+
-							// neighbor.eClass().getName());
 							k++;
 						} else {
 							network.addEdge(nonContainment, object, neighbor);
@@ -84,10 +83,6 @@ public class EMFNetworkFactory {
 					final EObject neighbor = (EObject) object.eGet(reference, true);
 					if (reference.isContainment()) {
 						network.addEdge(containment, object, neighbor);
-						// System.out.println(object);
-						// System.out.println(neighbor);
-						// System.out.println(object.eClass().getName() + "-[" + reference.getName() + "]->"+
-						// neighbor.eClass().getName());
 						k++;
 					} else {
 						network.addEdge(nonContainment, object, neighbor);
@@ -102,12 +97,27 @@ public class EMFNetworkFactory {
 
 	private static boolean skippable(final EObject object, final EReference reference) {
 		// return reference.isDerived() || !object.eIsSet(reference);
-		return reference.isDerived() || !object.eIsSet(reference) || containmentOpposite(reference);
+		return reference.isDerived() || !object.eIsSet(reference) || hasPrecedingOpposite(reference);
 	}
 
-	private static boolean containmentOpposite(final EReference reference) {
-		return reference.getEOpposite() != null && reference.getEOpposite().isContainment();
-	}
+	private static boolean hasPrecedingOpposite(EReference reference) {
+		final EReference opposite = reference.getEOpposite();
 
+		if (opposite == null) {
+			return false;
+		}
+
+		final String referenceString = EcoreUtil.getURI(reference).toString();
+		final String oppositeString = EcoreUtil.getURI(opposite).toString();
+
+		if (referenceString.equals(oppositeString)) {
+			throw new RuntimeException("The reference and its opposite have the same name.");
+		}
+		if (referenceString.compareTo(oppositeString) < 0) {
+			return false;
+		}
+
+		return true;
+	}
 
 }
