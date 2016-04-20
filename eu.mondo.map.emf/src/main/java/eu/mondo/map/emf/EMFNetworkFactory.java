@@ -29,7 +29,7 @@ public class EMFNetworkFactory {
 
 			for (final EReference reference : object.eClass().getEAllReferences()) {
 				// skip derived and unset references
-				if (skippable(object, reference)) {
+				if (omitted(object, reference)) {
 					continue;
 				}
 				final String referenceWithContainingClass = reference.getEContainingClass().getName() + "." + reference.getName();
@@ -66,7 +66,7 @@ public class EMFNetworkFactory {
 			network.addNode(object);
 			for (final EReference reference : object.eClass().getEAllReferences()) {
 				// skip some references, see the implementation of the skippable method
-				if (skippable(object, reference)) {
+				if (omitted(object, reference)) {
 					continue;
 				}
 				if (reference.isMany()) { // many
@@ -94,8 +94,8 @@ public class EMFNetworkFactory {
 		return network;
 	}
 
-	private static boolean skippable(final EObject object, final EReference reference) {
-		return !reference.isContainment() || reference.isDerived() || !object.eIsSet(reference) || hasStrongerOpposite(reference);
+	private static boolean omitted(final EObject object, final EReference reference) {
+		return reference.isDerived() || !object.eIsSet(reference) || hasStrongerOpposite(reference);
 	}
 
 	private static boolean hasStrongerOpposite(EReference reference) {
