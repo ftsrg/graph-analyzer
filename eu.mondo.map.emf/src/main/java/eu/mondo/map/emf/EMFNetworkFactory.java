@@ -65,7 +65,7 @@ public class EMFNetworkFactory {
 			final EObject object = objects.next();
 			network.addNode(object);
 			for (final EReference reference : object.eClass().getEAllReferences()) {
-				// skip derived and unset references
+				// skip some references, see the implementation of the skippable method
 				if (skippable(object, reference)) {
 					continue;
 				}
@@ -95,14 +95,22 @@ public class EMFNetworkFactory {
 	}
 
 	private static boolean skippable(final EObject object, final EReference reference) {
-		return reference.isDerived() || !object.eIsSet(reference) || hasPrecedingOpposite(reference);
+		return !reference.isContainment() || reference.isDerived() || !object.eIsSet(reference) || hasStrongerOpposite(reference);
 	}
 
-	private static boolean hasPrecedingOpposite(EReference reference) {
+	private static boolean hasStrongerOpposite(EReference reference) {
+		// a reference is considered to have a stronger opposite,
+		// if it has an opposite that
+		// - is a containment opposite
+		// - or the name of the opposite follows the name of the reference w.r.t. a lexicographical ordering
 		final EReference opposite = reference.getEOpposite();
 
 		if (opposite == null) {
 			return false;
+		}
+
+		if (opposite.isContainment()) {
+			return true;
 		}
 
 		final String referenceString = EcoreUtil.getURI(reference).toString();
