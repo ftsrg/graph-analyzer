@@ -10,6 +10,7 @@ import eu.mondo.map.modelmetrics.composite.ClusteringCoefficientList;
 import eu.mondo.map.modelmetrics.composite.DegreeList;
 import eu.mondo.map.modelmetrics.composite.DimensionalClusteringCoefficient;
 import eu.mondo.map.modelmetrics.composite.MultiplexParticipationCoefficient;
+import eu.mondo.map.modelmetrics.composite.NeighborhoodList;
 import eu.mondo.map.modelmetrics.composite.NodeInterdependenceList;
 import eu.mondo.map.modelmetrics.composite.ShortestPathList;
 import eu.mondo.map.modelmetrics.composite.typed.DimensionalDegreeList;
@@ -59,6 +60,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 	protected MultiplexParticipationCoefficient multiplexParticipationCoefficient = new MultiplexParticipationCoefficient();
 	protected NodeInterdependenceList<N> nodeInterdependenceList = new NodeInterdependenceList<>();
 	protected ShortestPathList<N> shortestPathList = new ShortestPathList<>();
+	protected NeighborhoodList<N> neighborhoods = new NeighborhoodList<>();
 
 	// typed composite metrics
 	protected DimensionalTypedClusteringCoefficientList<N> dimensionalTypedClusteringCoefficientList = new DimensionalTypedClusteringCoefficientList<>();
@@ -103,6 +105,7 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 		addMetric(multiplexParticipationCoefficient);
 		addMetric(nodeInterdependenceList);
 		addMetric(shortestPathList);
+		addMetric(neighborhoods);
 
 		// typed composite metrics
 		addMetric(dimensionalDegreeList);
@@ -172,6 +175,9 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 		System.out.println(multiplexParticipationCoefficient.getClass());
 		multiplexParticipationCoefficient.calculate(network);
+
+		System.out.println(neighborhoods.getClass());
+		neighborhoods.calculate(network);
 
 		// if (sampleSize == 0) {
 		// System.out.println(shortestPathList.getClass());
