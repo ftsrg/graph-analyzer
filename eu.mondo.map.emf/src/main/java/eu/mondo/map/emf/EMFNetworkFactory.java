@@ -66,12 +66,9 @@ public class EMFNetworkFactory {
 			network.addNode(object);
 			for (final EReference reference : object.eClass().getEAllReferences()) {
 				// skip some references, see the implementation of the skippable method
-				System.out.print(reference.getName() + " ");
 				if (!included(object, reference)) {
-					System.out.println(" OMITTED");
 					continue;
 				}
-				System.out.println(" OK");
 				if (reference.isMany()) { // many
 					for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
 						if (reference.isContainment()) {
@@ -100,11 +97,12 @@ public class EMFNetworkFactory {
 
 	private static boolean included(final EObject object, final EReference reference) {
 		// an edge is INCLUDED, if
-		// - it is set, and
 		// - it is not derived, and
+		// - it is set, and
 		// - it is "stronger" than its opposite edge
+		// the order of the conditions is important: for the derived edges, Capella throws an exception for the eIsSet() checks0
 
-		return object.eIsSet(reference) && !reference.isDerived() && isStrongerThanItsOpposite(reference);
+		return !reference.isDerived() && object.eIsSet(reference) && isStrongerThanItsOpposite(reference);
 	}
 
 	private static boolean isStrongerThanItsOpposite(EReference reference) {
