@@ -13,13 +13,10 @@ Thumbs.db
 .Rhistory
 .pydevproject
 deps/
-diagrams/*
 .idea
 log/
 catalog-v*.xml
 .RData
 .Rproj.user
-*.tar.gz
-*.zip
 *.gml
-*.ifc
+xtend-gen/
