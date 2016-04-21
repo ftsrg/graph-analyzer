@@ -29,7 +29,7 @@ public class EMFNetworkFactory {
 
 			for (final EReference reference : object.eClass().getEAllReferences()) {
 				// skip derived and unset references
-				if (omitted(object, reference)) {
+				if (!included(object, reference)) {
 					continue;
 				}
 				final String referenceWithContainingClass = reference.getEContainingClass().getName() + "." + reference.getName();
@@ -66,9 +66,12 @@ public class EMFNetworkFactory {
 			network.addNode(object);
 			for (final EReference reference : object.eClass().getEAllReferences()) {
 				// skip some references, see the implementation of the skippable method
-				if (omitted(object, reference)) {
+				System.out.print(reference.getName() + " ");
+				if (!included(object, reference)) {
+					System.out.println(" OMITTED");
 					continue;
 				}
+				System.out.println(" OK");
 				if (reference.isMany()) { // many
 					for (final EObject neighbor : (EList<EObject>) object.eGet(reference, true)) {
 						if (reference.isContainment()) {
@@ -91,39 +94,52 @@ public class EMFNetworkFactory {
 
 			}
 		}
+		// System.out.println(k);
 		return network;
 	}
 
-	private static boolean omitted(final EObject object, final EReference reference) {
-		return reference.isDerived() || !object.eIsSet(reference) || hasStrongerOpposite(reference);
+	private static boolean included(final EObject object, final EReference reference) {
+		// an edge is INCLUDED, if
+		// - it is set, and
+		// - it is not derived, and
+		// - it is "stronger" than its opposite edge
+
+		return object.eIsSet(reference) && !reference.isDerived() && isStrongerThanItsOpposite(reference);
 	}
 
-	private static boolean hasStrongerOpposite(EReference reference) {
-		// a reference is considered to have a stronger opposite,
-		// if it has an opposite that
-		// - is a containment opposite
-		// - or the name of the opposite follows the name of the reference w.r.t. a lexicographical ordering
-		final EReference opposite = reference.getEOpposite();
+	private static boolean isStrongerThanItsOpposite(EReference reference) {
+		// a reference is considered to be "stronger" than its opposite, if it
+		// (1) is a containment reference, or
+		// (2) it does not have an opposite, or
+		// (3)
+		// - a) the opposite is not a containment and
+		// - b) the name of the opposite follows the name of the reference w.r.t. a lexicographical ordering
 
-		if (opposite == null) {
-			return false;
-		}
-
-		if (opposite.isContainment()) {
+		// (1)
+		if (reference.isContainment()) {
 			return true;
 		}
 
-		final String referenceString = EcoreUtil.getURI(reference).toString();
-		final String oppositeString = EcoreUtil.getURI(opposite).toString();
-
-		if (referenceString.equals(oppositeString)) {
-			throw new RuntimeException("The reference and its opposite have the same name.");
-		}
-		if (referenceString.compareTo(oppositeString) < 0) {
-			return false;
+		// (2)
+		final EReference opposite = reference.getEOpposite();
+		if (opposite == null) {
+			return true;
 		}
 
-		return true;
+		// (3)
+		if (!opposite.isContainment()) {
+			final String referenceString = EcoreUtil.getURI(reference).toString();
+			final String oppositeString = EcoreUtil.getURI(opposite).toString();
+
+			if (referenceString.equals(oppositeString)) {
+				throw new RuntimeException("The reference and its opposite have the same name.");
+			}
+			if (referenceString.compareTo(oppositeString) < 0) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
