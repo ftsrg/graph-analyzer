@@ -1,45 +1,71 @@
 package eu.mondo.map.core;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-import eu.mondo.map.core.metrics.Metric;
-import eu.mondo.map.core.metrics.PublishedMetric;
-import eu.mondo.map.core.metrics.Publishing;;
+import com.google.common.collect.Lists;
 
-public class Analyzer {
+import eu.mondo.map.core.metrics.Metric;;
 
-	protected List<Metric> metrics;
+public abstract class Analyzer<K, V extends Metric> {
+
+	protected Map<K, V> metrics;
 
 	public Analyzer() {
-		metrics = new ArrayList<>();
+		metrics = new LinkedHashMap<>();
 	}
 
-	public Analyzer(final List<Metric> metrics) {
-		this.metrics = metrics;
+	@Override
+	public String toString() {
+		return "Analyzer [metrics=" + metrics + "]";
 	}
 
-	public boolean addAllMetrics(final Collection<? extends Metric> c) {
-		return metrics.addAll(c);
+	public void clearMetrics() {
+		metrics.clear();
 	}
 
-	public boolean addMetric(final Metric e) {
-		return metrics.add(e);
+	public Map<K, V> getMetrics() {
+		return metrics;
 	}
 
-	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
-		for (Metric metric : metrics) {
-			if (metric instanceof Publishing) {
-				resolvedMetrics.addAll(((Publishing) metric).resolve());
-			}
-		}
-		return resolvedMetrics;
+	/**
+	 * <p>
+	 * Returns the values from <em>metrics</em> collection in the order of
+	 * insertion.
+	 * </p>
+	 * 
+	 * @return metrics in insertion order
+	 */
+	public List<V> getMetricsInOrder() {
+		return Lists.newArrayList(metrics.values());
 	}
 
-	public void setMetrics(final List<Metric> metrics) {
-		this.metrics = metrics;
-	}
+	//
+	// public Analyzer(final List<Metric> metrics) {
+	// this.metrics = metrics;
+	// }
+	//
+	// public boolean addAllMetrics(final Collection<? extends Metric> c) {
+	// return metrics.addAll(c);
+	// }
+	//
+	// public boolean addMetric(final Metric e) {
+	// return metrics.add(e);
+	// }
+	//
+	// public List<PublishedMetric> resolve() {
+	// List<PublishedMetric> resolvedMetrics = new ArrayList<>();
+	// for (Metric metric : metrics) {
+	// if (metric instanceof Publishing) {
+	// resolvedMetrics.addAll(((Publishing) metric).resolve());
+	// }
+	// }
+	// return resolvedMetrics;
+	// }
+	//
+	// public void setMetrics(final List<Metric> metrics) {
+	// this.metrics = metrics;
+	// }
 
 }

@@ -7,13 +7,17 @@ public abstract class Metric {
 
 	public Metric(final String defaultName) {
 		this.defaultName = defaultName;
-		this.name = defaultName;
+		name = defaultName;
 	}
 
 	public abstract void clear();
 
 	public String getDefaultName() {
 		return defaultName;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	public void setName(final String name) {
