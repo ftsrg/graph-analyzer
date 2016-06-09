@@ -1,15 +1,15 @@
-package eu.mondo.map.modelanalyzer;
+package eu.mondo.map.modelanalyzer.adapters;
 
 import java.util.Set;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-public class ModelBaseIndexer {
+public class ModelIndexer {
 
 	protected Table<Object, Object, Set<Object>> adjacency;
 
-	public ModelBaseIndexer() {
+	public ModelIndexer() {
 		adjacency = HashBasedTable.create();
 	}
 

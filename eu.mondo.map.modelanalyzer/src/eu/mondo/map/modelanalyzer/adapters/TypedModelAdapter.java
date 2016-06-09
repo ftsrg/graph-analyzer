@@ -1,4 +1,4 @@
-package eu.mondo.map.modelanalyzer;
+package eu.mondo.map.modelanalyzer.adapters;
 
 import java.util.Set;
 

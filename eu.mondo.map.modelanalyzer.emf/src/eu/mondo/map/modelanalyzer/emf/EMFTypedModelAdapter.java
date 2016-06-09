@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.ecore.resource.Resource;
 
-import eu.mondo.map.modelanalyzer.TypedModelAdapter;
+import eu.mondo.map.modelanalyzer.adapters.TypedModelAdapter;
 
 public class EMFTypedModelAdapter extends TypedModelAdapter<Resource> {
 

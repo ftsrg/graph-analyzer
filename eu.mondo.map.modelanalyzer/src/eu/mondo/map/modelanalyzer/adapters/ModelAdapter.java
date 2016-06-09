@@ -1,11 +1,11 @@
-package eu.mondo.map.modelanalyzer;
+package eu.mondo.map.modelanalyzer.adapters;
 
 import java.util.Iterator;
 
 public abstract class ModelAdapter<M> {
 
 	protected M model;
-	protected ModelBaseIndexer indexer;
+	protected ModelIndexer indexer;
 
 	public abstract Iterator<Object> getModelIterator();
 
@@ -27,11 +27,11 @@ public abstract class ModelAdapter<M> {
 		return false;
 	}
 
-	public ModelBaseIndexer getIndexer() {
+	public ModelIndexer getIndexer() {
 		return indexer;
 	}
 
-	public void setIndexer(ModelBaseIndexer indexer) {
+	public void setIndexer(ModelIndexer indexer) {
 		this.indexer = indexer;
 	}
 

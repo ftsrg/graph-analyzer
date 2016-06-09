@@ -25,7 +25,6 @@ public class ModelAnalyzerTests {
 	@Test
 	public void testUse() {
 		analyzer.use(ModelMetrics.NumberOfEdges);
-
 	}
 
 	@Test(expected = IllegalArgumentException.class)
