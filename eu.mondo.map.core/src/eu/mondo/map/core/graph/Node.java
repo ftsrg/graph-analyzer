@@ -8,6 +8,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ListMultimap;
 
+@Deprecated
 public class Node<T> {
 
 	protected T object;
@@ -119,12 +120,12 @@ public class Node<T> {
 
 	public boolean hasNeighbor(final Node<T> neighbor, final String dimension) {
 		if (incomingNeighbors.containsKey(neighbor)) {
-			if (incomingNeighbors.get((Node<T>) neighbor).contains(dimension)) {
+			if (incomingNeighbors.get(neighbor).contains(dimension)) {
 				return true;
 			}
 		}
 		if (outgoingNeighbors.containsKey(neighbor)) {
-			return outgoingNeighbors.get((Node<T>) neighbor).contains(dimension);
+			return outgoingNeighbors.get(neighbor).contains(dimension);
 		}
 		return false;
 

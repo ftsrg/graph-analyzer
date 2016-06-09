@@ -12,19 +12,23 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Table;
 
+@Deprecated
 public class Network<N> {
 
 	/**
-	 * Stores the dimensions as keys and the corresponding nodes as values. Every dimension, so every key has a list of such nodes that have
-	 * at least one edge labeled with that dimension. The possible duplication among nodes in a list is prevented.
+	 * Stores the dimensions as keys and the corresponding nodes as values.
+	 * Every dimension, so every key has a list of such nodes that have at least
+	 * one edge labeled with that dimension. The possible duplication among
+	 * nodes in a list is prevented.
 	 */
 	protected ListMultimap<String, Node<N>> nodesOnDimensions;
 	protected List<Node<N>> nodes;
 	protected BiMap<N, Node<N>> nodesOnObjects;
 
 	/**
-	 * Represents an adjacency matrix between nodes. A pair of nodes appear in the Table if exists a connection among them. The dimension of
-	 * the connection is stored in Set<String> parameter.
+	 * Represents an adjacency matrix between nodes. A pair of nodes appear in
+	 * the Table if exists a connection among them. The dimension of the
+	 * connection is stored in Set<String> parameter.
 	 */
 	protected Table<Node<N>, Node<N>, Set<String>> adjacency;
 
@@ -56,7 +60,8 @@ public class Network<N> {
 			// do nothing
 
 			// throw new RuntimeException("A connection in " + dimension
-			// + " does already exist between the nodes: " + sourceNode + ", " + targetNode);
+			// + " does already exist between the nodes: " + sourceNode + ", " +
+			// targetNode);
 		} else {
 			setAdjacent(dimension, sourceNode, targetNode);
 			sourceNode.addOutgoingNeighbor(targetNode, dimension);
