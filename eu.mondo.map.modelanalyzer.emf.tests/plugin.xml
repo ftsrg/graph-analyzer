@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated school -->
+      <package
+            uri="eu.mondo.map.modelanalyzer.emf.tests.schoolmodel"
+            class="eu.mondo.map.modelanalyzer.emf.tests.examplemodel.school.SchoolPackage"
+            genModel="model/school.genmodel"/>
+   </extension>
+
+</plugin>
