@@ -3,7 +3,7 @@ package eu.mondo.map.core.metrics;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ScalarMetric<T extends Number> extends Metric implements Publishing {
+public abstract class ScalarMetric<T extends Number> extends BaseMetric implements Publishing {
 
 	protected T value;
 

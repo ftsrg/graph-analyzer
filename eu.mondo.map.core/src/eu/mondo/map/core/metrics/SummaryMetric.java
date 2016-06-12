@@ -42,16 +42,5 @@ public class SummaryMetric<V extends Number, M extends ListMetric<V>> extends Sc
 	public void clear() {
 
 	}
-	//
-	// @Override
-	// public void calculate(Iterator<Object> iterator) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void calculate(Object node) {
-	// // TODO Auto-generated method stub
-	//
-	// }
+
 }

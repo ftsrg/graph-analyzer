@@ -10,9 +10,10 @@ import eu.mondo.map.core.Analyzer;
 import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.SummaryMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
+import eu.mondo.map.modelmetrics.ModelEvaluator;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
-public class ModelAnalyzer extends Analyzer<String, Metric> {
+public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
@@ -101,7 +102,7 @@ public class ModelAnalyzer extends Analyzer<String, Metric> {
 	protected void useMetric(ModelMetrics metric, String name) {
 		checkState(!metrics.containsKey(metric.toString()),
 				"The metric " + metric.toString() + " was already added to the analyzer.");
-		Metric newMetric = metric.instantiate();
+		ModelEvaluator newMetric = metric.instantiate();
 		if (name != null) {
 			newMetric.setName(name);
 		}

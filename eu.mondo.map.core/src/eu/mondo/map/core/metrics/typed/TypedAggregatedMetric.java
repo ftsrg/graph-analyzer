@@ -15,16 +15,4 @@ public class TypedAggregatedMetric<Type, M extends TypedListMetric<Type, ?>> ext
 		}
 	}
 
-	// @Override
-	// public void calculate(Iterator<Object> iterator) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void calculate(Object node) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-
 }

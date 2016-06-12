@@ -3,9 +3,9 @@ package eu.mondo.map.core.metrics.typed;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import eu.mondo.map.core.metrics.Metric;
+import eu.mondo.map.core.metrics.BaseMetric;
 
-public abstract class MultitypedScalarMetric<Type, Key, Value> extends Metric {
+public abstract class MultitypedScalarMetric<Type, Key, Value> extends BaseMetric {
 
 	public MultitypedScalarMetric(String defaultName) {
 		super(defaultName);

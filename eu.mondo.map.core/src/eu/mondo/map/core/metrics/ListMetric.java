@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class ListMetric<Value extends Number> extends Metric implements Publishing {
+public abstract class ListMetric<Value extends Number> extends BaseMetric implements Publishing {
 
 	protected List<Value> values;
 

@@ -1,31 +1,16 @@
 package eu.mondo.map.core.metrics;
 
-public abstract class Metric {
+public interface Metric {
 
-	protected String name;
-	protected String defaultName;
+	/**
+	 * Clears the value of metric.
+	 */
+	public void clear();
 
-	public Metric(final String defaultName) {
-		this.defaultName = defaultName;
-		name = defaultName;
-	}
+	public String getDefaultName();
 
-	public abstract void clear();
+	public String getName();
 
-	// public abstract void calculate(final Iterator<Object> iterator);
-
-	// public abstract void calculate(final Object node);
-
-	public String getDefaultName() {
-		return defaultName;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(final String name) {
-		this.name = name;
-	}
+	public void setName(final String name);
 
 }

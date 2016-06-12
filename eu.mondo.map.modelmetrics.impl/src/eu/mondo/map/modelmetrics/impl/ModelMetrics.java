@@ -1,10 +1,10 @@
 package eu.mondo.map.modelmetrics.impl;
 
-import eu.mondo.map.modelmetrics.MetricInitializer;
+import eu.mondo.map.modelmetrics.ModelEvaluatorInitializer;
 import eu.mondo.map.modelmetrics.impl.scalar.NumberOfEdges;
 import eu.mondo.map.modelmetrics.impl.scalar.NumberOfNodes;
 
-public enum ModelMetrics implements MetricInitializer {
+public enum ModelMetrics implements ModelEvaluatorInitializer {
 
 	NumberOfEdges {
 

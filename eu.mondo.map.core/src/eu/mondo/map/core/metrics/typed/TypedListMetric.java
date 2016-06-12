@@ -7,11 +7,11 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 
-import eu.mondo.map.core.metrics.Metric;
+import eu.mondo.map.core.metrics.BaseMetric;
 import eu.mondo.map.core.metrics.PublishedMetric;
 import eu.mondo.map.core.metrics.Publishing;
 
-public abstract class TypedListMetric<Type, Value extends Number> extends Metric implements Publishing {
+public abstract class TypedListMetric<Type, Value extends Number> extends BaseMetric implements Publishing {
 
 	protected ListMultimap<Type, Value> typedValues;
 
@@ -36,14 +36,15 @@ public abstract class TypedListMetric<Type, Value extends Number> extends Metric
 				Value value = typedValues.get(key).get(i);
 				if (isSkippable(value)) {
 					continue;
-				}				
-				PublishedMetric metric = new PublishedMetric(name).setInstance(key.toString()).setIndex(i).setValue(value);
+				}
+				PublishedMetric metric = new PublishedMetric(name).setInstance(key.toString()).setIndex(i)
+						.setValue(value);
 				resolvedMetrics.add(metric);
 			}
 		}
 		return resolvedMetrics;
 	}
-	
+
 	protected abstract boolean isSkippable(Value value);
 
 	@Override

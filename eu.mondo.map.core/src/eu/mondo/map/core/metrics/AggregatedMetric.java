@@ -48,17 +48,5 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 		super.setName(name);
 		useDefault = false;
 	}
-	//
-	// @Override
-	// public void calculate(Iterator<Object> iterator) {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// @Override
-	// public void calculate(Object node) {
-	// // TODO Auto-generated method stub
-	//
-	// }
 
 }

@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import eu.mondo.map.core.metrics.Metric;
+import eu.mondo.map.core.metrics.BaseMetric;
 import eu.mondo.map.core.metrics.PublishedMetric;
 import eu.mondo.map.core.metrics.Publishing;
 
-public abstract class TypedScalarMetric<K, V extends Number> extends Metric implements Publishing {
+public abstract class TypedScalarMetric<K, V extends Number> extends BaseMetric implements Publishing {
 
 	public TypedScalarMetric(String defaultName) {
 		super(defaultName);
@@ -36,7 +36,8 @@ public abstract class TypedScalarMetric<K, V extends Number> extends Metric impl
 	public List<PublishedMetric> resolve() {
 		List<PublishedMetric> metrics = new ArrayList<>();
 		for (Entry<K, V> entry : typedValues.entrySet()) {
-			PublishedMetric metric = new PublishedMetric(name).setInstance(entry.getKey().toString()).setValue(entry.getValue());
+			PublishedMetric metric = new PublishedMetric(name).setInstance(entry.getKey().toString())
+					.setValue(entry.getValue());
 			metrics.add(metric);
 		}
 		return metrics;
