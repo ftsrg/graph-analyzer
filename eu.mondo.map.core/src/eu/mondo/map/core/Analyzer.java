@@ -21,8 +21,15 @@ public abstract class Analyzer<K, V extends Metric> {
 		return "Analyzer [metrics=" + metrics + "]";
 	}
 
-	public void clearMetrics() {
+	/**
+	 * <p>
+	 * Removes every metric that were added to this class by clearing the
+	 * <em>metrics</em> collection.
+	 * </p>
+	 */
+	public Analyzer<K, V> clear() {
 		metrics.clear();
+		return this;
 	}
 
 	public Map<K, V> getMetrics() {

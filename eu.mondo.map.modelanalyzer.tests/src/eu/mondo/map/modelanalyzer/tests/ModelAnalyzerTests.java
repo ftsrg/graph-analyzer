@@ -130,20 +130,23 @@ public class ModelAnalyzerTests {
 		checkSize(ModelMetrics.values().length - 1);
 		assertNull(analyzer.getMetric(NumberOfNodes));
 
-		analyzer.clearMetrics();
-		analyzer.useAll().omit(NumberOfEdges);
+		analyzer.clear().useAll().omit(NumberOfEdges);
 
 		checkSize(ModelMetrics.values().length - 1);
 		assertNull(analyzer.getMetric(NumberOfEdges));
 
-		analyzer.clearMetrics();
-		analyzer.useAll().omit(NumberOfNodes).omit(NumberOfEdges);
+		analyzer.clear().useAll().omit(NumberOfNodes).omit(NumberOfEdges);
 		checkSize(0);
 	}
 
 	@Test
 	public void testOrder() {
 		fail("Not tested yet");
+	}
+
+	@Test
+	public void testValidation() {
+		analyzer.validate();
 	}
 
 }

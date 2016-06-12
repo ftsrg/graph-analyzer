@@ -4,14 +4,23 @@ import static com.google.common.base.Preconditions.checkState;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.base.Preconditions;
+
 import eu.mondo.map.core.Analyzer;
 import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.SummaryMetric;
+import eu.mondo.map.modelanalyzer.adapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelMetrics;
 
 public class ModelAnalyzer extends Analyzer<String, Metric> {
 
-	private final Logger logger = Logger.getLogger(this.getClass());
+	protected final Logger logger = Logger.getLogger(this.getClass());
+
+	@Override
+	public ModelAnalyzer clear() {
+		super.clear();
+		return this;
+	}
 
 	/**
 	 * <p>
@@ -156,9 +165,11 @@ public class ModelAnalyzer extends Analyzer<String, Metric> {
 	}
 
 	/**
+	 * <p>
 	 * Returns a {@link Metric} object which is mapped to the
 	 * {@link ModelMetrics} parameter and contained by the ModelAnalyzer. If
 	 * there is not any {@link Metric} object, returns <strong>null</strong>.
+	 * </p>
 	 * 
 	 * @param metric
 	 *            {@link ModelMetrics} value
@@ -167,6 +178,76 @@ public class ModelAnalyzer extends Analyzer<String, Metric> {
 	 */
 	public Metric getMetric(ModelMetrics metric) {
 		return metrics.get(metric.toString());
+	}
+
+	/**
+	 * <p>
+	 * Evaluates every metric ({@link Metric}) which were added for the
+	 * analysis. The calculations are evaluated in the insertion order of
+	 * metrics. The adapter parameter ({@link ModelAdapter}) provides the
+	 * necessary interface for the calculations.
+	 * </p>
+	 * 
+	 * @param adapter
+	 *            instance of {@link ModelAdapter}
+	 * @param <M>
+	 *            the model
+	 * 
+	 * @return this
+	 */
+	public <M> ModelAnalyzer calculate(final ModelAdapter<M> adapter) {
+		for (Metric m : metrics.values()) {
+			m.calculate(adapter.getModelIterator());
+		}
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Evaluates the given {@link Metric} identified by the {@link ModelMetrics}
+	 * parameter. The adapter parameter ({@link ModelAdapter}) provides the
+	 * necessary interface for the calculations.
+	 * </p>
+	 * 
+	 * @param adapter
+	 *            instance of {@link ModelAdapter}
+	 * @param metric
+	 *            value in {@link ModelMetrics}, identifies the {@link Metric}
+	 *            to evaluate
+	 * @param <M>
+	 *            type of the model
+	 * 
+	 * @return this
+	 */
+	public <M> ModelAnalyzer calculate(final ModelAdapter<M> adapter, ModelMetrics metric) {
+		Metric metricObj = getMetric(metric);
+		Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.", metricObj);
+
+		metricObj.calculate(adapter.getModelIterator());
+		return this;
+	}
+
+	/**
+	 * <p>
+	 * Runs a preliminary validation to check whether every metric requirement
+	 * is provided by the adapter parameter or not (see {@link ModelAdapter}).
+	 * Throws an {@link IllegalStateException} if the adapter parameter does not
+	 * implement an interface that is required by the evaluation of at least one
+	 * metric.
+	 * </p>
+	 * 
+	 * @param <M>
+	 *            type of the model
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if the adapter parameter does not implement an interface that
+	 *             is necessary for the calculations of metrics
+	 * 
+	 * @return this
+	 */
+	public <M> ModelAnalyzer validate(final ModelAdapter<M> adapter) {
+		throw new UnsupportedOperationException("Not implemented yet");
+		// return this;
 	}
 
 }
