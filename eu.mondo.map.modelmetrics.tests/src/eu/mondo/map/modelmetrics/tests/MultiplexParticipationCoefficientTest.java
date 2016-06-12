@@ -11,9 +11,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import eu.mondo.map.core.tests.metrics.ListMetricTest;
-import eu.mondo.map.modelmetrics.composite.MultiplexParticipationCoefficient;
+import eu.mondo.map.modelmetrics.impl.composite.MultiplexParticipationCoefficient;
 
-public class MultiplexParticipationCoefficientTest<N> extends ListMetricTest<Double, MultiplexParticipationCoefficient> {
+public class MultiplexParticipationCoefficientTest<N>
+		extends ListMetricTest<Double, MultiplexParticipationCoefficient> {
 
 	@Override
 	public MultiplexParticipationCoefficient initMetric() {

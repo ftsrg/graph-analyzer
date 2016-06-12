@@ -3,17 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Modelmetrics
 Bundle-SymbolicName: eu.mondo.map.modelmetrics
 Bundle-Version: 1.0.0.qualifier
-Export-Package: eu.mondo.map.modelmetrics,
- eu.mondo.map.modelmetrics.composite,
- eu.mondo.map.modelmetrics.composite.data,
- eu.mondo.map.modelmetrics.composite.typed,
- eu.mondo.map.modelmetrics.scalar,
- eu.mondo.map.modelmetrics.scalar.typed
+Export-Package: eu.mondo.map.modelmetrics
 Require-Bundle: com.google.guava;bundle-version="15.0.0",
  org.junit;bundle-version="4.11.0",
  eu.mondo.map.core;bundle-version="1.0.0",
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
- org.eclipse.xtend.lib.macro
+ org.eclipse.xtend.lib.macro,
+ eu.mondo.map.modeladapters;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 

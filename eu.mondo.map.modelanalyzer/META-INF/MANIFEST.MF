@@ -9,8 +9,9 @@ Require-Bundle: eu.mondo.map.core;bundle-version="1.0.0",
  org.eclipse.emf.common;bundle-version="2.10.1",
  org.eclipse.emf.ecore;bundle-version="2.10.2",
  com.google.guava;bundle-version="15.0.0",
- org.apache.log4j
+ org.apache.log4j,
+ eu.mondo.map.modeladapters;bundle-version="1.0.0",
+ eu.mondo.map.modelmetrics.impl;bundle-version="1.0.0"
 Export-Package: eu.mondo.map.modelanalyzer,
- eu.mondo.map.modelanalyzer.adapters,
  eu.mondo.map.modelanalyzer.incr
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7

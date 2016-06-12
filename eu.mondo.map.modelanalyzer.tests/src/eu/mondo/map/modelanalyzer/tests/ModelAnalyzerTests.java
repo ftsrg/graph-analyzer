@@ -1,7 +1,7 @@
 package eu.mondo.map.modelanalyzer.tests;
 
-import static eu.mondo.map.modelmetrics.ModelMetrics.NumberOfEdges;
-import static eu.mondo.map.modelmetrics.ModelMetrics.NumberOfNodes;
+import static eu.mondo.map.modelmetrics.impl.ModelMetrics.NumberOfEdges;
+import static eu.mondo.map.modelmetrics.impl.ModelMetrics.NumberOfNodes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -17,8 +17,8 @@ import org.junit.Test;
 import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.SummaryMetric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
-import eu.mondo.map.modelmetrics.ModelMetrics;
-import eu.mondo.map.modelmetrics.composite.DegreeList;
+import eu.mondo.map.modelmetrics.impl.ModelMetrics;
+import eu.mondo.map.modelmetrics.impl.composite.DegreeList;
 
 public class ModelAnalyzerTests {
 

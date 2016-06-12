@@ -1,7 +1,6 @@
 package eu.mondo.map.core.metrics;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class AggregatedMetric<M extends ListMetric<? extends Number>> extends ScalarMetric<Double> {
@@ -49,17 +48,17 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 		super.setName(name);
 		useDefault = false;
 	}
-
-	@Override
-	public void calculate(Iterator<Object> iterator) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void calculate(Object node) {
-		// TODO Auto-generated method stub
-
-	}
+	//
+	// @Override
+	// public void calculate(Iterator<Object> iterator) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void calculate(Object node) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 }

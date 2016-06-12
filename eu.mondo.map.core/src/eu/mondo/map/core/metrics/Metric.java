@@ -1,7 +1,5 @@
 package eu.mondo.map.core.metrics;
 
-import java.util.Iterator;
-
 public abstract class Metric {
 
 	protected String name;
@@ -14,9 +12,9 @@ public abstract class Metric {
 
 	public abstract void clear();
 
-	public abstract void calculate(final Iterator<Object> iterator);
+	// public abstract void calculate(final Iterator<Object> iterator);
 
-	public abstract void calculate(final Object node);
+	// public abstract void calculate(final Object node);
 
 	public String getDefaultName() {
 		return defaultName;

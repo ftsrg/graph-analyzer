@@ -23,8 +23,8 @@ import com.google.common.collect.Lists;
 
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.tests.metrics.ListMetricTest;
-import eu.mondo.map.modelmetrics.composite.ShortestPathList;
-import eu.mondo.map.modelmetrics.composite.data.Path;
+import eu.mondo.map.modelmetrics.impl.composite.Path;
+import eu.mondo.map.modelmetrics.impl.composite.ShortestPathList;
 
 public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathList<String>> {
 

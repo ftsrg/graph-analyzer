@@ -1,7 +1,5 @@
 package eu.mondo.map.core.metrics.typed;
 
-import java.util.Iterator;
-
 import eu.mondo.map.core.util.MathUtils;
 
 public class TypedAggregatedMetric<Type, M extends TypedListMetric<Type, ?>> extends TypedScalarMetric<Type, Double> {
@@ -17,16 +15,16 @@ public class TypedAggregatedMetric<Type, M extends TypedListMetric<Type, ?>> ext
 		}
 	}
 
-	@Override
-	public void calculate(Iterator<Object> iterator) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void calculate(Object node) {
-		// TODO Auto-generated method stub
-
-	}
+	// @Override
+	// public void calculate(Iterator<Object> iterator) {
+	// // TODO Auto-generated method stub
+	//
+	// }
+	//
+	// @Override
+	// public void calculate(Object node) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 }

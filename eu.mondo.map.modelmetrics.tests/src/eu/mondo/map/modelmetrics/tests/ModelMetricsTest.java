@@ -3,7 +3,7 @@ package eu.mondo.map.modelmetrics.tests;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.mondo.map.modelmetrics.ModelMetrics;
+import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
 public class ModelMetricsTest {
 

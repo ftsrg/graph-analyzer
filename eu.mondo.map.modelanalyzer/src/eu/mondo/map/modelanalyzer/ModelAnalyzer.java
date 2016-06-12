@@ -9,8 +9,8 @@ import com.google.common.base.Preconditions;
 import eu.mondo.map.core.Analyzer;
 import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.SummaryMetric;
-import eu.mondo.map.modelanalyzer.adapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetrics;
+import eu.mondo.map.modeladapters.ModelAdapter;
+import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
 public class ModelAnalyzer extends Analyzer<String, Metric> {
 
@@ -197,7 +197,7 @@ public class ModelAnalyzer extends Analyzer<String, Metric> {
 	 */
 	public <M> ModelAnalyzer calculate(final ModelAdapter<M> adapter) {
 		for (Metric m : metrics.values()) {
-			m.calculate(adapter.getModelIterator());
+			// m.calculate(adapter.getModelIterator());
 		}
 		return this;
 	}
@@ -223,7 +223,7 @@ public class ModelAnalyzer extends Analyzer<String, Metric> {
 		Metric metricObj = getMetric(metric);
 		Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.", metricObj);
 
-		metricObj.calculate(adapter.getModelIterator());
+		// metricObj.calculate(adapter.getModelIterator());
 		return this;
 	}
 

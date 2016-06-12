@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import eu.mondo.map.core.tests.metrics.TypedScalarMetricTest;
-import eu.mondo.map.modelmetrics.scalar.typed.PairwiseMultiplexity;
+import eu.mondo.map.modelmetrics.impl.scalar.typed.PairwiseMultiplexity;
 
 public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMultiplexity> {
 
@@ -34,8 +34,7 @@ public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMult
 	}
 
 	private void checkMutiplexityExclusive(String dim1, String dim2, double expected) {
-		Assert.assertEquals(expected, metric.getValues().get(dim1 + "-" + dim2 + "-exclusive").doubleValue(),
-				0.01);
+		Assert.assertEquals(expected, metric.getValues().get(dim1 + "-" + dim2 + "-exclusive").doubleValue(), 0.01);
 
 	}
 
