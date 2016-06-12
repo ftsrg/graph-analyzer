@@ -144,9 +144,4 @@ public class ModelAnalyzerTests {
 		fail("Not tested yet");
 	}
 
-	@Test
-	public void testValidation() {
-		analyzer.validate();
-	}
-
 }
