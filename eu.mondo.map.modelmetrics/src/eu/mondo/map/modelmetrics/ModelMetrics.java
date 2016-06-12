@@ -17,8 +17,7 @@ public enum ModelMetrics implements MetricInitializer {
 
 		@Override
 		public NumberOfNodes instantiate() {
-			// TODO Auto-generated method stub
-			return null;
+			return new NumberOfNodes();
 		}
 
 	}
