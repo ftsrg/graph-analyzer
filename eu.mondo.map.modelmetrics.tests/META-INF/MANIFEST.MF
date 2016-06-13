@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  eu.mondo.map.modelmetrics;bundle-version="1.0.0",
  eu.mondo.map.core;bundle-version="1.0.0",
  com.google.guava;bundle-version="15.0.0",
- eu.mondo.map.modelmetrics.impl;bundle-version="1.0.0"
+ eu.mondo.map.modelmetrics.impl;bundle-version="1.0.0",
+ eu.mondo.map.modeladapters;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
