@@ -32,12 +32,12 @@ public class NumberOfNodes extends ScalarMetric<Integer> implements ModelEvaluat
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		value = adapter.getNumberOfNodes();
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate NumberOfNodes metric on an element.");
 	}
 

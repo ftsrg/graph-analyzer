@@ -26,11 +26,11 @@ public class NumberOfTypedEdges extends TypedScalarMetric<String, Integer> imple
 	// }
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
-		TypedModelAdapter<M> typedAdapter = castAdapter(adapter);
-		for (Object type : typedAdapter.getTypes()) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+		for (T type : typedAdapter.getTypes()) {
 			int sumOfEdges = 0;
-			for (Object node : typedAdapter.getNodes(type)) {
+			for (N node : typedAdapter.getNodes(type)) {
 				sumOfEdges += typedAdapter.getDegree(node, type);
 			}
 			sumOfEdges /= 2;
@@ -39,7 +39,7 @@ public class NumberOfTypedEdges extends TypedScalarMetric<String, Integer> imple
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate NumberOfTypedEdges metric on an element.");
 	}
 

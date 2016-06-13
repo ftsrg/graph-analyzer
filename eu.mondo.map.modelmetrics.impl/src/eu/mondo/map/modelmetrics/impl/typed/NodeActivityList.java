@@ -8,7 +8,7 @@ import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 
-public class NodeActivityList<N> extends ListMetric<Integer> implements ModelEvaluator {
+public class NodeActivityList extends ListMetric<Integer> implements ModelEvaluator {
 
 	public NodeActivityList() {
 		super("NodeActivityList");
@@ -22,16 +22,16 @@ public class NodeActivityList<N> extends ListMetric<Integer> implements ModelEva
 	// }
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		evaluateEveryNode(adapter, this);
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		evaluate(castAdapter(adapter), element);
 	}
 
-	protected <M> void evaluate(TypedModelAdapter<M> adapter, Object element) {
+	protected <M, N, T> void evaluate(TypedModelAdapter<M, N, T> adapter, N element) {
 		values.add(adapter.getNumberOfTypes(element));
 	}
 

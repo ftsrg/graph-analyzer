@@ -4,20 +4,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-public abstract class ModelAdapter<M> {
+public abstract class ModelAdapter<M, N, T> {
 
 	protected M model;
-	protected ModelIndexer indexer;
+	protected ModelIndexer<N, T> indexer;
 
-	public abstract Iterator<Object> getModelIterator();
+	public abstract Iterator<N> getModelIterator();
 
-	public abstract void initModel(final M model);
+	public abstract void init(final M model);
 
-	public List<Object> getNodes() {
-		throw new UnsupportedOperationException();
-	}
-
-	public List<Object> getEdges() {
+	public List<N> getNodes() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -29,19 +25,19 @@ public abstract class ModelAdapter<M> {
 		throw new UnsupportedOperationException();
 	}
 
-	public int getDegree(final Object element) {
+	public int getDegree(final N element) {
 		throw new UnsupportedOperationException();
 	}
 
-	public int getIndegree(final Object element) {
+	public int getIndegree(final N element) {
 		throw new UnsupportedOperationException();
 	}
 
-	public int getOutdegree(final Object element) {
+	public int getOutdegree(final N element) {
 		throw new UnsupportedOperationException();
 	}
 
-	public Set<Object> getNeighbors(final Object element) {
+	public Set<N> getNeighbors(final N element) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -49,15 +45,15 @@ public abstract class ModelAdapter<M> {
 		return model;
 	}
 
-	public boolean isAdjacent(final Object source, final Object target) {
+	public boolean isAdjacent(final N source, final N target) {
 		throw new UnsupportedOperationException();
 	}
 
-	public ModelIndexer getIndexer() {
+	public ModelIndexer<N, T> getIndexer() {
 		return indexer;
 	}
 
-	public void setIndexer(ModelIndexer indexer) {
+	public void setIndexer(ModelIndexer<N, T> indexer) {
 		this.indexer = indexer;
 	}
 

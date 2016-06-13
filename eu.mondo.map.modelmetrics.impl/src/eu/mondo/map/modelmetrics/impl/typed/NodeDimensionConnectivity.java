@@ -94,20 +94,20 @@ public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double>
 	// }
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
-		TypedModelAdapter<M> typedAdapter = castAdapter(adapter);
-		for (Object type : typedAdapter.getTypes()) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+		for (T type : typedAdapter.getTypes()) {
 			evaluate(typedAdapter, type);
 		}
 
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate NodeDimensionConnectivity metric on an element.");
 	}
 
-	protected <M> void evaluate(final TypedModelAdapter<M> adapter, final Object type) {
+	protected <M, N, T> void evaluate(final TypedModelAdapter<M, N, T> adapter, final T type) {
 		typedValues.put(type.toString(), (double) adapter.getNumberOfNodes(type) / adapter.getNumberOfNodes());
 	}
 }

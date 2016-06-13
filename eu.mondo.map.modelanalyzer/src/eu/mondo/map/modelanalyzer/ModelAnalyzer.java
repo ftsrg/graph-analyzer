@@ -196,7 +196,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return this
 	 */
-	public <M> ModelAnalyzer calculate(final ModelAdapter<M> adapter) {
+	public <M, N, T> ModelAnalyzer calculate(final ModelAdapter<M, N, T> adapter) {
 		for (ModelEvaluator m : metrics.values()) {
 			m.evaluate(adapter);
 		}
@@ -220,7 +220,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return this
 	 */
-	public <M> ModelAnalyzer calculate(final ModelAdapter<M> adapter, ModelMetrics metric) {
+	public <M, N, T> ModelAnalyzer calculate(final ModelAdapter<M, N, T> adapter, ModelMetrics metric) {
 		ModelEvaluator metricObj = getMetric(metric);
 		Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.", metricObj);
 
@@ -246,7 +246,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return this
 	 */
-	public <M> ModelAnalyzer validate(final ModelAdapter<M> adapter) {
+	public <M, N, T> ModelAnalyzer validate(final ModelAdapter<M, N, T> adapter) {
 		throw new UnsupportedOperationException("Not implemented yet");
 		// return this;
 	}

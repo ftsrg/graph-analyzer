@@ -48,31 +48,4 @@ public abstract class Analyzer<K, V extends Metric> {
 		return Lists.newArrayList(metrics.values());
 	}
 
-	//
-	// public Analyzer(final List<Metric> metrics) {
-	// this.metrics = metrics;
-	// }
-	//
-	// public boolean addAllMetrics(final Collection<? extends Metric> c) {
-	// return metrics.addAll(c);
-	// }
-	//
-	// public boolean addMetric(final Metric e) {
-	// return metrics.add(e);
-	// }
-	//
-	// public List<PublishedMetric> resolve() {
-	// List<PublishedMetric> resolvedMetrics = new ArrayList<>();
-	// for (Metric metric : metrics) {
-	// if (metric instanceof Publishing) {
-	// resolvedMetrics.addAll(((Publishing) metric).resolve());
-	// }
-	// }
-	// return resolvedMetrics;
-	// }
-	//
-	// public void setMetrics(final List<Metric> metrics) {
-	// this.metrics = metrics;
-	// }
-
 }

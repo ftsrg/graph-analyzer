@@ -2,8 +2,8 @@ package eu.mondo.map.modelmetrics;
 
 public interface IncrementalCalculator {
 
-	public void newNode(final Object node);
+	public <N> void newNode(final N node);
 
-	public void newEdge(final Object edge);
+	public <N> void newEdge(final N sourceNode, final N targetNode);
 
 }

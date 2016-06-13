@@ -47,7 +47,7 @@ public class ModelAnalyzerTests {
 
 	@Test
 	public void testSummaryMetrics() {
-		analyzer.useSummary(new SummaryMetric<Integer, DegreeList<?>>());
+		analyzer.useSummary(new SummaryMetric<Integer, DegreeList>());
 		fail("Not tested yet");
 	}
 

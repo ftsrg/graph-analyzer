@@ -16,20 +16,21 @@ public class Density extends ScalarMetric<Double> implements ModelEvaluator {
 
 	}
 
-	public void calculate(final NumberOfNodes nodes, final NumberOfEdges edges) {
-		value = edges.getValue() / (double) nodes.getValue();
-		value /= nodes.getValue() - 1;
-	}
+	// public void calculate(final NumberOfNodes nodes, final NumberOfEdges
+	// edges) {
+	// value = edges.getValue() / (double) nodes.getValue();
+	// value /= nodes.getValue() - 1;
+	// }
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		int numOfNodes = adapter.getNumberOfNodes();
 		value = adapter.getNumberOfEdges() / (double) numOfNodes;
 		value /= numOfNodes - 1;
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate Density metric on an element.");
 	}
 

@@ -59,16 +59,16 @@ public class EdgeDimensionConnectivity extends TypedScalarMetric<String, Double>
 	// }
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
-		TypedModelAdapter<M> typedAdapter = TypedModelMetric.castAdapter(adapter);
-		for (Object type : typedAdapter.getTypes()) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+		TypedModelAdapter<M, N, T> typedAdapter = TypedModelMetric.castAdapter(adapter);
+		for (T type : typedAdapter.getTypes()) {
 			evaluate(typedAdapter, type);
 		}
 	}
 
-	protected <M> void evaluate(TypedModelAdapter<M> adapter, Object type) {
+	protected <M, N, T> void evaluate(TypedModelAdapter<M, N, T> adapter, T type) {
 		int sumOfEdges = 0;
-		for (Object node : adapter.getNodes(type)) {
+		for (N node : adapter.getNodes(type)) {
 			sumOfEdges += adapter.getDegree(node, type);
 		}
 		sumOfEdges /= 2;
@@ -76,7 +76,7 @@ public class EdgeDimensionConnectivity extends TypedScalarMetric<String, Double>
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate EdgeDimensionConnectivity metric on an element.");
 	}
 }

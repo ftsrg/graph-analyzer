@@ -5,7 +5,7 @@ import eu.mondo.map.modeladapters.ModelAdapter;
 
 public interface ModelEvaluator extends Metric {
 
-	public <M> void evaluate(final ModelAdapter<M> adapter);
+	public <M, N, T> void evaluate(final ModelAdapter<M, N, T> adapter);
 
-	public <M> void evaluate(final ModelAdapter<M> adapter, final Object element);
+	public <M, N, T> void evaluate(final ModelAdapter<M, N, T> adapter, final N element);
 }

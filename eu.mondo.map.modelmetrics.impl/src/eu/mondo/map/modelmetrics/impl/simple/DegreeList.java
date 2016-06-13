@@ -6,7 +6,7 @@ import eu.mondo.map.core.metrics.ListMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 
-public class DegreeList<N> extends ListMetric<Integer> implements ModelEvaluator {
+public class DegreeList extends ListMetric<Integer> implements ModelEvaluator {
 
 	public DegreeList() {
 		super("DegreeList");
@@ -25,7 +25,7 @@ public class DegreeList<N> extends ListMetric<Integer> implements ModelEvaluator
 	 * values are not replaced.
 	 * </p>
 	 */
-	public <M> void evaluate(ModelAdapter<M> adapter) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		evaluateEveryNode(adapter, this);
 	}
 
@@ -35,7 +35,7 @@ public class DegreeList<N> extends ListMetric<Integer> implements ModelEvaluator
 	 * Calculates the degree for the element.
 	 * </p>
 	 */
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		values.add(adapter.getDegree(element));
 	}
 

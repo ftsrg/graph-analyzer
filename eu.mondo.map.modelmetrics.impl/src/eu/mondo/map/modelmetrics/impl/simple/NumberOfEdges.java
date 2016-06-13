@@ -37,7 +37,7 @@ public class NumberOfEdges extends ScalarMetric<Integer> implements ModelEvaluat
 	/**
 	 * Calculates the number of nodes in the graph.
 	 */
-	public <M> void evaluate(ModelAdapter<M> adapter) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		value = adapter.getNumberOfEdges();
 	}
 
@@ -45,7 +45,7 @@ public class NumberOfEdges extends ScalarMetric<Integer> implements ModelEvaluat
 	/**
 	 * Calculates the number of edges which belong to the element.
 	 */
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		value = adapter.getDegree(element);
 	}
 

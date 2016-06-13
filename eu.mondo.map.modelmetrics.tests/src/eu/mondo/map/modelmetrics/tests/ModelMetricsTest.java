@@ -11,7 +11,6 @@ public class ModelMetricsTest {
 	public void testMetricsEnum() {
 		for (ModelMetrics metric : ModelMetrics.values()) {
 			Assert.assertNotNull("Cannot instantiate: " + metric.toString(), metric.instantiate());
-			;
 		}
 	}
 

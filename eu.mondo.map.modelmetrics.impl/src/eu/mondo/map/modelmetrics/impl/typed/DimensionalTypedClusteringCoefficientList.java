@@ -8,7 +8,7 @@ import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 
-public class DimensionalTypedClusteringCoefficientList<N> extends TypedListMetric<String, Double>
+public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<String, Double>
 		implements ModelEvaluator {
 
 	public DimensionalTypedClusteringCoefficientList() {
@@ -79,7 +79,7 @@ public class DimensionalTypedClusteringCoefficientList<N> extends TypedListMetri
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		evaluateEveryNode(adapter, this);
 	}
 
@@ -88,11 +88,11 @@ public class DimensionalTypedClusteringCoefficientList<N> extends TypedListMetri
 	int maxNumberOfNeighbors = 100;
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
-		TypedModelAdapter<M> typedAdapter = castAdapter(adapter);
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
 		long interConnected = 0;
 		long numberOfNeighbors = 0;
-		for (Object type : typedAdapter.getTypes(element)) {
+		for (T type : typedAdapter.getTypes(element)) {
 			interConnected = 0;
 			numberOfNeighbors = 0;
 			numberOfNeighbors = typedAdapter.getDegree(element, type);
@@ -100,8 +100,8 @@ public class DimensionalTypedClusteringCoefficientList<N> extends TypedListMetri
 				typedValues.put(type.toString(), 0.0);
 				continue;
 			}
-			for (Object neighbor1 : typedAdapter.getNeighbors(element, type)) {
-				for (Object neighbor2 : typedAdapter.getNeighbors(element, type)) {
+			for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
+				for (N neighbor2 : typedAdapter.getNeighbors(element, type)) {
 					if (neighbor1 != neighbor2) {
 						if (typedAdapter.isAdjacent(neighbor1, neighbor2, type)) {
 							interConnected++;

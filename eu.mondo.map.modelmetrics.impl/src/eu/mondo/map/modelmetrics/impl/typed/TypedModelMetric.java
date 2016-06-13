@@ -22,10 +22,10 @@ public class TypedModelMetric {
 	 * 
 	 * @return the adapter parameter as a {@link TypedModelAdapter}
 	 */
-	public static <M> TypedModelAdapter<M> castAdapter(final ModelAdapter<M> adapter) {
-		TypedModelAdapter<M> typedAdapter;
-		if (adapter instanceof TypedModelAdapter<?>) {
-			typedAdapter = (TypedModelAdapter<M>) adapter;
+	public static <M, N, T> TypedModelAdapter<M, N, T> castAdapter(final ModelAdapter<M, N, T> adapter) {
+		TypedModelAdapter<M, N, T> typedAdapter;
+		if (adapter instanceof TypedModelAdapter<?, ?, ?>) {
+			typedAdapter = (TypedModelAdapter<M, N, T>) adapter;
 		} else {
 			throw new IllegalArgumentException("The adapter must be an instance of TypedModelAdapter.");
 		}
@@ -33,8 +33,8 @@ public class TypedModelMetric {
 		return typedAdapter;
 	}
 
-	public static <M> void evaluateEveryNode(final ModelAdapter<M> adapter, final ModelEvaluator metric) {
-		Iterator<Object> iterator = adapter.getModelIterator();
+	public static <M, N, T> void evaluateEveryNode(final ModelAdapter<M, N, T> adapter, final ModelEvaluator metric) {
+		Iterator<N> iterator = adapter.getModelIterator();
 		while (iterator.hasNext()) {
 			metric.evaluate(adapter, iterator.next());
 		}

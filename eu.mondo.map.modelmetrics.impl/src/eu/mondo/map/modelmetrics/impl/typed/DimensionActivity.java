@@ -21,15 +21,15 @@ public class DimensionActivity extends TypedScalarMetric<String, Integer> implem
 	// }
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
-		TypedModelAdapter<M> typedAdapter = castAdapter(adapter);
-		for (Object type : typedAdapter.getTypes()) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+		for (T type : typedAdapter.getTypes()) {
 			typedValues.put(type.toString(), typedAdapter.getNumberOfNodes(type));
 		}
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate DimensionActivity metric on an element.");
 	}
 

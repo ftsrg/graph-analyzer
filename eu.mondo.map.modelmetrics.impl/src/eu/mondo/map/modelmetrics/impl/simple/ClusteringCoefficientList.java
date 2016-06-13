@@ -6,7 +6,7 @@ import eu.mondo.map.core.metrics.ListMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 
-public class ClusteringCoefficientList<N> extends ListMetric<Double> implements ModelEvaluator {
+public class ClusteringCoefficientList extends ListMetric<Double> implements ModelEvaluator {
 
 	protected int maxNeighbours = 1000;
 	protected boolean useHeuristic = false;
@@ -75,12 +75,12 @@ public class ClusteringCoefficientList<N> extends ListMetric<Double> implements 
 	// }
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		evaluateEveryNode(adapter, this);
 	}
 
 	@Override
-	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		long interConnected = 0;
 		long numberOfNeighbors = 0;
 		double clusteringCoef = 0.0;
@@ -88,8 +88,8 @@ public class ClusteringCoefficientList<N> extends ListMetric<Double> implements 
 			values.add(clusteringCoef);
 			// return clusteringCoef;
 		}
-		for (Object neighbor1 : adapter.getNeighbors(element)) {
-			for (Object neighbor2 : adapter.getNeighbors(element)) {
+		for (N neighbor1 : adapter.getNeighbors(element)) {
+			for (N neighbor2 : adapter.getNeighbors(element)) {
 				if (neighbor1 != neighbor2) {
 					if (adapter.isAdjacent(neighbor1, neighbor2)) {
 						interConnected++;
