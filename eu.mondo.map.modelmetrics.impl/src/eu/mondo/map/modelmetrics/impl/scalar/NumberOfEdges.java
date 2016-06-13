@@ -1,11 +1,9 @@
 package eu.mondo.map.modelmetrics.impl.scalar;
 
-import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.metrics.ScalarMetric;
 import eu.mondo.map.core.util.MathUtils;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
-import eu.mondo.map.modelmetrics.impl.composite.DegreeList;
 import eu.mondo.map.modelmetrics.impl.composite.typed.TypedDegreeList;
 
 public class NumberOfEdges extends ScalarMetric<Integer> implements ModelEvaluator {
@@ -14,9 +12,9 @@ public class NumberOfEdges extends ScalarMetric<Integer> implements ModelEvaluat
 		super("NumberOfEdges");
 	}
 
-	public void calculate(final DegreeList degreeList) {
-		value = MathUtils.sumInt(degreeList.getValues());
-	}
+	// public void calculate(final DegreeList degreeList) {
+	// value = MathUtils.sumInt(degreeList.getValues());
+	// }
 
 	public void calculate(final TypedDegreeList typedDegreeList) {
 		clear();
@@ -26,9 +24,9 @@ public class NumberOfEdges extends ScalarMetric<Integer> implements ModelEvaluat
 		value /= 2;
 	}
 
-	public void calculate(final Network<?> network) {
-		value = network.getNumberOfEdges();
-	}
+	// public void calculate(final Network<?> network) {
+	// value = network.getNumberOfEdges();
+	// }
 
 	@Override
 	public void clear() {
@@ -36,15 +34,19 @@ public class NumberOfEdges extends ScalarMetric<Integer> implements ModelEvaluat
 	}
 
 	@Override
+	/**
+	 * Calculates the number of nodes in the graph.
+	 */
 	public <M> void evaluate(ModelAdapter<M> adapter) {
-		// TODO Auto-generated method stub
-
+		value = adapter.getNumberOfEdges();
 	}
 
 	@Override
+	/**
+	 * Calculates the number of edges which belong to the element.
+	 */
 	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
-		// TODO Auto-generated method stub
-
+		value = adapter.getDegree(element);
 	}
 
 }

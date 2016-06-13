@@ -1,6 +1,5 @@
 package eu.mondo.map.modelmetrics.impl.scalar;
 
-import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.metrics.ScalarMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
@@ -24,9 +23,9 @@ public class NumberOfNodes extends ScalarMetric<Integer> implements ModelEvaluat
 		}
 	}
 
-	public void calculate(final Network<?> network) {
-		value = network.getNumberOfNodes();
-	}
+	// public void calculate(final Network<?> network) {
+	// value = network.getNumberOfNodes();
+	// }
 
 	@Override
 	public void clear() {
@@ -35,13 +34,12 @@ public class NumberOfNodes extends ScalarMetric<Integer> implements ModelEvaluat
 
 	@Override
 	public <M> void evaluate(ModelAdapter<M> adapter) {
-		// TODO Auto-generated method stub
-
+		value = adapter.getNumberOfNodes();
 	}
 
 	@Override
 	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Cannot evaluate NumberOfNodes metric on an element.");
 
 	}
 
