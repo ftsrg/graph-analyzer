@@ -177,7 +177,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return {@link Metric} object or <strong>null</strong>
 	 */
-	public Metric getMetric(ModelMetrics metric) {
+	public ModelEvaluator getMetric(ModelMetrics metric) {
 		return metrics.get(metric.toString());
 	}
 
@@ -197,8 +197,8 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * @return this
 	 */
 	public <M> ModelAnalyzer calculate(final ModelAdapter<M> adapter) {
-		for (Metric m : metrics.values()) {
-			// m.calculate(adapter.getModelIterator());
+		for (ModelEvaluator m : metrics.values()) {
+			m.evaluate(adapter);
 		}
 		return this;
 	}
@@ -221,10 +221,10 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * @return this
 	 */
 	public <M> ModelAnalyzer calculate(final ModelAdapter<M> adapter, ModelMetrics metric) {
-		Metric metricObj = getMetric(metric);
+		ModelEvaluator metricObj = getMetric(metric);
 		Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.", metricObj);
 
-		// metricObj.calculate(adapter.getModelIterator());
+		metricObj.evaluate(adapter);
 		return this;
 	}
 
