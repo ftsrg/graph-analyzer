@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl;
+package eu.mondo.map.modelmetrics.impl.simple;
 
 import eu.mondo.map.core.metrics.ScalarMetric;
 import eu.mondo.map.core.util.MathUtils;

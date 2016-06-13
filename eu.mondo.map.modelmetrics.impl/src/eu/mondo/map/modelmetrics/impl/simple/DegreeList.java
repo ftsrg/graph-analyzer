@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl;
+package eu.mondo.map.modelmetrics.impl.simple;
 
 import java.util.Iterator;
 

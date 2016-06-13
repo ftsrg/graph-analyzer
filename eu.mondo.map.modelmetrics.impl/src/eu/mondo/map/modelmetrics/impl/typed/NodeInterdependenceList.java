@@ -9,8 +9,8 @@ import com.google.common.collect.ListMultimap;
 import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.ListMetric;
-import eu.mondo.map.modelmetrics.impl.Path;
-import eu.mondo.map.modelmetrics.impl.ShortestPathList;
+import eu.mondo.map.modelmetrics.impl.simple.Path;
+import eu.mondo.map.modelmetrics.impl.simple.ShortestPathList;
 
 public class NodeInterdependenceList<N> extends ListMetric<Double> {
 
