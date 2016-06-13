@@ -13,11 +13,13 @@ public class ModelIndexer<N, T> {
 	protected Table<N, N, Set<T>> nodeIndex;
 	protected List<N> nodes;
 	protected Table<T, N, Integer> typeIndex;
+	protected int numberOfAddedEdges;
 
 	public ModelIndexer() {
 		nodeIndex = HashBasedTable.create();
 		nodes = new ArrayList<>();
 		typeIndex = HashBasedTable.create();
+		numberOfAddedEdges = 0;
 	}
 
 	public Table<N, N, Set<T>> getAdjacency() {
@@ -52,16 +54,11 @@ public class ModelIndexer<N, T> {
 			dimSet.add(type);
 			nodeIndex.put(sourceNode, targetNode, dimSet);
 		} else {
-			// if (!nodes.contains(sourceNode)) {
-			// nodes.add(sourceNode);
-			// }
-			// if (!nodes.contains(targetNode)) {
-			// nodes.add(targetNode);
-			// }
 			Set<T> dimSet = nodeIndex.get(sourceNode, targetNode);
 			dimSet.add(type);
 			nodeIndex.put(sourceNode, targetNode, dimSet);
 		}
+		numberOfAddedEdges++;
 
 		putNodeOnType(type, sourceNode);
 		putNodeOnType(type, targetNode);
@@ -75,6 +72,13 @@ public class ModelIndexer<N, T> {
 			occurrence++;
 			typeIndex.put(type, node, occurrence);
 		}
+	}
+
+	public void clear() {
+		nodeIndex.clear();
+		nodes.clear();
+		typeIndex.clear();
+		numberOfAddedEdges = 0;
 	}
 
 	public Table<N, N, Set<T>> getNodeIndex() {
@@ -99,6 +103,10 @@ public class ModelIndexer<N, T> {
 
 	public void setTypeIndex(Table<T, N, Integer> typeIndex) {
 		this.typeIndex = typeIndex;
+	}
+
+	public int getNumberOfAddedEdges() {
+		return numberOfAddedEdges;
 	}
 
 }
