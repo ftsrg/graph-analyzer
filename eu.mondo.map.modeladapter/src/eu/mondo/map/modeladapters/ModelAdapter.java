@@ -1,6 +1,7 @@
 package eu.mondo.map.modeladapters;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public abstract class ModelAdapter<M> {
@@ -11,6 +12,14 @@ public abstract class ModelAdapter<M> {
 	public abstract Iterator<Object> getModelIterator();
 
 	public abstract void initModel(final M model);
+
+	public List<Object> getNodes() {
+		throw new UnsupportedOperationException();
+	}
+
+	public List<Object> getEdges() {
+		throw new UnsupportedOperationException();
+	}
 
 	public int getNumberOfNodes() {
 		throw new UnsupportedOperationException();

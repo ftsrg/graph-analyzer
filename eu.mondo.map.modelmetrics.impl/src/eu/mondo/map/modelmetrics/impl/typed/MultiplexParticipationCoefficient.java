@@ -1,6 +1,7 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import java.util.Iterator;
+import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
+import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
 
 import eu.mondo.map.core.metrics.ListMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
@@ -56,10 +57,7 @@ public class MultiplexParticipationCoefficient extends ListMetric<Double> implem
 
 	@Override
 	public <M> void evaluate(ModelAdapter<M> adapter) {
-		Iterator<Object> iterator = adapter.getModelIterator();
-		while (iterator.hasNext()) {
-			evaluate(adapter, iterator.next());
-		}
+		evaluateEveryNode(adapter, this);
 	}
 
 	// TODO delete later
@@ -67,12 +65,7 @@ public class MultiplexParticipationCoefficient extends ListMetric<Double> implem
 
 	@Override
 	public <M> void evaluate(ModelAdapter<M> adapter, Object element) {
-		TypedModelAdapter<M> typedAdapter;
-		if (adapter instanceof TypedModelAdapter<?>) {
-			typedAdapter = (TypedModelAdapter<M>) adapter;
-		} else {
-			throw new IllegalArgumentException("The adapter must be an instance of TypedModelAdapter.");
-		}
+		TypedModelAdapter<M> typedAdapter = castAdapter(adapter);
 
 		int numOfDimensions = 0;
 		if (exclusive) {

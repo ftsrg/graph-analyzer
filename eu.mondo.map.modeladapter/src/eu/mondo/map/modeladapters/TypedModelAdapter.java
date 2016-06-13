@@ -20,6 +20,7 @@ public abstract class TypedModelAdapter<M> extends ModelAdapter<M> {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Set<Object> getNeighbors(final Object element) {
 		throw new UnsupportedOperationException();
 	}
@@ -37,6 +38,14 @@ public abstract class TypedModelAdapter<M> extends ModelAdapter<M> {
 	}
 
 	public int getOutdegree(final Object element, final Object type) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int getNumberOfNodes(final Object type) {
+		throw new UnsupportedOperationException();
+	}
+
+	public boolean isAdjacent(final Object source, final Object target, final Object type) {
 		throw new UnsupportedOperationException();
 	}
 

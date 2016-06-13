@@ -1,6 +1,6 @@
 package eu.mondo.map.modelmetrics.impl.simple;
 
-import java.util.Iterator;
+import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
 
 import eu.mondo.map.core.metrics.ListMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
@@ -76,10 +76,7 @@ public class ClusteringCoefficientList<N> extends ListMetric<Double> implements 
 
 	@Override
 	public <M> void evaluate(ModelAdapter<M> adapter) {
-		Iterator<Object> iterator = adapter.getModelIterator();
-		while (iterator.hasNext()) {
-			evaluate(adapter, iterator.next());
-		}
+		evaluateEveryNode(adapter, this);
 	}
 
 	@Override
