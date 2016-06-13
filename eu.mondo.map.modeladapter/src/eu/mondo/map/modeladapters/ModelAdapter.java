@@ -12,11 +12,23 @@ public abstract class ModelAdapter<M> {
 	public abstract void initModel(final M model);
 
 	public int getNumberOfNodes() {
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	public int getNumberOfEdges() {
-		return 0;
+		throw new UnsupportedOperationException();
+	}
+
+	public int getDegree(final Object element) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int getIndegree(final Object element) {
+		throw new UnsupportedOperationException();
+	}
+
+	public int getOutdegree(final Object element) {
+		throw new UnsupportedOperationException();
 	}
 
 	public M getModel() {
@@ -24,7 +36,7 @@ public abstract class ModelAdapter<M> {
 	}
 
 	public boolean isAdjacent(final Object source, final Object target) {
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
 	public ModelIndexer getIndexer() {
