@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl.composite;
+package eu.mondo.map.modelmetrics.impl.typed;
 
 import java.util.HashSet;
 import java.util.List;
@@ -9,6 +9,8 @@ import com.google.common.collect.ListMultimap;
 import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.ListMetric;
+import eu.mondo.map.modelmetrics.impl.Path;
+import eu.mondo.map.modelmetrics.impl.ShortestPathList;
 
 public class NodeInterdependenceList<N> extends ListMetric<Double> {
 

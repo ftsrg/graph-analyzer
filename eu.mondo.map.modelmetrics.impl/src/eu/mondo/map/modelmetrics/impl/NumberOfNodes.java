@@ -1,10 +1,9 @@
-package eu.mondo.map.modelmetrics.impl.scalar;
+package eu.mondo.map.modelmetrics.impl;
 
 import eu.mondo.map.core.metrics.ScalarMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
-import eu.mondo.map.modelmetrics.impl.composite.DegreeList;
-import eu.mondo.map.modelmetrics.impl.composite.typed.TypedDegreeList;
+import eu.mondo.map.modelmetrics.impl.typed.TypedDegreeList;
 
 public class NumberOfNodes extends ScalarMetric<Integer> implements ModelEvaluator {
 

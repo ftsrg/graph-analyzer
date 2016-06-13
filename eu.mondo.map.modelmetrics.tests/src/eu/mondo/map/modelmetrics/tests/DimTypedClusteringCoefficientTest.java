@@ -12,7 +12,7 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
 import org.junit.Test;
 
 import eu.mondo.map.core.tests.metrics.TypedListMetricTest;
-import eu.mondo.map.modelmetrics.impl.composite.typed.DimensionalTypedClusteringCoefficientList;
+import eu.mondo.map.modelmetrics.impl.typed.DimensionalTypedClusteringCoefficientList;
 
 public class DimTypedClusteringCoefficientTest
 		extends TypedListMetricTest<String, Double, DimensionalTypedClusteringCoefficientList<String>> {

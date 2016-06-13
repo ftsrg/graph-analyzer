@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl.composite.typed;
+package eu.mondo.map.modelmetrics.impl.typed;
 
 import eu.mondo.map.core.metrics.typed.TypedListMetric;
 

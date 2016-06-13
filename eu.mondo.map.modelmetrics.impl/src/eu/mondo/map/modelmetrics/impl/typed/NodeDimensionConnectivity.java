@@ -1,11 +1,11 @@
-package eu.mondo.map.modelmetrics.impl.scalar.typed;
+package eu.mondo.map.modelmetrics.impl.typed;
 
 import java.util.Map;
 
 import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
-import eu.mondo.map.modelmetrics.impl.scalar.NumberOfNodes;
+import eu.mondo.map.modelmetrics.impl.NumberOfNodes;
 
 /**
  * Takes values in [0,1] and computes the ratio of nodes of the network that

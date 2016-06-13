@@ -1,7 +1,6 @@
-package eu.mondo.map.modelmetrics.impl.scalar.typed;
+package eu.mondo.map.modelmetrics.impl.typed;
 
 import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
-import eu.mondo.map.modelmetrics.impl.composite.typed.TypedDegreeList;
 
 public class NumberOfTypedNodes extends TypedScalarMetric<String, Integer> {
 

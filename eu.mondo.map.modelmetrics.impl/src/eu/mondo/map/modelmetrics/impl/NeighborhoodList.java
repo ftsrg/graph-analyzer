@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl.composite;
+package eu.mondo.map.modelmetrics.impl;
 
 import eu.mondo.map.core.metrics.ListMetric;
 

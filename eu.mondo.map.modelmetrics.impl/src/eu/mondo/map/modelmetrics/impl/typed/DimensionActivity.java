@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl.scalar.typed;
+package eu.mondo.map.modelmetrics.impl.typed;
 
 import eu.mondo.map.core.graph.Network;
 import eu.mondo.map.core.metrics.typed.TypedScalarMetric;

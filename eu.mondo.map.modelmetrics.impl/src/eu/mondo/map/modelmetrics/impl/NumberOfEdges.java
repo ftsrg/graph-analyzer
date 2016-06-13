@@ -1,10 +1,10 @@
-package eu.mondo.map.modelmetrics.impl.scalar;
+package eu.mondo.map.modelmetrics.impl;
 
 import eu.mondo.map.core.metrics.ScalarMetric;
 import eu.mondo.map.core.util.MathUtils;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
-import eu.mondo.map.modelmetrics.impl.composite.typed.TypedDegreeList;
+import eu.mondo.map.modelmetrics.impl.typed.TypedDegreeList;
 
 public class NumberOfEdges extends ScalarMetric<Integer> implements ModelEvaluator {
 

@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import eu.mondo.map.core.graph.Node;
 import eu.mondo.map.core.tests.metrics.ListMetricTest;
-import eu.mondo.map.modelmetrics.impl.composite.NodeInterdependenceList;
+import eu.mondo.map.modelmetrics.impl.typed.NodeInterdependenceList;
 
 public class NodeInterdependenceTest extends ListMetricTest<Double, NodeInterdependenceList<String>> {
 

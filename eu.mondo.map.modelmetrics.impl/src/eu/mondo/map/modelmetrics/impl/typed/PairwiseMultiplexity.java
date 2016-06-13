@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl.scalar.typed;
+package eu.mondo.map.modelmetrics.impl.typed;
 
 import java.util.HashMap;
 import java.util.Map;

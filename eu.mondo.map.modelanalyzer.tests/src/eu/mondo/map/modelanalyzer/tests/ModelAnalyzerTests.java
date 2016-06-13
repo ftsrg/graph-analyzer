@@ -17,8 +17,8 @@ import org.junit.Test;
 import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.SummaryMetric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
+import eu.mondo.map.modelmetrics.impl.DegreeList;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.composite.DegreeList;
 
 public class ModelAnalyzerTests {
 

@@ -1,4 +1,4 @@
-package eu.mondo.map.modelmetrics.impl.composite;
+package eu.mondo.map.modelmetrics.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 		}
 	}
 
-	protected ListMultimap<Integer, Integer> determineRandomPairs(final Network<N> network,
+	public ListMultimap<Integer, Integer> determineRandomPairs(final Network<N> network,
 			final int numberOfRandomPairs) {
 		int numberOfNodes = network.getNumberOfNodes();
 		checkNumberOfRandomPairs(numberOfNodes, numberOfRandomPairs);
@@ -86,7 +86,7 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 			throw new IllegalArgumentException("The numberOfRandomPairs parameter must be positive");
 		}
 
-		if (numberOfRandomPairs > (numberOfNodes * (numberOfNodes - 1))) {
+		if (numberOfRandomPairs > numberOfNodes * (numberOfNodes - 1)) {
 			throw new IllegalArgumentException(
 					"The numberOfRandomPairs parameter is invalid, cannot find as many number of shortest paths as "
 							+ numberOfRandomPairs);
@@ -179,9 +179,8 @@ public class ShortestPathList<N> extends ListMetric<Integer> {
 	 * @param currentNode
 	 * @param expectedDepth
 	 *
-	 * @return true if the results Map is not empty and the currentNode's
-	 *         depth is higher or equal than the expectedDepth, false
-	 *         otherwise
+	 * @return true if the results Map is not empty and the currentNode's depth
+	 *         is higher or equal than the expectedDepth, false otherwise
 	 */
 	protected boolean higherDepth(final Node<N> currentNode, final int expectedDepth) {
 		if (!results.isEmpty()) {

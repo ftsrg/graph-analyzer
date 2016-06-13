@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import eu.mondo.map.core.tests.metrics.TypedScalarMetricTest;
-import eu.mondo.map.modelmetrics.impl.scalar.typed.PairwiseMultiplexity;
+import eu.mondo.map.modelmetrics.impl.typed.PairwiseMultiplexity;
 
 public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMultiplexity> {
 
