@@ -22,14 +22,6 @@ public class ModelIndexer<N, T> {
 		numberOfAddedEdges = 0;
 	}
 
-	public Table<N, N, Set<T>> getAdjacency() {
-		return nodeIndex;
-	}
-
-	public void setAdjacency(Table<N, N, Set<T>> adjacency) {
-		this.nodeIndex = adjacency;
-	}
-
 	public boolean isAdjacent(final N source, final N target) {
 		return nodeIndex.contains(source, target);
 	}

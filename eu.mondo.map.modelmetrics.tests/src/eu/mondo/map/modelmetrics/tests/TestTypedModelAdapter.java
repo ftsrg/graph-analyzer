@@ -16,7 +16,7 @@ public class TestTypedModelAdapter extends TypedModelAdapter<TestModel, String, 
 	public void init(TestModel model) {
 		this.model = model;
 		indexer = new ModelIndexer<String, String>();
-		indexer.setAdjacency(model.getAdjacency());
+		indexer.setNodeIndex(model.getAdjacency());
 	}
 
 	@Override

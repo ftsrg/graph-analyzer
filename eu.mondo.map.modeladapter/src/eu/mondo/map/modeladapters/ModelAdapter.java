@@ -32,11 +32,11 @@ public abstract class ModelAdapter<M, N, T> {
 	}
 
 	public int getIndegree(final N element) {
-		return indexer.getAdjacency().column(element).size();
+		return indexer.getNodeIndex().column(element).size();
 	}
 
 	public int getOutdegree(final N element) {
-		return indexer.getAdjacency().row(element).size();
+		return indexer.getNodeIndex().row(element).size();
 	}
 
 	public Set<N> getNeighbors(final N element) {
