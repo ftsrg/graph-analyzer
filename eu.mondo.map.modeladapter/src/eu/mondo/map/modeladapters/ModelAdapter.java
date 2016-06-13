@@ -1,6 +1,7 @@
 package eu.mondo.map.modeladapters;
 
 import java.util.Iterator;
+import java.util.Set;
 
 public abstract class ModelAdapter<M> {
 
@@ -28,6 +29,10 @@ public abstract class ModelAdapter<M> {
 	}
 
 	public int getOutdegree(final Object element) {
+		throw new UnsupportedOperationException();
+	}
+
+	public Set<Object> getNeighbors(final Object element) {
 		throw new UnsupportedOperationException();
 	}
 
