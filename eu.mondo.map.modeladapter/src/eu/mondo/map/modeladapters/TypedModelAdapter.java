@@ -1,5 +1,6 @@
 package eu.mondo.map.modeladapters;
 
+import java.util.List;
 import java.util.Set;
 
 public abstract class TypedModelAdapter<M> extends ModelAdapter<M> {
@@ -9,6 +10,10 @@ public abstract class TypedModelAdapter<M> extends ModelAdapter<M> {
 	}
 
 	public Set<Object> getTypes(final Object element) {
+		throw new UnsupportedOperationException();
+	}
+
+	public List<Object> getNodes(final Object type) {
 		throw new UnsupportedOperationException();
 	}
 
