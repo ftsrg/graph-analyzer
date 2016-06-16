@@ -1,7 +1,6 @@
 package eu.mondo.map.modeladapters;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import com.google.common.collect.Sets;
@@ -15,12 +14,12 @@ public abstract class ModelAdapter<M, N, T> {
 
 	public abstract void init(final M model);
 
-	public List<N> getNodes() {
-		return indexer.getNodes();
+	public Set<N> getNodes() {
+		return indexer.getTypeIndex().columnKeySet();
 	}
 
 	public int getNumberOfNodes() {
-		return indexer.getNodes().size();
+		return indexer.getNumberOfAddedNodes();
 	}
 
 	public int getNumberOfEdges() {
@@ -32,11 +31,19 @@ public abstract class ModelAdapter<M, N, T> {
 	}
 
 	public int getIndegree(final N element) {
-		return indexer.getNodeIndex().column(element).size();
+		int degree = 0;
+		for (Set<T> values : indexer.getNodeIndex().column(element).values()) {
+			degree += values.size();
+		}
+		return degree;
 	}
 
 	public int getOutdegree(final N element) {
-		return indexer.getNodeIndex().row(element).size();
+		int degree = 0;
+		for (Set<T> values : indexer.getNodeIndex().row(element).values()) {
+			degree += values.size();
+		}
+		return degree;
 	}
 
 	public Set<N> getNeighbors(final N element) {
