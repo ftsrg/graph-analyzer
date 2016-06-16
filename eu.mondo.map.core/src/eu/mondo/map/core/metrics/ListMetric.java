@@ -1,23 +1,25 @@
 package eu.mondo.map.core.metrics;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class ListMetric<Value extends Number> extends BaseMetric implements Publishing {
+public abstract class ListMetric<V extends Number> extends BaseMetric implements Publishing {
 
-	protected List<Value> values;
+	protected List<V> values;
 
 	public ListMetric(final String defaultName) {
 		super(defaultName);
 		this.values = new ArrayList<>();
 	}
 
-	public boolean add(final Value e) {
+	public boolean add(final V e) {
 		return values.add(e);
 	}
 
-	public boolean addAll(final Collection<? extends Value> c) {
+	public boolean addAll(final Collection<? extends V> c) {
 		return values.addAll(c);
 	}
 
@@ -26,11 +28,11 @@ public abstract class ListMetric<Value extends Number> extends BaseMetric implem
 		values.clear();
 	}
 
-	public Value get(final int index) {
+	public V get(final int index) {
 		return values.get(index);
 	}
 
-	public List<Value> getValues() {
+	public List<V> getValues() {
 		return values;
 	}
 
@@ -44,12 +46,17 @@ public abstract class ListMetric<Value extends Number> extends BaseMetric implem
 		return resolvedMetrics;
 	}
 
-	public void setMetricValues(final List<Value> metricValues) {
+	public void setMetricValues(final List<V> metricValues) {
 		this.values = metricValues;
 	}
 
 	public int size() {
 		return values.size();
+	}
+
+	public V last() {
+		checkState(!values.isEmpty());
+		return values.get(values.size() - 1);
 	}
 
 }
