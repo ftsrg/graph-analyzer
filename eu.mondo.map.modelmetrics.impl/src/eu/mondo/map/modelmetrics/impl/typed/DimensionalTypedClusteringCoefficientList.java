@@ -103,7 +103,7 @@ public class DimensionalTypedClusteringCoefficientList extends TypedListMetric<S
 			for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
 				for (N neighbor2 : typedAdapter.getNeighbors(element, type)) {
 					if (neighbor1 != neighbor2) {
-						if (typedAdapter.isAdjacent(neighbor1, neighbor2, type)) {
+						if (typedAdapter.isAdjacentUndirected(neighbor1, neighbor2, type)) {
 							interConnected++;
 						}
 					}

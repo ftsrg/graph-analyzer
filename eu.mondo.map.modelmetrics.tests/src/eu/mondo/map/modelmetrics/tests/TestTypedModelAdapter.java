@@ -1,6 +1,8 @@
 package eu.mondo.map.modelmetrics.tests;
 
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import eu.mondo.map.modeladapters.ModelIndexer;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
@@ -16,12 +18,19 @@ public class TestTypedModelAdapter extends TypedModelAdapter<TestModel, String, 
 	public void init(TestModel model) {
 		this.model = model;
 		indexer = new ModelIndexer<String, String>();
-		indexer.setNodeIndex(model.getAdjacency());
+		Map<String, Map<String, Set<String>>> values = model.getAdjacency().rowMap();
+		for (String source : values.keySet()) {
+			for (String target : values.get(source).keySet()) {
+				for (String type : values.get(source).get(target)) {
+					indexer.addEdge(type, source, target);
+				}
+			}
+		}
 	}
 
 	@Override
 	public Iterator<String> getModelIterator() {
-		return model.getNodes().iterator();
+		return model.getNodeIterator();
 	}
 
 }

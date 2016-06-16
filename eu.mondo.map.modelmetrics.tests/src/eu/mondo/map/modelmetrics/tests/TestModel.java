@@ -2,6 +2,7 @@ package eu.mondo.map.modelmetrics.tests;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -19,29 +20,27 @@ public class TestModel {
 	}
 
 	public void addEdge(final String type, final String sourceNode, final String targetNode) {
+		newNode(sourceNode);
+		newNode(targetNode);
 		if (!adjacency.contains(sourceNode, targetNode)) {
 			Set<String> dimSet = new HashSet<String>();
 			dimSet.add(type);
 			adjacency.put(sourceNode, targetNode, dimSet);
 		} else {
-			if (!nodes.contains(sourceNode)) {
-				nodes.add(sourceNode);
-			}
-			if (!nodes.contains(targetNode)) {
-				nodes.add(targetNode);
-			}
 			Set<String> dimSet = adjacency.get(sourceNode, targetNode);
 			dimSet.add(type);
 			adjacency.put(sourceNode, targetNode, dimSet);
 		}
 	}
 
-	public Table<String, String, Set<String>> getAdjacency() {
-		return adjacency;
+	protected void newNode(String node) {
+		if (!nodes.contains(node)) {
+			nodes.add(node);
+		}
 	}
 
-	public List<String> getNodes() {
-		return nodes;
+	public Table<String, String, Set<String>> getAdjacency() {
+		return adjacency;
 	}
 
 	public boolean isAdjacent(final String sourceNode, final String targetNode) {
@@ -59,4 +58,9 @@ public class TestModel {
 		adjacency.clear();
 	}
 
+	public Iterator<String> getNodeIterator() {
+		// return Sets.union(adjacency.columnKeySet(),
+		// adjacency.rowKeySet()).iterator();
+		return nodes.iterator();
+	}
 }

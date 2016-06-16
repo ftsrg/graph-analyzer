@@ -29,7 +29,7 @@ public class DimensionalDegreeList extends TypedListMetric<String, Integer> impl
 	public <M, N, T> void evaluate(final ModelAdapter<M, N, T> adapter) {
 		TypedModelAdapter<M, N, T> typedAdapter = TypedModelMetric.castAdapter(adapter);
 		for (T type : typedAdapter.getTypes()) {
-			for (N node : typedAdapter.getNodes()) {
+			for (N node : typedAdapter.getNodes(type)) {
 				typedValues.put(type.toString(), typedAdapter.getDegree(node, type));
 			}
 		}

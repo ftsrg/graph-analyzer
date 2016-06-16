@@ -1,7 +1,6 @@
 package eu.mondo.map.modelmetrics.tests;
 
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.network;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
@@ -15,48 +14,66 @@ import org.junit.Test;
 import eu.mondo.map.core.tests.metrics.ListMetricTest;
 import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficientList;
 
-public class ClusteringCoefficientTest extends ListMetricTest<Double, ClusteringCoefficientList<String>> {
+public class ClusteringCoefficientTest extends ListMetricTest<Double, ClusteringCoefficientList> {
+
+	protected TestModel model;
+	protected TestTypedModelAdapter adapter;
 
 	@Override
-	public ClusteringCoefficientList<String> initMetric() {
-		return new ClusteringCoefficientList<>();
+	public ClusteringCoefficientList initMetric() {
+		return new ClusteringCoefficientList();
 	}
 
 	@Override
 	public void clear() {
-		network.clear();
+		model.clear();
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		model = new TestModel();
+		adapter = new TestTypedModelAdapter();
 	}
 
 	protected void checkValue(double expected, String node) {
-		Assert.assertEquals(expected, metric.calculate(network.getNode(node)), 0.01);
+		metric.evaluate(adapter, node);
+		Assert.assertEquals(expected, metric.last(), 0.01);
 	}
 
 	@Test
 	public void testZero() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		adapter.init(model);
 
-		metric.calculate(network);
+		metric.evaluate(adapter);
 		checkSize(3);
 		for (Double value : metric.getValues()) {
 			Assert.assertEquals(value.toString(), 0.0, value, 0.01);
 		}
 		metric.clear();
-
-		Assert.assertEquals(0.0, metric.calculate(network.getNode(node1)), 0.01);
-		Assert.assertEquals(0.0, metric.calculate(network.getNode(node2)), 0.01);
-		Assert.assertEquals(0.0, metric.calculate(network.getNode(node3)), 0.01);
+		checkValue(0.0, node1);
+		checkValue(0.0, node2);
+		checkValue(0.0, node3);
+		// Assert.assertEquals(0.0, metric.evaluate(network.getNode(node1)),
+		// 0.01);
+		// Assert.assertEquals(0.0, metric.evaluate(network.getNode(node2)),
+		// 0.01);
+		// Assert.assertEquals(0.0, metric.evaluate(network.getNode(node3)),
+		// 0.01);
 
 		checkSize(3);
 	}
 
 	@Test
 	public void testClustering() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-		network.addEdge(dim1, node3, node2);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node3, node2);
+		adapter.init(model);
 
-		metric.calculate(network);
+		metric.evaluate(adapter);
 		checkSize(3);
 		metric.clear();
 		checkValue(1.0, node1);
@@ -66,13 +83,14 @@ public class ClusteringCoefficientTest extends ListMetricTest<Double, Clustering
 
 	@Test
 	public void testClustering2() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-		network.addEdge(dim1, node3, node2);
-		network.addEdge(dim1, node4, node5);
-		network.addEdge(dim1, node1, node4);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node3, node2);
+		model.addEdge(dim1, node4, node5);
+		model.addEdge(dim1, node1, node4);
+		adapter.init(model);
 
-		metric.calculate(network);
+		metric.evaluate(adapter);
 		checkSize(5);
 		metric.clear();
 		checkValue(0.333, node1);
@@ -84,18 +102,19 @@ public class ClusteringCoefficientTest extends ListMetricTest<Double, Clustering
 
 	@Test
 	public void testClustering3() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-		network.addEdge(dim1, node1, node4);
-		network.addEdge(dim1, node1, node5);
-		network.addEdge(dim1, node2, node3);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node1, node4);
+		model.addEdge(dim1, node1, node5);
+		model.addEdge(dim1, node2, node3);
 
-		network.addEdge(dim1, node3, node6);
-		network.addEdge(dim1, node4, node6);
-		network.addEdge(dim1, node4, node3);
-		network.addEdge(dim1, node5, node6);
+		model.addEdge(dim1, node3, node6);
+		model.addEdge(dim1, node4, node6);
+		model.addEdge(dim1, node4, node3);
+		model.addEdge(dim1, node5, node6);
+		adapter.init(model);
 
-		metric.calculate(network);
+		metric.evaluate(adapter);
 		checkSize(6);
 		metric.clear();
 		checkValue(0.333, node1);

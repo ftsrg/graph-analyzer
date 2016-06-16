@@ -2,7 +2,6 @@ package eu.mondo.map.modelmetrics.tests;
 
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.network;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
@@ -15,26 +14,37 @@ import eu.mondo.map.core.tests.metrics.TypedListMetricTest;
 import eu.mondo.map.modelmetrics.impl.typed.DimensionalTypedClusteringCoefficientList;
 
 public class DimTypedClusteringCoefficientTest
-		extends TypedListMetricTest<String, Double, DimensionalTypedClusteringCoefficientList<String>> {
+		extends TypedListMetricTest<String, Double, DimensionalTypedClusteringCoefficientList> {
+
+	protected TestModel model;
+	protected TestTypedModelAdapter adapter;
 
 	@Override
-	public DimensionalTypedClusteringCoefficientList<String> initMetric() {
-		return new DimensionalTypedClusteringCoefficientList<>();
+	public DimensionalTypedClusteringCoefficientList initMetric() {
+		return new DimensionalTypedClusteringCoefficientList();
+	}
+
+	@Override
+	public void init() {
+		super.init();
+		model = new TestModel();
+		adapter = new TestTypedModelAdapter();
 	}
 
 	@Override
 	public void clear() {
-		network.clear();
+		model.clear();
 	}
 
 	public void calculate() {
-		metric.calculate(network);
+		metric.evaluate(adapter);
 	}
 
 	@Test
 	public void testZero1() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		adapter.init(model);
 
 		calculate();
 		checkSize(3);
@@ -47,9 +57,10 @@ public class DimTypedClusteringCoefficientTest
 
 	@Test
 	public void testZero2() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-		network.addEdge(dim2, node2, node3);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim2, node2, node3);
+		adapter.init(model);
 
 		calculate();
 		checkSize(5);
@@ -63,9 +74,10 @@ public class DimTypedClusteringCoefficientTest
 
 	@Test
 	public void testClustering1() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-		network.addEdge(dim1, node2, node3);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node2, node3);
+		adapter.init(model);
 
 		calculate();
 		checkSize(3);
@@ -78,11 +90,12 @@ public class DimTypedClusteringCoefficientTest
 
 	@Test
 	public void testClustering2() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-		network.addEdge(dim1, node2, node3);
-		network.addEdge(dim1, node2, node4);
-		network.addEdge(dim2, node3, node4);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node2, node3);
+		model.addEdge(dim1, node2, node4);
+		model.addEdge(dim2, node3, node4);
+		adapter.init(model);
 
 		calculate();
 		checkSize(6);
@@ -100,15 +113,16 @@ public class DimTypedClusteringCoefficientTest
 
 	@Test
 	public void testClustering3() {
-		network.addEdge(dim1, node1, node2);
-		network.addEdge(dim1, node1, node3);
-		network.addEdge(dim1, node2, node3);
-		network.addEdge(dim1, node2, node4);
-		network.addEdge(dim2, node3, node4);
-		network.addEdge(dim2, node3, node5);
-		network.addEdge(dim1, node1, node5);
-		network.addEdge(dim2, node2, node5);
-		network.addEdge(dim2, node4, node5);
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node2, node3);
+		model.addEdge(dim1, node2, node4);
+		model.addEdge(dim2, node3, node4);
+		model.addEdge(dim2, node3, node5);
+		model.addEdge(dim1, node1, node5);
+		model.addEdge(dim2, node2, node5);
+		model.addEdge(dim2, node4, node5);
+		adapter.init(model);
 
 		calculate();
 		checkSize(9);

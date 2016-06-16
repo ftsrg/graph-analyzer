@@ -66,7 +66,6 @@ public class MultiplexParticipationCoefficient extends ListMetric<Double> implem
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
-
 		int numOfDimensions = 0;
 		if (exclusive) {
 			numOfDimensions = typedAdapter.getNumberOfTypes(element);
@@ -75,8 +74,7 @@ public class MultiplexParticipationCoefficient extends ListMetric<Double> implem
 		}
 		double coef = 0.0;
 		for (T type : typedAdapter.getTypes(element)) {
-			coef += Math.pow(typedAdapter.getDegree(element, type) / (double) typedAdapter.getDegree(element),
-					2.0);
+			coef += Math.pow(typedAdapter.getDegree(element, type) / (double) typedAdapter.getDegree(element), 2.0);
 		}
 		coef = 1 - coef;
 		coef = coef * numOfDimensions / (numOfDimensions - 1);

@@ -28,7 +28,6 @@ public class MultiplexParticipationCoefficientTest<N>
 		super.init();
 		model = new TestModel();
 		adapter = new TestTypedModelAdapter();
-		adapter.init(model);
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class MultiplexParticipationCoefficientTest<N>
 	public void testCalculation1() {
 		model.addEdge(dim1, node1, node2);
 		model.addEdge(dim2, node2, node3);
-
+		adapter.init(model);
 		metric.evaluate(adapter);
 
 		Assert.assertEquals(0.0, metric.get(0), 0.01);
@@ -54,9 +53,9 @@ public class MultiplexParticipationCoefficientTest<N>
 		model.addEdge(dim1, node1, node2);
 		model.addEdge(dim2, node2, node3);
 		model.addEdge(dim1, node2, node3);
+		adapter.init(model);
 
 		metric.evaluate(adapter);
-
 		Assert.assertEquals(0.0, metric.get(0), 0.01);
 		Assert.assertEquals(0.88, metric.get(1), 0.01);
 		Assert.assertEquals(1.0, metric.get(2), 0.01);
