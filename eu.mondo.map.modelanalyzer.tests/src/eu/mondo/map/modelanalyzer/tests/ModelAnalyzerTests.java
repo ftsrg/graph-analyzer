@@ -17,12 +17,13 @@ import org.junit.Test;
 import eu.mondo.map.core.metrics.Metric;
 import eu.mondo.map.core.metrics.SummaryMetric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
+import eu.mondo.map.modelmetrics.ModelEvaluator;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 import eu.mondo.map.modelmetrics.impl.simple.DegreeList;
 
 public class ModelAnalyzerTests {
 
-	protected ModelAnalyzer analyzer;
+	protected ModelAnalyzer<ModelEvaluator> analyzer;
 
 	public ModelAnalyzerTests() {
 		PropertyConfigurator.configure("src/log4j.properties");
@@ -31,7 +32,7 @@ public class ModelAnalyzerTests {
 
 	@Before
 	public void init() {
-		analyzer = new ModelAnalyzer();
+		analyzer = new ModelAnalyzer<ModelEvaluator>();
 	}
 
 	protected void checkSize(int expected) {

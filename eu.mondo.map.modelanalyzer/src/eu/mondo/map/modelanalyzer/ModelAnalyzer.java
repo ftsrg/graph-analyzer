@@ -13,12 +13,12 @@ import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
-public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
+public class ModelAnalyzer<M extends ModelEvaluator> extends Analyzer<String, M> {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 
 	@Override
-	public ModelAnalyzer clear() {
+	public ModelAnalyzer<M> clear() {
 		super.clear();
 		return this;
 	}
@@ -36,7 +36,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 *             if metric was already added
 	 * @return this
 	 */
-	public ModelAnalyzer use(ModelMetrics metric) {
+	public ModelAnalyzer<M> use(ModelMetrics metric) {
 		useMetric(metric, null);
 		return this;
 	}
@@ -59,7 +59,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return this
 	 */
-	public ModelAnalyzer use(ModelMetrics metric, String name) {
+	public ModelAnalyzer<M> use(ModelMetrics metric, String name) {
 		useMetric(metric, name);
 		return this;
 	}
@@ -100,13 +100,20 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	// }
 
 	protected void useMetric(ModelMetrics metric, String name) {
+		checkNewMetric(metric);
+		addMetric(metric, (M) metric.instantiate(), name);
+	}
+
+	protected void checkNewMetric(ModelMetrics metric) {
 		checkState(!metrics.containsKey(metric.toString()),
 				"The metric " + metric.toString() + " was already added to the analyzer.");
-		ModelEvaluator newMetric = metric.instantiate();
+	}
+
+	protected void addMetric(ModelMetrics metric, M metricObj, String name) {
 		if (name != null) {
-			newMetric.setName(name);
+			metricObj.setName(name);
 		}
-		metrics.put(metric.toString(), newMetric);
+		metrics.put(metric.toString(), metricObj);
 		logger.info("Use metric for the analysis: " + metric.toString());
 	}
 
@@ -122,16 +129,20 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return
 	 */
-	public ModelAnalyzer useAll() {
-		checkState(metrics.isEmpty(),
-				"The ModelAnalyzer already contains metrics, so the useAll function cannot be used.");
+	public ModelAnalyzer<M> useAll() {
+		checkEmptyMetrics();
 		for (ModelMetrics m : ModelMetrics.values()) {
 			useMetric(m, null);
 		}
 		return this;
 	}
 
-	public ModelAnalyzer useSummary(SummaryMetric<?, ?> summary) {
+	protected void checkEmptyMetrics() {
+		checkState(metrics.isEmpty(),
+				"The ModelAnalyzer already contains metrics, so the useAll function cannot be used.");
+	}
+
+	public ModelAnalyzer<M> useSummary(SummaryMetric<?, ?> summary) {
 		// checkArgument(metrics.containsKey(metric.toString()),
 		// "The " + metric.toString() + " should be contained by the
 		// ModelAnalyzer");
@@ -153,7 +164,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 *             if the <em>metrics</em> collection is empty
 	 * @return this
 	 */
-	public ModelAnalyzer omit(ModelMetrics metric) {
+	public ModelAnalyzer<M> omit(ModelMetrics metric) {
 		checkState(!metrics.isEmpty(), "The ModelAnalyzer should contain metrics to omit " + metric.toString()
 				+ " from the analysis, but it is empty.");
 		if (!metrics.containsKey(metric.toString())) {
@@ -177,7 +188,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return {@link Metric} object or <strong>null</strong>
 	 */
-	public ModelEvaluator getMetric(ModelMetrics metric) {
+	public M getMetric(ModelMetrics metric) {
 		return metrics.get(metric.toString());
 	}
 
@@ -196,8 +207,8 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return this
 	 */
-	public <M, N, T> ModelAnalyzer calculate(final ModelAdapter<M, N, T> adapter) {
-		for (ModelEvaluator m : metrics.values()) {
+	public ModelAnalyzer<M> calculate(final ModelAdapter<?, ?, ?> adapter) {
+		for (M m : metrics.values()) {
 			m.evaluate(adapter);
 		}
 		return this;
@@ -220,7 +231,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return this
 	 */
-	public <M, N, T> ModelAnalyzer calculate(final ModelAdapter<M, N, T> adapter, ModelMetrics metric) {
+	public ModelAnalyzer<M> calculate(final ModelAdapter<?, ?, ?> adapter, ModelMetrics metric) {
 		ModelEvaluator metricObj = getMetric(metric);
 		Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.", metricObj);
 
@@ -246,7 +257,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelEvaluator> {
 	 * 
 	 * @return this
 	 */
-	public <M, N, T> ModelAnalyzer validate(final ModelAdapter<M, N, T> adapter) {
+	public ModelAnalyzer<M> validate(final ModelAdapter<?, ?, ?> adapter) {
 		throw new UnsupportedOperationException("Not implemented yet");
 		// return this;
 	}
