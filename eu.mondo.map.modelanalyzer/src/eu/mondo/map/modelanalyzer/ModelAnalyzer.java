@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 
 import com.google.common.base.Preconditions;
 
-import eu.mondo.map.core.Analyzer;
-import eu.mondo.map.core.metrics.Metric;
-import eu.mondo.map.core.metrics.SummaryMetric;
+import eu.mondo.map.base.Analyzer;
+import eu.mondo.map.base.metrics.Metric;
+import eu.mondo.map.base.metrics.SummaryMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;

@@ -8,7 +8,7 @@ Export-Package: eu.mondo.map.modelmetrics.impl,
  eu.mondo.map.modelmetrics.impl.simple,
  eu.mondo.map.modelmetrics.impl.typed
 Require-Bundle: eu.mondo.map.modelmetrics;bundle-version="1.0.0",
- eu.mondo.map.core;bundle-version="1.0.0",
+ eu.mondo.map.base;bundle-version="1.0.0",
  com.google.guava;bundle-version="15.0.0",
  com.google.guava.source;bundle-version="15.0.0",
  eu.mondo.map.modeladapters;bundle-version="1.0.0",

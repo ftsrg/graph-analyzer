@@ -1,6 +1,6 @@
 package eu.mondo.map.modelmetrics.tests;
 
-import eu.mondo.map.core.graph.Network;
+import eu.mondo.map.base.graph.Network;
 
 public class ModelContext {
 

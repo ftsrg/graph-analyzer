@@ -7,7 +7,7 @@ Export-Package: eu.mondo.map.modelmetrics,
  eu.mondo.map.modelmetrics.incr
 Require-Bundle: com.google.guava;bundle-version="15.0.0",
  org.junit;bundle-version="4.11.0",
- eu.mondo.map.core;bundle-version="1.0.0",
+ eu.mondo.map.base;bundle-version="1.0.0",
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,

@@ -21,8 +21,8 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
-import eu.mondo.map.core.graph.Node;
-import eu.mondo.map.core.tests.metrics.ListMetricTest;
+import eu.mondo.map.base.graph.Node;
+import eu.mondo.map.base.tests.metrics.ListMetricTest;
 import eu.mondo.map.modelmetrics.impl.simple.Path;
 import eu.mondo.map.modelmetrics.impl.simple.ShortestPathList;
 

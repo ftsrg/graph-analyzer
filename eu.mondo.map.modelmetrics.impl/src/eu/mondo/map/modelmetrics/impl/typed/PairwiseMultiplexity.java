@@ -3,9 +3,9 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import java.util.HashMap;
 import java.util.Map;
 
-import eu.mondo.map.core.graph.Network;
-import eu.mondo.map.core.graph.Node;
-import eu.mondo.map.core.metrics.typed.TypedScalarMetric;
+import eu.mondo.map.base.graph.Network;
+import eu.mondo.map.base.graph.Node;
+import eu.mondo.map.base.metrics.typed.TypedScalarMetric;
 
 public class PairwiseMultiplexity extends TypedScalarMetric<String, Double> {
 

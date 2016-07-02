@@ -1,6 +1,6 @@
 package eu.mondo.map.modelmetrics;
 
-import eu.mondo.map.core.metrics.Metric;
+import eu.mondo.map.base.metrics.Metric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 
 public interface ModelEvaluator extends Metric {

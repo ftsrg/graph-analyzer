@@ -14,8 +14,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import eu.mondo.map.core.metrics.Metric;
-import eu.mondo.map.core.metrics.SummaryMetric;
+import eu.mondo.map.base.metrics.Metric;
+import eu.mondo.map.base.metrics.SummaryMetric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;

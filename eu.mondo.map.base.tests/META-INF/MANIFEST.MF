@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BaseTests
+Bundle-SymbolicName: eu.mondo.map.base.tests
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ eu.mondo.map.base;bundle-version="1.0.0",
+ org.junit;bundle-version="4.12.0",
+ com.google.guava
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Export-Package: eu.mondo.map.base.tests.metrics

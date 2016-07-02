@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import eu.mondo.map.core.graph.Node;
+import eu.mondo.map.base.graph.Node;
 
 public class Path<N> {
 

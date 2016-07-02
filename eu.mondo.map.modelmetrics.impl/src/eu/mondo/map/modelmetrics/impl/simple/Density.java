@@ -1,6 +1,6 @@
 package eu.mondo.map.modelmetrics.impl.simple;
 
-import eu.mondo.map.core.metrics.ScalarMetric;
+import eu.mondo.map.base.metrics.ScalarMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 

@@ -3,9 +3,9 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import java.util.HashSet;
 import java.util.Set;
 
-import eu.mondo.map.core.graph.Network;
-import eu.mondo.map.core.graph.Node;
-import eu.mondo.map.core.metrics.ListMetric;
+import eu.mondo.map.base.graph.Network;
+import eu.mondo.map.base.graph.Node;
+import eu.mondo.map.base.metrics.ListMetric;
 
 public class DimensionalClusteringCoefficient extends ListMetric<Double> {
 

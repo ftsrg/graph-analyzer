@@ -2,7 +2,7 @@ package eu.mondo.map.modelmetrics.impl.simple;
 
 import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
 
-import eu.mondo.map.core.metrics.ListMetric;
+import eu.mondo.map.base.metrics.ListMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 

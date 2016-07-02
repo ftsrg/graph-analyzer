@@ -3,7 +3,7 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
 import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
 
-import eu.mondo.map.core.metrics.typed.TypedListMetric;
+import eu.mondo.map.base.metrics.typed.TypedListMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;

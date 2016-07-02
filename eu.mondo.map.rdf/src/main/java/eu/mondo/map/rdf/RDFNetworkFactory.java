@@ -11,7 +11,7 @@ import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.RepositoryResult;
 
-import eu.mondo.map.core.graph.Network;
+import eu.mondo.map.base.graph.Network;
 
 public class RDFNetworkFactory {
 

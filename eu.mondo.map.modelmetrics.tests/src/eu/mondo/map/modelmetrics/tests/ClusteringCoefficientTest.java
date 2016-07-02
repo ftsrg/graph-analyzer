@@ -11,7 +11,7 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node6;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.mondo.map.core.tests.metrics.ListMetricTest;
+import eu.mondo.map.base.tests.metrics.ListMetricTest;
 import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficientList;
 
 public class ClusteringCoefficientTest extends ListMetricTest<Double, ClusteringCoefficientList> {

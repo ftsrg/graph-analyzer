@@ -1,6 +1,6 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import eu.mondo.map.core.metrics.typed.MultitypedScalarMetric;
+import eu.mondo.map.base.metrics.typed.MultitypedScalarMetric;
 
 public class NumberOfTypedAttributes extends MultitypedScalarMetric<String, String, Integer> {
 

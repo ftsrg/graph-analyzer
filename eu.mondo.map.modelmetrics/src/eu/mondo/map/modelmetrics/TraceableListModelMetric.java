@@ -2,8 +2,8 @@ package eu.mondo.map.modelmetrics;
 
 import java.util.Map;
 
-import eu.mondo.map.core.metrics.BaseMetric;
-import eu.mondo.map.core.metrics.ListMetric;
+import eu.mondo.map.base.metrics.BaseMetric;
+import eu.mondo.map.base.metrics.ListMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 
 public class TraceableListModelMetric<V extends Number, M extends ListMetric<V> & ModelEvaluator, N> extends BaseMetric

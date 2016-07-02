@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import eu.mondo.map.core.graph.Network;
+import eu.mondo.map.base.graph.Network;
 
 public class EMFNetworkFactory {
 
