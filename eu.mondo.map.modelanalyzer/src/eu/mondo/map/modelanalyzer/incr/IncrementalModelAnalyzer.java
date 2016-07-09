@@ -51,14 +51,14 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer<IncrementalModelEval
 	}
 
 	@Override
-	public <M, N, T> IncrementalModelAnalyzer calculate(ModelAdapter<M, N, T> adapter) {
-		super.calculate(adapter);
+	public <M, N, T> IncrementalModelAnalyzer evaluate(ModelAdapter<M, N, T> adapter) {
+		super.evaluate(adapter);
 		return this;
 	}
 
 	@Override
-	public <M, N, T> IncrementalModelAnalyzer calculate(ModelAdapter<M, N, T> adapter, ModelMetrics metric) {
-		super.calculate(adapter, metric);
+	public <M, N, T> IncrementalModelAnalyzer evaluate(ModelAdapter<M, N, T> adapter, ModelMetrics metric) {
+		super.evaluate(adapter, metric);
 		return this;
 	}
 

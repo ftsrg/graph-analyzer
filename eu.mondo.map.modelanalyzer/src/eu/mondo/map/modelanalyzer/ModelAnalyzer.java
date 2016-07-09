@@ -207,7 +207,7 @@ public class ModelAnalyzer<MetricT extends ModelMetric> extends Analyzer<String,
 	 * 
 	 * @return this
 	 */
-	public <M, N, T> ModelAnalyzer<MetricT> calculate(final ModelAdapter<M, N, T> adapter) {
+	public <M, N, T> ModelAnalyzer<MetricT> evaluate(final ModelAdapter<M, N, T> adapter) {
 		for (MetricT m : metrics.values()) {
 			m.evaluate(adapter);
 		}
@@ -231,7 +231,7 @@ public class ModelAnalyzer<MetricT extends ModelMetric> extends Analyzer<String,
 	 * 
 	 * @return this
 	 */
-	public <M, N, T> ModelAnalyzer<MetricT> calculate(final ModelAdapter<M, N, T> adapter, ModelMetrics metric) {
+	public <M, N, T> ModelAnalyzer<MetricT> evaluate(final ModelAdapter<M, N, T> adapter, ModelMetrics metric) {
 		MetricT metricObj = getMetric(metric);
 		Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.", metricObj);
 
