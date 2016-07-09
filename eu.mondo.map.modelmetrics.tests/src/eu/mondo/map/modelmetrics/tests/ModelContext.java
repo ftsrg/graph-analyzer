@@ -1,10 +1,6 @@
 package eu.mondo.map.modelmetrics.tests;
 
-import eu.mondo.map.base.graph.Network;
-
 public class ModelContext {
-
-	public static Network<String> network;
 
 	public static String dim1;
 	public static String dim2;
@@ -21,7 +17,6 @@ public class ModelContext {
 	public static String node9;
 
 	static {
-		network = new Network<String>();
 		node1 = "node1";
 		node2 = "node2";
 		node3 = "node3";

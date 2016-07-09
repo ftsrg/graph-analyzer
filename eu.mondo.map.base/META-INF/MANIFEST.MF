@@ -5,7 +5,6 @@ Bundle-SymbolicName: eu.mondo.map.base
 Bundle-Version: 1.0.0.qualifier
 Export-Package: eu.mondo.map.base,
  eu.mondo.map.base.data,
- eu.mondo.map.base.graph,
  eu.mondo.map.base.metrics,
  eu.mondo.map.base.tests,
  eu.mondo.map.base.util
