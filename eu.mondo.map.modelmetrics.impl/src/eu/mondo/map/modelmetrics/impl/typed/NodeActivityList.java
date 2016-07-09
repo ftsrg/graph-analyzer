@@ -1,17 +1,14 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
-
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class NodeActivityList extends ListData<Integer> implements ModelEvaluator {
+public class NodeActivityList extends ModelMetric<ListData<Integer>> {
 
 	public NodeActivityList() {
-		super("NodeActivityList");
+		super("NodeActivityList", new ListData<>());
 	}
 
 	// public void calculate(final Network<N> network) {
@@ -23,7 +20,7 @@ public class NodeActivityList extends ListData<Integer> implements ModelEvaluato
 
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
-		evaluateEveryNode(adapter, this);
+		evaluateEveryNode(adapter);
 	}
 
 	@Override
@@ -32,7 +29,7 @@ public class NodeActivityList extends ListData<Integer> implements ModelEvaluato
 	}
 
 	protected <M, N, T> void evaluate(TypedModelAdapter<M, N, T> adapter, N element) {
-		values.add(adapter.getNumberOfTypes(element));
+		data.add(adapter.getNumberOfTypes(element));
 	}
 
 }

@@ -2,18 +2,17 @@ package eu.mondo.map.modelmetrics.impl.simple;
 
 import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class Density extends ScalarData<Double> implements ModelEvaluator {
+public class Density extends ModelMetric<ScalarData<Double>> {
 
 	public Density() {
-		super("Density");
+		super("Density", new ScalarData<>());
 	}
 
 	@Override
 	public void clear() {
-		value = 0.0;
-
+		data.setValue(0.0);
 	}
 
 	// public void calculate(final NumberOfNodes nodes, final NumberOfEdges
@@ -25,8 +24,10 @@ public class Density extends ScalarData<Double> implements ModelEvaluator {
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		int numOfNodes = adapter.getNumberOfNodes();
-		value = adapter.getNumberOfEdges() / (double) numOfNodes;
+		Double value = adapter.getNumberOfEdges() / (double) numOfNodes;
 		value /= numOfNodes - 1;
+
+		data.setValue(value);
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import eu.mondo.map.modelmetrics.ModelMetric;
 public class NumberOfEdges extends ModelMetric<ScalarData<Integer>> {
 
 	public NumberOfEdges() {
-		super("NumberOfEdges");
+		super("NumberOfEdges", new ScalarData<>());
 	}
 
 	// public void calculate(final DegreeList degreeList) {

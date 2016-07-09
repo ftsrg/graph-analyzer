@@ -1,17 +1,14 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
-
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class MultiplexParticipationCoefficient extends ListData<Double> implements ModelEvaluator {
+public class MultiplexParticipationCoefficient extends ModelMetric<ListData<Double>> {
 
 	public MultiplexParticipationCoefficient() {
-		super("MultiplexParticipationCoefficient");
+		super("MultiplexParticipationCoefficient", new ListData<>());
 	}
 
 	// public <N> void calculate(final Network<N> network) {
@@ -57,7 +54,7 @@ public class MultiplexParticipationCoefficient extends ListData<Double> implemen
 
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
-		evaluateEveryNode(adapter, this);
+		evaluateEveryNode(adapter);
 	}
 
 	// TODO delete later
@@ -78,7 +75,7 @@ public class MultiplexParticipationCoefficient extends ListData<Double> implemen
 		}
 		coef = 1 - coef;
 		coef = coef * numOfDimensions / (numOfDimensions - 1);
-		values.add(coef);
+		data.add(coef);
 	}
 
 }

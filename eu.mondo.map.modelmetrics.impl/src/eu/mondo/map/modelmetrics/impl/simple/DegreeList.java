@@ -1,15 +1,13 @@
 package eu.mondo.map.modelmetrics.impl.simple;
 
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
-
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class DegreeList extends ListData<Integer> implements ModelEvaluator {
+public class DegreeList extends ModelMetric<ListData<Integer>> {
 
 	public DegreeList() {
-		super("DegreeList");
+		super("DegreeList", new ListData<>());
 	}
 
 	// public void calculate(final Network<N> network) {
@@ -26,7 +24,7 @@ public class DegreeList extends ListData<Integer> implements ModelEvaluator {
 	 * </p>
 	 */
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
-		evaluateEveryNode(adapter, this);
+		evaluateEveryNode(adapter);
 	}
 
 	@Override
@@ -36,7 +34,7 @@ public class DegreeList extends ListData<Integer> implements ModelEvaluator {
 	 * </p>
 	 */
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-		values.add(adapter.getDegree(element));
+		data.add(adapter.getDegree(element));
 	}
 
 }

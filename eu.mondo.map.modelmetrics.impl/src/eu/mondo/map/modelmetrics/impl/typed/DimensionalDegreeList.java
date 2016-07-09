@@ -3,12 +3,12 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import eu.mondo.map.base.data.MappedListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class DimensionalDegreeList extends MappedListData<String, Integer> implements ModelEvaluator {
+public class DimensionalDegreeList extends ModelMetric<MappedListData<String, Integer>> {
 
 	public DimensionalDegreeList() {
-		super("DimensionalDegreeList");
+		super("DimensionalDegreeList", new MappedListData<>());
 	}
 
 	// public void calculate(final Network<N> network) {
@@ -20,17 +20,17 @@ public class DimensionalDegreeList extends MappedListData<String, Integer> imple
 	// }
 	// }
 
-	@Override
-	protected boolean isSkippable(Integer value) {
-		return value.equals(0);
-	}
+	// @Override
+	// protected boolean isSkippable(Integer value) {
+	// return value.equals(0);
+	// }
 
 	@Override
 	public <M, N, T> void evaluate(final ModelAdapter<M, N, T> adapter) {
-		TypedModelAdapter<M, N, T> typedAdapter = TypedModelMetric.castAdapter(adapter);
+		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
 		for (T type : typedAdapter.getTypes()) {
 			for (N node : typedAdapter.getNodes(type)) {
-				typedValues.put(type.toString(), typedAdapter.getDegree(node, type));
+				data.put(type.toString(), typedAdapter.getDegree(node, type));
 			}
 		}
 	}

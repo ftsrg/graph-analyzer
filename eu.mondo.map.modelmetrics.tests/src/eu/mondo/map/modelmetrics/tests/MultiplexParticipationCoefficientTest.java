@@ -9,17 +9,17 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.mondo.map.base.tests.ListDataTesterUtil;
+import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 
 public class MultiplexParticipationCoefficientTest<N>
-		extends ListDataTesterUtil<Double, MultiplexParticipationCoefficient> {
+		extends ModelMetricTest<ListData<Double>, MultiplexParticipationCoefficient> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;
 
 	@Override
-	public MultiplexParticipationCoefficient initMetric() {
+	public MultiplexParticipationCoefficient newMetric() {
 		return new MultiplexParticipationCoefficient();
 	}
 
@@ -42,9 +42,9 @@ public class MultiplexParticipationCoefficientTest<N>
 		adapter.init(model);
 		metric.evaluate(adapter);
 
-		Assert.assertEquals(0.0, metric.get(0), 0.01);
-		Assert.assertEquals(1.0, metric.get(1), 0.01);
-		Assert.assertEquals(0.0, metric.get(2), 0.01);
+		Assert.assertEquals(0.0, data.get(0), 0.01);
+		Assert.assertEquals(1.0, data.get(1), 0.01);
+		Assert.assertEquals(0.0, data.get(2), 0.01);
 
 	}
 
@@ -56,9 +56,9 @@ public class MultiplexParticipationCoefficientTest<N>
 		adapter.init(model);
 
 		metric.evaluate(adapter);
-		Assert.assertEquals(0.0, metric.get(0), 0.01);
-		Assert.assertEquals(0.88, metric.get(1), 0.01);
-		Assert.assertEquals(1.0, metric.get(2), 0.01);
+		Assert.assertEquals(0.0, data.get(0), 0.01);
+		Assert.assertEquals(0.88, data.get(1), 0.01);
+		Assert.assertEquals(1.0, data.get(2), 0.01);
 
 	}
 

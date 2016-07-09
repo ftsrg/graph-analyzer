@@ -1,5 +1,8 @@
 package eu.mondo.map.modelmetrics.tests;
 
+import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkDimensionsNumber;
+import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkSize;
+import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkValue;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
@@ -10,17 +13,17 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
 
 import org.junit.Test;
 
-import eu.mondo.map.base.tests.MappedListDataTesterUtil;
+import eu.mondo.map.base.data.MappedListData;
 import eu.mondo.map.modelmetrics.impl.typed.DimensionalTypedClusteringCoefficientList;
 
 public class DimTypedClusteringCoefficientTest
-		extends MappedListDataTesterUtil<String, Double, DimensionalTypedClusteringCoefficientList> {
+		extends ModelMetricTest<MappedListData<String, Double>, DimensionalTypedClusteringCoefficientList> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;
 
 	@Override
-	public DimensionalTypedClusteringCoefficientList initMetric() {
+	public DimensionalTypedClusteringCoefficientList newMetric() {
 		return new DimensionalTypedClusteringCoefficientList();
 	}
 
@@ -47,12 +50,12 @@ public class DimTypedClusteringCoefficientTest
 		adapter.init(model);
 
 		calculate();
-		checkSize(3);
-		checkSize(3, dim1);
-		checkDimensionsNumber(1);
-		checkValue(0.0, dim1, 0);
-		checkValue(0.0, dim1, 1);
-		checkValue(0.0, dim1, 2);
+		checkSize(3, data);
+		checkSize(3, dim1, data);
+		checkDimensionsNumber(1, data);
+		checkValue(0.0, dim1, 0, data);
+		checkValue(0.0, dim1, 1, data);
+		checkValue(0.0, dim1, 2, data);
 	}
 
 	@Test
@@ -63,13 +66,13 @@ public class DimTypedClusteringCoefficientTest
 		adapter.init(model);
 
 		calculate();
-		checkSize(5);
-		checkSize(3, dim1);
-		checkSize(2, dim2);
-		checkDimensionsNumber(2);
-		checkValue(0.0, dim1, 0);
-		checkValue(0.0, dim1, 1);
-		checkValue(0.0, dim1, 2);
+		checkSize(5, data);
+		checkSize(3, dim1, data);
+		checkSize(2, dim2, data);
+		checkDimensionsNumber(2, data);
+		checkValue(0.0, dim1, 0, data);
+		checkValue(0.0, dim1, 1, data);
+		checkValue(0.0, dim1, 2, data);
 	}
 
 	@Test
@@ -80,12 +83,12 @@ public class DimTypedClusteringCoefficientTest
 		adapter.init(model);
 
 		calculate();
-		checkSize(3);
-		checkSize(3, dim1);
-		checkDimensionsNumber(1);
-		checkValue(1.0, dim1, 0);
-		checkValue(1.0, dim1, 1);
-		checkValue(1.0, dim1, 2);
+		checkSize(3, data);
+		checkSize(3, dim1, data);
+		checkDimensionsNumber(1, data);
+		checkValue(1.0, dim1, 0, data);
+		checkValue(1.0, dim1, 1, data);
+		checkValue(1.0, dim1, 2, data);
 	}
 
 	@Test
@@ -98,17 +101,17 @@ public class DimTypedClusteringCoefficientTest
 		adapter.init(model);
 
 		calculate();
-		checkSize(6);
-		checkSize(4, dim1);
-		checkSize(2, dim2);
-		checkDimensionsNumber(2);
-		checkValue(1.0, dim1, 0);
+		checkSize(6, data);
+		checkSize(4, dim1, data);
+		checkSize(2, dim2, data);
+		checkDimensionsNumber(2, data);
+		checkValue(1.0, dim1, 0, data);
 		double expected = 1.0 / 3.0;
-		checkValue(expected, dim1, 1);
-		checkValue(1.0, dim1, 2);
+		checkValue(expected, dim1, 1, data);
+		checkValue(1.0, dim1, 2, data);
 
-		checkValue(0.0, dim2, 0);
-		checkValue(0.0, dim2, 1);
+		checkValue(0.0, dim2, 0, data);
+		checkValue(0.0, dim2, 1, data);
 	}
 
 	@Test
@@ -125,22 +128,22 @@ public class DimTypedClusteringCoefficientTest
 		adapter.init(model);
 
 		calculate();
-		checkSize(9);
-		checkSize(5, dim1);
-		checkSize(4, dim2);
-		checkDimensionsNumber(2);
+		checkSize(9, data);
+		checkSize(5, dim1, data);
+		checkSize(4, dim2, data);
+		checkDimensionsNumber(2, data);
 
 		double expected = 1.0 / 3.0;
-		checkValue(expected, dim1, 0);
-		checkValue(expected, dim1, 1);
-		checkValue(1.0, dim1, 2);
-		checkValue(0.0, dim1, 3);
-		checkValue(0.0, dim1, 4);
+		checkValue(expected, dim1, 0, data);
+		checkValue(expected, dim1, 1, data);
+		checkValue(1.0, dim1, 2, data);
+		checkValue(0.0, dim1, 3, data);
+		checkValue(0.0, dim1, 4, data);
 
-		checkValue(0.0, dim2, 0); // node2
-		checkValue(1.0, dim2, 1); // node3
-		checkValue(1.0, dim2, 2); // node4
-		checkValue(expected, dim2, 3); // node5
+		checkValue(0.0, dim2, 0, data); // node2
+		checkValue(1.0, dim2, 1, data); // node3
+		checkValue(1.0, dim2, 2, data); // node4
+		checkValue(expected, dim2, 3, data); // node5
 	}
 
 }

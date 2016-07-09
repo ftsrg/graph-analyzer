@@ -15,11 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import eu.mondo.map.base.metrics.Metric;
-import eu.mondo.map.base.metrics.SummaryMetric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
 import eu.mondo.map.modelmetrics.ModelMetric;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.simple.DegreeList;
 
 public class ModelAnalyzerTests {
 
@@ -48,7 +46,7 @@ public class ModelAnalyzerTests {
 
 	@Test
 	public void testSummaryMetrics() {
-		analyzer.useSummary(new SummaryMetric<Integer, DegreeList>());
+		// analyzer.useSummary(new SummaryMetric<Integer, DegreeList);
 		fail("Not tested yet");
 	}
 

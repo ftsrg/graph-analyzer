@@ -1,16 +1,14 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
-
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class DimensionActivity extends MapData<String, Integer> implements ModelEvaluator {
+public class DimensionActivity extends ModelMetric<MapData<String, Integer>> {
 
 	public DimensionActivity() {
-		super("DimensionActivity");
+		super("DimensionActivity", new MapData<>());
 	}
 
 	// public void calculate(final Network<?> network) {
@@ -24,7 +22,7 @@ public class DimensionActivity extends MapData<String, Integer> implements Model
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
 		for (T type : typedAdapter.getTypes()) {
-			typedValues.put(type.toString(), typedAdapter.getNumberOfNodes(type));
+			data.put(type.toString(), typedAdapter.getNumberOfNodes(type));
 		}
 	}
 

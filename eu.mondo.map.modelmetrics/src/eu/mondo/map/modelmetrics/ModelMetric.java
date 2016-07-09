@@ -11,8 +11,9 @@ public abstract class ModelMetric<D extends BaseData> extends BaseMetric<D> {
 
 	protected BaseData tracing;
 
-	public ModelMetric(String defaultName) {
+	public ModelMetric(String defaultName, final D data) {
 		super(defaultName);
+		this.data = data;
 	}
 
 	@Override
@@ -45,7 +46,7 @@ public abstract class ModelMetric<D extends BaseData> extends BaseMetric<D> {
 		return typedAdapter;
 	}
 
-	public BaseData getTracing() {
+	public <N, T> BaseData getTracing() {
 		return tracing;
 	}
 

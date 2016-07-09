@@ -1,6 +1,5 @@
 package eu.mondo.map.modelmetrics.impl.simple;
 
-import eu.mondo.map.base.data.BaseData;
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
@@ -9,12 +8,13 @@ import eu.mondo.map.modelmetrics.incr.IncrementalModelEvaluator;
 
 public class ClusteringCoefficient extends ModelMetric<ListData<Double>> implements IncrementalModelEvaluator {
 
+	@Deprecated
 	protected int maxNeighbours = 1000;
+	@Deprecated
 	protected boolean useHeuristic = false;
 
 	public ClusteringCoefficient() {
-		super("ClusteringCoefficientList");
-		data = new ListData<>();
+		super("ClusteringCoefficientList", new ListData<>());
 	}
 
 	// public static <N, T> ClusteringCoefficient<N, T> create() {
@@ -102,9 +102,8 @@ public class ClusteringCoefficient extends ModelMetric<ListData<Double>> impleme
 	}
 
 	@Override
-	public BaseData getTracing() {
-		// TODO Auto-generated method stub
-		return super.getTracing();
+	public <N, T> MapData<N, Double> getTracing() {
+		return (MapData<N, Double>) tracing;
 	}
 
 }

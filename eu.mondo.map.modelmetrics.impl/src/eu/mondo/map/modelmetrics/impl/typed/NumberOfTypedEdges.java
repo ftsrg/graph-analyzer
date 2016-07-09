@@ -1,16 +1,14 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
-
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class NumberOfTypedEdges extends MapData<String, Integer> implements ModelEvaluator {
+public class NumberOfTypedEdges extends ModelMetric<MapData<String, Integer>> {
 
 	public NumberOfTypedEdges() {
-		super("NumberOfTypedEdges");
+		super("NumberOfTypedEdges", new MapData<>());
 	}
 
 	// public void calculate(final Network<?> network) {
@@ -34,7 +32,7 @@ public class NumberOfTypedEdges extends MapData<String, Integer> implements Mode
 				sumOfEdges += typedAdapter.getDegree(node, type);
 			}
 			sumOfEdges /= 2;
-			typedValues.put(type.toString(), sumOfEdges);
+			data.put(type.toString(), sumOfEdges);
 		}
 	}
 

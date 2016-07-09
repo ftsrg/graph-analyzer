@@ -1,18 +1,14 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
-import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.evaluateEveryNode;
-
 import eu.mondo.map.base.data.MappedListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class DimensionalTypedClusteringCoefficientList extends MappedListData<String, Double>
-		implements ModelEvaluator {
+public class DimensionalTypedClusteringCoefficientList extends ModelMetric<MappedListData<String, Double>> {
 
 	public DimensionalTypedClusteringCoefficientList() {
-		super("DimensionalTypedClusteringCoefficientList");
+		super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
 	}
 
 	// public void calculate(final Network<N> network) {
@@ -73,14 +69,14 @@ public class DimensionalTypedClusteringCoefficientList extends MappedListData<St
 	// }
 	// }
 
-	@Override
-	protected boolean isSkippable(Double value) {
-		return value.equals(0.0);
-	}
+	// @Override
+	// protected boolean isSkippable(Double value) {
+	// return value.equals(0.0);
+	// }
 
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
-		evaluateEveryNode(adapter, this);
+		evaluateEveryNode(adapter);
 	}
 
 	// TODO delete later
@@ -97,7 +93,7 @@ public class DimensionalTypedClusteringCoefficientList extends MappedListData<St
 			numberOfNeighbors = 0;
 			numberOfNeighbors = typedAdapter.getDegree(element, type);
 			if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
-				typedValues.put(type.toString(), 0.0);
+				data.put(type.toString(), 0.0);
 				continue;
 			}
 			for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
@@ -116,7 +112,7 @@ public class DimensionalTypedClusteringCoefficientList extends MappedListData<St
 			} else {
 				clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
 			}
-			typedValues.put(type.toString(), clusteringCoef);
+			data.put(type.toString(), clusteringCoef);
 		}
 	}
 

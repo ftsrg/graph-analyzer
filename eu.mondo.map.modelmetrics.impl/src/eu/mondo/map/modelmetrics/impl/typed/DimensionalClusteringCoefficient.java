@@ -4,16 +4,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 import eu.mondo.map.base.data.ListData;
-import eu.mondo.map.base.graph.Network;
-import eu.mondo.map.base.graph.Node;
+import eu.mondo.map.modeladapters.ModelAdapter;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class DimensionalClusteringCoefficient extends ListData<Double> {
+public class DimensionalClusteringCoefficient extends ModelMetric<ListData<Double>> {
 
 	protected int maxNeighbours = 1000;
 	protected boolean useHeuristic = false;
 
 	public DimensionalClusteringCoefficient() {
-		super("DimensionalClusteringCoefficient");
+		super("DimensionalClusteringCoefficient", new ListData<>());
 	}
 
 	public int getMaxNeighbours() {
@@ -68,8 +68,7 @@ public class DimensionalClusteringCoefficient extends ListData<Double> {
 						for (String dimension2 : dimensions) {
 							if (!dimension1.equals(dimension2)) {
 								numberOfPossibleConnections++;
-								if (network.isAdjacentUndirected(neighbor1, neighbor2,
-										dimension2)) {
+								if (network.isAdjacentUndirected(neighbor1, neighbor2, dimension2)) {
 									interConnected++;
 								}
 							}
@@ -115,22 +114,19 @@ public class DimensionalClusteringCoefficient extends ListData<Double> {
 								Set<String> dimensions = new HashSet<String>();
 								dimensions.addAll(neighbor1.getDimensionsAsSet());
 								dimensions.addAll(neighbor2.getDimensionsAsSet());
-//								System.out.println(dimensions);
+								// System.out.println(dimensions);
 
 								for (String dimension3 : dimensions) {
-//									System.out.println("-----");
-//									System.out.println(dimension1);
-//									System.out.println(dimension2);
-//									System.out.println(dimension3);
-									if (!dimension1.equals(dimension3)
-											&& !dimension2.equals(
-													dimension3)) {
+									// System.out.println("-----");
+									// System.out.println(dimension1);
+									// System.out.println(dimension2);
+									// System.out.println(dimension3);
+									if (!dimension1.equals(dimension3) && !dimension2.equals(dimension3)) {
 										numberOfPossibleConnections++;
-										if (neighbor1.hasNeighbor(neighbor2,
-												dimension3)) {
-//											System.out.println(neighbor1);
-//											System.out.println(neighbor2);
-//											System.out.println(dimension3);
+										if (neighbor1.hasNeighbor(neighbor2, dimension3)) {
+											// System.out.println(neighbor1);
+											// System.out.println(neighbor2);
+											// System.out.println(dimension3);
 											interConnected++;
 										}
 									}
@@ -180,16 +176,15 @@ public class DimensionalClusteringCoefficient extends ListData<Double> {
 								dimensions.addAll(neighbor1.getDimensionsAsSet());
 								dimensions.addAll(neighbor2.getDimensionsAsSet());
 								for (String dimension3 : dimensions) {
-//									System.out.println(neighbor1);
-//									System.out.println(neighbor2);
-//									System.out.println(dimension3);
+									// System.out.println(neighbor1);
+									// System.out.println(neighbor2);
+									// System.out.println(dimension3);
 									numberOfPossibleConnections++;
-									if (neighbor1.hasNeighbor(neighbor2,
-											dimension3)) {
+									if (neighbor1.hasNeighbor(neighbor2, dimension3)) {
 										interConnected++;
-//										System.out.println(neighbor1);
-//										System.out.println(neighbor2);
-//										System.out.println(dimension3);
+										// System.out.println(neighbor1);
+										// System.out.println(neighbor2);
+										// System.out.println(dimension3);
 									}
 								}
 							}
@@ -207,6 +202,18 @@ public class DimensionalClusteringCoefficient extends ListData<Double> {
 		values.add(coef);
 
 		return coef;
+	}
+
+	@Override
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

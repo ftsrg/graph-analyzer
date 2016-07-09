@@ -3,12 +3,12 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-public class EdgeDimensionConnectivity extends MapData<String, Double> implements ModelEvaluator {
+public class EdgeDimensionConnectivity extends ModelMetric<MapData<String, Double>> {
 
 	public EdgeDimensionConnectivity() {
-		super("EdgeDimensionConnectivity");
+		super("EdgeDimensionConnectivity", new MapData<>());
 	}
 
 	// public void calculate(final String dimension, final Network<?> network) {
@@ -60,7 +60,7 @@ public class EdgeDimensionConnectivity extends MapData<String, Double> implement
 
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
-		TypedModelAdapter<M, N, T> typedAdapter = TypedModelMetric.castAdapter(adapter);
+		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
 		for (T type : typedAdapter.getTypes()) {
 			evaluate(typedAdapter, type);
 		}
@@ -72,7 +72,7 @@ public class EdgeDimensionConnectivity extends MapData<String, Double> implement
 			sumOfEdges += adapter.getDegree(node, type);
 		}
 		sumOfEdges /= 2;
-		typedValues.put(type.toString(), (double) sumOfEdges / adapter.getNumberOfEdges());
+		data.put(type.toString(), (double) sumOfEdges / adapter.getNumberOfEdges());
 	}
 
 	@Override
