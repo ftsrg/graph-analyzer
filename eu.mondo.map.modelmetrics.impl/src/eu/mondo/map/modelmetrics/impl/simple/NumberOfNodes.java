@@ -1,11 +1,11 @@
 package eu.mondo.map.modelmetrics.impl.simple;
 
-import eu.mondo.map.base.metrics.ScalarMetric;
+import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 import eu.mondo.map.modelmetrics.impl.typed.TypedDegreeList;
 
-public class NumberOfNodes extends ScalarMetric<Integer> implements ModelEvaluator {
+public class NumberOfNodes extends ModelMetric<ScalarData<Integer>> {
 
 	public NumberOfNodes() {
 		super("NumberOfNodes");
@@ -32,12 +32,12 @@ public class NumberOfNodes extends ScalarMetric<Integer> implements ModelEvaluat
 	}
 
 	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+	public <M> void evaluate(ModelAdapter<M, N, T> adapter) {
 		value = adapter.getNumberOfNodes();
 	}
 
 	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+	public <M> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate NumberOfNodes metric on an element.");
 	}
 

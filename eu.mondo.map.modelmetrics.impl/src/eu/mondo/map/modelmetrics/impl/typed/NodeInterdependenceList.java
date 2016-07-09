@@ -6,13 +6,13 @@ import java.util.Set;
 
 import com.google.common.collect.ListMultimap;
 
+import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.graph.Network;
 import eu.mondo.map.base.graph.Node;
-import eu.mondo.map.base.metrics.ListMetric;
 import eu.mondo.map.modelmetrics.impl.simple.Path;
 import eu.mondo.map.modelmetrics.impl.simple.ShortestPathList;
 
-public class NodeInterdependenceList<N> extends ListMetric<Double> {
+public class NodeInterdependenceList<N> extends ListData<Double> {
 
 	ShortestPathList<N> shortestPathList;
 

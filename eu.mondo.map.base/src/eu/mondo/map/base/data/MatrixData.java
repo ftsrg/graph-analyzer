@@ -1,14 +1,11 @@
-package eu.mondo.map.base.metrics.typed;
+package eu.mondo.map.base.data;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
-import eu.mondo.map.base.metrics.BaseMetric;
+public class MatrixData<Type, Key, Value> implements BaseData {
 
-public abstract class MultitypedScalarMetric<Type, Key, Value> extends BaseMetric {
-
-	public MultitypedScalarMetric(String defaultName) {
-		super(defaultName);
+	public MatrixData() {
 		multitypedValues = HashBasedTable.create();
 	}
 

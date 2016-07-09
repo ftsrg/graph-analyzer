@@ -11,11 +11,11 @@ import java.util.Random;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 
+import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.graph.Network;
 import eu.mondo.map.base.graph.Node;
-import eu.mondo.map.base.metrics.ListMetric;
 
-public class ShortestPathList<N> extends ListMetric<Integer> {
+public class ShortestPathList<N> extends ListData<Integer> {
 
 	protected ListMultimap<Node<N>, Node<N>> visits;
 	protected Map<Node<N>, Integer> depths;

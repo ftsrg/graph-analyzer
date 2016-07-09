@@ -4,9 +4,9 @@ Bundle-Name: Base
 Bundle-SymbolicName: eu.mondo.map.base
 Bundle-Version: 1.0.0.qualifier
 Export-Package: eu.mondo.map.base,
+ eu.mondo.map.base.data,
  eu.mondo.map.base.graph,
  eu.mondo.map.base.metrics,
- eu.mondo.map.base.metrics.typed,
  eu.mondo.map.base.util
 Require-Bundle: com.google.guava;bundle-version="15.0.0",
  org.junit;bundle-version="4.12.0",

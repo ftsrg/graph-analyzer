@@ -3,11 +3,11 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import java.util.HashMap;
 import java.util.Map;
 
+import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.base.graph.Network;
 import eu.mondo.map.base.graph.Node;
-import eu.mondo.map.base.metrics.typed.TypedScalarMetric;
 
-public class PairwiseMultiplexity extends TypedScalarMetric<String, Double> {
+public class PairwiseMultiplexity extends MapData<String, Double> {
 
 	protected Map<DimensionPair, Integer> dimensionPairs;
 

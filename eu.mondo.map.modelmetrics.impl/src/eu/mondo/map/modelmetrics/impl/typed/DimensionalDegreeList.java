@@ -1,11 +1,11 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import eu.mondo.map.base.metrics.typed.TypedListMetric;
+import eu.mondo.map.base.data.MappedListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 
-public class DimensionalDegreeList extends TypedListMetric<String, Integer> implements ModelEvaluator {
+public class DimensionalDegreeList extends MappedListData<String, Integer> implements ModelEvaluator {
 
 	public DimensionalDegreeList() {
 		super("DimensionalDegreeList");

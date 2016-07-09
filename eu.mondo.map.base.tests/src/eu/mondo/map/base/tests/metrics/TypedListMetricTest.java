@@ -2,7 +2,7 @@ package eu.mondo.map.base.tests.metrics;
 
 import org.junit.Assert;
 
-import eu.mondo.map.base.metrics.typed.TypedListMetric;
+import eu.mondo.map.base.data.MappedListData;
 
 /**
  * 
@@ -14,9 +14,9 @@ import eu.mondo.map.base.metrics.typed.TypedListMetric;
  * @param <M>
  *                derived from TypedListMetric
  * 
- * @see TypedListMetric
+ * @see MappedListData
  */
-public abstract class TypedListMetricTest<T, V extends Number, M extends TypedListMetric<T, V>> extends MetricTest<M> {
+public abstract class TypedListMetricTest<T, V extends Number, M extends MappedListData<T, V>> extends MetricTest<M> {
 
 	public void checkSize(final int expectedSize) {
 		Assert.assertEquals(expectedSize, metric.getValues().size());

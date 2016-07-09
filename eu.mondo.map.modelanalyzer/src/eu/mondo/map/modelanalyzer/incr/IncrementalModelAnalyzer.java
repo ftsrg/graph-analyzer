@@ -35,7 +35,6 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer<IncrementalModelEval
 		Preconditions.checkState(metricObj instanceof IncrementalModelEvaluator,
 				"Metric " + metric.toString() + " must implement IncrementalModelEvaluator.");
 
-		// TODO create wrapper metric
 		addMetric(metric, (IncrementalModelEvaluator) metricObj, name);
 	}
 

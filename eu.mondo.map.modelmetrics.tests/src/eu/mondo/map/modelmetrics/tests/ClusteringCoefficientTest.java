@@ -12,16 +12,16 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import eu.mondo.map.base.tests.metrics.ListMetricTest;
-import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficientList;
+import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficient;
 
-public class ClusteringCoefficientTest extends ListMetricTest<Double, ClusteringCoefficientList> {
+public class ClusteringCoefficientTest extends ListMetricTest<Double, ClusteringCoefficient> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;
 
 	@Override
-	public ClusteringCoefficientList initMetric() {
-		return new ClusteringCoefficientList();
+	public ClusteringCoefficient initMetric() {
+		return new ClusteringCoefficient();
 	}
 
 	@Override

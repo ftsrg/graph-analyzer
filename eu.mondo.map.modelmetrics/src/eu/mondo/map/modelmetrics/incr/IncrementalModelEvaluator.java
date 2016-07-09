@@ -1,8 +1,6 @@
 package eu.mondo.map.modelmetrics.incr;
 
-import eu.mondo.map.modelmetrics.ModelEvaluator;
-
-public interface IncrementalModelEvaluator extends ModelEvaluator {
+public interface IncrementalModelEvaluator {
 
 	public <N> void newNode(final N node);
 

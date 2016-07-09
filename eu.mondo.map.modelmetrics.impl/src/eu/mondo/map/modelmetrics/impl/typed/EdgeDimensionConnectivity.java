@@ -1,11 +1,11 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import eu.mondo.map.base.metrics.typed.TypedScalarMetric;
+import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 
-public class EdgeDimensionConnectivity extends TypedScalarMetric<String, Double> implements ModelEvaluator {
+public class EdgeDimensionConnectivity extends MapData<String, Double> implements ModelEvaluator {
 
 	public EdgeDimensionConnectivity() {
 		super("EdgeDimensionConnectivity");

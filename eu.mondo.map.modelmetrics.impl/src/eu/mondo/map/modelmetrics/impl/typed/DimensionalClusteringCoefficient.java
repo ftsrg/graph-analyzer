@@ -3,11 +3,11 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import java.util.HashSet;
 import java.util.Set;
 
+import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.graph.Network;
 import eu.mondo.map.base.graph.Node;
-import eu.mondo.map.base.metrics.ListMetric;
 
-public class DimensionalClusteringCoefficient extends ListMetric<Double> {
+public class DimensionalClusteringCoefficient extends ListData<Double> {
 
 	protected int maxNeighbours = 1000;
 	protected boolean useHeuristic = false;

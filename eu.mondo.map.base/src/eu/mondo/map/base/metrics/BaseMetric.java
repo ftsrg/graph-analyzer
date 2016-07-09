@@ -1,13 +1,12 @@
 package eu.mondo.map.base.metrics;
 
-import org.apache.log4j.Logger;
+import eu.mondo.map.base.data.BaseData;
 
-public abstract class BaseMetric implements Metric {
+public abstract class BaseMetric<D extends BaseData> implements Metric {
 
+	protected D data;
 	protected String name;
 	protected String defaultName;
-
-	protected final Logger logger = Logger.getLogger(this.getClass());
 
 	public BaseMetric(final String defaultName) {
 		this.defaultName = defaultName;
@@ -27,6 +26,15 @@ public abstract class BaseMetric implements Metric {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public void clear() {
+		data.clear();
+	}
+
+	public D getData() {
+		return data;
 	}
 
 }

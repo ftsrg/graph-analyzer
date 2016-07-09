@@ -1,4 +1,4 @@
-package eu.mondo.map.base.metrics;
+package eu.mondo.map.base.data;
 
 import static com.google.common.base.Preconditions.checkState;
 
@@ -6,12 +6,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class ListMetric<V extends Number> extends BaseMetric implements Publishing {
+public class ListData<V extends Number> implements BaseData {
 
 	protected List<V> values;
 
-	public ListMetric(final String defaultName) {
-		super(defaultName);
+	public ListData() {
 		this.values = new ArrayList<>();
 	}
 
@@ -34,16 +33,6 @@ public abstract class ListMetric<V extends Number> extends BaseMetric implements
 
 	public List<V> getValues() {
 		return values;
-	}
-
-	@Override
-	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> resolvedMetrics = new ArrayList<>();
-		for (Integer i = 0; i < values.size(); i++) {
-			PublishedMetric metric = new PublishedMetric(name).setIndex(i).setValue(values.get(i));
-			resolvedMetrics.add(metric);
-		}
-		return resolvedMetrics;
 	}
 
 	public void setMetricValues(final List<V> metricValues) {

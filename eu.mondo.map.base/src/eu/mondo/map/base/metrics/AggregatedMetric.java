@@ -1,9 +1,9 @@
 package eu.mondo.map.base.metrics;
 
-import java.util.ArrayList;
-import java.util.List;
+import eu.mondo.map.base.data.ListData;
+import eu.mondo.map.base.data.ScalarData;
 
-public class AggregatedMetric<M extends ListMetric<? extends Number>> extends ScalarMetric<Double> {
+public class AggregatedMetric<D extends ListData<? extends Number>> extends BaseMetric<ScalarData<Double>> {
 
 	protected String listMetricName;
 	boolean useDefault;
@@ -13,35 +13,14 @@ public class AggregatedMetric<M extends ListMetric<? extends Number>> extends Sc
 		useDefault = true;
 	}
 
-	public void calculateAverage(final M list) {
+	public void calculateAverage(final D list) {
 		double sum = 0.0;
 		for (int i = 0; i < list.size(); i++) {
 			sum += list.get(i).doubleValue();
 		}
-		value = sum / list.size();
+		data.setValue(sum / list.size());
 		listMetricName = "Average";
 	}
-
-	@Override
-	public void clear() {
-		value = 0.0;
-	}
-
-	@Override
-	public List<PublishedMetric> resolve() {
-		List<PublishedMetric> metrics = new ArrayList<>();
-		PublishedMetric metric = new PublishedMetric(name).setInstance(listMetricName).setValue(value);
-		metrics.add(metric);
-		return metrics;
-	}
-
-	// protected String resolveName() {
-	// if (useDefault) {
-	// return String.format("%s-%s", name, listMetricName);
-	// } else {
-	// return name;
-	// }
-	// }
 
 	@Override
 	public void setName(final String name) {

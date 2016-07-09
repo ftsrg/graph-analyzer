@@ -1,11 +1,9 @@
 package eu.mondo.map.modelmetrics;
 
-import eu.mondo.map.base.metrics.Metric;
-import eu.mondo.map.modeladapters.ModelAdapter;
-
-public interface ModelEvaluator extends Metric {
-
-	public <M, N, T> void evaluate(final ModelAdapter<M, N, T> adapter);
-
-	public <M, N, T> void evaluate(final ModelAdapter<M, N, T> adapter, final N element);
-}
+// public interface ModelEvaluator<N, T, D extends BaseData> extends Metric<D> {
+//
+// public <M> void evaluate(final ModelAdapter<M, N, T> adapter);
+//
+// public <M> void evaluate(final ModelAdapter<M, N, T> adapter, final N
+// element);
+// }

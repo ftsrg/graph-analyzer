@@ -1,8 +1,8 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
-import eu.mondo.map.base.metrics.typed.TypedScalarMetric;
+import eu.mondo.map.base.data.MapData;
 
-public class NumberOfTypedNodes extends TypedScalarMetric<String, Integer> {
+public class NumberOfTypedNodes extends MapData<String, Integer> {
 
 	public NumberOfTypedNodes() {
 		super("NumberOfTypedNodes");

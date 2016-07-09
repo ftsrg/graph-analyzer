@@ -2,7 +2,7 @@ package eu.mondo.map.modelmetrics.impl.typed;
 
 import static eu.mondo.map.modelmetrics.impl.typed.TypedModelMetric.castAdapter;
 
-import eu.mondo.map.base.metrics.typed.TypedScalarMetric;
+import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
@@ -12,7 +12,7 @@ import eu.mondo.map.modelmetrics.ModelEvaluator;
  * belong to a particular dimension.
  *
  */
-public class NodeDimensionConnectivity extends TypedScalarMetric<String, Double> implements ModelEvaluator {
+public class NodeDimensionConnectivity extends MapData<String, Double> implements ModelEvaluator {
 
 	public NodeDimensionConnectivity() {
 		super("NodeDimensionConnectivity");

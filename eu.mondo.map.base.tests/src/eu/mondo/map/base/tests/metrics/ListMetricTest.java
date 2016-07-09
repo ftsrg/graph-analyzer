@@ -2,19 +2,19 @@ package eu.mondo.map.base.tests.metrics;
 
 import org.junit.Assert;
 
-import eu.mondo.map.base.metrics.ListMetric;
+import eu.mondo.map.base.data.ListData;
 
 /**
  * 
  *
  * @param <V>
- *                represents the generic Value in ListMetric
+ *            value in ListMetric
  * @param <M>
- *                derived from ListMetric
+ *            instance of ListMetric
  * 
- * @see ListMetric
+ * @see ListData
  */
-public abstract class ListMetricTest<V extends Number, M extends ListMetric<V>> extends MetricTest<M> {
+public abstract class ListMetricTest<V extends Number, M extends ListData<V>> extends MetricTest<M> {
 
 	public void checkSize(int expected) {
 		Assert.assertEquals(expected, metric.size());

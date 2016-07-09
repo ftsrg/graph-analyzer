@@ -1,10 +1,10 @@
 package eu.mondo.map.modelmetrics.impl.simple;
 
-import eu.mondo.map.base.metrics.ScalarMetric;
+import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelEvaluator;
 
-public class Density extends ScalarMetric<Double> implements ModelEvaluator {
+public class Density extends ScalarData<Double> implements ModelEvaluator {
 
 	public Density() {
 		super("Density");

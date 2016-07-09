@@ -1,6 +1,9 @@
 package eu.mondo.map.base.metrics;
 
-public class SummaryMetric<V extends Number, M extends ListMetric<V>> extends ScalarMetric<V> {
+import eu.mondo.map.base.data.ListData;
+import eu.mondo.map.base.data.ScalarData;
+
+public class SummaryMetric<V extends Number, D extends ListData<V>> extends BaseMetric<ScalarData<V>> {
 
 	public SummaryMetric() {
 		super("SummaryMetric");
