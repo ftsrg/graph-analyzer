@@ -10,11 +10,11 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
 
 import org.junit.Test;
 
-import eu.mondo.map.base.tests.metrics.TypedListMetricTest;
+import eu.mondo.map.base.tests.MappedListDataTesterUtil;
 import eu.mondo.map.modelmetrics.impl.typed.DimensionalTypedClusteringCoefficientList;
 
 public class DimTypedClusteringCoefficientTest
-		extends TypedListMetricTest<String, Double, DimensionalTypedClusteringCoefficientList> {
+		extends MappedListDataTesterUtil<String, Double, DimensionalTypedClusteringCoefficientList> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;

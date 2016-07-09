@@ -22,11 +22,11 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 import eu.mondo.map.base.graph.Node;
-import eu.mondo.map.base.tests.metrics.ListMetricTest;
+import eu.mondo.map.base.tests.ListDataTesterUtil;
 import eu.mondo.map.modelmetrics.impl.simple.Path;
 import eu.mondo.map.modelmetrics.impl.simple.ShortestPathList;
 
-public class ShortestPathListTest extends ListMetricTest<Integer, ShortestPathList<String>> {
+public class ShortestPathListTest extends ListDataTesterUtil<Integer, ShortestPathList<String>> {
 
 	protected ModelContext mc;
 

@@ -14,10 +14,10 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.mondo.map.base.tests.metrics.ListMetricTest;
+import eu.mondo.map.base.tests.ListDataTesterUtil;
 import eu.mondo.map.modelmetrics.impl.typed.DimensionalClusteringCoefficient;
 
-public class DimensionalClusteringCoefficientTest extends ListMetricTest<Double, DimensionalClusteringCoefficient> {
+public class DimensionalClusteringCoefficientTest extends ListDataTesterUtil<Double, DimensionalClusteringCoefficient> {
 
 	@Override
 	public DimensionalClusteringCoefficient initMetric() {

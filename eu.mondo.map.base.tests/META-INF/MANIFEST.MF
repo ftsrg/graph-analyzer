@@ -10,4 +10,3 @@ Require-Bundle: org.eclipse.ui,
  com.google.guava
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Export-Package: eu.mondo.map.base.tests.metrics

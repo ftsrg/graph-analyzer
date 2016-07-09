@@ -9,11 +9,11 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.mondo.map.base.tests.metrics.ListMetricTest;
+import eu.mondo.map.base.tests.ListDataTesterUtil;
 import eu.mondo.map.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 
 public class MultiplexParticipationCoefficientTest<N>
-		extends ListMetricTest<Double, MultiplexParticipationCoefficient> {
+		extends ListDataTesterUtil<Double, MultiplexParticipationCoefficient> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;
