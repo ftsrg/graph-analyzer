@@ -3,10 +3,10 @@ package eu.mondo.map.modelmetrics.impl.simple;
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 import eu.mondo.map.modelmetrics.incr.IncrementalModelEvaluator;
 
-public class ClusteringCoefficient extends ModelMetric<ListData<Double>> implements IncrementalModelEvaluator {
+public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>> implements IncrementalModelEvaluator {
 
 	@Deprecated
 	protected int maxNeighbours = 1000;
@@ -17,17 +17,13 @@ public class ClusteringCoefficient extends ModelMetric<ListData<Double>> impleme
 		super("ClusteringCoefficientList", new ListData<>());
 	}
 
-	// public static <N, T> ClusteringCoefficient<N, T> create() {
-	// return new ClusteringCoefficient<>();
-	// }
-
 	public int getMaxNeighbours() {
 		return maxNeighbours;
 	}
 
+	@Override
 	public <N, T> void trace() {
 		tracing = new MapData<N, Double>();
-
 	}
 
 	public void setMaxNeighbours(int maxNeighbours) {
@@ -78,25 +74,25 @@ public class ClusteringCoefficient extends ModelMetric<ListData<Double>> impleme
 	}
 
 	@Override
-	public <N> void newNode(N node) {
+	public <N> void reevaluateAddedNode(N node) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public <N> void removeNode(N node) {
+	public <N> void reevaluateDeletedNode(N node) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public <N, T> void newEdge(T type, N sourceNode, N targetNode) {
+	public <N, T> void reevaluateAddedEdge(T type, N sourceNode, N targetNode) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public <N, T> void removeEdge(T type, N sourceNode, N targetNode) {
+	public <N, T> void reevaluateDeletedEdge(T type, N sourceNode, N targetNode) {
 		// TODO Auto-generated method stub
 
 	}

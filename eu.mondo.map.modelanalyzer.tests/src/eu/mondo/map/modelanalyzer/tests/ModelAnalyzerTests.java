@@ -16,12 +16,12 @@ import org.junit.Test;
 
 import eu.mondo.map.base.metrics.Metric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
 public class ModelAnalyzerTests {
 
-	protected ModelAnalyzer<ModelMetric<?>> analyzer;
+	protected ModelAnalyzer<AbstractModelMetric<?>> analyzer;
 
 	public ModelAnalyzerTests() {
 		PropertyConfigurator.configure("src/log4j.properties");

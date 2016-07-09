@@ -3,9 +3,9 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import eu.mondo.map.base.data.MappedListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class DimensionalDegreeList extends ModelMetric<MappedListData<String, Integer>> {
+public class DimensionalDegreeList extends AbstractModelMetric<MappedListData<String, Integer>> {
 
 	public DimensionalDegreeList() {
 		super("DimensionalDegreeList", new MappedListData<>());

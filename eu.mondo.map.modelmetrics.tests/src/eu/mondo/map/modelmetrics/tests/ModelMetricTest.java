@@ -4,9 +4,9 @@ import org.junit.After;
 import org.junit.Before;
 
 import eu.mondo.map.base.data.BaseData;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric<D>> {
+public abstract class ModelMetricTest<D extends BaseData, M extends AbstractModelMetric<D>> {
 
 	protected M metric;
 	protected D data;

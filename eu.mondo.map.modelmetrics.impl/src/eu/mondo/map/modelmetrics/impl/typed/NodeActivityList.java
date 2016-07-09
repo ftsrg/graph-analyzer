@@ -3,9 +3,9 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class NodeActivityList extends ModelMetric<ListData<Integer>> {
+public class NodeActivityList extends AbstractModelMetric<ListData<Integer>> {
 
 	public NodeActivityList() {
 		super("NodeActivityList", new ListData<>());

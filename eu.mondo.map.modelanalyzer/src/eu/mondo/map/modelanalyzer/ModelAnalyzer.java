@@ -13,7 +13,7 @@ import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.ModelMetric;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
-public class ModelAnalyzer<MetricT extends ModelMetric<?>> extends Analyzer<String, MetricT> {
+public class ModelAnalyzer<MetricT extends ModelMetric> extends Analyzer<String, MetricT> {
 
 	protected final Logger logger = Logger.getLogger(this.getClass());
 

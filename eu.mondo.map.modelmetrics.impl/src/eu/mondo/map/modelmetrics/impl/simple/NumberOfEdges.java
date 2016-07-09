@@ -2,9 +2,9 @@ package eu.mondo.map.modelmetrics.impl.simple;
 
 import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class NumberOfEdges extends ModelMetric<ScalarData<Integer>> {
+public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> {
 
 	public NumberOfEdges() {
 		super("NumberOfEdges", new ScalarData<>());

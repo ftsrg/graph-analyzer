@@ -5,9 +5,9 @@ import java.util.Set;
 
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class DimensionalClusteringCoefficient extends ModelMetric<ListData<Double>> {
+public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListData<Double>> {
 
 	protected int maxNeighbours = 1000;
 	protected boolean useHeuristic = false;

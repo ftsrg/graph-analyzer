@@ -2,9 +2,9 @@ package eu.mondo.map.modelmetrics.impl.simple;
 
 import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class Density extends ModelMetric<ScalarData<Double>> {
+public class Density extends AbstractModelMetric<ScalarData<Double>> {
 
 	public Density() {
 		super("Density", new ScalarData<>());

@@ -2,9 +2,9 @@ package eu.mondo.map.modelmetrics.impl.simple;
 
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class DegreeList extends ModelMetric<ListData<Integer>> {
+public class DegreeList extends AbstractModelMetric<ListData<Integer>> {
 
 	public DegreeList() {
 		super("DegreeList", new ListData<>());

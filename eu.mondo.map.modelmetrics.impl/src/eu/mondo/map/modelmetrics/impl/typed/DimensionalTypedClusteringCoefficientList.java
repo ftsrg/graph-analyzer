@@ -3,9 +3,9 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import eu.mondo.map.base.data.MappedListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class DimensionalTypedClusteringCoefficientList extends ModelMetric<MappedListData<String, Double>> {
+public class DimensionalTypedClusteringCoefficientList extends AbstractModelMetric<MappedListData<String, Double>> {
 
 	public DimensionalTypedClusteringCoefficientList() {
 		super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());

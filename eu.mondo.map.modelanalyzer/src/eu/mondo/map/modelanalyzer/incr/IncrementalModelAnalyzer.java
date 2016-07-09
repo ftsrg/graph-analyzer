@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
-import eu.mondo.map.modelmetrics.ModelEvaluator;
+import eu.mondo.map.modelmetrics.ModelMetric;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 import eu.mondo.map.modelmetrics.incr.IncrementalModelEvaluator;
 
@@ -31,7 +31,7 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer<IncrementalModelEval
 	@Override
 	protected void useMetric(ModelMetrics metric, String name) {
 		checkNewMetric(metric);
-		ModelEvaluator metricObj = metric.instantiate();
+		ModelMetric metricObj = metric.instantiate();
 		Preconditions.checkState(metricObj instanceof IncrementalModelEvaluator,
 				"Metric " + metric.toString() + " must implement IncrementalModelEvaluator.");
 
@@ -51,13 +51,13 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer<IncrementalModelEval
 	}
 
 	@Override
-	public IncrementalModelAnalyzer calculate(ModelAdapter<?, ?, ?> adapter) {
+	public <M, N, T> IncrementalModelAnalyzer calculate(ModelAdapter<M, N, T> adapter) {
 		super.calculate(adapter);
 		return this;
 	}
 
 	@Override
-	public IncrementalModelAnalyzer calculate(ModelAdapter<?, ?, ?> adapter, ModelMetrics metric) {
+	public <M, N, T> IncrementalModelAnalyzer calculate(ModelAdapter<M, N, T> adapter, ModelMetrics metric) {
 		super.calculate(adapter, metric);
 		return this;
 	}

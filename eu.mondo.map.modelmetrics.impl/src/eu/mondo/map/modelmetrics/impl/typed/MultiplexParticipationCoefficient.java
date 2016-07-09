@@ -3,9 +3,9 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class MultiplexParticipationCoefficient extends ModelMetric<ListData<Double>> {
+public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListData<Double>> {
 
 	public MultiplexParticipationCoefficient() {
 		super("MultiplexParticipationCoefficient", new ListData<>());

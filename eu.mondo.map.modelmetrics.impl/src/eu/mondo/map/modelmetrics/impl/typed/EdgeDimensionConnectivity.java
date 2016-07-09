@@ -3,9 +3,9 @@ package eu.mondo.map.modelmetrics.impl.typed;
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
-import eu.mondo.map.modelmetrics.ModelMetric;
+import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class EdgeDimensionConnectivity extends ModelMetric<MapData<String, Double>> {
+public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<String, Double>> {
 
 	public EdgeDimensionConnectivity() {
 		super("EdgeDimensionConnectivity", new MapData<>());

@@ -1,13 +1,15 @@
 package eu.mondo.map.modelmetrics.incr;
 
-public interface IncrementalModelEvaluator {
+import eu.mondo.map.modelmetrics.ModelMetric;
 
-	public <N> void newNode(final N node);
+public interface IncrementalModelEvaluator extends ModelMetric {
 
-	public <N> void removeNode(final N node);
+	public <N> void reevaluateAddedNode(final N node);
 
-	public <N, T> void newEdge(final T type, final N sourceNode, final N targetNode);
+	public <N> void reevaluateDeletedNode(final N node);
 
-	public <N, T> void removeEdge(final T type, final N sourceNode, final N targetNode);
+	public <N, T> void reevaluateAddedEdge(final T type, final N sourceNode, final N targetNode);
+
+	public <N, T> void reevaluateDeletedEdge(final T type, final N sourceNode, final N targetNode);
 
 }
