@@ -1,5 +1,6 @@
 package eu.mondo.map.modelmetrics.tests;
 
+import static eu.mondo.map.base.tests.ListDataTesterUtil.checkSize;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
 import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
@@ -11,16 +12,16 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node6;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.mondo.map.base.tests.ListDataTesterUtil;
+import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficient;
 
-public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, ClusteringCoefficient> {
+public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>, ClusteringCoefficient> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;
 
 	@Override
-	public ClusteringCoefficient initMetric() {
+	public ClusteringCoefficient newMetric() {
 		return new ClusteringCoefficient();
 	}
 
@@ -38,7 +39,7 @@ public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, Cluste
 
 	protected void checkValue(double expected, String node) {
 		metric.evaluate(adapter, node);
-		Assert.assertEquals(expected, metric.last(), 0.01);
+		Assert.assertEquals(expected, metric.getData().last(), 0.01);
 	}
 
 	@Test
@@ -48,8 +49,8 @@ public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, Cluste
 		adapter.init(model);
 
 		metric.evaluate(adapter);
-		checkSize(3);
-		for (Double value : metric.getValues()) {
+		checkSize(3, data);
+		for (Double value : data.getValues()) {
 			Assert.assertEquals(value.toString(), 0.0, value, 0.01);
 		}
 		metric.clear();
@@ -63,7 +64,7 @@ public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, Cluste
 		// Assert.assertEquals(0.0, metric.evaluate(network.getNode(node3)),
 		// 0.01);
 
-		checkSize(3);
+		checkSize(3, data);
 	}
 
 	@Test
@@ -74,7 +75,7 @@ public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, Cluste
 		adapter.init(model);
 
 		metric.evaluate(adapter);
-		checkSize(3);
+		checkSize(3, data);
 		metric.clear();
 		checkValue(1.0, node1);
 		checkValue(1.0, node2);
@@ -91,7 +92,7 @@ public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, Cluste
 		adapter.init(model);
 
 		metric.evaluate(adapter);
-		checkSize(5);
+		checkSize(5, data);
 		metric.clear();
 		checkValue(0.333, node1);
 		checkValue(1.0, node2);
@@ -115,7 +116,7 @@ public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, Cluste
 		adapter.init(model);
 
 		metric.evaluate(adapter);
-		checkSize(6);
+		checkSize(6, data);
 		metric.clear();
 		checkValue(0.333, node1);
 		checkValue(1.0, node2);
@@ -123,7 +124,7 @@ public class ClusteringCoefficientTest extends ListDataTesterUtil<Double, Cluste
 		checkValue(0.666, node4);
 		checkValue(0.0, node5);
 		checkValue(0.333, node6);
-		checkSize(6);
+		checkSize(6, data);
 	}
 
 }

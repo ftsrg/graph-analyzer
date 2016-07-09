@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
-public class ModelMetricsTest {
+public class ModelMetricsEnumTest {
 
 	@Test
 	public void testMetricsEnum() {

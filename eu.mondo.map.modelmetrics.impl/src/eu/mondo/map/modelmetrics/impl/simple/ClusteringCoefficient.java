@@ -14,6 +14,7 @@ public class ClusteringCoefficient extends ModelMetric<ListData<Double>> impleme
 
 	public ClusteringCoefficient() {
 		super("ClusteringCoefficientList");
+		data = new ListData<>();
 	}
 
 	// public static <N, T> ClusteringCoefficient<N, T> create() {
