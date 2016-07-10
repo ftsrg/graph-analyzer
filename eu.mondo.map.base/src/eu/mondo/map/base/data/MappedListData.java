@@ -4,19 +4,19 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 
-public class MappedListData<Type, Value extends Number> implements BaseData {
+public class MappedListData<K, V extends Number> implements BaseData {
 
-	protected ListMultimap<Type, Value> typedValues;
+	protected ListMultimap<K, V> typedValues;
 
 	public MappedListData() {
 		typedValues = ArrayListMultimap.create();
 	}
 
-	public ListMultimap<Type, Value> getValues() {
+	public ListMultimap<K, V> getValues() {
 		return typedValues;
 	}
 
-	public void setTypedValues(ListMultimap<Type, Value> typedValues) {
+	public void setTypedValues(ListMultimap<K, V> typedValues) {
 		this.typedValues = typedValues;
 	}
 
@@ -25,11 +25,11 @@ public class MappedListData<Type, Value extends Number> implements BaseData {
 		typedValues.clear();
 	}
 
-	public boolean put(Type key, Value value) {
+	public boolean put(K key, V value) {
 		return typedValues.put(key, value);
 	}
 
-	public boolean putAll(Multimap<? extends Type, ? extends Value> multimap) {
+	public boolean putAll(Multimap<? extends K, ? extends V> multimap) {
 		return typedValues.putAll(multimap);
 	}
 

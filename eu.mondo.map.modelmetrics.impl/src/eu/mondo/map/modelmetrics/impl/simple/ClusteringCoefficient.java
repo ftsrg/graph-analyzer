@@ -50,6 +50,9 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
 		double clusteringCoef = 0.0;
 		if (useHeuristic && adapter.getDegree(element) > maxNeighbours) {
 			data.add(clusteringCoef);
+			if (tracing != null) {
+				((MapData<N, Double>) tracing).put(element, clusteringCoef);
+			}
 			// return clusteringCoef;
 		}
 		for (N neighbor1 : adapter.getNeighbors(element)) {
@@ -67,9 +70,11 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
 			clusteringCoef = 0.0;
 		} else {
 			clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
-
 		}
 		data.add(clusteringCoef);
+		if (tracing != null) {
+			((MapData<N, Double>) tracing).put(element, clusteringCoef);
+		}
 		// return clusteringCoef;
 	}
 

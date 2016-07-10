@@ -4,7 +4,7 @@ import org.junit.Assert;
 
 import eu.mondo.map.base.data.MappedListData;
 
-public abstract class MappedListDataTesterUtil {
+public class MappedListDataTesterUtil {
 
 	public static <T, V extends Number> void checkSize(final int expectedSize, final MappedListData<T, V> data) {
 		Assert.assertEquals(expectedSize, data.getValues().size());
