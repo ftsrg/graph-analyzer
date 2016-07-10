@@ -1,5 +1,7 @@
 package eu.mondo.map.modelmetrics.impl.simple;
 
+import com.google.common.base.Preconditions;
+
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modeladapters.ModelAdapter;
@@ -72,33 +74,25 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
 			clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
 		}
 		data.add(clusteringCoef);
+
 		if (tracing != null) {
 			((MapData<N, Double>) tracing).put(element, clusteringCoef);
 		}
-		// return clusteringCoef;
 	}
 
 	@Override
-	public <N> void reevaluateAddedNode(N node) {
-		// TODO Auto-generated method stub
+	public <M, N, T> void reevaluateNewEdge(final ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+		Preconditions.checkNotNull(tracing);
+		evaluate(adapter, sourceNode);
+		evaluate(adapter, targetNode);
 
-	}
+		for (N neighbor : adapter.getNeighbors(sourceNode)) {
+			evaluate(adapter, neighbor);
+		}
 
-	@Override
-	public <N> void reevaluateDeletedNode(N node) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public <N, T> void reevaluateAddedEdge(T type, N sourceNode, N targetNode) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public <N, T> void reevaluateDeletedEdge(T type, N sourceNode, N targetNode) {
-		// TODO Auto-generated method stub
+		for (N neighbor : adapter.getNeighbors(targetNode)) {
+			evaluate(adapter, neighbor);
+		}
 
 	}
 

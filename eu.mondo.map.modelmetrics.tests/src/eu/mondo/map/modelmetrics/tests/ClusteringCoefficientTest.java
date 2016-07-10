@@ -42,6 +42,10 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>,
 	protected void evaluateAndCheck(double expected, String node) {
 		metric.evaluate(adapter, node);
 		assertEquals(expected, metric.getData().last(), 0.01);
+		checkTracing(expected, node);
+	}
+
+	protected void checkTracing(double expected, String node) {
 		assertEquals(Double.valueOf(expected), metric.getTracing().get(node), 0.01);
 	}
 
@@ -171,6 +175,77 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>,
 		evaluateAndCheck(0.66, node1);
 		checkKeysSize(1, metric.getTracing());
 
+	}
+
+	@Test
+	public void incrementalEvaluationTest1() {
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node3, node2);
+		model.addEdge(dim1, node4, node5);
+		model.addEdge(dim1, node1, node4);
+		adapter.init(model);
+
+		evaluateAndCheck(0.333, node1);
+		checkKeysSize(1, metric.getTracing());
+
+		model.addEdge(dim1, node4, node2);
+		adapter.init(model);
+
+		metric.reevaluateNewEdge(adapter, dim1, node4, node2);
+		checkKeysSize(5, metric.getTracing());
+		checkTracing(0.66, node1);
+		checkTracing(0.66, node2);
+		checkTracing(1.0, node3);
+		checkTracing(0.333, node4);
+		checkTracing(0.0, node5);
+	}
+
+	@Test
+	public void incrementalEvaluationTest2() {
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node3, node2);
+		model.addEdge(dim1, node4, node5);
+		model.addEdge(dim1, node1, node4);
+		adapter.init(model);
+
+		metric.evaluate(adapter);
+		checkKeysSize(5, metric.getTracing());
+
+		model.addEdge(dim1, node4, node2);
+		adapter.init(model);
+
+		metric.reevaluateNewEdge(adapter, dim1, node4, node2);
+		checkKeysSize(5, metric.getTracing());
+		checkTracing(0.66, node1);
+		checkTracing(0.66, node2);
+		checkTracing(1.0, node3);
+		checkTracing(0.333, node4);
+		checkTracing(0.0, node5);
+	}
+
+	@Test
+	public void incrementalEvaluationWithOneNeighbor() {
+		model.addEdge(dim1, node1, node2);
+		model.addEdge(dim1, node1, node3);
+		model.addEdge(dim1, node3, node2);
+		model.addEdge(dim1, node4, node5);
+		model.addEdge(dim1, node1, node4);
+		adapter.init(model);
+
+		evaluateAndCheck(0.333, node1);
+		checkKeysSize(1, metric.getTracing());
+
+		model.addEdge(dim1, node5, node6);
+		adapter.init(model);
+
+		metric.reevaluateNewEdge(adapter, dim1, node5, node6);
+		checkKeysSize(4, metric.getTracing());
+		checkTracing(0.33, node1);
+		checkTracing(0.0, node4);
+		checkTracing(0.0, node5);
+		checkTracing(0.0, node6);
 	}
 
 }

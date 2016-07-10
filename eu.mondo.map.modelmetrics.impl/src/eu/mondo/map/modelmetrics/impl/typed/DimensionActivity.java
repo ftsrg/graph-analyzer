@@ -11,13 +11,6 @@ public class DimensionActivity extends AbstractModelMetric<MapData<String, Integ
 		super("DimensionActivity", new MapData<>());
 	}
 
-	// public void calculate(final Network<?> network) {
-	// clear();
-	// for (String dimension : network.getNodesOnDimensions().keySet()) {
-	// typedValues.put(dimension, network.getNumberOfNodes(dimension));
-	// }
-	// }
-
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
 		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);

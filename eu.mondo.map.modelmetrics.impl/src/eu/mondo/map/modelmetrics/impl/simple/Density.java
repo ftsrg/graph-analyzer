@@ -3,23 +3,13 @@ package eu.mondo.map.modelmetrics.impl.simple;
 import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modelmetrics.AbstractModelMetric;
+import eu.mondo.map.modelmetrics.incr.IncrementalModelEvaluator;
 
-public class Density extends AbstractModelMetric<ScalarData<Double>> {
+public class Density extends AbstractModelMetric<ScalarData<Double>> implements IncrementalModelEvaluator {
 
 	public Density() {
 		super("Density", new ScalarData<>());
 	}
-
-	@Override
-	public void clear() {
-		data.setValue(0.0);
-	}
-
-	// public void calculate(final NumberOfNodes nodes, final NumberOfEdges
-	// edges) {
-	// value = edges.getValue() / (double) nodes.getValue();
-	// value /= nodes.getValue() - 1;
-	// }
 
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
@@ -33,6 +23,11 @@ public class Density extends AbstractModelMetric<ScalarData<Double>> {
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		throw new UnsupportedOperationException("Cannot evaluate Density metric on an element.");
+	}
+
+	@Override
+	public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+		evaluate(adapter);
 	}
 
 }
