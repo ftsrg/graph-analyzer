@@ -24,19 +24,19 @@ import com.google.common.collect.Lists;
 import eu.mondo.map.base.graph.Node;
 import eu.mondo.map.base.tests.ListDataTesterUtil;
 import eu.mondo.map.modelmetrics.impl.simple.Path;
-import eu.mondo.map.modelmetrics.impl.simple.ShortestPathList;
+import eu.mondo.map.modelmetrics.impl.simple.ShortestPath;
 
-public class ShortestPathListTest extends ListDataTesterUtil<Integer, ShortestPathList<String>> {
+public class ShortestPathTest extends ListDataTesterUtil<Integer, ShortestPath<String>> {
 
 	protected ModelContext mc;
 
-	public ShortestPathListTest() {
+	public ShortestPathTest() {
 		mc = new ModelContext();
 	}
 
 	@Override
-	public ShortestPathList<String> initMetric() {
-		return new ShortestPathList<>();
+	public ShortestPath<String> initMetric() {
+		return new ShortestPath<>();
 	}
 
 	@Override

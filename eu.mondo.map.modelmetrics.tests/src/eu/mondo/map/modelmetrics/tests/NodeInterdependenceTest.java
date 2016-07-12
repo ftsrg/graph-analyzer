@@ -18,13 +18,13 @@ import org.junit.Test;
 
 import eu.mondo.map.base.graph.Node;
 import eu.mondo.map.base.tests.ListDataTesterUtil;
-import eu.mondo.map.modelmetrics.impl.typed.NodeInterdependenceList;
+import eu.mondo.map.modelmetrics.impl.typed.NodeInterdependence;
 
-public class NodeInterdependenceTest extends ListDataTesterUtil<Double, NodeInterdependenceList<String>> {
+public class NodeInterdependenceTest extends ListDataTesterUtil<Double, NodeInterdependence<String>> {
 
 	@Override
-	public NodeInterdependenceList<String> initMetric() {
-		return new NodeInterdependenceList<>();
+	public NodeInterdependence<String> initMetric() {
+		return new NodeInterdependence<>();
 	}
 
 	@Override

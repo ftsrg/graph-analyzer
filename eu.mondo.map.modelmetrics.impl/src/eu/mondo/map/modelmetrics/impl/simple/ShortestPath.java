@@ -15,13 +15,13 @@ import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.graph.Network;
 import eu.mondo.map.base.graph.Node;
 
-public class ShortestPathList<N> extends ListData<Integer> {
+public class ShortestPath<N> extends ListData<Integer> {
 
 	protected ListMultimap<Node<N>, Node<N>> visits;
 	protected Map<Node<N>, Integer> depths;
 	protected Map<Node<N>, Integer> results;
 
-	public ShortestPathList() {
+	public ShortestPath() {
 		super("ShortestPathList");
 	}
 

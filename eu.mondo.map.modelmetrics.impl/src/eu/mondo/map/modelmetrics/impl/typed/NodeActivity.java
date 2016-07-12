@@ -5,9 +5,9 @@ import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.AbstractModelMetric;
 
-public class NodeActivityList extends AbstractModelMetric<ListData<Integer>> {
+public class NodeActivity extends AbstractModelMetric<ListData<Integer>> {
 
-	public NodeActivityList() {
+	public NodeActivity() {
 		super("NodeActivityList", new ListData<>());
 	}
 

@@ -10,15 +10,15 @@ import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.base.graph.Network;
 import eu.mondo.map.base.graph.Node;
 import eu.mondo.map.modelmetrics.impl.simple.Path;
-import eu.mondo.map.modelmetrics.impl.simple.ShortestPathList;
+import eu.mondo.map.modelmetrics.impl.simple.ShortestPath;
 
-public class NodeInterdependenceList<N> extends ListData<Double> {
+public class NodeInterdependence<N> extends ListData<Double> {
 
-	ShortestPathList<N> shortestPathList;
+	ShortestPath<N> shortestPathList;
 
-	public NodeInterdependenceList() {
+	public NodeInterdependence() {
 		super("NodeInterdependenceList");
-		shortestPathList = new ShortestPathList<N>();
+		shortestPathList = new ShortestPath<N>();
 	}
 
 	public void calculate(final Network<N> network) {
