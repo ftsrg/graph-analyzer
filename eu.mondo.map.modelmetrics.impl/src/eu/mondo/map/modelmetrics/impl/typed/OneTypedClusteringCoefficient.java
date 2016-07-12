@@ -1,13 +1,16 @@
 package eu.mondo.map.modelmetrics.impl.typed;
 
 import eu.mondo.map.base.data.MappedListData;
+import eu.mondo.map.base.data.MatrixData;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modelmetrics.AbstractModelMetric;
+import eu.mondo.map.modelmetrics.incr.IncrementalModelEvaluator;
 
-public class DimensionalTypedClusteringCoefficientList extends AbstractModelMetric<MappedListData<String, Double>> {
+public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedListData<String, Double>>
+		implements IncrementalModelEvaluator {
 
-	public DimensionalTypedClusteringCoefficientList() {
+	public OneTypedClusteringCoefficient() {
 		super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
 	}
 
@@ -86,33 +89,70 @@ public class DimensionalTypedClusteringCoefficientList extends AbstractModelMetr
 	@Override
 	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
 		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+		// long interConnected = 0;
+		// long numberOfNeighbors = 0;
+		for (T type : typedAdapter.getTypes(element)) {
+			evaluate(typedAdapter, element, type);
+		}
+	}
+
+	protected <T, N, M> void evaluate(TypedModelAdapter<M, N, T> typedAdapter, N element, T type) {
 		long interConnected = 0;
 		long numberOfNeighbors = 0;
-		for (T type : typedAdapter.getTypes(element)) {
-			interConnected = 0;
-			numberOfNeighbors = 0;
-			numberOfNeighbors = typedAdapter.getDegree(element, type);
-			if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
-				data.put(type.toString(), 0.0);
-				continue;
-			}
-			for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
-				for (N neighbor2 : typedAdapter.getNeighbors(element, type)) {
-					if (neighbor1 != neighbor2) {
-						if (typedAdapter.isAdjacentUndirected(neighbor1, neighbor2, type)) {
-							interConnected++;
-						}
+		numberOfNeighbors = typedAdapter.getDegree(element, type);
+		if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
+			data.put(type.toString(), 0.0);
+			putToTracing(element, type, 0.0);
+			return;
+		}
+		for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
+			for (N neighbor2 : typedAdapter.getNeighbors(element, type)) {
+				if (neighbor1 != neighbor2) {
+					if (typedAdapter.isAdjacentUndirected(neighbor1, neighbor2, type)) {
+						interConnected++;
 					}
-
 				}
+
 			}
-			double clusteringCoef = 0.0;
-			if (numberOfNeighbors < 2) {
-				clusteringCoef = 0.0;
-			} else {
-				clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
-			}
-			data.put(type.toString(), clusteringCoef);
+		}
+		double clusteringCoef = 0.0;
+		if (numberOfNeighbors < 2) {
+			clusteringCoef = 0.0;
+		} else {
+			clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
+		}
+		data.put(type.toString(), clusteringCoef);
+		putToTracing(element, type, clusteringCoef);
+	}
+
+	protected <N, T> void putToTracing(N element, T type, double value) {
+		if (tracing != null) {
+			((MatrixData<N, T, Double>) tracing).put(element, type, value);
+		}
+	}
+
+	@Override
+	public <N, T> void trace() {
+		tracing = new MatrixData<N, T, Double>();
+	}
+
+	@Override
+	public <N, T> MatrixData<N, T, Double> getTracing() {
+		return (MatrixData<N, T, Double>) tracing;
+	}
+
+	@Override
+	public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+		TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+
+		reevaluate(typedAdapter, sourceNode, type);
+		reevaluate(typedAdapter, targetNode, type);
+	}
+
+	protected <M, N, T> void reevaluate(TypedModelAdapter<M, N, T> adapter, N node, T type) {
+		evaluate(adapter, node, type);
+		for (N neighbor : adapter.getNeighbors(node, type)) {
+			evaluate(adapter, neighbor, type);
 		}
 	}
 

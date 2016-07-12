@@ -14,17 +14,17 @@ import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
 import org.junit.Test;
 
 import eu.mondo.map.base.data.MappedListData;
-import eu.mondo.map.modelmetrics.impl.typed.DimensionalTypedClusteringCoefficientList;
+import eu.mondo.map.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
 
 public class DimTypedClusteringCoefficientTest
-		extends ModelMetricTest<MappedListData<String, Double>, DimensionalTypedClusteringCoefficientList> {
+		extends ModelMetricTest<MappedListData<String, Double>, OneTypedClusteringCoefficient> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;
 
 	@Override
-	public DimensionalTypedClusteringCoefficientList newMetric() {
-		return new DimensionalTypedClusteringCoefficientList();
+	public OneTypedClusteringCoefficient newMetric() {
+		return new OneTypedClusteringCoefficient();
 	}
 
 	@Override
