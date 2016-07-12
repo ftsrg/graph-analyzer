@@ -75,8 +75,4 @@ public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
 		data.put(type.toString(), (double) sumOfEdges / adapter.getNumberOfEdges());
 	}
 
-	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-		throw new UnsupportedOperationException("Cannot evaluate EdgeDimensionConnectivity metric on an element.");
-	}
 }

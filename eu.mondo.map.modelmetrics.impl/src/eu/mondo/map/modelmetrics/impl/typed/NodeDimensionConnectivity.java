@@ -97,12 +97,6 @@ public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
 		for (T type : typedAdapter.getTypes()) {
 			evaluate(typedAdapter, type);
 		}
-
-	}
-
-	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-		throw new UnsupportedOperationException("Cannot evaluate NodeDimensionConnectivity metric on an element.");
 	}
 
 	protected <M, N, T> void evaluate(final TypedModelAdapter<M, N, T> adapter, final T type) {

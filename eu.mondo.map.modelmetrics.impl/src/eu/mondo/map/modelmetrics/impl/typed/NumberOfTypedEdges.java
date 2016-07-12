@@ -36,9 +36,4 @@ public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Inte
 		}
 	}
 
-	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-		throw new UnsupportedOperationException("Cannot evaluate NumberOfTypedEdges metric on an element.");
-	}
-
 }

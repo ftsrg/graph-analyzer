@@ -7,7 +7,8 @@ import eu.mondo.map.base.metrics.BaseMetric;
 import eu.mondo.map.modeladapters.ModelAdapter;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 
-public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements ModelMetric, TraceableModelMetric {
+public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D>
+		implements ModelMetric, TraceableModelMetric {
 
 	protected BaseData tracing;
 
@@ -24,9 +25,10 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
 		}
 	}
 
-	// public abstract <M, N, T> void evaluate(final ModelAdapter<M, N, T>
-	// adapter);
-	//
+	@Override
+	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+		throw new UnsupportedOperationException("Cannot evaluate metric " + name + " on one element.");
+	}
 
 	protected <M, N, T> void evaluateEveryNode(final ModelAdapter<M, N, T> adapter) {
 		Iterator<N> iterator = adapter.getModelIterator();

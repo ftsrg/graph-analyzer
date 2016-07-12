@@ -35,9 +35,4 @@ public class DimensionalDegreeList extends AbstractModelMetric<MappedListData<St
 		}
 	}
 
-	@Override
-	public <M, N, T> void evaluate(final ModelAdapter<M, N, T> adapter, final N element) {
-		throw new UnsupportedOperationException("Cannot evaluate DimensionalDegreeList metric on an element.");
-	}
-
 }

@@ -22,11 +22,6 @@ public class NumberOfNodes extends AbstractModelMetric<ScalarData<Integer>> impl
 	}
 
 	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-		throw new UnsupportedOperationException("Cannot evaluate NumberOfNodes metric on an element.");
-	}
-
-	@Override
 	public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
 		evaluate(adapter);
 

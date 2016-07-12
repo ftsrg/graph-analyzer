@@ -21,11 +21,6 @@ public class Density extends AbstractModelMetric<ScalarData<Double>> implements 
 	}
 
 	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-		throw new UnsupportedOperationException("Cannot evaluate Density metric on an element.");
-	}
-
-	@Override
 	public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
 		evaluate(adapter);
 	}
