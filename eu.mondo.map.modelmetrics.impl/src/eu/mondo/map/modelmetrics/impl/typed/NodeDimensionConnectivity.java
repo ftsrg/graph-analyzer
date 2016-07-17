@@ -102,4 +102,5 @@ public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
 	protected <M, N, T> void evaluate(final TypedModelAdapter<M, N, T> adapter, final T type) {
 		data.put(type.toString(), (double) adapter.getNumberOfNodes(type) / adapter.getNumberOfNodes());
 	}
+
 }

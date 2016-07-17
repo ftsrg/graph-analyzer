@@ -54,7 +54,7 @@ public abstract class TypedModelAdapter<M, N, T> extends ModelAdapter<M, N, T> {
 	public int getDegree(final N element, final T type) {
 		int degree = 0;
 		for (T t : indexer.getTypeIndex().column(element).keySet()) {
-			if (t == type) {
+			if (t == type || t.equals(type)) {
 				degree += indexer.getTypeIndex().get(t, element);
 			}
 		}

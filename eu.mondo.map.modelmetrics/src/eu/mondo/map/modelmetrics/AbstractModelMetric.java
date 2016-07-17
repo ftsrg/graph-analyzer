@@ -58,4 +58,8 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
 		return tracing;
 	}
 
+	protected boolean notNullTracing() {
+		return tracing != null;
+	}
+
 }

@@ -79,7 +79,6 @@ public class ModelAnalyzerTests {
 	@Test(expected = IllegalStateException.class)
 	public void testMultipleSameUse() {
 		analyzer.use(NumberOfEdges);
-		analyzer.use(NumberOfEdges);
 	}
 
 	@Test
@@ -92,7 +91,6 @@ public class ModelAnalyzerTests {
 
 	@Test(expected = IllegalStateException.class)
 	public void testIncorrectUseAll() {
-		analyzer.use(NumberOfEdges);
 		analyzer.useAll();
 	}
 
