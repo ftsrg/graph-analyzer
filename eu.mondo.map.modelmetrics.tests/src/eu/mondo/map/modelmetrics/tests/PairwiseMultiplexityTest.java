@@ -1,21 +1,23 @@
 package eu.mondo.map.modelmetrics.tests;
 
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim3;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.network;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node4;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node6;
+import static eu.mondo.map.tests.model.ModelContext.dim1;
+import static eu.mondo.map.tests.model.ModelContext.dim2;
+import static eu.mondo.map.tests.model.ModelContext.dim3;
+import static eu.mondo.map.tests.model.ModelContext.network;
+import static eu.mondo.map.tests.model.ModelContext.node1;
+import static eu.mondo.map.tests.model.ModelContext.node2;
+import static eu.mondo.map.tests.model.ModelContext.node3;
+import static eu.mondo.map.tests.model.ModelContext.node4;
+import static eu.mondo.map.tests.model.ModelContext.node5;
+import static eu.mondo.map.tests.model.ModelContext.node6;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import eu.mondo.map.base.tests.metrics.TypedScalarMetricTest;
+import eu.mondo.map.modeladapters.tests.TestTypedModelAdapter;
 import eu.mondo.map.modelmetrics.impl.typed.PairwiseMultiplexity;
+import eu.mondo.map.tests.model.TestModel;
 
 public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMultiplexity> {
 
@@ -28,8 +30,8 @@ public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMult
 	}
 
 	@Override
-	public void init() {
-		super.init();
+	public void setUp() {
+		super.setUp();
 		model = new TestModel();
 		adapter = new TestTypedModelAdapter();
 	}

@@ -20,3 +20,4 @@ catalog-v*.xml
 .Rproj.user
 *.gml
 xtend-gen/
+test-output/

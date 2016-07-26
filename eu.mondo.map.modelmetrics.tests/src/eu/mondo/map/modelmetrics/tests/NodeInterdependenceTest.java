@@ -1,18 +1,18 @@
 package eu.mondo.map.modelmetrics.tests;
 
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim3;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim4;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.network;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node4;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node6;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node7;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node8;
+import static eu.mondo.map.tests.model.ModelContext.dim1;
+import static eu.mondo.map.tests.model.ModelContext.dim2;
+import static eu.mondo.map.tests.model.ModelContext.dim3;
+import static eu.mondo.map.tests.model.ModelContext.dim4;
+import static eu.mondo.map.tests.model.ModelContext.network;
+import static eu.mondo.map.tests.model.ModelContext.node1;
+import static eu.mondo.map.tests.model.ModelContext.node2;
+import static eu.mondo.map.tests.model.ModelContext.node3;
+import static eu.mondo.map.tests.model.ModelContext.node4;
+import static eu.mondo.map.tests.model.ModelContext.node5;
+import static eu.mondo.map.tests.model.ModelContext.node6;
+import static eu.mondo.map.tests.model.ModelContext.node7;
+import static eu.mondo.map.tests.model.ModelContext.node8;
 
 import org.junit.Test;
 

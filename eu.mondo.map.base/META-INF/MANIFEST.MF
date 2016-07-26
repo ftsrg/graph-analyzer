@@ -6,8 +6,7 @@ Bundle-Version: 1.0.0.qualifier
 Export-Package: eu.mondo.map.base,
  eu.mondo.map.base.data,
  eu.mondo.map.base.metrics,
- eu.mondo.map.base.tests,
- eu.mondo.map.base.util
+ eu.mondo.map.base.tests
 Require-Bundle: com.google.guava;bundle-version="15.0.0",
  org.junit;bundle-version="4.12.0",
  org.apache.log4j

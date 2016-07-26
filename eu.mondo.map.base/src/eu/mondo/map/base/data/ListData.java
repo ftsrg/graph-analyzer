@@ -8,44 +8,44 @@ import java.util.List;
 
 public class ListData<V extends Number> implements BaseData {
 
-	protected List<V> values;
+    protected List<V> values;
 
-	public ListData() {
-		this.values = new ArrayList<>();
-	}
+    public ListData() {
+	this.values = new ArrayList<>();
+    }
 
-	public boolean add(final V e) {
-		return values.add(e);
-	}
+    public boolean add(final V e) {
+	return values.add(e);
+    }
 
-	public boolean addAll(final Collection<? extends V> c) {
-		return values.addAll(c);
-	}
+    public boolean addAll(final Collection<? extends V> c) {
+	return values.addAll(c);
+    }
 
-	@Override
-	public void clear() {
-		values.clear();
-	}
+    @Override
+    public void clear() {
+	values.clear();
+    }
 
-	public V get(final int index) {
-		return values.get(index);
-	}
+    public V get(final int index) {
+	return values.get(index);
+    }
 
-	public List<V> getValues() {
-		return values;
-	}
+    public List<V> getValues() {
+	return values;
+    }
 
-	public void setMetricValues(final List<V> metricValues) {
-		this.values = metricValues;
-	}
+    public void setMetricValues(final List<V> metricValues) {
+	this.values = metricValues;
+    }
 
-	public int size() {
-		return values.size();
-	}
+    public int size() {
+	return values.size();
+    }
 
-	public V last() {
-		checkState(!values.isEmpty());
-		return values.get(values.size() - 1);
-	}
+    public V last() {
+	checkState(!values.isEmpty());
+	return values.get(values.size() - 1);
+    }
 
 }

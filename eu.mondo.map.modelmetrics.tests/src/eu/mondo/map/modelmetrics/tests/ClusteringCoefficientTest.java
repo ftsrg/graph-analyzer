@@ -1,251 +1,85 @@
 package eu.mondo.map.modelmetrics.tests;
 
-import static eu.mondo.map.base.tests.ListDataTesterUtil.checkSize;
-import static eu.mondo.map.base.tests.MapDataTesterUtil.checkKeysSize;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node4;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node6;
-import static org.junit.Assert.assertEquals;
+import static eu.mondo.map.base.tests.ListDataTesterUtil.checkAppearance;
 
-import org.junit.Test;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+
+import org.testng.annotations.DataProvider;
 
 import eu.mondo.map.base.data.ListData;
+import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficient;
+import eu.mondo.map.tests.model.TestModelTypes;
 
 public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>, ClusteringCoefficient> {
 
-	protected TestModel model;
-	protected TestTypedModelAdapter adapter;
-
-	@Override
-	public ClusteringCoefficient newMetric() {
-		return new ClusteringCoefficient();
+    @Override
+    @DataProvider
+    public Object[][] data() {
+	List<Object[]> casesList = new ArrayList<>();
+	for (TestModelTypes type : TestModelTypes.values()) {
+	    casesList.add(testCase(type));
 	}
 
-	@Override
-	public void clear() {
-		model.clear();
+	Object[][] casesArray = new Object[casesList.size()][2];
+	for (int i = 0; i < casesList.size(); i++) {
+	    casesArray[i] = casesList.get(i);
 	}
+	return casesArray;
+	// return new Object[][] { testCase(Motif3N_1), testCase(Motif3N_2),
+	// testCase(Motif3N_3), testCase(Motif3N_4),
+	// testCase(Motif3N_5), testCase(Motif3N_6), testCase(Motif3N_7),
+	// testCase(Motif3N_8), testCase(Motif3N_9),
+	// testCase(Motif3N_10), testCase(Motif3N_11), testCase(Motif3N_12),
+	// testCase(Motif3N_13) };
+    }
 
-	@Override
-	public void init() {
-		super.init();
-		model = new TestModel();
-		adapter = new TestTypedModelAdapter();
-		metric.trace();
+    protected Object[] testCase(TestModelTypes modelType) {
+	switch (modelType) {
+	case Motif3N_1:
+	case Motif3N_2:
+	case Motif3N_3:
+	case Motif3N_3_2T:
+	case Motif3N_4:
+	case Motif3N_7:
+	case Motif3N_7_2T:
+	case Motif3N_8:
+	case Motif3N_8_2T:
+	    Consumer<ListData<Double>> checker = (data) -> {
+		checkAppearance(3, 0.0, data);
+	    };
+	    return new Object[] { modelType, checker };
+	case Motif3N_5:
+	case Motif3N_6:
+	case Motif3N_6_2T:
+	case Motif3N_9:
+	case Motif3N_10:
+	case Motif3N_10_2T:
+	case Motif3N_11:
+	case Motif3N_11_2T:
+	case Motif3N_12:
+	case Motif3N_12_2T:
+	case Motif3N_13:
+	case Motif3N_13_2T:
+	    checker = (data) -> {
+		checkAppearance(3, 1.0, data);
+	    };
+	    return new Object[] { modelType, checker };
+	default:
+	    return null;
 	}
+    }
 
-	protected void evaluateAndCheck(double expected, String node) {
-		metric.evaluate(adapter, node);
-		assertEquals(expected, metric.getData().last(), 0.01);
-		checkTracing(expected, node);
-	}
+    @Override
+    public ModelMetrics getMetric() {
+	return ModelMetrics.ClusteringCoefficient;
+    }
 
-	protected void checkTracing(double expected, String node) {
-		assertEquals(Double.valueOf(expected), metric.getTracing().get(node), 0.01);
-	}
-
-	@Test
-	public void testZero() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		adapter.init(model);
-
-		metric.evaluate(adapter);
-		checkSize(3, data);
-		checkKeysSize(3, metric.getTracing());
-
-		for (Double value : data.getValues()) {
-			assertEquals(value.toString(), 0.0, value, 0.01);
-		}
-		metric.clear();
-
-		evaluateAndCheck(0.0, node1);
-		evaluateAndCheck(0.0, node2);
-		evaluateAndCheck(0.0, node3);
-
-		checkSize(3, data);
-		checkKeysSize(3, metric.getTracing());
-	}
-
-	@Test
-	public void testClustering() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node3, node2);
-		adapter.init(model);
-
-		metric.evaluate(adapter);
-		checkSize(3, data);
-		checkKeysSize(3, metric.getTracing());
-
-		metric.clear();
-
-		evaluateAndCheck(1.0, node1);
-		evaluateAndCheck(1.0, node2);
-		evaluateAndCheck(1.0, node3);
-	}
-
-	@Test
-	public void testClustering2() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node3, node2);
-		model.addEdge(dim1, node4, node5);
-		model.addEdge(dim1, node1, node4);
-		adapter.init(model);
-
-		metric.evaluate(adapter);
-		checkSize(5, data);
-		checkKeysSize(5, metric.getTracing());
-
-		metric.clear();
-
-		evaluateAndCheck(0.333, node1);
-		evaluateAndCheck(1.0, node2);
-		evaluateAndCheck(1.0, node3);
-		evaluateAndCheck(0.0, node4);
-		evaluateAndCheck(0.0, node5);
-	}
-
-	@Test
-	public void testClustering3() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node1, node4);
-		model.addEdge(dim1, node1, node5);
-		model.addEdge(dim1, node2, node3);
-
-		model.addEdge(dim1, node3, node6);
-		model.addEdge(dim1, node4, node6);
-		model.addEdge(dim1, node4, node3);
-		model.addEdge(dim1, node5, node6);
-		adapter.init(model);
-
-		metric.evaluate(adapter);
-		checkSize(6, data);
-		checkKeysSize(6, metric.getTracing());
-
-		metric.clear();
-
-		evaluateAndCheck(0.333, node1);
-		evaluateAndCheck(1.0, node2);
-		evaluateAndCheck(0.5, node3);
-		evaluateAndCheck(0.666, node4);
-		evaluateAndCheck(0.0, node5);
-		evaluateAndCheck(0.333, node6);
-		checkSize(6, data);
-		checkKeysSize(6, metric.getTracing());
-	}
-
-	@Test
-	public void testTracingReevaluation() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node3, node2);
-		model.addEdge(dim1, node4, node5);
-		model.addEdge(dim1, node1, node4);
-		adapter.init(model);
-
-		evaluateAndCheck(0.333, node1);
-		evaluateAndCheck(1.0, node2);
-
-		evaluateAndCheck(0.333, node1);
-	}
-
-	@Test
-	public void testTracingOnModification() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node3, node2);
-		model.addEdge(dim1, node4, node5);
-		model.addEdge(dim1, node1, node4);
-		adapter.init(model);
-
-		evaluateAndCheck(0.333, node1);
-		checkKeysSize(1, metric.getTracing());
-
-		model.addEdge(dim1, node4, node2);
-		adapter.init(model);
-
-		evaluateAndCheck(0.66, node1);
-		checkKeysSize(1, metric.getTracing());
-
-	}
-
-	@Test
-	public void incrementalEvaluationTest1() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node3, node2);
-		model.addEdge(dim1, node4, node5);
-		model.addEdge(dim1, node1, node4);
-		adapter.init(model);
-
-		evaluateAndCheck(0.333, node1);
-		checkKeysSize(1, metric.getTracing());
-
-		model.addEdge(dim1, node4, node2);
-		adapter.init(model);
-
-		metric.reevaluateNewEdge(adapter, dim1, node4, node2);
-		checkKeysSize(5, metric.getTracing());
-		checkTracing(0.66, node1);
-		checkTracing(0.66, node2);
-		checkTracing(1.0, node3);
-		checkTracing(0.333, node4);
-		checkTracing(0.0, node5);
-	}
-
-	@Test
-	public void incrementalEvaluationTest2() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node3, node2);
-		model.addEdge(dim1, node4, node5);
-		model.addEdge(dim1, node1, node4);
-		adapter.init(model);
-
-		metric.evaluate(adapter);
-		checkKeysSize(5, metric.getTracing());
-
-		model.addEdge(dim1, node4, node2);
-		adapter.init(model);
-
-		metric.reevaluateNewEdge(adapter, dim1, node4, node2);
-		checkKeysSize(5, metric.getTracing());
-		checkTracing(0.66, node1);
-		checkTracing(0.66, node2);
-		checkTracing(1.0, node3);
-		checkTracing(0.333, node4);
-		checkTracing(0.0, node5);
-	}
-
-	@Test
-	public void incrementalEvaluationWithOneNeighbor() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim1, node1, node3);
-		model.addEdge(dim1, node3, node2);
-		model.addEdge(dim1, node4, node5);
-		model.addEdge(dim1, node1, node4);
-		adapter.init(model);
-
-		evaluateAndCheck(0.333, node1);
-		checkKeysSize(1, metric.getTracing());
-
-		model.addEdge(dim1, node5, node6);
-		adapter.init(model);
-
-		metric.reevaluateNewEdge(adapter, dim1, node5, node6);
-		checkKeysSize(4, metric.getTracing());
-		checkTracing(0.33, node1);
-		checkTracing(0.0, node4);
-		checkTracing(0.0, node5);
-		checkTracing(0.0, node6);
-	}
+    @Override
+    public int getNumberOfEvaluatedNodes() {
+	return metric.getData().size();
+    }
 
 }

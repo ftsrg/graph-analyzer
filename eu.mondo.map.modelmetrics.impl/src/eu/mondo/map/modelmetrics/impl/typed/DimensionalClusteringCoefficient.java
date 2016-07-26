@@ -205,7 +205,7 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
 	}
 
 	@Override
-	public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+	public <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
 		// TODO Auto-generated method stub
 
 	}

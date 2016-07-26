@@ -3,21 +3,23 @@ package eu.mondo.map.modelmetrics.tests;
 import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkDimensionsNumber;
 import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkSize;
 import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkValue;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.dim2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node1;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node2;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node3;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node4;
-import static eu.mondo.map.modelmetrics.tests.ModelContext.node5;
+import static eu.mondo.map.tests.model.ModelContext.dim1;
+import static eu.mondo.map.tests.model.ModelContext.dim2;
+import static eu.mondo.map.tests.model.ModelContext.node1;
+import static eu.mondo.map.tests.model.ModelContext.node2;
+import static eu.mondo.map.tests.model.ModelContext.node3;
+import static eu.mondo.map.tests.model.ModelContext.node4;
+import static eu.mondo.map.tests.model.ModelContext.node5;
 
 import org.junit.Test;
 
 import eu.mondo.map.base.data.MappedListData;
+import eu.mondo.map.modeladapters.tests.TestTypedModelAdapter;
 import eu.mondo.map.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
+import eu.mondo.map.tests.model.TestModel;
 
 public class DimTypedClusteringCoefficientTest
-		extends ModelMetricTest<MappedListData<String, Double>, OneTypedClusteringCoefficient> {
+		extends ModelMetricTest2<MappedListData<String, Double>, OneTypedClusteringCoefficient> {
 
 	protected TestModel model;
 	protected TestTypedModelAdapter adapter;
@@ -40,7 +42,7 @@ public class DimTypedClusteringCoefficientTest
 	}
 
 	public void calculate() {
-		metric.evaluate(adapter);
+		metric.evaluateAll(adapter);
 	}
 
 	@Test
