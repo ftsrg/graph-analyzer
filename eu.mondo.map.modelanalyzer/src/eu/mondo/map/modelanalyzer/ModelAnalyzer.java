@@ -74,11 +74,15 @@ public abstract class ModelAnalyzer<N> extends Analyzer {
 
 	public void run() throws Exception {
 		System.out.println("Calculating metrics for: " + modelName);
-		initModel();
-		initNetwork();
-		initFields();
-		calculateMetrics();
-		saveMetrics();
+		try {
+			initModel();
+			initNetwork();
+			initFields();
+			calculateMetrics();
+			saveMetrics();
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 
 	protected void initFields() {
