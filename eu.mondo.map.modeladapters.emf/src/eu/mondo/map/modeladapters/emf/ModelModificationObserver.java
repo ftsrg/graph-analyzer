@@ -1,4 +1,4 @@
-package eu.mondo.map.modelanalyzer.emf;
+package eu.mondo.map.modeladapters.emf;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;

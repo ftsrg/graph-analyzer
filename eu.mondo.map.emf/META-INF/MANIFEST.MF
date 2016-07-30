@@ -3,8 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Emf
 Bundle-SymbolicName: eu.mondo.map.emf
 Bundle-Version: 1.0.0.qualifier
-Export-Package: eu.mondo.map.emf,
- eu.mondo.map.emf.metrics
+Export-Package: eu.mondo.map.emf
 Require-Bundle: eu.mondo.map.base;bundle-version="1.0.0",
  com.google.guava;bundle-version="15.0.0",
  org.eclipse.emf.ecore;bundle-version="2.11.0",

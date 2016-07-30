@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ModelAdaptersEmf
+Bundle-SymbolicName: eu.mondo.map.modeladapters.emf
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.emf.ecore,
+ eu.mondo.map.modeladapters;bundle-version="1.0.0"
+Export-Package: eu.mondo.map.modeladapters.emf

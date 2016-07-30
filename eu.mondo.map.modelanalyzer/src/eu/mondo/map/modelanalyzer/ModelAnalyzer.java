@@ -99,6 +99,7 @@ public class ModelAnalyzer<MetricT extends ModelMetric> extends Analyzer<String,
     // return this;
     // }
 
+    @SuppressWarnings("unchecked")
     protected void useMetric(ModelMetrics metric, String name) {
 	checkNewMetric(metric);
 	addMetric(metric, (MetricT) metric.instantiate(), name);
