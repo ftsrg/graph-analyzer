@@ -15,8 +15,8 @@ public class DimensionActivity extends AbstractModelMetric<MapData<String, Integ
     }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
-	TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 	for (T type : typedAdapter.getTypes()) {
 	    if (tracing != null) {
 		for (N node : typedAdapter.getNodes(type)) {
@@ -38,7 +38,7 @@ public class DimensionActivity extends AbstractModelMetric<MapData<String, Integ
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
 	update(type, sourceNode, getTracing());
 	update(type, targetNode, getTracing());
     }

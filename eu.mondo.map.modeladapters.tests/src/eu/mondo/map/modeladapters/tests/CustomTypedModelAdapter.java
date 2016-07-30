@@ -8,9 +8,10 @@ import eu.mondo.map.modeladapters.ModelIndexer;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.tests.model.TestModel;
 
-public class CustomTypedModelAdapter extends TypedModelAdapter<TestModel, String, String> {
+public class CustomTypedModelAdapter extends TypedModelAdapter<String, String> {
 
-    @Override
+    private TestModel model;
+
     public void init(TestModel model) {
 	this.model = model;
 	indexer = new ModelIndexer<String, String>();

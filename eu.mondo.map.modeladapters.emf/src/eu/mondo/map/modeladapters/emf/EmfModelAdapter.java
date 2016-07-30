@@ -10,14 +10,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import eu.mondo.map.modeladapters.ModelIndexer;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 
-public class EmfModelAdapter extends TypedModelAdapter<Resource, EObject, String> {
+public class EmfModelAdapter extends TypedModelAdapter<EObject, String> {
+
+    Resource model;
 
     @Override
     public Iterator<EObject> getModelIterator() {
 	return model.getAllContents();
     }
 
-    @Override
     public void init(Resource model) {
 	// TreeIterator<EObject> iterator = model.getAllContents();
 	//

@@ -12,7 +12,7 @@ public class Density extends AbstractModelMetric<ScalarData<Double>>implements I
     }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
 	int numOfNodes = adapter.getNumberOfNodes();
 	Double value = adapter.getNumberOfEdges() / (double) numOfNodes;
 	value /= numOfNodes - 1;
@@ -21,7 +21,7 @@ public class Density extends AbstractModelMetric<ScalarData<Double>>implements I
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
 	evaluateAll(adapter);
     }
 

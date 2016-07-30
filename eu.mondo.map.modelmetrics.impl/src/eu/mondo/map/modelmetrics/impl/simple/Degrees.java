@@ -13,7 +13,7 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>>implements In
     }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
 	evaluateEveryNode(adapter);
     }
 
@@ -28,7 +28,7 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>>implements In
     }
 
     @Override
-    public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
 	int degree = adapter.getDegree(element);
 	data.add(degree);
 	updateTracing(element, degree);
@@ -41,12 +41,12 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>>implements In
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
 	reevaluateNode(adapter, getTracing(), sourceNode);
 	reevaluateNode(adapter, getTracing(), targetNode);
     }
 
-    protected <M, N, T> void reevaluateNode(ModelAdapter<M, N, T> adapter, MapData<N, Integer> castedTracing, N node) {
+    protected <N, T> void reevaluateNode(ModelAdapter<N, T> adapter, MapData<N, Integer> castedTracing, N node) {
 	if (castedTracing.containsKey(node)) {
 	    Integer value = castedTracing.get(node);
 	    value++;

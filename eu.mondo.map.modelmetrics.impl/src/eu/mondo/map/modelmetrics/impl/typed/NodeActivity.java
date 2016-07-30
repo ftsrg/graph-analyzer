@@ -13,22 +13,22 @@ public class NodeActivity extends AbstractModelMetric<ListData<Integer>>implemen
     }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
 	evaluateEveryNode(adapter);
     }
 
     @Override
-    public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
 	evaluate(castAdapter(adapter), element);
     }
 
-    protected <M, N, T> void evaluate(TypedModelAdapter<M, N, T> adapter, N element) {
+    protected <N, T> void evaluate(TypedModelAdapter<N, T> adapter, N element) {
 	int numberOfTypes = adapter.getNumberOfTypes(element);
 	data.add(numberOfTypes);
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
 	evaluate(adapter, sourceNode);
 	evaluate(adapter, targetNode);
     }

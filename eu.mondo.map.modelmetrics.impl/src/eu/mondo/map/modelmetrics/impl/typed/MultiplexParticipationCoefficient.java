@@ -56,7 +56,7 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
     // }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
 	evaluateEveryNode(adapter);
     }
 
@@ -64,8 +64,8 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
     boolean exclusive = false;
 
     @Override
-    public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-	TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 
 	int numOfDimensions = 0;
 	if (exclusive) {
@@ -102,12 +102,12 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
 	reevaluate(adapter, type, sourceNode);
 	reevaluate(adapter, type, targetNode);
     }
 
-    protected <M, N, T> void reevaluate(ModelAdapter<M, N, T> adapter, T type, N node) {
+    protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, T type, N node) {
 	if (!getTracing().containsKey(node)) {
 	    updateTracing(node, 0.0);
 	} else {

@@ -59,14 +59,14 @@ public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
     // }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
-	TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 	for (T type : typedAdapter.getTypes()) {
 	    evaluate(typedAdapter, type);
 	}
     }
 
-    protected <M, N, T> void evaluate(TypedModelAdapter<M, N, T> adapter, T type) {
+    protected <N, T> void evaluate(TypedModelAdapter<N, T> adapter, T type) {
 	int sumOfEdges = 0;
 	for (N node : adapter.getNodes(type)) {
 	    sumOfEdges += adapter.getDegree(node, type);

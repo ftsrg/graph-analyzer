@@ -78,7 +78,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     // }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
 	evaluateEveryNode(adapter);
     }
 
@@ -87,8 +87,8 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     int maxNumberOfNeighbors = 100;
 
     @Override
-    public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
-	TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 	// long interConnected = 0;
 	// long numberOfNeighbors = 0;
 	for (T type : typedAdapter.getTypes(element)) {
@@ -96,7 +96,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
 	}
     }
 
-    protected <T, N, M> void evaluate(TypedModelAdapter<M, N, T> typedAdapter, N element, T type) {
+    protected <T, N, M> void evaluate(TypedModelAdapter<N, T> typedAdapter, N element, T type) {
 	long interConnected = 0;
 	long numberOfNeighbors = 0;
 	numberOfNeighbors = typedAdapter.getDegree(element, type);
@@ -142,14 +142,14 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
-	TypedModelAdapter<M, N, T> typedAdapter = castAdapter(adapter);
+    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
+	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 
 	reevaluate(typedAdapter, sourceNode, type);
 	reevaluate(typedAdapter, targetNode, type);
     }
 
-    protected <M, N, T> void reevaluate(TypedModelAdapter<M, N, T> adapter, N node, T type) {
+    protected <N, T> void reevaluate(TypedModelAdapter<N, T> adapter, N node, T type) {
 	evaluate(adapter, node, type);
 	for (N neighbor : adapter.getNeighbors(node, type)) {
 	    evaluate(adapter, neighbor, type);

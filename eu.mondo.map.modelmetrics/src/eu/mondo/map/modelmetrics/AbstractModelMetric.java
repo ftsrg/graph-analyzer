@@ -26,30 +26,30 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     }
 
     @Override
-    public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
 	throw new UnsupportedOperationException("Cannot evaluate metric " + name + " on one element.");
     }
 
     @Override
-    public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter) {
+    public <N, T> void evaluate(ModelAdapter<N, T> adapter) {
 	clear();
 	evaluateAll(adapter);
 
     }
 
-    protected abstract <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter);
+    protected abstract <N, T> void evaluateAll(ModelAdapter<N, T> adapter);
 
-    protected <M, N, T> void evaluateEveryNode(final ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateEveryNode(final ModelAdapter<N, T> adapter) {
 	Iterator<N> iterator = adapter.getModelIterator();
 	while (iterator.hasNext()) {
 	    this.evaluate(adapter, iterator.next());
 	}
     }
 
-    protected <M, N, T> TypedModelAdapter<M, N, T> castAdapter(final ModelAdapter<M, N, T> adapter) {
-	TypedModelAdapter<M, N, T> typedAdapter;
-	if (adapter instanceof TypedModelAdapter<?, ?, ?>) {
-	    typedAdapter = (TypedModelAdapter<M, N, T>) adapter;
+    protected <N, T> TypedModelAdapter<N, T> castAdapter(final ModelAdapter<N, T> adapter) {
+	TypedModelAdapter<N, T> typedAdapter;
+	if (adapter instanceof TypedModelAdapter<?, ?>) {
+	    typedAdapter = (TypedModelAdapter<N, T>) adapter;
 	} else {
 	    throw new IllegalArgumentException("The adapter must be an instance of TypedModelAdapter.");
 	}

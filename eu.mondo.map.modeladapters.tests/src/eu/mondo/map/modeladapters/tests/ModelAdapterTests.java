@@ -25,7 +25,7 @@ import eu.mondo.map.tests.model.TestModelTypes;
 
 public class ModelAdapterTests {
 
-    protected TypedModelAdapter<TestModel, String, String> adapter;
+    protected CustomTypedModelAdapter adapter;
     protected TestModel model;
 
     @Test(dataProvider = "data")
@@ -378,30 +378,30 @@ public class ModelAdapterTests {
 	}
     }
 
-    protected <M, N, T> void degree(ModelAdapter<M, N, T> adapter, N node, int indegree, int outdegree) {
+    protected <N, T> void degree(ModelAdapter<N, T> adapter, N node, int indegree, int outdegree) {
 	notNull(node);
 	assertEquals(indegree, adapter.getIndegree(node), node.toString());
 	assertEquals(outdegree, adapter.getOutdegree(node), node.toString());
 	assertEquals(indegree + outdegree, adapter.getDegree(node), node.toString());
     }
 
-    protected <M, N, T> void adjacent(ModelAdapter<M, N, T> adapter, N source, N target) {
+    protected <N, T> void adjacent(ModelAdapter<N, T> adapter, N source, N target) {
 	notNull(source, target);
 	String message = String.format("{0} and {1} are not adjacent", source.toString(), target.toString());
 	assertTrue(message, adapter.isAdjacent(source, target));
 	assertTrue(message, adapter.isAdjacent(target, source));
     }
 
-    protected <M, N, T> void nodes(ModelAdapter<M, N, T> adapter, int expected) {
+    protected <N, T> void nodes(ModelAdapter<N, T> adapter, int expected) {
 	assertEquals(adapter.getNumberOfNodes(), expected, "Check node");
 	assertEquals(adapter.getNodes().size(), expected, "Check node");
     }
 
-    protected <M, N, T> void edges(ModelAdapter<M, N, T> adapter, int expected) {
+    protected <N, T> void edges(ModelAdapter<N, T> adapter, int expected) {
 	assertEquals(adapter.getNumberOfEdges(), expected, "Check edge");
     }
 
-    protected <M, N, T> void neighbor(ModelAdapter<M, N, T> adapter, N source, N target) {
+    protected <N, T> void neighbor(ModelAdapter<N, T> adapter, N source, N target) {
 	notNull(source, target);
 	assertTrue(String.format("Check outgoing:  {0} -> {1}", source.toString(), target.toString()),
 		adapter.getOutgoingNeighbors(source).contains(target));
@@ -412,21 +412,21 @@ public class ModelAdapterTests {
 	adjacent(adapter, source, target);
     }
 
-    protected <M, N, T> void degree(TypedModelAdapter<M, N, T> adapter, N node, T type, int indegree, int outdegree) {
+    protected <N, T> void degree(TypedModelAdapter<N, T> adapter, N node, T type, int indegree, int outdegree) {
 	notNull(node, type);
 	assertEquals(indegree, adapter.getIndegree(node, type), node.toString());
 	assertEquals(outdegree, adapter.getOutdegree(node, type), node.toString());
 	assertEquals(indegree + outdegree, adapter.getDegree(node, type), node.toString());
     }
 
-    protected <M, N, T> void adjacent(TypedModelAdapter<M, N, T> adapter, T type, N source, N target) {
+    protected <N, T> void adjacent(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
 	notNull(source, target, type);
 	assertTrue(String.format("Adjacent: {0} {1} {2}", source.toString(), target.toString(), type.toString()),
 		adapter.isAdjacentUndirected(source, target, type));
 	assertTrue(adapter.isAdjacentUndirected(target, source, type));
     }
 
-    protected <M, N, T> void neighbor(TypedModelAdapter<M, N, T> adapter, T type, N source, N target) {
+    protected <N, T> void neighbor(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
 	notNull(source, target, type);
 	assertTrue(adapter.getOutgoingNeighbors(source, type).contains(target));
 	assertTrue(adapter.getIncomingNeighbors(target, type).contains(source));
@@ -435,13 +435,13 @@ public class ModelAdapterTests {
 	adjacent(adapter, type, source, target);
     }
 
-    protected <M, N, T> void notNeighbor(TypedModelAdapter<M, N, T> adapter, T type, N source, N target) {
+    protected <N, T> void notNeighbor(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
 	notNull(source, target, type);
 	assertFalse(adapter.getOutgoingNeighbors(source, type).contains(target));
 	assertFalse(adapter.getIncomingNeighbors(target, type).contains(source));
     }
 
-    protected <M, N, T> void types(TypedModelAdapter<M, N, T> adapter, int expected, N node) {
+    protected <N, T> void types(TypedModelAdapter<N, T> adapter, int expected, N node) {
 	notNull(node);
 	assertEquals(expected, adapter.getNumberOfTypes(node));
     }

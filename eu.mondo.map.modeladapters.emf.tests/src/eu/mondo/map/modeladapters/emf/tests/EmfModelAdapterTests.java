@@ -32,39 +32,38 @@ public class EmfModelAdapterTests extends ModelAdapterTests {
     }
 
     @Override
-    protected <M, N, T> void degree(ModelAdapter<M, N, T> adapter, N element, int indegree, int outdegree) {
+    protected <N, T> void degree(ModelAdapter<N, T> adapter, N element, int indegree, int outdegree) {
 	super.degree(emfAdapter, nodeMapping.get(element.toString()), indegree, outdegree);
     }
 
     @Override
-    protected <M, N, T> void nodes(ModelAdapter<M, N, T> adapter, int expected) {
+    protected <N, T> void nodes(ModelAdapter<N, T> adapter, int expected) {
 	super.nodes(emfAdapter, expected);
     }
 
     @Override
-    protected <M, N, T> void edges(ModelAdapter<M, N, T> adapter, int expected) {
+    protected <N, T> void edges(ModelAdapter<N, T> adapter, int expected) {
 	super.edges(emfAdapter, expected);
     }
 
     @Override
-    protected <M, N, T> void neighbor(ModelAdapter<M, N, T> adapter, N source, N target) {
+    protected <N, T> void neighbor(ModelAdapter<N, T> adapter, N source, N target) {
 	super.neighbor(emfAdapter, nodeMapping.get(source.toString()), nodeMapping.get(target.toString()));
     }
 
     @Override
-    protected <M, N, T> void degree(TypedModelAdapter<M, N, T> adapter, N element, T type, int indegree,
-	    int outdegree) {
+    protected <N, T> void degree(TypedModelAdapter<N, T> adapter, N element, T type, int indegree, int outdegree) {
 	super.degree(emfAdapter, nodeMapping.get(element), type.toString(), indegree, outdegree);
     }
 
     @Override
-    protected <M, N, T> void neighbor(TypedModelAdapter<M, N, T> adapter, T type, N source, N target) {
+    protected <N, T> void neighbor(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
 	super.neighbor(emfAdapter, type.toString(), nodeMapping.get(source.toString()),
 		nodeMapping.get(target.toString()));
     }
 
     @Override
-    protected <M, N, T> void notNeighbor(TypedModelAdapter<M, N, T> adapter, T type, N source, N target) {
+    protected <N, T> void notNeighbor(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
 	super.notNeighbor(emfAdapter, type.toString(), nodeMapping.get(source.toString()),
 		nodeMapping.get(target.toString()));
     }

@@ -17,12 +17,12 @@ public class NumberOfNodes extends AbstractModelMetric<ScalarData<Integer>>imple
     }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
 	data.setValue(adapter.getNumberOfNodes());
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
 	evaluateAll(adapter);
     }
 

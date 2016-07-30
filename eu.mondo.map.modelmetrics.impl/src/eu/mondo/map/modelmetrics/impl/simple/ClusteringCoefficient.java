@@ -41,12 +41,12 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
     }
 
     @Override
-    protected <M, N, T> void evaluateAll(ModelAdapter<M, N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
 	evaluateEveryNode(adapter);
     }
 
     @Override
-    public <M, N, T> void evaluate(ModelAdapter<M, N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
 	long interConnected = 0;
 	long numberOfNeighbors = 0;
 	double clusteringCoef = 0.0;
@@ -80,7 +80,7 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
     }
 
     @Override
-    public <M, N, T> void reevaluateNewEdge(final ModelAdapter<M, N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(final ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
 	Preconditions.checkNotNull(tracing);
 	evaluate(adapter, sourceNode);
 	evaluate(adapter, targetNode);
