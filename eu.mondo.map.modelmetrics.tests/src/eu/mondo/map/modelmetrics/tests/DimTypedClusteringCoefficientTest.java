@@ -14,7 +14,7 @@ import static eu.mondo.map.tests.model.ModelContext.node5;
 import org.junit.Test;
 
 import eu.mondo.map.base.data.MappedListData;
-import eu.mondo.map.modeladapters.tests.TestTypedModelAdapter;
+import eu.mondo.map.modeladapters.tests.CustomTypedModelAdapter;
 import eu.mondo.map.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
 import eu.mondo.map.tests.model.TestModel;
 
@@ -22,7 +22,7 @@ public class DimTypedClusteringCoefficientTest
 		extends ModelMetricTest2<MappedListData<String, Double>, OneTypedClusteringCoefficient> {
 
 	protected TestModel model;
-	protected TestTypedModelAdapter adapter;
+	protected CustomTypedModelAdapter adapter;
 
 	@Override
 	public OneTypedClusteringCoefficient newMetric() {
@@ -33,7 +33,7 @@ public class DimTypedClusteringCoefficientTest
 	public void init() {
 		super.init();
 		model = new TestModel();
-		adapter = new TestTypedModelAdapter();
+		adapter = new CustomTypedModelAdapter();
 	}
 
 	@Override

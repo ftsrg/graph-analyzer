@@ -15,14 +15,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import eu.mondo.map.base.tests.metrics.TypedScalarMetricTest;
-import eu.mondo.map.modeladapters.tests.TestTypedModelAdapter;
+import eu.mondo.map.modeladapters.tests.CustomTypedModelAdapter;
 import eu.mondo.map.modelmetrics.impl.typed.PairwiseMultiplexity;
 import eu.mondo.map.tests.model.TestModel;
 
 public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMultiplexity> {
 
 	protected TestModel model;
-	protected TestTypedModelAdapter adapter;
+	protected CustomTypedModelAdapter adapter;
 
 	@Override
 	public PairwiseMultiplexity initMetric() {
@@ -33,7 +33,7 @@ public class PairwiseMultiplexityTest extends TypedScalarMetricTest<PairwiseMult
 	public void setUp() {
 		super.setUp();
 		model = new TestModel();
-		adapter = new TestTypedModelAdapter();
+		adapter = new CustomTypedModelAdapter();
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import eu.mondo.map.base.data.ListData;
-import eu.mondo.map.modeladapters.tests.TestTypedModelAdapter;
+import eu.mondo.map.modeladapters.tests.CustomTypedModelAdapter;
 import eu.mondo.map.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 import eu.mondo.map.tests.model.TestModel;
 
@@ -18,7 +18,7 @@ public class MultiplexParticipationCoefficientTest<N>
 		extends ModelMetricTest2<ListData<Double>, MultiplexParticipationCoefficient> {
 
 	protected TestModel model;
-	protected TestTypedModelAdapter adapter;
+	protected CustomTypedModelAdapter adapter;
 
 	@Override
 	public MultiplexParticipationCoefficient newMetric() {
@@ -29,7 +29,7 @@ public class MultiplexParticipationCoefficientTest<N>
 	public void init() {
 		super.init();
 		model = new TestModel();
-		adapter = new TestTypedModelAdapter();
+		adapter = new CustomTypedModelAdapter();
 	}
 
 	@Override

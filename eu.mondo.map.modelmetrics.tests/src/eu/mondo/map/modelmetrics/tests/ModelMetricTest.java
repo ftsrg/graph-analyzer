@@ -8,7 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import eu.mondo.map.base.data.BaseData;
-import eu.mondo.map.modeladapters.tests.TestTypedModelAdapter;
+import eu.mondo.map.modeladapters.tests.CustomTypedModelAdapter;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
 import eu.mondo.map.modelmetrics.ModelMetric;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
@@ -20,7 +20,7 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
     protected TestModel model;
     protected M metric;
     protected D data;
-    protected TestTypedModelAdapter adapter;
+    protected CustomTypedModelAdapter adapter;
 
     public abstract ModelMetrics getMetric();
 
@@ -95,7 +95,7 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
 
     protected void initModel(TestModelTypes modelType) {
 	model = modelType.init();
-	adapter = new TestTypedModelAdapter();
+	adapter = new CustomTypedModelAdapter();
 	adapter.init(model);
     }
 

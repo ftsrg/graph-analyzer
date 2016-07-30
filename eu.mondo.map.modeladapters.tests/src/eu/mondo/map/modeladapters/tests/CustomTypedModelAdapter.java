@@ -8,7 +8,7 @@ import eu.mondo.map.modeladapters.ModelIndexer;
 import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.tests.model.TestModel;
 
-public class TestTypedModelAdapter extends TypedModelAdapter<TestModel, String, String> {
+public class CustomTypedModelAdapter extends TypedModelAdapter<TestModel, String, String> {
 
     @Override
     public void init(TestModel model) {
