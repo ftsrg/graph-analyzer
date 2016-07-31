@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import org.testng.Assert;
+import org.apache.log4j.Logger;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -25,9 +25,9 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
     protected D data;
     protected TypedModelAdapter<?, ?> adapter;
 
-    public abstract ModelMetrics getMetric();
+    protected final Logger logger = Logger.getLogger(this.getClass());
 
-    public abstract int getNumberOfEvaluatedNodes();
+    public abstract ModelMetrics getMetric();
 
     @DataProvider
     public Object[][] data() {
@@ -99,6 +99,10 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
 	evaluateAndCheck(checker, analyzer);
     }
 
+    protected void skippedModel(TestModelTypes modelType) {
+	logger.warn("The model " + modelType + " is not evaluated");
+    }
+
     @Test(dataProvider = "incrementalData")
     public void testIncrementalEvaluation(TestModelTypes modelType, Consumer<D> checker) {
     }
@@ -122,25 +126,17 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
 
     protected void evaluateAndCheck(Consumer<D> checker) {
 	metric.evaluate(adapter);
-	checkSize();
 	checker.accept(data);
     }
 
     protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer<M> analyzer) {
 	analyzer.evaluate(adapter);
-	checkSize();
 	checker.accept(data);
     }
 
     protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer<M> analyzer, ModelMetrics metricType) {
 	analyzer.evaluate(adapter, getMetric());
-	checkSize();
 	checker.accept(data);
-    }
-
-    protected void checkSize() {
-	Assert.assertEquals(getNumberOfEvaluatedNodes(), adapter.getNumberOfNodes(),
-		"The number of evaluated nodes is not correct");
     }
 
 }

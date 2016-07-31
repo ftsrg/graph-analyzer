@@ -4,8 +4,6 @@ import static eu.mondo.map.base.tests.ListDataTesterUtil.checkAppearance;
 
 import java.util.function.Consumer;
 
-import org.apache.log4j.Logger;
-
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficient;
@@ -13,16 +11,9 @@ import eu.mondo.map.tests.model.TestModelTypes;
 
 public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>, ClusteringCoefficient> {
 
-    protected final Logger logger = Logger.getLogger(this.getClass());
-
     @Override
     public ModelMetrics getMetric() {
 	return ModelMetrics.ClusteringCoefficient;
-    }
-
-    @Override
-    public int getNumberOfEvaluatedNodes() {
-	return metric.getData().size();
     }
 
     protected Object[] testCase(TestModelTypes modelType) {
@@ -63,7 +54,7 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>,
 	    };
 	    return new Object[] { modelType, checker };
 	default:
-	    logger.warn("The model " + modelType + " is not evaluated");
+	    skippedModel(modelType);
 	    return null;
 	}
     }

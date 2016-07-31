@@ -34,7 +34,6 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     public <N, T> void evaluate(ModelAdapter<N, T> adapter) {
 	clear();
 	evaluateAll(adapter);
-
     }
 
     protected abstract <N, T> void evaluateAll(ModelAdapter<N, T> adapter);

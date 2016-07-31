@@ -6,6 +6,9 @@
       <class name="eu.mondo.map.modelmetrics.tests.ClusteringCoefficientTest"/>
       <class name="eu.mondo.map.modelmetrics.tests.ModelMetricTest"/>
       <class name="eu.mondo.map.modelmetrics.tests.NumberOfNodesTest"/>
+      <class name="eu.mondo.map.modelmetrics.tests.NumberOfEdgesTest"/>
+      <class name="eu.mondo.map.modelmetrics.tests.DimensionActivityTest"/>
+      <class name="eu.mondo.map.modelmetrics.tests.NodeActivityTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

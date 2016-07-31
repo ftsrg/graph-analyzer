@@ -17,26 +17,21 @@ public class NumberOfNodesTest extends ModelMetricTest<ScalarData<Integer>, Numb
     }
 
     @Override
-    public int getNumberOfEvaluatedNodes() {
-	return metric.getData().getValue();
-    }
-
-    @Override
     protected Object[] testCase(TestModelTypes modelType) {
-
+	Consumer<ScalarData<Integer>> checker = null;
 	switch (modelType) {
 	case Loop:
 	case Loop_2T:
-	    Consumer<ScalarData<Integer>> checker = (adapter) -> {
-		assertEquals(metric.getData().getValue().intValue(), 1);
+	    checker = (data) -> {
+		assertEquals(data.getValue().intValue(), 1);
 	    };
-	    return new Object[] { modelType, checker };
+	    break;
 	default:
-	    checker = (adapter) -> {
-		// assertion of number of nodes is done via ModelMetricTest
+	    checker = (data) -> {
+		assertEquals(data.getValue().intValue(), 3);
 	    };
-	    return new Object[] { modelType, checker };
 	}
+	return new Object[] { modelType, checker };
 
     }
 
