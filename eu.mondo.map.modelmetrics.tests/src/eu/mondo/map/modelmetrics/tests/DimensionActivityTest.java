@@ -84,6 +84,22 @@ public class DimensionActivityTest extends ModelMetricTest<MapData<String, Integ
 		checkValue(data, dim3, null);
 	    };
 	    break;
+	case Motif5N_1_3T:
+	    checker = (data) -> {
+		checkKeysSize(3, data);
+		checkValue(data, dim1, 3);
+		checkValue(data, dim2, 4);
+		checkValue(data, dim3, 2);
+	    };
+	    break;
+	case Motif5N_2_3T:
+	    checker = (data) -> {
+		checkKeysSize(3, data);
+		checkValue(data, dim1, 4);
+		checkValue(data, dim2, 5);
+		checkValue(data, dim3, 4);
+	    };
+	    break;
 	default:
 	    skippedModel(modelType);
 	    break;

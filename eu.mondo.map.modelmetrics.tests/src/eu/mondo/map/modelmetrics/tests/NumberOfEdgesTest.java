@@ -58,6 +58,7 @@ public class NumberOfEdgesTest extends ModelMetricTest<ScalarData<Integer>, Numb
 	    break;
 	case Motif3N_12:
 	case Motif3N_12_2T:
+	case Motif5N_1_3T:
 	    checker = (data) -> {
 		Assert.assertEquals(data.getValue().intValue(), 5);
 	    };
@@ -66,6 +67,11 @@ public class NumberOfEdgesTest extends ModelMetricTest<ScalarData<Integer>, Numb
 	case Motif3N_13_2T:
 	    checker = (data) -> {
 		Assert.assertEquals(data.getValue().intValue(), 6);
+	    };
+	    break;
+	case Motif5N_2_3T:
+	    checker = (data) -> {
+		Assert.assertEquals(data.getValue().intValue(), 8);
 	    };
 	    break;
 	default:

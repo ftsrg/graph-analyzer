@@ -2,9 +2,12 @@ package eu.mondo.map.tests.model;
 
 import static eu.mondo.map.tests.model.ModelContext.dim1;
 import static eu.mondo.map.tests.model.ModelContext.dim2;
+import static eu.mondo.map.tests.model.ModelContext.dim3;
 import static eu.mondo.map.tests.model.ModelContext.node1;
 import static eu.mondo.map.tests.model.ModelContext.node2;
 import static eu.mondo.map.tests.model.ModelContext.node3;
+import static eu.mondo.map.tests.model.ModelContext.node4;
+import static eu.mondo.map.tests.model.ModelContext.node5;
 
 public enum TestModelTypes implements TestModelInitializer {
 
@@ -292,5 +295,38 @@ public enum TestModelTypes implements TestModelInitializer {
 	    model.addEdge(dim2, node3, node2);
 	    return model;
 	}
+    },
+
+    Motif5N_1_3T {
+
+	@Override
+	public TestModel init() {
+	    TestModel model = new TestModel();
+	    model.addEdge(dim1, node1, node2);
+	    model.addEdge(dim2, node2, node3);
+	    model.addEdge(dim3, node3, node4);
+	    model.addEdge(dim2, node4, node5);
+	    model.addEdge(dim1, node5, node2);
+	    return model;
+	}
+
+    },
+
+    Motif5N_2_3T {
+
+	@Override
+	public TestModel init() {
+	    TestModel model = new TestModel();
+	    model.addEdge(dim1, node1, node2);
+	    model.addEdge(dim2, node2, node1);
+	    model.addEdge(dim1, node2, node3);
+	    model.addEdge(dim3, node3, node1);
+	    model.addEdge(dim1, node3, node4);
+	    model.addEdge(dim2, node3, node4);
+	    model.addEdge(dim3, node4, node5);
+	    model.addEdge(dim2, node5, node2);
+	    return model;
+	}
+
     }
 }

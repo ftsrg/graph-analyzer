@@ -13,4 +13,4 @@ Require-Bundle: eu.mondo.map.base;bundle-version="1.0.0",
  eu.mondo.map.modelmetrics.impl;bundle-version="1.0.0"
 Export-Package: eu.mondo.map.modelanalyzer,
  eu.mondo.map.modelanalyzer.incr
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

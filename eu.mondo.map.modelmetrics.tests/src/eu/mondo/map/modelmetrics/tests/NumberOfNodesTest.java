@@ -26,6 +26,12 @@ public class NumberOfNodesTest extends ModelMetricTest<ScalarData<Integer>, Numb
 		assertEquals(data.getValue().intValue(), 1);
 	    };
 	    break;
+	case Motif5N_1_3T:
+	case Motif5N_2_3T:
+	    checker = (data) -> {
+		assertEquals(data.getValue().intValue(), 5);
+	    };
+	    break;
 	default:
 	    checker = (data) -> {
 		assertEquals(data.getValue().intValue(), 3);

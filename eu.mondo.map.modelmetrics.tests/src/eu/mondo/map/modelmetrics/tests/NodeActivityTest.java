@@ -1,6 +1,7 @@
 package eu.mondo.map.modelmetrics.tests;
 
 import static eu.mondo.map.base.tests.ListDataTesterUtil.checkAppearance;
+import static eu.mondo.map.base.tests.ListDataTesterUtil.checkSize;
 
 import java.util.function.Consumer;
 
@@ -23,11 +24,13 @@ public class NodeActivityTest extends ModelMetricTest<ListData<Integer>, NodeAct
 	switch (modelType) {
 	case Loop:
 	    checker = (data) -> {
+		checkSize(1, data);
 		checkAppearance(1, 1, data);
 	    };
 	    break;
 	case Loop_2T:
 	    checker = (data) -> {
+		checkSize(1, data);
 		checkAppearance(1, 2, data);
 	    };
 	    break;
@@ -45,6 +48,7 @@ public class NodeActivityTest extends ModelMetricTest<ListData<Integer>, NodeAct
 	case Motif3N_12:
 	case Motif3N_13:
 	    checker = (data) -> {
+		checkSize(3, data);
 		checkAppearance(3, 1, data);
 	    };
 	    break;
@@ -54,6 +58,7 @@ public class NodeActivityTest extends ModelMetricTest<ListData<Integer>, NodeAct
 	case Motif3N_10_2T:
 	case Motif3N_11_2T:
 	    checker = (data) -> {
+		checkSize(3, data);
 		checkAppearance(2, 2, data);
 		checkAppearance(1, 1, data);
 	    };
@@ -62,7 +67,22 @@ public class NodeActivityTest extends ModelMetricTest<ListData<Integer>, NodeAct
 	case Motif3N_12_2T:
 	case Motif3N_13_2T:
 	    checker = (data) -> {
+		checkSize(3, data);
 		checkAppearance(3, 2, data);
+	    };
+	    break;
+	case Motif5N_1_3T:
+	    checker = (data) -> {
+		checkSize(5, data);
+		checkAppearance(1, 1, data);
+		checkAppearance(4, 2, data);
+	    };
+	    break;
+	case Motif5N_2_3T:
+	    checker = (data) -> {
+		checkSize(5, data);
+		checkAppearance(3, 3, data);
+		checkAppearance(2, 2, data);
 	    };
 	    break;
 	default:

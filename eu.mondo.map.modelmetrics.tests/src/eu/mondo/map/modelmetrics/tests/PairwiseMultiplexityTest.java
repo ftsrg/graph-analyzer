@@ -3,6 +3,7 @@ package eu.mondo.map.modelmetrics.tests;
 import static eu.mondo.map.base.tests.MapDataTesterUtil.checkKeysSize;
 import static eu.mondo.map.tests.model.ModelContext.dim1;
 import static eu.mondo.map.tests.model.ModelContext.dim2;
+import static eu.mondo.map.tests.model.ModelContext.dim3;
 
 import java.util.function.Consumer;
 
@@ -62,6 +63,22 @@ public class PairwiseMultiplexityTest extends ModelMetricTest<MapData<String, Do
 		check(data, dim1, dim2, 2.0 / 3.0);
 	    };
 	    break;
+	case Motif5N_1_3T:
+	    checker = (data) -> {
+		checkKeysSize(3, data);
+		check(data, dim1, dim2, 2.0 / 5.0);
+		check(data, dim1, dim3, 0.0);
+		check(data, dim3, dim2, 2.0 / 5.0);
+	    };
+	    break;
+	case Motif5N_2_3T:
+	    checker = (data) -> {
+		checkKeysSize(3, data);
+		check(data, dim1, dim2, 4.0 / 5.0);
+		check(data, dim1, dim3, 3.0 / 5.0);
+		check(data, dim3, dim2, 4.0 / 5.0);
+	    };
+	    break;
 	default:
 	    skippedModel(modelType);
 	}
@@ -81,97 +98,5 @@ public class PairwiseMultiplexityTest extends ModelMetricTest<MapData<String, Do
     protected String getKey(String first, String second) {
 	return String.format("%s-%s", first, second);
     }
-
-    //
-    // private void evaluateMultiplexity() {
-    // metric.evaluate(network, dim1, dim2);
-    // metric.evaluate(network, dim1, dim3);
-    // metric.evaluate(network, dim2, dim3);
-    // metric.evaluateExclusive(network, dim1, dim2);
-    // metric.evaluateExclusive(network, dim1, dim3);
-    // metric.evaluateExclusive(network, dim2, dim3);
-    // }
-    //
-    // @Test
-    // public void zeroIntersection1() {
-    // model.addEdge(dim1, node1, node2);
-    // model.addEdge(dim2, node3, node4);
-    // model.addEdge(dim3, node5, node6);
-    //
-    // evaluateMultiplexity();
-    // checkMutiplexity(dim1, dim2, 0.0);
-    // checkMutiplexity(dim1, dim3, 0.0);
-    // checkMutiplexity(dim2, dim3, 0.0);
-    // checkMutiplexityExclusive(dim1, dim2, 0.0);
-    // checkMutiplexityExclusive(dim1, dim3, 0.0);
-    // checkMutiplexityExclusive(dim2, dim3, 0.0);
-    // }
-    //
-    // @Test
-    // public void intersection1() {
-    // model.addEdge(dim1, node1, node2);
-    // model.addEdge(dim2, node3, node4);
-    // model.addEdge(dim3, node1, node5);
-    //
-    // evaluateMultiplexity();
-    //
-    // checkMutiplexity(dim1, dim2, 0.0);
-    // checkMutiplexity(dim1, dim3, 0.2);
-    // checkMutiplexity(dim2, dim3, 0.0);
-    // checkMutiplexityExclusive(dim1, dim2, 0.0);
-    // checkMutiplexityExclusive(dim1, dim3, 0.33);
-    // checkMutiplexityExclusive(dim2, dim3, 0.0);
-    // }
-    //
-    // @Test
-    // public void intersection2() {
-    // model.addEdge(dim1, node1, node2);
-    // model.addEdge(dim2, node3, node4);
-    // model.addEdge(dim3, node3, node2);
-    //
-    // evaluateMultiplexity();
-    // checkMutiplexity(dim1, dim2, 0.0);
-    // checkMutiplexity(dim1, dim3, 0.25);
-    // checkMutiplexity(dim2, dim3, 0.25);
-    // checkMutiplexityExclusive(dim1, dim2, 0.0);
-    // checkMutiplexityExclusive(dim1, dim3, 0.333);
-    // checkMutiplexityExclusive(dim2, dim3, 0.333);
-    // }
-    //
-    // @Test
-    // public void intersection3() {
-    // model.addEdge(dim1, node1, node2);
-    // model.addEdge(dim1, node3, node4);
-    // model.addEdge(dim2, node1, node3);
-    // model.addEdge(dim3, node2, node5);
-    // model.addEdge(dim3, node1, node6);
-    //
-    // evaluateMultiplexity();
-    // checkMutiplexity(dim1, dim2, 0.33);
-    // checkMutiplexity(dim1, dim3, 0.33);
-    // checkMutiplexity(dim2, dim3, 0.166);
-    // checkMutiplexityExclusive(dim1, dim2, 0.5);
-    // checkMutiplexityExclusive(dim1, dim3, 0.33);
-    // checkMutiplexityExclusive(dim2, dim3, 0.2);
-    // }
-    //
-    // @Test
-    // public void intersection4() {
-    // model.addEdge(dim1, node1, node2);
-    // model.addEdge(dim1, node1, node3);
-    // model.addEdge(dim1, node2, node3);
-    // model.addEdge(dim2, node2, node3);
-    // model.addEdge(dim3, node1, node4);
-    // model.addEdge(dim3, node2, node4);
-    // model.addEdge(dim3, node2, node5);
-    //
-    // evaluateMultiplexity();
-    // checkMutiplexity(dim1, dim2, 0.40);
-    // checkMutiplexity(dim1, dim3, 0.40);
-    // checkMutiplexity(dim2, dim3, 0.20);
-    // checkMutiplexityExclusive(dim1, dim2, 0.666);
-    // checkMutiplexityExclusive(dim1, dim3, 0.4);
-    // checkMutiplexityExclusive(dim2, dim3, 0.2);
-    // }
 
 }

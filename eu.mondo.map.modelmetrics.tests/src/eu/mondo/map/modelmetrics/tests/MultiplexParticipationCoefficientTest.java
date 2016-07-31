@@ -89,6 +89,23 @@ public class MultiplexParticipationCoefficientTest
 		checkAppearance(2, 8.0 / 9.0, data);
 	    };
 	    break;
+	case Motif5N_1_3T:
+	    checker = (data) -> {
+		checkSize(5, data);
+		checkAppearance(1, 0.0, data);
+		checkAppearance(3, 3.0 / 4.0, data);
+		checkAppearance(1, 6.0 / 9.0, data);
+	    };
+	    break;
+	case Motif5N_2_3T:
+	    checker = (data) -> {
+		checkSize(5, data);
+		checkAppearance(0, 0.0, data);
+		checkAppearance(2, 3.0 / 4.0, data);
+		checkAppearance(2, 1.0, data);
+		checkAppearance(1, 15.0 / 16.0, data);
+	    };
+	    break;
 	default:
 	    skippedModel(modelType);
 	}

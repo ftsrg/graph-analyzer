@@ -1,6 +1,7 @@
 package eu.mondo.map.modelmetrics.tests;
 
 import static eu.mondo.map.base.tests.ListDataTesterUtil.checkAppearance;
+import static eu.mondo.map.base.tests.ListDataTesterUtil.checkSize;
 
 import java.util.function.Consumer;
 
@@ -17,13 +18,16 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>,
     }
 
     protected Object[] testCase(TestModelTypes modelType) {
+	Consumer<ListData<Double>> checker = (data) -> {
+	};
 	switch (modelType) {
 	case Loop:
 	case Loop_2T:
-	    Consumer<ListData<Double>> checker = (data) -> {
+	    checker = (data) -> {
+		checkSize(1, data);
 		checkAppearance(1, 0.0, data);
 	    };
-	    return new Object[] { modelType, checker };
+	    break;
 	case Motif3N_1:
 	case Motif3N_2:
 	case Motif3N_3:
@@ -34,9 +38,10 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>,
 	case Motif3N_8:
 	case Motif3N_8_2T:
 	    checker = (data) -> {
+		checkSize(3, data);
 		checkAppearance(3, 0.0, data);
 	    };
-	    return new Object[] { modelType, checker };
+	    break;
 	case Motif3N_5:
 	case Motif3N_6:
 	case Motif3N_6_2T:
@@ -50,13 +55,28 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>,
 	case Motif3N_13:
 	case Motif3N_13_2T:
 	    checker = (data) -> {
+		checkSize(3, data);
 		checkAppearance(3, 1.0, data);
 	    };
-	    return new Object[] { modelType, checker };
+	    break;
+	case Motif5N_1_3T:
+	    checker = (data) -> {
+		checkSize(5, data);
+		checkAppearance(5, 0.0, data);
+	    };
+	    break;
+	case Motif5N_2_3T:
+	    checker = (data) -> {
+		checkSize(5, data);
+		checkAppearance(2, 0.0, data);
+		checkAppearance(1, 1.0, data);
+		checkAppearance(2, 1.0 / 3.0, data);
+	    };
+	    break;
 	default:
 	    skippedModel(modelType);
-	    return null;
 	}
+	return new Object[] { modelType, checker };
     }
 
 }
