@@ -84,6 +84,14 @@ public class ModelAdapterTests {
     protected Object[] testCase(TestModelTypes modelType) {
 	Runnable checker = null;
 	switch (modelType) {
+	case Loop:
+	    checker = () -> {
+		nodes(adapter, 1);
+		edges(adapter, 1);
+		degree(adapter, node1, 1, 1);
+		neighbor(adapter, node1, node1);
+	    };
+	    break;
 	case Motif3N_1:
 	    checker = () -> {
 		nodes(adapter, 3);
@@ -257,6 +265,18 @@ public class ModelAdapterTests {
     protected Object[] typedTestCase(TestModelTypes modelType) {
 	Runnable checker = null;
 	switch (modelType) {
+	case Loop_2T:
+	    checker = () -> {
+		degree(adapter, node1, dim1, 1, 1);
+		degree(adapter, node1, dim2, 1, 1);
+		neighbor(adapter, dim1, node1, node1);
+		neighbor(adapter, dim2, node1, node1);
+		types(adapter, 2, node1);
+		types(adapter, 2);
+		nodes(adapter, dim1, 1);
+		nodes(adapter, dim2, 1);
+	    };
+	    break;
 	case Motif3N_3_2T:
 	    checker = () -> {
 		degree(adapter, node1, dim1, 0, 2);

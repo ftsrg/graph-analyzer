@@ -5,6 +5,7 @@
     <classes>
       <class name="eu.mondo.map.modelmetrics.tests.ClusteringCoefficientTest"/>
       <class name="eu.mondo.map.modelmetrics.tests.ModelMetricTest"/>
+      <class name="eu.mondo.map.modelmetrics.tests.NumberOfNodesTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

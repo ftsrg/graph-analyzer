@@ -36,7 +36,9 @@ public class ModelIndexer<N, T> {
 
     public void addEdge(final T type, final N sourceNode, final N targetNode) {
 	newNode(sourceNode);
-	newNode(targetNode);
+	if (sourceNode != targetNode) {
+	    newNode(targetNode);
+	}
 	if (!nodeIndex.contains(sourceNode, targetNode)) {
 	    Set<T> dimSet = new HashSet<T>();
 	    dimSet.add(type);

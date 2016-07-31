@@ -1,5 +1,7 @@
 package eu.mondo.map.modelmetrics.tests;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.testng.Assert;
@@ -28,7 +30,20 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
     public abstract int getNumberOfEvaluatedNodes();
 
     @DataProvider
-    public abstract Object[][] data();
+    public Object[][] data() {
+	List<Object[]> casesList = new ArrayList<>();
+	for (TestModelTypes type : TestModelTypes.values()) {
+	    casesList.add(testCase(type));
+	}
+
+	Object[][] casesArray = new Object[casesList.size()][2];
+	for (int i = 0; i < casesList.size(); i++) {
+	    casesArray[i] = casesList.get(i);
+	}
+	return casesArray;
+    }
+
+    protected abstract Object[] testCase(TestModelTypes modelType);
 
     @DataProvider
     public Object[][] incrementalData() {

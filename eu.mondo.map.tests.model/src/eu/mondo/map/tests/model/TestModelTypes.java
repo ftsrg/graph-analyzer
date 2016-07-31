@@ -19,6 +19,17 @@ public enum TestModelTypes implements TestModelInitializer {
 
     },
 
+    Loop_2T {
+
+	@Override
+	public TestModel init() {
+	    TestModel model = new TestModel();
+	    model.addEdge(dim1, node1, node1);
+	    model.addEdge(dim2, node1, node1);
+	    return model;
+	}
+
+    },
     Motif3N_1 {
 
 	@Override

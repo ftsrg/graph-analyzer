@@ -1,0 +1,43 @@
+package eu.mondo.map.modelmetrics.tests;
+
+import static org.testng.Assert.assertEquals;
+
+import java.util.function.Consumer;
+
+import eu.mondo.map.base.data.ScalarData;
+import eu.mondo.map.modelmetrics.impl.ModelMetrics;
+import eu.mondo.map.modelmetrics.impl.simple.NumberOfNodes;
+import eu.mondo.map.tests.model.TestModelTypes;
+
+public class NumberOfNodesTest extends ModelMetricTest<ScalarData<Integer>, NumberOfNodes> {
+
+    @Override
+    public ModelMetrics getMetric() {
+	return ModelMetrics.NumberOfNodes;
+    }
+
+    @Override
+    public int getNumberOfEvaluatedNodes() {
+	return metric.getData().getValue();
+    }
+
+    @Override
+    protected Object[] testCase(TestModelTypes modelType) {
+
+	switch (modelType) {
+	case Loop:
+	case Loop_2T:
+	    Consumer<ScalarData<Integer>> checker = (adapter) -> {
+		assertEquals(metric.getData().getValue().intValue(), 1);
+	    };
+	    return new Object[] { modelType, checker };
+	default:
+	    checker = (adapter) -> {
+		// assertion of number of nodes is done via ModelMetricTest
+	    };
+	    return new Object[] { modelType, checker };
+	}
+
+    }
+
+}
