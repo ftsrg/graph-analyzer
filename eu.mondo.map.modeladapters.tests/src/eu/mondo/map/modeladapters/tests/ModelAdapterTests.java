@@ -452,7 +452,7 @@ public class ModelAdapterTests {
 
     protected <N, T> void adjacent(ModelAdapter<N, T> adapter, N source, N target) {
 	notNull(source, target);
-	String message = String.format("{0} and {1} are not adjacent", source.toString(), target.toString());
+	String message = String.format("%s and %s are not adjacent", source.toString(), target.toString());
 	assertTrue(message, adapter.isAdjacent(source, target));
 	assertTrue(message, adapter.isAdjacent(target, source));
     }
@@ -468,9 +468,9 @@ public class ModelAdapterTests {
 
     protected <N, T> void neighbor(ModelAdapter<N, T> adapter, N source, N target) {
 	notNull(source, target);
-	assertTrue(String.format("Check outgoing:  {0} -> {1}", source.toString(), target.toString()),
+	assertTrue(String.format("Check outgoing:  %s -> %s", source.toString(), target.toString()),
 		adapter.getOutgoingNeighbors(source).contains(target));
-	assertTrue(String.format("Check incoming: {0} <- {1}", target.toString(), source.toString()),
+	assertTrue(String.format("Check incoming: %s <- %s", target.toString(), source.toString()),
 		adapter.getIncomingNeighbors(target).contains(source));
 	assertTrue(adapter.getNeighbors(source).contains(target));
 	assertTrue(adapter.getNeighbors(target).contains(source));
@@ -486,7 +486,7 @@ public class ModelAdapterTests {
 
     protected <N, T> void adjacent(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
 	notNull(source, target, type);
-	assertTrue(String.format("Adjacent: {0} {1} {2}", source.toString(), target.toString(), type.toString()),
+	assertTrue(String.format("Adjacent: %s %s %s", source.toString(), target.toString(), type.toString()),
 		adapter.isAdjacentUndirected(source, target, type));
 	assertTrue(adapter.isAdjacentUndirected(target, source, type));
     }

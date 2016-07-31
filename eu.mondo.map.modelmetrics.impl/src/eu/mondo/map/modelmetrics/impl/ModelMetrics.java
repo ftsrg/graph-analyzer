@@ -11,6 +11,7 @@ import eu.mondo.map.modelmetrics.impl.typed.DimensionActivity;
 import eu.mondo.map.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 import eu.mondo.map.modelmetrics.impl.typed.NodeActivity;
 import eu.mondo.map.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
+import eu.mondo.map.modelmetrics.impl.typed.PairwiseMultiplexity;
 
 public enum ModelMetrics implements ModelMetricInitializer {
 
@@ -90,6 +91,15 @@ public enum ModelMetrics implements ModelMetricInitializer {
 	@Override
 	public <N, T> OneTypedClusteringCoefficient instantiate() {
 	    return new OneTypedClusteringCoefficient();
+	}
+
+    },
+
+    PairwiseMultiplexity {
+
+	@Override
+	public <N, T> ModelMetric instantiate() {
+	    return new PairwiseMultiplexity();
 	}
 
     }
