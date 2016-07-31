@@ -265,11 +265,19 @@ public class ModelAdapterTests {
 		degree(adapter, node2, dim2, 0, 1);
 		degree(adapter, node3, dim1, 1, 0);
 		degree(adapter, node3, dim2, 0, 0);
+
 		neighbor(adapter, dim1, node1, node2);
-		notNeighbor(adapter, dim2, node1, node2);
 		neighbor(adapter, dim2, node2, node1);
 		neighbor(adapter, dim1, node1, node3);
+
+		notNeighbor(adapter, dim2, node1, node2);
 		notNeighbor(adapter, dim2, node1, node3);
+		types(adapter, 2, node1);
+		types(adapter, 2, node2);
+		types(adapter, 1, node3);
+		types(adapter, 2);
+		nodes(adapter, dim1, 3);
+		nodes(adapter, dim2, 2);
 	    };
 	    break;
 	case Motif3N_6_2T:
@@ -280,13 +288,21 @@ public class ModelAdapterTests {
 		degree(adapter, node2, dim2, 0, 1);
 		degree(adapter, node3, dim1, 2, 0);
 		degree(adapter, node3, dim2, 0, 0);
+
 		neighbor(adapter, dim1, node1, node2);
-		notNeighbor(adapter, dim2, node1, node2);
 		neighbor(adapter, dim2, node2, node1);
 		neighbor(adapter, dim1, node2, node3);
-		notNeighbor(adapter, dim2, node2, node3);
 		neighbor(adapter, dim1, node1, node3);
+
+		notNeighbor(adapter, dim2, node1, node2);
+		notNeighbor(adapter, dim2, node2, node3);
 		notNeighbor(adapter, dim2, node1, node3);
+		types(adapter, 2, node1);
+		types(adapter, 2, node2);
+		types(adapter, 1, node3);
+		types(adapter, 2);
+		nodes(adapter, dim1, 3);
+		nodes(adapter, dim2, 2);
 	    };
 	    break;
 	case Motif3N_7_2T:
@@ -297,12 +313,20 @@ public class ModelAdapterTests {
 		degree(adapter, node2, dim2, 0, 1);
 		degree(adapter, node3, dim1, 0, 1);
 		degree(adapter, node3, dim2, 0, 0);
+
 		neighbor(adapter, dim1, node1, node2);
-		notNeighbor(adapter, dim2, node1, node2);
 		neighbor(adapter, dim2, node2, node1);
 		neighbor(adapter, dim1, node3, node1);
+
+		notNeighbor(adapter, dim2, node1, node2);
 		notNeighbor(adapter, dim2, node3, node1);
 		notNeighbor(adapter, dim1, node1, node3);
+		types(adapter, 2, node1);
+		types(adapter, 2, node2);
+		types(adapter, 1, node3);
+		types(adapter, 2);
+		nodes(adapter, dim1, 3);
+		nodes(adapter, dim2, 2);
 	    };
 	    break;
 	case Motif3N_8_2T:
@@ -313,14 +337,22 @@ public class ModelAdapterTests {
 		degree(adapter, node2, dim2, 0, 1);
 		degree(adapter, node3, dim1, 1, 0);
 		degree(adapter, node3, dim2, 0, 1);
+
 		neighbor(adapter, dim1, node1, node2);
-		notNeighbor(adapter, dim2, node1, node2);
 		neighbor(adapter, dim2, node2, node1);
-		notNeighbor(adapter, dim1, node2, node1);
 		neighbor(adapter, dim2, node3, node1);
-		notNeighbor(adapter, dim1, node3, node1);
 		neighbor(adapter, dim1, node1, node3);
+
+		notNeighbor(adapter, dim2, node1, node2);
+		notNeighbor(adapter, dim1, node2, node1);
+		notNeighbor(adapter, dim1, node3, node1);
 		notNeighbor(adapter, dim2, node1, node3);
+		types(adapter, 2, node1);
+		types(adapter, 2, node2);
+		types(adapter, 2, node3);
+		types(adapter, 2);
+		nodes(adapter, dim1, 3);
+		nodes(adapter, dim2, 3);
 	    };
 	    break;
 	case Motif3N_10_2T:
@@ -332,15 +364,22 @@ public class ModelAdapterTests {
 		degree(adapter, node3, dim1, 2, 0);
 		degree(adapter, node3, dim2, 0, 1);
 		neighbor(adapter, dim1, node1, node2);
+		neighbor(adapter, dim2, node3, node1);
+		neighbor(adapter, dim1, node1, node3);
+		neighbor(adapter, dim1, node2, node3);
+
 		notNeighbor(adapter, dim2, node1, node2);
 		notNeighbor(adapter, dim2, node2, node1);
 		notNeighbor(adapter, dim1, node2, node1);
-		neighbor(adapter, dim2, node3, node1);
 		notNeighbor(adapter, dim1, node3, node1);
-		neighbor(adapter, dim1, node1, node3);
 		notNeighbor(adapter, dim2, node1, node3);
-		neighbor(adapter, dim1, node2, node3);
 		notNeighbor(adapter, dim2, node2, node3);
+		types(adapter, 2, node1);
+		types(adapter, 1, node2);
+		types(adapter, 2, node3);
+		types(adapter, 2);
+		nodes(adapter, dim1, 3);
+		nodes(adapter, dim2, 2);
 	    };
 	    break;
 	case Motif3N_13_2T:
@@ -364,6 +403,12 @@ public class ModelAdapterTests {
 		notNeighbor(adapter, dim2, node2, node3);
 		notNeighbor(adapter, dim1, node3, node2);
 		notNeighbor(adapter, dim1, node3, node1);
+		types(adapter, 2, node1);
+		types(adapter, 2, node2);
+		types(adapter, 2, node3);
+		types(adapter, 2);
+		nodes(adapter, dim1, 3);
+		nodes(adapter, dim2, 3);
 	    };
 	    break;
 	default:
@@ -443,7 +488,17 @@ public class ModelAdapterTests {
 
     protected <N, T> void types(TypedModelAdapter<N, T> adapter, int expected, N node) {
 	notNull(node);
-	assertEquals(expected, adapter.getNumberOfTypes(node));
+	assertEquals(adapter.getNumberOfTypes(node), expected);
+    }
+
+    protected <N, T> void types(TypedModelAdapter<N, T> adapter, int expected) {
+	assertEquals(adapter.getNumberOfTypes(), expected);
+    }
+
+    protected <N, T> void nodes(TypedModelAdapter<N, T> adapter, T type, int expected) {
+	notNull(type);
+	assertEquals(adapter.getNumberOfNodes(type), expected);
+	assertEquals(adapter.getNodes(type).size(), expected);
     }
 
 }

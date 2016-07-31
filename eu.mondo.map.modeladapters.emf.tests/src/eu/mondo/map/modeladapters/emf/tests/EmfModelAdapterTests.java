@@ -68,4 +68,18 @@ public class EmfModelAdapterTests extends ModelAdapterTests {
 		nodeMapping.get(target.toString()));
     }
 
+    @Override
+    protected <N, T> void types(TypedModelAdapter<N, T> adapter, int expected, N node) {
+	super.types(emfAdapter, expected, nodeMapping.get(node));
+    }
+
+    @Override
+    protected <N, T> void types(TypedModelAdapter<N, T> adapter, int expected) {
+	super.types(emfAdapter, expected);
+    }
+
+    @Override
+    protected <N, T> void nodes(TypedModelAdapter<N, T> adapter, T type, int expected) {
+	super.nodes(emfAdapter, type.toString(), expected);
+    }
 }

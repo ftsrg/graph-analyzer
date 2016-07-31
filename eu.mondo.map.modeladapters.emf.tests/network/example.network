@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<network:NodeContainer xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:network="eu.mondo.map.tests.model.emf.network">
-  <nodes name="node1"/>
-  <nodes name="node3"/>
-  <nodes name="node1">
-    <dim1 name="node2" dim2="//@nodes.2"/>
-    <dim1 name="node3" dim2="//@nodes.2 //@nodes.2/@dim1.0"/>
-  </nodes>
-</network:NodeContainer>
