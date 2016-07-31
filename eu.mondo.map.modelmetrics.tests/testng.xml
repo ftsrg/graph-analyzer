@@ -9,6 +9,7 @@
       <class name="eu.mondo.map.modelmetrics.tests.NumberOfEdgesTest"/>
       <class name="eu.mondo.map.modelmetrics.tests.DimensionActivityTest"/>
       <class name="eu.mondo.map.modelmetrics.tests.NodeActivityTest"/>
+      <class name="eu.mondo.map.modelmetrics.tests.MultiplexParticipationCoefficientTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

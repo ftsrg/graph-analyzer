@@ -1,67 +1,98 @@
 package eu.mondo.map.modelmetrics.tests;
 
-import static eu.mondo.map.tests.model.ModelContext.dim1;
-import static eu.mondo.map.tests.model.ModelContext.dim2;
-import static eu.mondo.map.tests.model.ModelContext.node1;
-import static eu.mondo.map.tests.model.ModelContext.node2;
-import static eu.mondo.map.tests.model.ModelContext.node3;
+import static eu.mondo.map.base.tests.ListDataTesterUtil.checkAppearance;
+import static eu.mondo.map.base.tests.ListDataTesterUtil.checkSize;
 
-import org.junit.Assert;
-import org.junit.Test;
+import java.util.function.Consumer;
 
 import eu.mondo.map.base.data.ListData;
-import eu.mondo.map.modeladapters.tests.CustomTypedModelAdapter;
+import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 import eu.mondo.map.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
-import eu.mondo.map.tests.model.TestModel;
+import eu.mondo.map.tests.model.TestModelTypes;
 
-public class MultiplexParticipationCoefficientTest<N>
-		extends ModelMetricTest2<ListData<Double>, MultiplexParticipationCoefficient> {
+public class MultiplexParticipationCoefficientTest
+	extends ModelMetricTest<ListData<Double>, MultiplexParticipationCoefficient> {
 
-	protected TestModel model;
-	protected CustomTypedModelAdapter adapter;
+    @Override
+    public ModelMetrics getMetric() {
+	return ModelMetrics.MultiplexParticipationCoefficient;
+    }
 
-	@Override
-	public MultiplexParticipationCoefficient newMetric() {
-		return new MultiplexParticipationCoefficient();
+    @Override
+    protected Object[] testCase(TestModelTypes modelType) {
+	Consumer<ListData<Double>> checker = (data) -> {
+	};
+	switch (modelType) {
+	case Loop:
+	    checker = (data) -> {
+		checkSize(1, data);
+		checkAppearance(1, 0.0, data);
+	    };
+	    break;
+	case Loop_2T:
+	    checker = (data) -> {
+		checkSize(1, data);
+		checkAppearance(1, 1.0, data);
+	    };
+	    break;
+	case Motif3N_1:
+	case Motif3N_2:
+	case Motif3N_3:
+	case Motif3N_4:
+	case Motif3N_5:
+	case Motif3N_6:
+	case Motif3N_7:
+	case Motif3N_8:
+	case Motif3N_9:
+	case Motif3N_10:
+	case Motif3N_11:
+	case Motif3N_12:
+	case Motif3N_13:
+	    checker = (data) -> {
+		checkSize(3, data);
+		checkAppearance(3, 0.0, data);
+	    };
+	    break;
+	case Motif3N_3_2T:
+	case Motif3N_7_2T:
+	    checker = (data) -> {
+		checkSize(3, data);
+		checkAppearance(1, 0.0, data);
+		checkAppearance(1, 1.0, data);
+		checkAppearance(1, 8.0 / 9.0, data);
+	    };
+	    break;
+	case Motif3N_6_2T:
+	case Motif3N_10_2T:
+	case Motif3N_11_2T:
+	    checker = (data) -> {
+		checkSize(3, data);
+		checkAppearance(0, 1.0, data);
+		checkAppearance(1, 0.0, data);
+		checkAppearance(2, 8.0 / 9.0, data);
+	    };
+	    break;
+	case Motif3N_8_2T:
+	case Motif3N_13_2T:
+	    checker = (data) -> {
+		checkSize(3, data);
+		checkAppearance(3, 1.0, data);
+		checkAppearance(0, 0.0, data);
+		checkAppearance(0, 8.0 / 9.0, data);
+	    };
+	    break;
+	case Motif3N_12_2T:
+	    checker = (data) -> {
+		checkSize(3, data);
+		checkAppearance(1, 1.0, data);
+		checkAppearance(0, 0.0, data);
+		checkAppearance(2, 8.0 / 9.0, data);
+	    };
+	    break;
+	default:
+	    skippedModel(modelType);
 	}
-
-	@Override
-	public void init() {
-		super.init();
-		model = new TestModel();
-		adapter = new CustomTypedModelAdapter();
-	}
-
-	@Override
-	public void clear() {
-		model.clear();
-	}
-
-	@Test
-	public void testCalculation1() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim2, node2, node3);
-		adapter.init(model);
-		metric.evaluateAll(adapter);
-
-		Assert.assertEquals(0.0, data.get(0), 0.01);
-		Assert.assertEquals(1.0, data.get(1), 0.01);
-		Assert.assertEquals(0.0, data.get(2), 0.01);
-
-	}
-
-	@Test
-	public void testCalculation2() {
-		model.addEdge(dim1, node1, node2);
-		model.addEdge(dim2, node2, node3);
-		model.addEdge(dim1, node2, node3);
-		adapter.init(model);
-
-		metric.evaluateAll(adapter);
-		Assert.assertEquals(0.0, data.get(0), 0.01);
-		Assert.assertEquals(0.88, data.get(1), 0.01);
-		Assert.assertEquals(1.0, data.get(2), 0.01);
-
-	}
+	return new Object[] { modelType, checker };
+    }
 
 }

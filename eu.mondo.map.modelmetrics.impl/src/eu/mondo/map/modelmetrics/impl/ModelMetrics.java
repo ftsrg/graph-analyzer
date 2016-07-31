@@ -8,6 +8,7 @@ import eu.mondo.map.modelmetrics.impl.simple.Density;
 import eu.mondo.map.modelmetrics.impl.simple.NumberOfEdges;
 import eu.mondo.map.modelmetrics.impl.simple.NumberOfNodes;
 import eu.mondo.map.modelmetrics.impl.typed.DimensionActivity;
+import eu.mondo.map.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 import eu.mondo.map.modelmetrics.impl.typed.NodeActivity;
 import eu.mondo.map.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
 
@@ -45,6 +46,15 @@ public enum ModelMetrics implements ModelMetricInitializer {
 	@Override
 	public <N, T> DimensionActivity instantiate() {
 	    return new DimensionActivity();
+	}
+
+    },
+
+    MultiplexParticipationCoefficient {
+
+	@Override
+	public <N, T> ModelMetric instantiate() {
+	    return new MultiplexParticipationCoefficient();
 	}
 
     },
