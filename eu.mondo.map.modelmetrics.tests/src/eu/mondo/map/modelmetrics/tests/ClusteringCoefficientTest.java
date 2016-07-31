@@ -28,12 +28,6 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>,
 	    casesArray[i] = casesList.get(i);
 	}
 	return casesArray;
-	// return new Object[][] { testCase(Motif3N_1), testCase(Motif3N_2),
-	// testCase(Motif3N_3), testCase(Motif3N_4),
-	// testCase(Motif3N_5), testCase(Motif3N_6), testCase(Motif3N_7),
-	// testCase(Motif3N_8), testCase(Motif3N_9),
-	// testCase(Motif3N_10), testCase(Motif3N_11), testCase(Motif3N_12),
-	// testCase(Motif3N_13) };
     }
 
     protected Object[] testCase(TestModelTypes modelType) {

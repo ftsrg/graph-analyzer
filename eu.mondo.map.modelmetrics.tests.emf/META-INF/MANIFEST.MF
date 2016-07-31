@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ModelMetricsTestsEmf
+Bundle-SymbolicName: eu.mondo.map.modelmetrics.tests.emf
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: eu.mondo.map.modelmetrics.tests;bundle-version="1.0.0",
+ eu.mondo.map.modeladapters.emf;bundle-version="1.0.0",
+ eu.mondo.map.tests.model.emf;bundle-version="1.0.0",
+ eu.mondo.map.tests.model,
+ eu.mondo.map.base;bundle-version="1.0.0",
+ eu.mondo.map.modelmetrics;bundle-version="1.0.0",
+ eu.mondo.map.modelmetrics.impl;bundle-version="1.0.0",
+ eu.mondo.map.modelanalyzer;bundle-version="1.0.0",
+ eu.mondo.map.modeladapters.tests;bundle-version="1.0.0",
+ eu.mondo.map.modeladapters;bundle-version="1.0.0"

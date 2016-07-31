@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import eu.mondo.map.base.data.BaseData;
+import eu.mondo.map.modeladapters.TypedModelAdapter;
 import eu.mondo.map.modeladapters.tests.CustomTypedModelAdapter;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
 import eu.mondo.map.modelmetrics.ModelMetric;
@@ -17,10 +18,10 @@ import eu.mondo.map.tests.model.TestModelTypes;
 
 public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric> {
 
-    protected TestModel model;
+    protected TestModel testModel;
     protected M metric;
     protected D data;
-    protected CustomTypedModelAdapter adapter;
+    protected TypedModelAdapter<?, ?> adapter;
 
     public abstract ModelMetrics getMetric();
 
@@ -90,13 +91,13 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
     @AfterMethod
     public void clear() {
 	metric.clear();
-	model.clear();
+	testModel.clear();
     }
 
     protected void initModel(TestModelTypes modelType) {
-	model = modelType.init();
+	testModel = modelType.init();
 	adapter = new CustomTypedModelAdapter();
-	adapter.init(model);
+	((CustomTypedModelAdapter) adapter).init(testModel);
     }
 
     @SuppressWarnings("unchecked")

@@ -27,7 +27,7 @@ public class EmfModelAdapterTests extends ModelAdapterTests {
 	nodeMapping = converter.getNodeMapping();
 
 	emfAdapter = new EmfModelAdapter();
-	emfAdapter.init(container.eAllContents());
+	emfAdapter.init(container);
 	checker.run();
     }
 
