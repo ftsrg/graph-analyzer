@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  eu.mondo.map.base;bundle-version="1.0.0",
  org.apache.log4j,
  eu.mondo.map.modelmetrics.impl;bundle-version="1.0.0",
- eu.mondo.map.modeladapters;bundle-version="1.0.0"
+ eu.mondo.map.modeladapters;bundle-version="1.0.0",
+ org.testng.eclipse;bundle-version="6.9.12"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy

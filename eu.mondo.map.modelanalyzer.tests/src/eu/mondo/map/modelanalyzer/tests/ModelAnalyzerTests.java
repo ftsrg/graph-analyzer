@@ -2,17 +2,13 @@ package eu.mondo.map.modelanalyzer.tests;
 
 import static eu.mondo.map.modelmetrics.impl.ModelMetrics.NumberOfEdges;
 import static eu.mondo.map.modelmetrics.impl.ModelMetrics.NumberOfNodes;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.AssertJUnit;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import eu.mondo.map.base.metrics.Metric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
@@ -28,32 +24,32 @@ public class ModelAnalyzerTests {
 	Logger.getRootLogger().setLevel(Level.OFF);
     }
 
-    @Before
+    @BeforeMethod
     public void init() {
 	analyzer = new ModelAnalyzer<>();
     }
 
     protected void checkSize(int expected) {
-	assertEquals(expected, analyzer.getMetrics().keySet().size());
-	assertEquals(expected, analyzer.getMetricsInOrder().size());
+	AssertJUnit.assertEquals(expected, analyzer.getMetrics().keySet().size());
+	AssertJUnit.assertEquals(expected, analyzer.getMetricsInOrder().size());
     }
 
     protected void checkMetric(ModelMetrics metric) {
 	Metric metricObject = analyzer.getMetric(metric);
-	Assert.assertNotNull(metricObject);
-	assertTrue(metric.instantiate().getClass().isInstance(metricObject));
+	AssertJUnit.assertNotNull(metricObject);
+	AssertJUnit.assertTrue(metric.instantiate().getClass().isInstance(metricObject));
     }
 
     @Test
     public void testSummaryMetrics() {
 	// analyzer.useSummary(new SummaryMetric<Integer, DegreeList);
-	fail("Not tested yet");
+	AssertJUnit.fail("Not tested yet");
     }
 
     @Test
     public void testAggregatedMetrics() {
 	// analyzer.useSummary(new SummaryMetric<Integer, DegreeList<?>>());
-	fail("Not tested yet");
+	AssertJUnit.fail("Not tested yet");
     }
 
     @Test
@@ -66,7 +62,7 @@ public class ModelAnalyzerTests {
     public void testUseWithName() {
 	String name = "CustomName";
 	analyzer.use(NumberOfEdges, name);
-	assertEquals(name, analyzer.getMetric(ModelMetrics.NumberOfEdges).getName());
+	AssertJUnit.assertEquals(name, analyzer.getMetric(ModelMetrics.NumberOfEdges).getName());
     }
 
     @Test
@@ -76,7 +72,7 @@ public class ModelAnalyzerTests {
 	checkSize(2);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expectedExceptions = IllegalStateException.class)
     public void testMultipleSameUse() {
 	analyzer.use(NumberOfEdges);
 	analyzer.use(NumberOfEdges);
@@ -90,7 +86,7 @@ public class ModelAnalyzerTests {
 	checkMetric(NumberOfNodes);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expectedExceptions = IllegalStateException.class)
     public void testIncorrectUseAll() {
 	analyzer.use(NumberOfEdges);
 	analyzer.useAll();
@@ -105,7 +101,7 @@ public class ModelAnalyzerTests {
 	checkMetric(NumberOfEdges);
     }
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expectedExceptions = IllegalStateException.class)
     public void testIncorrectOmit() {
 	analyzer.omit(NumberOfNodes);
     }
@@ -127,12 +123,12 @@ public class ModelAnalyzerTests {
     public void testOmitWithAll() {
 	analyzer.useAll().omit(NumberOfNodes);
 	checkSize(ModelMetrics.values().length - 1);
-	assertNull(analyzer.getMetric(NumberOfNodes));
+	AssertJUnit.assertNull(analyzer.getMetric(NumberOfNodes));
 
 	analyzer.clear().useAll().omit(NumberOfEdges);
 
 	checkSize(ModelMetrics.values().length - 1);
-	assertNull(analyzer.getMetric(NumberOfEdges));
+	AssertJUnit.assertNull(analyzer.getMetric(NumberOfEdges));
 
 	analyzer.clear().useAll().omit(NumberOfNodes).omit(NumberOfEdges);
 	checkSize(ModelMetrics.values().length - 2);
@@ -140,7 +136,7 @@ public class ModelAnalyzerTests {
 
     @Test
     public void testOrder() {
-	fail("Not tested yet");
+	AssertJUnit.fail("Not tested yet");
     }
 
 }
