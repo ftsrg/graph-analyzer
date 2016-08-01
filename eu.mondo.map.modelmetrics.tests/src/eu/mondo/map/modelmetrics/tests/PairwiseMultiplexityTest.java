@@ -11,10 +11,9 @@ import org.testng.Assert;
 
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.typed.PairwiseMultiplexity;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public class PairwiseMultiplexityTest extends ModelMetricTest<MapData<String, Double>, PairwiseMultiplexity> {
+public class PairwiseMultiplexityTest extends ModelMetricTest<MapData<String, Double>> {
 
     @Override
     public ModelMetrics getMetric() {

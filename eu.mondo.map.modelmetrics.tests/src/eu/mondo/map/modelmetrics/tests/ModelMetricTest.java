@@ -18,10 +18,10 @@ import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 import eu.mondo.map.tests.model.TestModel;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric> {
+public abstract class ModelMetricTest<D extends BaseData> {
 
     protected TestModel testModel;
-    protected M metric;
+    protected ModelMetric metric;
     protected D data;
     protected TypedModelAdapter<?, ?> adapter;
 
@@ -50,10 +50,9 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
 	return new Object[][] {};
     }
 
-    @SuppressWarnings("unchecked")
     @Test(dataProvider = "data")
     public void testEvaluation(TestModelTypes modelType, Consumer<D> checker) {
-	metric = (M) getMetric().instantiate();
+	metric = getMetric().instantiate();
 	initData();
 	initModel(modelType);
 
@@ -66,7 +65,7 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
     @Test(dataProvider = "data")
     public void testEvaluationWithAnalyzer(TestModelTypes modelType, Consumer<D> checker) {
 	initModel(modelType);
-	ModelAnalyzer<M> analyzer = new ModelAnalyzer<>();
+	ModelAnalyzer analyzer = new ModelAnalyzer();
 	analyzer.use(getMetric());
 	metric = analyzer.getMetric(getMetric());
 	initData();
@@ -82,7 +81,7 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
     @Test(dataProvider = "data")
     public void testEvaluationWithAnalyzerUsingAll(TestModelTypes modelType, Consumer<D> checker) {
 	initModel(modelType);
-	ModelAnalyzer<M> analyzer = new ModelAnalyzer<>();
+	ModelAnalyzer analyzer = new ModelAnalyzer();
 	analyzer.useAll();
 	metric = analyzer.getMetric(getMetric());
 	initData();
@@ -129,12 +128,12 @@ public abstract class ModelMetricTest<D extends BaseData, M extends ModelMetric>
 	checker.accept(data);
     }
 
-    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer<M> analyzer) {
+    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer analyzer) {
 	analyzer.evaluate(adapter);
 	checker.accept(data);
     }
 
-    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer<M> analyzer, ModelMetrics metricType) {
+    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer analyzer, ModelMetrics metricType) {
 	analyzer.evaluate(adapter, getMetric());
 	checker.accept(data);
     }

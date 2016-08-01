@@ -7,11 +7,9 @@ import java.util.function.Consumer;
 
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public class MultiplexParticipationCoefficientTest
-	extends ModelMetricTest<ListData<Double>, MultiplexParticipationCoefficient> {
+public class MultiplexParticipationCoefficientTest extends ModelMetricTest<ListData<Double>> {
 
     @Override
     public ModelMetrics getMetric() {

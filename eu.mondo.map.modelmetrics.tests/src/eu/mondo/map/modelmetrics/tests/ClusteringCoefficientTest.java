@@ -7,10 +7,9 @@ import java.util.function.Consumer;
 
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.simple.ClusteringCoefficient;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>, ClusteringCoefficient> {
+public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>> {
 
     @Override
     public ModelMetrics getMetric() {

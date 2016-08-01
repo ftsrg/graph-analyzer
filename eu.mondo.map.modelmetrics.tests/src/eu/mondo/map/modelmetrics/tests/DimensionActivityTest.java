@@ -12,10 +12,9 @@ import org.testng.annotations.Test;
 
 import eu.mondo.map.base.data.MapData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.typed.DimensionActivity;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public class DimensionActivityTest extends ModelMetricTest<MapData<String, Integer>, DimensionActivity> {
+public class DimensionActivityTest extends ModelMetricTest<MapData<String, Integer>> {
 
     @Override
     public ModelMetrics getMetric() {

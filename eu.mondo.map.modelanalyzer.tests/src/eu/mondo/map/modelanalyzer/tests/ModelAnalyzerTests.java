@@ -12,12 +12,11 @@ import org.testng.annotations.Test;
 
 import eu.mondo.map.base.metrics.Metric;
 import eu.mondo.map.modelanalyzer.ModelAnalyzer;
-import eu.mondo.map.modelmetrics.AbstractModelMetric;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 
 public class ModelAnalyzerTests {
 
-    protected ModelAnalyzer<AbstractModelMetric<?>> analyzer;
+    protected ModelAnalyzer analyzer;
 
     public ModelAnalyzerTests() {
 	PropertyConfigurator.configure("src/log4j.properties");
@@ -26,7 +25,7 @@ public class ModelAnalyzerTests {
 
     @BeforeMethod
     public void init() {
-	analyzer = new ModelAnalyzer<>();
+	analyzer = new ModelAnalyzer();
     }
 
     protected void checkSize(int expected) {

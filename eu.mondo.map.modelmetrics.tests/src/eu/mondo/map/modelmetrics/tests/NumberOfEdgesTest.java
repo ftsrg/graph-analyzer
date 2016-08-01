@@ -6,10 +6,9 @@ import org.testng.Assert;
 
 import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.simple.NumberOfEdges;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public class NumberOfEdgesTest extends ModelMetricTest<ScalarData<Integer>, NumberOfEdges> {
+public class NumberOfEdgesTest extends ModelMetricTest<ScalarData<Integer>> {
 
     @Override
     public ModelMetrics getMetric() {

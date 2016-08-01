@@ -7,10 +7,9 @@ import java.util.function.Consumer;
 
 import eu.mondo.map.base.data.ListData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.typed.NodeActivity;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public class NodeActivityTest extends ModelMetricTest<ListData<Integer>, NodeActivity> {
+public class NodeActivityTest extends ModelMetricTest<ListData<Integer>> {
 
     @Override
     public ModelMetrics getMetric() {

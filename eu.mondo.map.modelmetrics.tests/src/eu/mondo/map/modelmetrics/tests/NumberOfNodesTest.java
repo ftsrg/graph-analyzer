@@ -6,10 +6,9 @@ import java.util.function.Consumer;
 
 import eu.mondo.map.base.data.ScalarData;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
-import eu.mondo.map.modelmetrics.impl.simple.NumberOfNodes;
 import eu.mondo.map.tests.model.TestModelTypes;
 
-public class NumberOfNodesTest extends ModelMetricTest<ScalarData<Integer>, NumberOfNodes> {
+public class NumberOfNodesTest extends ModelMetricTest<ScalarData<Integer>> {
 
     @Override
     public ModelMetrics getMetric() {

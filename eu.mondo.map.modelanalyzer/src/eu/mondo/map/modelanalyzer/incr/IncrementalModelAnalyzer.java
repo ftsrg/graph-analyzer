@@ -8,7 +8,7 @@ import eu.mondo.map.modelmetrics.ModelMetric;
 import eu.mondo.map.modelmetrics.impl.ModelMetrics;
 import eu.mondo.map.modelmetrics.incr.IncrementalModelEvaluator;
 
-public class IncrementalModelAnalyzer extends ModelAnalyzer<IncrementalModelEvaluator> {
+public class IncrementalModelAnalyzer extends ModelAnalyzer {
 
     @Override
     public IncrementalModelAnalyzer clear() {
@@ -35,7 +35,7 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer<IncrementalModelEval
 	Preconditions.checkState(metricObj instanceof IncrementalModelEvaluator,
 		"Metric " + metric.toString() + " must implement IncrementalModelEvaluator.");
 
-	addMetric(metric, (IncrementalModelEvaluator) metricObj, name);
+	addMetric(metric, metricObj, name);
     }
 
     @Override
