@@ -17,6 +17,8 @@
 
 	<modules>
 		<module>at.mschreiber.test.base</module>
+		<module>at.mschreiber.plugin1</module>
+		<module>at.mschreiber.plugin1.tests</module>
 		<module>hu.bme.mit.mba.base</module>
 		<module>hu.bme.mit.mba.modeladapters</module>
 		<module>hu.bme.mit.mba.modeladapters.emf</module>
