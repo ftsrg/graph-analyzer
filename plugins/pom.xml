@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>model-analyzer</groupId>
+	<artifactId>model-analyzer</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tycho.version>0.24.0</tycho.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<modules>
+		<module>hu.bme.mit.mba.base</module>
+		<module>hu.bme.mit.mba.modeladapter</module>
+		<module>hu.bme.mit.mba.modeladapters.emf</module>
+		<module>hu.bme.mit.mba.modeladapters.emf.tests</module>
+		<module>hu.bme.mit.mba.modeladapters.tests</module>
+		<module>hu.bme.mit.mba.modelanalyzer</module>
+		<module>hu.bme.mit.mba.modelanalyzer.tests</module>
+		<module>hu.bme.mit.mba.modelmetrics</module>
+		<module>hu.bme.mit.mba.modelmetrics.impl</module>
+		<module>hu.bme.mit.mba.modelmetrics.tests</module>
+		<module>hu.bme.mit.mba.modelmetrics.tests.emf</module>
+		<module>hu.bme.mit.mba.tests.model</module>
+		<module>hu.bme.mit.mba.tests.model.emf</module>
+	</modules>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<id>neon</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/releases/neon/</url>
+		</repository>
+		<repository>
+			<id>neon.update</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/eclipse/updates/4.5</url>
+		</repository>
+		<repository>
+			<id>orbit</id>
+			<layout>p2</layout>
+			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/</url>
+		</repository>
+		<repository>
+			<id>testng</id>
+			<layout>p2</layout>
+			<url>http://beust.com/eclipse</url>
+		</repository>
+	</repositories>
+
+</project>
