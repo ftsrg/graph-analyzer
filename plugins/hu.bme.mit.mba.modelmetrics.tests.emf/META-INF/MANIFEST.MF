@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ModelMetricsTestsEmf
+Bundle-SymbolicName: hu.bme.mit.mba.modelmetrics.tests.emf
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: hu.bme.mit.mba.modelmetrics.tests;bundle-version="1.0.0",
+ hu.bme.mit.mba.modeladapters.emf;bundle-version="1.0.0",
+ hu.bme.mit.mba.tests.model.emf;bundle-version="1.0.0",
+ hu.bme.mit.mba.tests.model,
+ hu.bme.mit.mba.base;bundle-version="1.0.0",
+ hu.bme.mit.mba.modelmetrics;bundle-version="1.0.0",
+ hu.bme.mit.mba.modelmetrics.impl;bundle-version="1.0.0",
+ hu.bme.mit.mba.modelanalyzer;bundle-version="1.0.0",
+ hu.bme.mit.mba.modeladapters.tests;bundle-version="1.0.0",
+ hu.bme.mit.mba.modeladapters;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.15"

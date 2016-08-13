@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Modelmetrics
+Bundle-SymbolicName: hu.bme.mit.mba.modelmetrics
+Bundle-Version: 1.0.0.qualifier
+Export-Package: hu.bme.mit.mba.modelmetrics,
+ hu.bme.mit.mba.modelmetrics.incr
+Require-Bundle: com.google.guava;bundle-version="15.0.0",
+ org.junit;bundle-version="4.11.0",
+ hu.bme.mit.mba.base;bundle-version="1.0.0",
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ hu.bme.mit.mba.modeladapters;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+

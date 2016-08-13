@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ModelMetricsImpl
+Bundle-SymbolicName: hu.bme.mit.mba.modelmetrics.impl
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: hu.bme.mit.mba.modelmetrics.impl,
+ hu.bme.mit.mba.modelmetrics.impl.simple,
+ hu.bme.mit.mba.modelmetrics.impl.typed
+Require-Bundle: hu.bme.mit.mba.modelmetrics;bundle-version="1.0.0",
+ hu.bme.mit.mba.base;bundle-version="1.0.0",
+ com.google.guava;bundle-version="15.0.0",
+ com.google.guava.source;bundle-version="15.0.0",
+ hu.bme.mit.mba.modeladapters;bundle-version="1.0.0",
+ org.apache.log4j;bundle-version="1.2.15"
