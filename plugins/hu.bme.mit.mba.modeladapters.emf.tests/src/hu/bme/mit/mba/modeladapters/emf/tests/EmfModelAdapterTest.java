@@ -6,14 +6,14 @@ import java.util.Map;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modeladapters.emf.EmfModelAdapter;
-import hu.bme.mit.mba.modeladapters.tests.ModelAdapterTests;
+import hu.bme.mit.mba.modeladapters.tests.ModelAdapterTest;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 import hu.bme.mit.mba.tests.model.emf.TestModelToNetworkConverter;
 import hu.bme.mit.mba.tests.model.emf.network.Node;
 import hu.bme.mit.mba.tests.model.emf.network.NodeContainer;
 
-public class EmfModelAdapterTests extends ModelAdapterTests {
+public class EmfModelAdapterTest extends ModelAdapterTest {
 
     EmfModelAdapter emfAdapter;
     private Map<String, Node> nodeMapping = new HashMap<>();

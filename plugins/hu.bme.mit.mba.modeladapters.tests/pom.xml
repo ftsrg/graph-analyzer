@@ -8,5 +8,5 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>hu.bme.mit.mba.modeladapters.tests</artifactId>
-	<packaging>eclipse-plugin</packaging>
+	<packaging>eclipse-test-plugin</packaging>
 </project>

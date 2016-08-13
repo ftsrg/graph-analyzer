@@ -23,7 +23,7 @@ import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 
-public class ModelAdapterTests {
+public class ModelAdapterTest {
 
     protected CustomTypedModelAdapter adapter;
     protected TestModel model;
