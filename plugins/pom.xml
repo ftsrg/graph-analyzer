@@ -16,6 +16,7 @@
 	</properties>
 
 	<modules>
+		<module>at.mschreiber.test.base</module>
 		<module>hu.bme.mit.mba.base</module>
 		<module>hu.bme.mit.mba.modeladapters</module>
 		<module>hu.bme.mit.mba.modeladapters.emf</module>
@@ -93,11 +94,11 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/</url>
 		</repository>
-		<repository>
+<!--		<repository>
 			<id>testng</id>
 			<layout>p2</layout>
 			<url>http://beust.com/eclipse</url>
-		</repository>
+		</repository>-->
 	</repositories>
 
 	<pluginRepositories>
