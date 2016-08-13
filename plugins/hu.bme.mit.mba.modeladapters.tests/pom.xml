@@ -9,5 +9,4 @@
 	</parent>
 	<artifactId>hu.bme.mit.mba.modeladapters.tests</artifactId>
 	<packaging>eclipse-plugin</packaging>
-
 </project>

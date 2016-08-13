@@ -10,4 +10,17 @@
 	<artifactId>hu.bme.mit.mba.modelmetrics.tests</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<providerHint>testng</providerHint>
+					<argLine>-ea</argLine>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
