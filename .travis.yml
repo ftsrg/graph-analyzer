@@ -3,4 +3,4 @@ jdk:
   - oraclejdk8
 script:
   - cd plugins
-  - mvn clean install
+  - mvn clean install --fail-at-end
