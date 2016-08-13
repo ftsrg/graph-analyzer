@@ -7,7 +7,7 @@
   	<artifactId>model-analyzer</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>hu.bme.mit.mba.modeladapter</artifactId>
+	<artifactId>hu.bme.mit.mba.modeladapters</artifactId>
 	<packaging>eclipse-plugin</packaging>
 
 </project>

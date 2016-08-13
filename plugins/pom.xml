@@ -17,7 +17,7 @@
 
 	<modules>
 		<module>hu.bme.mit.mba.base</module>
-		<module>hu.bme.mit.mba.modeladapter</module>
+		<module>hu.bme.mit.mba.modeladapters</module>
 		<module>hu.bme.mit.mba.modeladapters.emf</module>
 		<module>hu.bme.mit.mba.modeladapters.emf.tests</module>
 		<module>hu.bme.mit.mba.modeladapters.tests</module>
