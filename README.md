@@ -17,7 +17,5 @@ Required third-party plug-ins:
 To use MBA, clone the project and import the plugins directory to the workspace. Use the **Import -> Import as existing Projects into Workspace** option, select the `plugins/` directory and select the **Search for nested projects option** on the same page.
 
 
-### Use from source
-
 
 
