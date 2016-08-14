@@ -1,6 +1,6 @@
 # Metric Based Analyzer
 
-[![Build Status](https://travis-ci.org/FTSRG/model-analyzer.svg?branch=master)](https://travis-ci.org/FTSRG/model-analyzer)
+[![Build Status](https://travis-ci.org/FTSRG/model-analyzer.svg?branch=incremental)](https://travis-ci.org/FTSRG/model-analyzer)
 
 ## Prerequisites
 
