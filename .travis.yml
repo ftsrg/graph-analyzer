@@ -6,4 +6,4 @@ script:
   - mvn clean install --fail-at-end
   
 after_success:
-  - coveralls
+  - mvn coveralls:report

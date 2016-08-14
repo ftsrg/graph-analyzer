@@ -75,6 +75,13 @@
 					<argLine>-ea</argLine>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.2.0</version>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -94,11 +101,6 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20160520211859/repository/</url>
 		</repository>
-<!--		<repository>
-			<id>testng</id>
-			<layout>p2</layout>
-			<url>http://beust.com/eclipse</url>
-		</repository>-->
 	</repositories>
 
 	<pluginRepositories>
