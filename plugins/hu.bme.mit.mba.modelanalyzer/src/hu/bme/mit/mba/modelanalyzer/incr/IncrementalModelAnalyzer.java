@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 public class IncrementalModelAnalyzer extends ModelAnalyzer {
@@ -17,21 +17,26 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer {
   }
 
   @Override
-  public IncrementalModelAnalyzer use(ModelMetrics metric) {
+  public IncrementalModelAnalyzer use(ModelMetricsEnum metric) {
     super.use(metric);
     return this;
   }
 
   @Override
-  public IncrementalModelAnalyzer use(ModelMetrics metric, String name) {
+  public IncrementalModelAnalyzer use(ModelMetricsEnum metric, String name) {
     super.use(metric, name);
     return this;
   }
 
   @Override
-  protected void useMetric(ModelMetrics metric, String name) {
+  protected void useMetric(ModelMetricsEnum metric, String name) {
     checkNewMetric(metric);
-    ModelMetric metricObj = metric.instantiate();
+    ModelMetric metricObj;
+    try {
+      metricObj = metric.instantiate();
+    } catch (InstantiationException | IllegalAccessException e) {
+      throw new IllegalArgumentException("The parameter " + metric + " cannot be instantiated.", e);
+    }
     Preconditions.checkState(metricObj instanceof IncrementalModelEvaluator,
         "Metric " + metric.toString() + " must implement IncrementalModelEvaluator.");
 
@@ -45,7 +50,7 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer {
   }
 
   @Override
-  public IncrementalModelAnalyzer omit(ModelMetrics metric) {
+  public IncrementalModelAnalyzer omit(ModelMetricsEnum metric) {
     super.omit(metric);
     return this;
   }
@@ -57,7 +62,7 @@ public class IncrementalModelAnalyzer extends ModelAnalyzer {
   }
 
   @Override
-  public <N, T> IncrementalModelAnalyzer evaluate(ModelAdapter<N, T> adapter, ModelMetrics metric) {
+  public <N, T> IncrementalModelAnalyzer evaluate(ModelAdapter<N, T> adapter, ModelMetricsEnum metric) {
     super.evaluate(adapter, metric);
     return this;
   }

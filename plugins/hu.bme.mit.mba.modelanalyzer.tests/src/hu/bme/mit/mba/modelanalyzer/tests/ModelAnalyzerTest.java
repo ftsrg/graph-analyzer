@@ -1,7 +1,7 @@
 package hu.bme.mit.mba.modelanalyzer.tests;
 
-import static hu.bme.mit.mba.modelmetrics.impl.ModelMetrics.NumberOfEdges;
-import static hu.bme.mit.mba.modelmetrics.impl.ModelMetrics.NumberOfNodes;
+import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfEdges;
+import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfNodes;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -13,7 +13,8 @@ import org.testng.annotations.Test;
 
 import hu.bme.mit.mba.base.metrics.Metric;
 import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
+import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
 
 public class ModelAnalyzerTest {
 
@@ -34,10 +35,14 @@ public class ModelAnalyzerTest {
         AssertJUnit.assertEquals(expected, analyzer.getMetricsInOrder().size());
     }
 
-    protected void checkMetric(ModelMetrics metric) {
+    protected void checkMetric(ModelMetricsEnum metric) {
         Metric metricObject = analyzer.getMetric(metric);
         AssertJUnit.assertNotNull(metricObject);
-        AssertJUnit.assertTrue(metric.instantiate().getClass().isInstance(metricObject));
+        try {
+            AssertJUnit.assertTrue(metric.instantiate().getClass().isInstance(metricObject));
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test(enabled = false)
@@ -56,13 +61,29 @@ public class ModelAnalyzerTest {
     public void testUse() {
         analyzer.use(NumberOfEdges);
         checkSize(1);
+
+        analyzer.clear();
+        checkSize(0);
+
+        analyzer.use(new NumberOfEdges());
+        checkSize(1);
+        checkMetric(NumberOfEdges);
     }
 
     @Test
     public void testUseWithName() {
         String name = "CustomName";
         analyzer.use(NumberOfEdges, name);
-        AssertJUnit.assertEquals(name, analyzer.getMetric(ModelMetrics.NumberOfEdges).getName());
+        AssertJUnit.assertEquals(name, analyzer.getMetric(ModelMetricsEnum.NumberOfEdges).getName());
+
+        checkSize(1);
+        checkMetric(NumberOfEdges);
+
+        analyzer.clear();
+        analyzer.use(new NumberOfEdges(), name);
+        checkSize(1);
+        checkMetric(NumberOfEdges);
+        AssertJUnit.assertEquals(name, analyzer.getMetric(ModelMetricsEnum.NumberOfEdges).getName());
     }
 
     @Test
@@ -95,7 +116,7 @@ public class ModelAnalyzerTest {
     @Test
     public void testUseAll() {
         analyzer.useAll();
-        checkSize(ModelMetrics.values().length);
+        checkSize(ModelMetricsEnum.values().length);
 
         checkMetric(NumberOfNodes);
         checkMetric(NumberOfEdges);
@@ -122,16 +143,16 @@ public class ModelAnalyzerTest {
     @Test
     public void testOmitWithAll() {
         analyzer.useAll().omit(NumberOfNodes);
-        checkSize(ModelMetrics.values().length - 1);
+        checkSize(ModelMetricsEnum.values().length - 1);
         AssertJUnit.assertNull(analyzer.getMetric(NumberOfNodes));
 
         analyzer.clear().useAll().omit(NumberOfEdges);
 
-        checkSize(ModelMetrics.values().length - 1);
+        checkSize(ModelMetricsEnum.values().length - 1);
         AssertJUnit.assertNull(analyzer.getMetric(NumberOfEdges));
 
         analyzer.clear().useAll().omit(NumberOfNodes).omit(NumberOfEdges);
-        checkSize(ModelMetrics.values().length - 2);
+        checkSize(ModelMetricsEnum.values().length - 2);
     }
 
     @Test(enabled = false)

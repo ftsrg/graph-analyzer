@@ -13,13 +13,13 @@ import hu.bme.mit.mba.modelmetrics.impl.typed.NodeActivity;
 import hu.bme.mit.mba.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
 import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
 
-public enum ModelMetrics implements ModelMetricInitializer {
+public enum ModelMetricsEnum implements ModelMetricInitializer {
 
     ClusteringCoefficient {
 
         @Override
-        public ClusteringCoefficient instantiate() {
-            return new ClusteringCoefficient();
+        public Class<ClusteringCoefficient> getMetric() {
+            return ClusteringCoefficient.class;
         }
 
     },
@@ -27,8 +27,8 @@ public enum ModelMetrics implements ModelMetricInitializer {
     Degrees {
 
         @Override
-        public <N, T> Degrees instantiate() {
-            return new Degrees();
+        public Class<Degrees> getMetric() {
+            return Degrees.class;
         }
 
     },
@@ -36,8 +36,8 @@ public enum ModelMetrics implements ModelMetricInitializer {
     Density {
 
         @Override
-        public <N, T> Density instantiate() {
-            return new Density();
+        public Class<Density> getMetric() {
+            return Density.class;
         }
 
     },
@@ -45,8 +45,8 @@ public enum ModelMetrics implements ModelMetricInitializer {
     DimensionActivity {
 
         @Override
-        public <N, T> DimensionActivity instantiate() {
-            return new DimensionActivity();
+        public Class<DimensionActivity> getMetric() {
+            return DimensionActivity.class;
         }
 
     },
@@ -54,8 +54,8 @@ public enum ModelMetrics implements ModelMetricInitializer {
     MultiplexParticipationCoefficient {
 
         @Override
-        public <N, T> ModelMetric instantiate() {
-            return new MultiplexParticipationCoefficient();
+        public Class<MultiplexParticipationCoefficient> getMetric() {
+            return MultiplexParticipationCoefficient.class;
         }
 
     },
@@ -63,8 +63,8 @@ public enum ModelMetrics implements ModelMetricInitializer {
     NodeActivity {
 
         @Override
-        public <N, T> ModelMetric instantiate() {
-            return new NodeActivity();
+        public Class<NodeActivity> getMetric() {
+            return NodeActivity.class;
         }
 
     },
@@ -72,16 +72,16 @@ public enum ModelMetrics implements ModelMetricInitializer {
     NumberOfEdges {
 
         @Override
-        public NumberOfEdges instantiate() {
-            return new NumberOfEdges();
+        public Class<NumberOfEdges> getMetric() {
+            return NumberOfEdges.class;
         }
 
     },
     NumberOfNodes {
 
         @Override
-        public NumberOfNodes instantiate() {
-            return new NumberOfNodes();
+        public Class<NumberOfNodes> getMetric() {
+            return NumberOfNodes.class;
         }
 
     },
@@ -89,8 +89,8 @@ public enum ModelMetrics implements ModelMetricInitializer {
     OneTypedClusteringCoefficient {
 
         @Override
-        public <N, T> OneTypedClusteringCoefficient instantiate() {
-            return new OneTypedClusteringCoefficient();
+        public Class<OneTypedClusteringCoefficient> getMetric() {
+            return OneTypedClusteringCoefficient.class;
         }
 
     },
@@ -98,10 +98,20 @@ public enum ModelMetrics implements ModelMetricInitializer {
     PairwiseMultiplexity {
 
         @Override
-        public <N, T> ModelMetric instantiate() {
-            return new PairwiseMultiplexity();
+        public Class<PairwiseMultiplexity> getMetric() {
+            return PairwiseMultiplexity.class;
         }
 
+    };
+
+    public static ModelMetricsEnum getEnum(ModelMetric metric) {
+        for (ModelMetricsEnum m : values()) {
+            if (m.getMetric().isInstance(metric)) {
+                return m;
+            }
+        }
+        throw new IllegalArgumentException(
+                "Does not exist a value in ModelMetricsEnum that belongs to metric " + metric);
     }
 
 }

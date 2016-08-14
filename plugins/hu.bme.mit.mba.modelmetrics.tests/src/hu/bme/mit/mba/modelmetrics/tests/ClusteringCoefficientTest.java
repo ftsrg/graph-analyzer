@@ -6,14 +6,14 @@ import static hu.bme.mit.mba.base.testutils.ListDataTesterUtil.checkSize;
 import java.util.function.Consumer;
 
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 
 public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>> {
 
     @Override
-    public ModelMetrics getMetric() {
-        return ModelMetrics.ClusteringCoefficient;
+    public ModelMetricsEnum getMetric() {
+        return ModelMetricsEnum.ClusteringCoefficient;
     }
 
     protected Object[] testCase(TestModelTypes modelType) {

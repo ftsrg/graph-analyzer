@@ -22,10 +22,9 @@ public abstract class Analyzer<K, V extends Metric> {
     }
 
     /**
-     * <p>
-     * Removes every metric that were added to this class by clearing the
-     * <em>metrics</em> collection.
-     * </p>
+     * Removes every metric that were added to this class.
+     * 
+     * @return this
      */
     public Analyzer<K, V> clear() {
         metrics.clear();

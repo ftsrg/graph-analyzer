@@ -5,14 +5,14 @@ import static org.testng.Assert.assertEquals;
 import java.util.function.Consumer;
 
 import hu.bme.mit.mba.base.data.ScalarData;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 
 public class NumberOfNodesTest extends ModelMetricTest<ScalarData<Integer>> {
 
     @Override
-    public ModelMetrics getMetric() {
-        return ModelMetrics.NumberOfNodes;
+    public ModelMetricsEnum getMetric() {
+        return ModelMetricsEnum.NumberOfNodes;
     }
 
     @Override

@@ -5,14 +5,14 @@ import java.util.function.Consumer;
 import org.testng.Assert;
 
 import hu.bme.mit.mba.base.data.ScalarData;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 
 public class NumberOfEdgesTest extends ModelMetricTest<ScalarData<Integer>> {
 
     @Override
-    public ModelMetrics getMetric() {
-        return ModelMetrics.NumberOfEdges;
+    public ModelMetricsEnum getMetric() {
+        return ModelMetricsEnum.NumberOfEdges;
     }
 
     @Override

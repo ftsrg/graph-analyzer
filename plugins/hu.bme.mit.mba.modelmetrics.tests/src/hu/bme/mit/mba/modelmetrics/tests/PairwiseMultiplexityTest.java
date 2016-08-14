@@ -10,14 +10,14 @@ import java.util.function.Consumer;
 import org.testng.Assert;
 
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 
 public class PairwiseMultiplexityTest extends ModelMetricTest<MapData<String, Double>> {
 
     @Override
-    public ModelMetrics getMetric() {
-        return ModelMetrics.PairwiseMultiplexity;
+    public ModelMetricsEnum getMetric() {
+        return ModelMetricsEnum.PairwiseMultiplexity;
     }
 
     @Override

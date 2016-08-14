@@ -8,20 +8,17 @@ import static hu.bme.mit.mba.tests.model.ModelContext.dim3;
 
 import java.util.function.Consumer;
 
-import org.testng.annotations.Test;
-
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 
 public class DimensionActivityTest extends ModelMetricTest<MapData<String, Integer>> {
 
     @Override
-    public ModelMetrics getMetric() {
-        return ModelMetrics.DimensionActivity;
+    public ModelMetricsEnum getMetric() {
+        return ModelMetricsEnum.DimensionActivity;
     }
 
-    @Test
     @Override
     protected Object[] testCase(TestModelTypes modelType) {
         Consumer<MapData<String, Integer>> checker = (data) -> {

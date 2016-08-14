@@ -14,7 +14,7 @@ import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modeladapters.tests.CustomTypedModelAdapter;
 import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 
@@ -27,7 +27,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     protected final Logger logger = Logger.getLogger(this.getClass());
 
-    public abstract ModelMetrics getMetric();
+    public abstract ModelMetricsEnum getMetric();
 
     @DataProvider
     public Object[][] data() {
@@ -51,7 +51,8 @@ public abstract class ModelMetricTest<D extends BaseData> {
     }
 
     @Test(dataProvider = "data")
-    public void testEvaluation(TestModelTypes modelType, Consumer<D> checker) {
+    public void testEvaluation(TestModelTypes modelType, Consumer<D> checker)
+            throws InstantiationException, IllegalAccessException {
         metric = getMetric().instantiate();
         initData();
         initModel(modelType);
@@ -63,7 +64,8 @@ public abstract class ModelMetricTest<D extends BaseData> {
     }
 
     @Test(dataProvider = "data")
-    public void testEvaluationWithAnalyzer(TestModelTypes modelType, Consumer<D> checker) {
+    public void testEvaluationWithAnalyzer(TestModelTypes modelType, Consumer<D> checker)
+            throws InstantiationException, IllegalAccessException {
         initModel(modelType);
         ModelAnalyzer analyzer = new ModelAnalyzer();
         analyzer.use(getMetric());
@@ -75,6 +77,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
         evaluateAndCheck(checker, analyzer, getMetric());
 
         analyzer.clear();
+        analyzer.use(getMetric().instantiate());
         evaluateAndCheck(checker, analyzer);
     }
 
@@ -133,7 +136,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
         checker.accept(data);
     }
 
-    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer analyzer, ModelMetrics metricType) {
+    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer analyzer, ModelMetricsEnum metricType) {
         analyzer.evaluate(adapter, getMetric());
         checker.accept(data);
     }

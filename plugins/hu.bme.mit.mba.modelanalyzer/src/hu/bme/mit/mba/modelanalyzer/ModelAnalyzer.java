@@ -11,7 +11,7 @@ import hu.bme.mit.mba.base.metrics.Metric;
 import hu.bme.mit.mba.base.metrics.SummaryMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetrics;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 
 public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
 
@@ -24,11 +24,9 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
   }
 
   /**
-   * <p>
-   * Adds the parameter metric (see {@link ModelMetrics}) to the metrics collection which will be
-   * used in the analysis. Throws IllegalStateException if the metric was already added to this
+   * Adds the parameter metric (see {@link ModelMetricsEnum}) to the metrics collection which will
+   * be used in the analysis. Throws IllegalStateException if the metric was already added to this
    * class.
-   * </p>
    * 
    * @param metric
    *          represents the metric
@@ -36,20 +34,18 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
    *           if metric was already added
    * @return this
    */
-  public ModelAnalyzer use(ModelMetrics metric) {
+  public ModelAnalyzer use(ModelMetricsEnum metric) {
     useMetric(metric, null);
     return this;
   }
 
   /**
-   * <p>
-   * Adds the parameter metric (see {@link ModelMetrics}) to the <em>metrics</em> collection which
-   * will be used in the analysis. The metric is identified by the given name parameter. Throws
-   * IllegalStateException if the metric was already added to this class.
-   * </p>
+   * Adds the parameter metric (see {@link ModelMetricsEnum}) to the <em>metrics</em> collection
+   * which will be used in the analysis. The metric is identified by the given name parameter.
+   * Throws IllegalStateException if the metric was already added to this class.
    * 
    * @param metric
-   *          {@link ModelMetrics}
+   *          {@link ModelMetricsEnum}
    * 
    * @param name
    *          String, represents the name of the metric
@@ -58,69 +54,48 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
    * 
    * @return this
    */
-  public ModelAnalyzer use(ModelMetrics metric, String name) {
+  public ModelAnalyzer use(ModelMetricsEnum metric, String name) {
     useMetric(metric, name);
     return this;
   }
 
-  // /**
-  // * <p>
-  // * Adds the parameter metric (see {@link Metric}) to the <em>metrics</em>
-  // * collection which will be used in the analysis.
-  // * </p>
-  // *
-  // * @param metric
-  // * {@link Metric} object
-  // * @return this
-  // */
-  // public ModelAnalyzer use(Metric metric) {
-  // metrics.put(metric.getName(), metric);
-  // return this;
-  // }
-
-  // /**
-  // * <p>
-  // * Adds the parameter metric (see {@link Metric}) to the <em>metrics</em>
-  // * collection which will be used in the analysis. The metric is identified
-  // * by the given name parameter.
-  // * </p>
-  // *
-  // * @param metric
-  // * {@link Metric} object
-  // * @param name
-  // * String, represents the name of the metric
-  // *
-  // * @return this
-  // */
-  // public ModelAnalyzer use(Metric metric, String name) {
-  // metric.setName(name);
-  // metrics.put(metric.getName(), metric);
-  // return this;
-  // }
-
-  protected void useMetric(ModelMetrics metric, String name) {
-    checkNewMetric(metric);
-    addMetric(metric, metric.instantiate(), name);
+  public ModelAnalyzer use(ModelMetric metric) {
+    ModelMetricsEnum metricEnum = ModelMetricsEnum.getEnum(metric);
+    checkNewMetric(metricEnum);
+    addMetric(metricEnum, metric, metric.getName());
+    return this;
   }
 
-  protected void checkNewMetric(ModelMetrics metric) {
+  public ModelAnalyzer use(ModelMetric metric, String name) {
+    metric.setName(name);
+    return use(metric);
+  }
+
+  protected void useMetric(ModelMetricsEnum metric, String name) {
+    checkNewMetric(metric);
+    try {
+      addMetric(metric, metric.instantiate(), name);
+    } catch (InstantiationException | IllegalAccessException e) {
+      throw new IllegalArgumentException("The parameter " + metric + " cannot be instantiated.", e);
+    }
+  }
+
+  protected void checkNewMetric(ModelMetricsEnum metric) {
     checkState(!metrics.containsKey(metric.toString()),
         "The metric " + metric.toString() + " was already added to the analyzer.");
   }
 
-  protected void addMetric(ModelMetrics metric, ModelMetric metricObj, String name) {
+  protected void addMetric(ModelMetricsEnum metric, ModelMetric metricObj, String name) {
     if (name != null) {
       metricObj.setName(name);
     }
     metrics.put(metric.toString(), metricObj);
-    logger.info("Use metric for the analysis: " + metric.toString());
+    logger.info("Use metric for the analysis: " + metricObj.getName());
   }
 
   /**
-   * <p>
-   * Adds all of the metrics that are in {@link ModelMetrics}. It must be guaranteed that other
+   * Adds all of the metrics that are in {@link ModelMetricsEnum}. It must be guaranteed that other
    * metric was not added before and the <em>metrics</em> collection is empty.
-   * </p>
    * 
    * @throws IllegalStateException
    *           if at least one metric was added before
@@ -129,7 +104,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
    */
   public ModelAnalyzer useAll() {
     checkEmptyMetrics();
-    for (ModelMetrics m : ModelMetrics.values()) {
+    for (ModelMetricsEnum m : ModelMetricsEnum.values()) {
       useMetric(m, null);
     }
     return this;
@@ -140,7 +115,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
         "The ModelAnalyzer already contains metrics, so the useAll function cannot be used.");
   }
 
-  public ModelAnalyzer useSummary(SummaryMetric<?, ?> summary) {
+  private ModelAnalyzer useSummary(SummaryMetric<?, ?> summary) {
     // checkArgument(metrics.containsKey(metric.toString()),
     // "The " + metric.toString() + " should be contained by the
     // ModelAnalyzer");
@@ -149,19 +124,17 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
   }
 
   /**
-   * <p>
-   * Removes the metric parameter (see {@link ModelMetrics}) from the <em>metrics</em> collection.
-   * As a result, the metric won't be calculated during the analysis.
-   * </p>
+   * Removes the metric parameter (see {@link ModelMetricsEnum}) from the <em>metrics</em>
+   * collection. As a result, the metric won't be calculated during the analysis.
    * 
    * @param metric
-   *          {@link ModelMetrics} value
+   *          {@link ModelMetricsEnum} value
    * 
    * @throws IllegalStateException
    *           if the <em>metrics</em> collection is empty
    * @return this
    */
-  public ModelAnalyzer omit(ModelMetrics metric) {
+  public ModelAnalyzer omit(ModelMetricsEnum metric) {
     checkState(!metrics.isEmpty(), "The ModelAnalyzer should contain metrics to omit "
         + metric.toString() + " from the analysis, but it is empty.");
     if (!metrics.containsKey(metric.toString())) {
@@ -175,27 +148,23 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
   }
 
   /**
-   * <p>
-   * Returns a {@link Metric} object which is mapped to the {@link ModelMetrics} parameter and
+   * Returns a {@link Metric} object which is mapped to the {@link ModelMetricsEnum} parameter and
    * contained by the ModelAnalyzer. If there is not any {@link Metric} object, returns
    * <strong>null</strong>.
-   * </p>
    * 
    * @param metric
-   *          {@link ModelMetrics} value
+   *          {@link ModelMetricsEnum} value
    * 
    * @return {@link Metric} object or <strong>null</strong>
    */
-  public ModelMetric getMetric(ModelMetrics metric) {
+  public ModelMetric getMetric(ModelMetricsEnum metric) {
     return metrics.get(metric.toString());
   }
 
   /**
-   * <p>
    * Evaluates every metric ({@link Metric}) which were added for the analysis. The calculations are
    * evaluated in the insertion order of metrics. The adapter parameter ({@link ModelAdapter})
    * provides the necessary interface for the calculations.
-   * </p>
    * 
    * @param adapter
    *          instance of {@link ModelAdapter}
@@ -212,21 +181,19 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
   }
 
   /**
-   * <p>
-   * Evaluates the given {@link Metric} identified by the {@link ModelMetrics} parameter. The
+   * Evaluates the given {@link Metric} identified by the {@link ModelMetricsEnum} parameter. The
    * adapter parameter ({@link ModelAdapter}) provides the necessary interface for the calculations.
-   * </p>
    * 
    * @param adapter
    *          instance of {@link ModelAdapter}
    * @param metric
-   *          value in {@link ModelMetrics}, identifies the {@link Metric} to evaluate
+   *          value in {@link ModelMetricsEnum}, identifies the {@link Metric} to evaluate
    * @param <N>
    *          type of the model
    * 
    * @return this
    */
-  public <N, T> ModelAnalyzer evaluate(final ModelAdapter<N, T> adapter, ModelMetrics metric) {
+  public <N, T> ModelAnalyzer evaluate(final ModelAdapter<N, T> adapter, ModelMetricsEnum metric) {
     ModelMetric metricObj = getMetric(metric);
     Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.",
         metricObj);
@@ -236,12 +203,10 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
   }
 
   /**
-   * <p>
    * Runs a preliminary validation to check whether every metric requirement is provided by the
    * adapter parameter or not (see {@link ModelAdapter}). Throws an {@link IllegalStateException} if
    * the adapter parameter does not implement an interface that is required by the evaluation of at
    * least one metric.
-   * </p>
    * 
    * @param <N>
    *          type of the model
@@ -252,7 +217,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
    * 
    * @return this
    */
-  public ModelAnalyzer validate(final ModelAdapter<?, ?> adapter) {
+  private ModelAnalyzer validate(final ModelAdapter<?, ?> adapter) {
     throw new UnsupportedOperationException("Not implemented yet");
     // return this;
   }
