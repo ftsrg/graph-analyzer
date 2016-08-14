@@ -13,12 +13,12 @@ public abstract class Analyzer<K, V extends Metric> {
     protected Map<K, V> metrics;
 
     public Analyzer() {
-	metrics = new LinkedHashMap<>();
+        metrics = new LinkedHashMap<>();
     }
 
     @Override
     public String toString() {
-	return "Analyzer [metrics=" + metrics + "]";
+        return "Analyzer [metrics=" + metrics + "]";
     }
 
     /**
@@ -28,12 +28,12 @@ public abstract class Analyzer<K, V extends Metric> {
      * </p>
      */
     public Analyzer<K, V> clear() {
-	metrics.clear();
-	return this;
+        metrics.clear();
+        return this;
     }
 
     public Map<K, V> getMetrics() {
-	return metrics;
+        return metrics;
     }
 
     /**
@@ -45,7 +45,7 @@ public abstract class Analyzer<K, V extends Metric> {
      * @return metrics in insertion order
      */
     public List<V> getMetricsInOrder() {
-	return Lists.newArrayList(metrics.values());
+        return Lists.newArrayList(metrics.values());
     }
 
 }

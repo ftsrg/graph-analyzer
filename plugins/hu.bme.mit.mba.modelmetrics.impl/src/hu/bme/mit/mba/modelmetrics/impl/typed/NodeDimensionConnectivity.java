@@ -13,7 +13,7 @@ import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<String, Double>> {
 
     public NodeDimensionConnectivity() {
-	super("NodeDimensionConnectivity", new MapData<>());
+        super("NodeDimensionConnectivity", new MapData<>());
     }
 
     // /**
@@ -93,14 +93,14 @@ public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-	for (T type : typedAdapter.getTypes()) {
-	    evaluate(typedAdapter, type);
-	}
+        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+        for (T type : typedAdapter.getTypes()) {
+            evaluate(typedAdapter, type);
+        }
     }
 
     protected <N, T> void evaluate(final TypedModelAdapter<N, T> adapter, final T type) {
-	data.put(type.toString(), (double) adapter.getNumberOfNodes(type) / adapter.getNumberOfNodes());
+        data.put(type.toString(), (double) adapter.getNumberOfNodes(type) / adapter.getNumberOfNodes());
     }
 
 }

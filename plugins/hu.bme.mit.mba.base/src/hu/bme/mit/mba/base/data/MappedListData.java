@@ -9,33 +9,33 @@ public class MappedListData<K, V extends Number> implements BaseData {
     protected ListMultimap<K, V> typedValues;
 
     public MappedListData() {
-	typedValues = ArrayListMultimap.create();
+        typedValues = ArrayListMultimap.create();
     }
 
     public ListMultimap<K, V> getValues() {
-	return typedValues;
+        return typedValues;
     }
 
     public void setTypedValues(ListMultimap<K, V> typedValues) {
-	this.typedValues = typedValues;
+        this.typedValues = typedValues;
     }
 
     @Override
     public void clear() {
-	typedValues.clear();
+        typedValues.clear();
     }
 
     public boolean put(K key, V value) {
-	return typedValues.put(key, value);
+        return typedValues.put(key, value);
     }
 
     public boolean putAll(Multimap<? extends K, ? extends V> multimap) {
-	return typedValues.putAll(multimap);
+        return typedValues.putAll(multimap);
     }
 
     @Override
     public String toString() {
-	return "MappedListData [typedValues=" + typedValues + "]";
+        return "MappedListData [typedValues=" + typedValues + "]";
     }
 
 }

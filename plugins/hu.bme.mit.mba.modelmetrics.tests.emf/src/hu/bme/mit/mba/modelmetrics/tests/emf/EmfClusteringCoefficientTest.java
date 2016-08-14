@@ -7,7 +7,7 @@ public class EmfClusteringCoefficientTest extends ClusteringCoefficientTest {
 
     @Override
     protected void initModel(TestModelTypes modelType) {
-	testModel = modelType.init();
-	adapter = EmfAdapterInitializer.getAdapter(testModel);
+        testModel = modelType.init();
+        adapter = EmfAdapterInitializer.getAdapter(testModel);
     }
 }

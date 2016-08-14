@@ -14,77 +14,77 @@ public class ModelIndexer<N, T> {
     protected int numberOfAddedNodes;
 
     public ModelIndexer() {
-	nodeIndex = HashBasedTable.create();
-	typeIndex = HashBasedTable.create();
-	numberOfAddedEdges = 0;
-	numberOfAddedNodes = 0;
+        nodeIndex = HashBasedTable.create();
+        typeIndex = HashBasedTable.create();
+        numberOfAddedEdges = 0;
+        numberOfAddedNodes = 0;
     }
 
     public boolean isAdjacent(final N source, final N target) {
-	return nodeIndex.contains(source, target);
+        return nodeIndex.contains(source, target);
     }
 
     public boolean isAdjacentBidirectional(final N source, final N target) {
-	return isAdjacent(source, target) || isAdjacent(target, source);
+        return isAdjacent(source, target) || isAdjacent(target, source);
     }
 
     protected void newNode(final N node) {
-	if (!nodeIndex.containsColumn(node) && !nodeIndex.containsRow(node)) {
-	    numberOfAddedNodes++;
-	}
+        if (!nodeIndex.containsColumn(node) && !nodeIndex.containsRow(node)) {
+            numberOfAddedNodes++;
+        }
     }
 
     public void addEdge(final T type, final N sourceNode, final N targetNode) {
-	newNode(sourceNode);
-	if (sourceNode != targetNode) {
-	    newNode(targetNode);
-	}
-	if (!nodeIndex.contains(sourceNode, targetNode)) {
-	    Set<T> dimSet = new HashSet<T>();
-	    dimSet.add(type);
-	    nodeIndex.put(sourceNode, targetNode, dimSet);
-	} else {
-	    Set<T> dimSet = nodeIndex.get(sourceNode, targetNode);
-	    dimSet.add(type);
-	    nodeIndex.put(sourceNode, targetNode, dimSet);
-	}
-	numberOfAddedEdges++;
+        newNode(sourceNode);
+        if (sourceNode != targetNode) {
+            newNode(targetNode);
+        }
+        if (!nodeIndex.contains(sourceNode, targetNode)) {
+            Set<T> dimSet = new HashSet<T>();
+            dimSet.add(type);
+            nodeIndex.put(sourceNode, targetNode, dimSet);
+        } else {
+            Set<T> dimSet = nodeIndex.get(sourceNode, targetNode);
+            dimSet.add(type);
+            nodeIndex.put(sourceNode, targetNode, dimSet);
+        }
+        numberOfAddedEdges++;
 
-	putNodeOnType(type, sourceNode);
-	putNodeOnType(type, targetNode);
+        putNodeOnType(type, sourceNode);
+        putNodeOnType(type, targetNode);
     }
 
     protected void putNodeOnType(final T type, final N node) {
-	if (!typeIndex.contains(type, node)) {
-	    typeIndex.put(type, node, 1);
-	} else {
-	    int occurrence = typeIndex.get(type, node);
-	    occurrence++;
-	    typeIndex.put(type, node, occurrence);
-	}
+        if (!typeIndex.contains(type, node)) {
+            typeIndex.put(type, node, 1);
+        } else {
+            int occurrence = typeIndex.get(type, node);
+            occurrence++;
+            typeIndex.put(type, node, occurrence);
+        }
     }
 
     public void clear() {
-	nodeIndex.clear();
-	typeIndex.clear();
-	numberOfAddedEdges = 0;
-	numberOfAddedNodes = 0;
+        nodeIndex.clear();
+        typeIndex.clear();
+        numberOfAddedEdges = 0;
+        numberOfAddedNodes = 0;
     }
 
     public Table<N, N, Set<T>> getNodeIndex() {
-	return nodeIndex;
+        return nodeIndex;
     }
 
     public Table<T, N, Integer> getTypeIndex() {
-	return typeIndex;
+        return typeIndex;
     }
 
     public int getNumberOfAddedEdges() {
-	return numberOfAddedEdges;
+        return numberOfAddedEdges;
     }
 
     public int getNumberOfAddedNodes() {
-	return numberOfAddedNodes;
+        return numberOfAddedNodes;
     }
 
 }

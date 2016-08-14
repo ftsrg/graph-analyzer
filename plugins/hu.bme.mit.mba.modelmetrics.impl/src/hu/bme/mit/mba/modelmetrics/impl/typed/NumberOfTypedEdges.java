@@ -8,7 +8,7 @@ import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Integer>> {
 
     public NumberOfTypedEdges() {
-	super("NumberOfTypedEdges", new MapData<>());
+        super("NumberOfTypedEdges", new MapData<>());
     }
 
     // public void calculate(final Network<?> network) {
@@ -25,15 +25,15 @@ public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Inte
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-	for (T type : typedAdapter.getTypes()) {
-	    int sumOfEdges = 0;
-	    for (N node : typedAdapter.getNodes(type)) {
-		sumOfEdges += typedAdapter.getDegree(node, type);
-	    }
-	    sumOfEdges /= 2;
-	    data.put(type.toString(), sumOfEdges);
-	}
+        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+        for (T type : typedAdapter.getTypes()) {
+            int sumOfEdges = 0;
+            for (N node : typedAdapter.getNodes(type)) {
+                sumOfEdges += typedAdapter.getDegree(node, type);
+            }
+            sumOfEdges /= 2;
+            data.put(type.toString(), sumOfEdges);
+        }
     }
 
 }

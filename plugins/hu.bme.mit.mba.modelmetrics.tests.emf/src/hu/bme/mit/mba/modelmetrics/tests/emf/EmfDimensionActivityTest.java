@@ -7,8 +7,8 @@ public class EmfDimensionActivityTest extends DimensionActivityTest {
 
     @Override
     protected void initModel(TestModelTypes modelType) {
-	testModel = modelType.init();
-	adapter = EmfAdapterInitializer.getAdapter(testModel);
+        testModel = modelType.init();
+        adapter = EmfAdapterInitializer.getAdapter(testModel);
     }
 
 }

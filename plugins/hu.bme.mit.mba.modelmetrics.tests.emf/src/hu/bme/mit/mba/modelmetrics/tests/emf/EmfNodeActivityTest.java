@@ -7,8 +7,8 @@ public class EmfNodeActivityTest extends NodeActivityTest {
 
     @Override
     protected void initModel(TestModelTypes modelType) {
-	testModel = modelType.init();
-	adapter = EmfAdapterInitializer.getAdapter(testModel);
+        testModel = modelType.init();
+        adapter = EmfAdapterInitializer.getAdapter(testModel);
     }
 
 }

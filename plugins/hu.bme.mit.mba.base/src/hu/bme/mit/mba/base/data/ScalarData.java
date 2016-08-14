@@ -5,21 +5,21 @@ public class ScalarData<V extends Number> implements BaseData {
     protected V value;
 
     public V getValue() {
-	return value;
+        return value;
     }
 
     public void setValue(final V value) {
-	this.value = value;
+        this.value = value;
     }
 
     @Override
     public void clear() {
-	value = null;
+        value = null;
     }
 
     @Override
     public String toString() {
-	return "ScalarData [value=" + value + "]";
+        return "ScalarData [value=" + value + "]";
     }
 
 }

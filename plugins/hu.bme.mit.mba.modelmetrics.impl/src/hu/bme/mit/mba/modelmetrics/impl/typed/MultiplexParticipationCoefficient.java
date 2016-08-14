@@ -8,15 +8,15 @@ import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListData<Double>>
-	implements IncrementalModelEvaluator {
+        implements IncrementalModelEvaluator {
 
     public MultiplexParticipationCoefficient() {
-	super("MultiplexParticipationCoefficient", new ListData<>());
+        super("MultiplexParticipationCoefficient", new ListData<>());
     }
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-	evaluateEveryNode(adapter);
+        evaluateEveryNode(adapter);
     }
 
     // TODO delete later
@@ -25,58 +25,58 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
 
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 
-	int numOfDimensions = 0;
-	if (exclusive) {
-	    numOfDimensions = typedAdapter.getNumberOfTypes(element);
-	} else {
-	    numOfDimensions = typedAdapter.getNumberOfTypes();
-	}
+        int numOfDimensions = 0;
+        if (exclusive) {
+            numOfDimensions = typedAdapter.getNumberOfTypes(element);
+        } else {
+            numOfDimensions = typedAdapter.getNumberOfTypes();
+        }
 
-	double coef = 0.0;
-	if (numOfDimensions == 1) {
-	    coef = 0.0;
-	} else {
-	    for (T type : typedAdapter.getTypes(element)) {
-		coef += Math.pow(typedAdapter.getDegree(element, type) / (double) typedAdapter.getDegree(element), 2.0);
-	    }
-	    coef = 1 - coef;
-	    coef = coef * numOfDimensions / (numOfDimensions - 1);
-	}
+        double coef = 0.0;
+        if (numOfDimensions == 1) {
+            coef = 0.0;
+        } else {
+            for (T type : typedAdapter.getTypes(element)) {
+                coef += Math.pow(typedAdapter.getDegree(element, type) / (double) typedAdapter.getDegree(element), 2.0);
+            }
+            coef = 1 - coef;
+            coef = coef * numOfDimensions / (numOfDimensions - 1);
+        }
 
-	data.add(coef);
-	updateTracing(element, coef);
+        data.add(coef);
+        updateTracing(element, coef);
     }
 
     @Override
     public <N, T> void trace() {
-	tracing = new MapData<N, Double>();
+        tracing = new MapData<N, Double>();
     }
 
     @Override
     public <N, T> MapData<N, Double> getTracing() {
-	return (MapData<N, Double>) tracing;
+        return (MapData<N, Double>) tracing;
     }
 
     protected <N, T> void updateTracing(N node, Double value) {
-	if (notNullTracing()) {
-	    getTracing().put(node, value);
-	}
+        if (notNullTracing()) {
+            getTracing().put(node, value);
+        }
     }
 
     @Override
     public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-	reevaluate(adapter, type, sourceNode);
-	reevaluate(adapter, type, targetNode);
+        reevaluate(adapter, type, sourceNode);
+        reevaluate(adapter, type, targetNode);
     }
 
     protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, T type, N node) {
-	if (!getTracing().containsKey(node)) {
-	    updateTracing(node, 0.0);
-	} else {
-	    evaluate(adapter, node);
-	}
+        if (!getTracing().containsKey(node)) {
+            updateTracing(node, 0.0);
+        } else {
+            evaluate(adapter, node);
+        }
     }
 
 }

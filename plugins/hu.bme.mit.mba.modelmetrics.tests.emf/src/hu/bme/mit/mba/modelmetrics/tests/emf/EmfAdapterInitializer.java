@@ -8,11 +8,11 @@ import hu.bme.mit.mba.tests.model.emf.network.NodeContainer;
 public class EmfAdapterInitializer {
 
     public static EmfModelAdapter getAdapter(TestModel testModel) {
-	NodeContainer container = new TestModelToNetworkConverter().convert(testModel);
-	EmfModelAdapter emfAdapter = new EmfModelAdapter();
-	emfAdapter.init(container);
+        NodeContainer container = new TestModelToNetworkConverter().convert(testModel);
+        EmfModelAdapter emfAdapter = new EmfModelAdapter();
+        emfAdapter.init(container);
 
-	return emfAdapter;
+        return emfAdapter;
     }
 
 }

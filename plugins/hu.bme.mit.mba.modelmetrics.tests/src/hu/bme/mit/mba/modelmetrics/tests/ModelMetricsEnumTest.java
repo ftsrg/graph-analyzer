@@ -9,9 +9,9 @@ public class ModelMetricsEnumTest {
 
     @Test
     public void testMetricsEnum() {
-	for (ModelMetrics metric : ModelMetrics.values()) {
-	    AssertJUnit.assertNotNull("Cannot instantiate: " + metric.toString(), metric.instantiate());
-	}
+        for (ModelMetrics metric : ModelMetrics.values()) {
+            AssertJUnit.assertNotNull("Cannot instantiate: " + metric.toString(), metric.instantiate());
+        }
     }
 
 }

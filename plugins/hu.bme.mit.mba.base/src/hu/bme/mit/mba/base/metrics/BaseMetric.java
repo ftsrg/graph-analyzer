@@ -9,33 +9,33 @@ public abstract class BaseMetric<D extends BaseData> implements Metric {
     protected String defaultName;
 
     public BaseMetric(final String defaultName) {
-	this.defaultName = defaultName;
-	name = defaultName;
+        this.defaultName = defaultName;
+        name = defaultName;
     }
 
     @Override
     public String getDefaultName() {
-	return defaultName;
+        return defaultName;
     }
 
     @Override
     public String getName() {
-	return name;
+        return name;
     }
 
     @Override
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     @Override
     public void clear() {
-	data.clear();
+        data.clear();
     }
 
     @Override
     public D getData() {
-	return data;
+        return data;
     }
 
 }

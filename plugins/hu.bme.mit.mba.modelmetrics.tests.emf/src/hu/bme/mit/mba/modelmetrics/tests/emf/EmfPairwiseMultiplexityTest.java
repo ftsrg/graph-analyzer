@@ -7,8 +7,8 @@ public class EmfPairwiseMultiplexityTest extends PairwiseMultiplexityTest {
 
     @Override
     protected void initModel(TestModelTypes modelType) {
-	testModel = modelType.init();
-	adapter = EmfAdapterInitializer.getAdapter(testModel);
+        testModel = modelType.init();
+        adapter = EmfAdapterInitializer.getAdapter(testModel);
     }
 
 }

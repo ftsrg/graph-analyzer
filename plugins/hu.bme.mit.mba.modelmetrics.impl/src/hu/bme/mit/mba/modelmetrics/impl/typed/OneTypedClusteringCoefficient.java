@@ -8,10 +8,10 @@ import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedListData<String, Double>>
-	implements IncrementalModelEvaluator {
+        implements IncrementalModelEvaluator {
 
     public OneTypedClusteringCoefficient() {
-	super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
+        super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
     }
 
     // public void calculate(final Network<N> network) {
@@ -79,7 +79,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-	evaluateEveryNode(adapter);
+        evaluateEveryNode(adapter);
     }
 
     // TODO delete later
@@ -88,72 +88,72 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
 
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-	// long interConnected = 0;
-	// long numberOfNeighbors = 0;
-	for (T type : typedAdapter.getTypes(element)) {
-	    evaluate(typedAdapter, element, type);
-	}
+        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+        // long interConnected = 0;
+        // long numberOfNeighbors = 0;
+        for (T type : typedAdapter.getTypes(element)) {
+            evaluate(typedAdapter, element, type);
+        }
     }
 
     protected <T, N, M> void evaluate(TypedModelAdapter<N, T> typedAdapter, N element, T type) {
-	long interConnected = 0;
-	long numberOfNeighbors = 0;
-	numberOfNeighbors = typedAdapter.getDegree(element, type);
-	if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
-	    data.put(type.toString(), 0.0);
-	    putToTracing(element, type, 0.0);
-	    return;
-	}
-	for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
-	    for (N neighbor2 : typedAdapter.getNeighbors(element, type)) {
-		if (neighbor1 != neighbor2) {
-		    if (typedAdapter.isAdjacentUndirected(neighbor1, neighbor2, type)) {
-			interConnected++;
-		    }
-		}
+        long interConnected = 0;
+        long numberOfNeighbors = 0;
+        numberOfNeighbors = typedAdapter.getDegree(element, type);
+        if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
+            data.put(type.toString(), 0.0);
+            putToTracing(element, type, 0.0);
+            return;
+        }
+        for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
+            for (N neighbor2 : typedAdapter.getNeighbors(element, type)) {
+                if (neighbor1 != neighbor2) {
+                    if (typedAdapter.isAdjacentUndirected(neighbor1, neighbor2, type)) {
+                        interConnected++;
+                    }
+                }
 
-	    }
-	}
-	double clusteringCoef = 0.0;
-	if (numberOfNeighbors < 2) {
-	    clusteringCoef = 0.0;
-	} else {
-	    clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
-	}
-	data.put(type.toString(), clusteringCoef);
-	putToTracing(element, type, clusteringCoef);
+            }
+        }
+        double clusteringCoef = 0.0;
+        if (numberOfNeighbors < 2) {
+            clusteringCoef = 0.0;
+        } else {
+            clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
+        }
+        data.put(type.toString(), clusteringCoef);
+        putToTracing(element, type, clusteringCoef);
     }
 
     protected <N, T> void putToTracing(N element, T type, double value) {
-	if (tracing != null) {
-	    ((MatrixData<N, T, Double>) tracing).put(element, type, value);
-	}
+        if (tracing != null) {
+            ((MatrixData<N, T, Double>) tracing).put(element, type, value);
+        }
     }
 
     @Override
     public <N, T> void trace() {
-	tracing = new MatrixData<N, T, Double>();
+        tracing = new MatrixData<N, T, Double>();
     }
 
     @Override
     public <N, T> MatrixData<N, T, Double> getTracing() {
-	return (MatrixData<N, T, Double>) tracing;
+        return (MatrixData<N, T, Double>) tracing;
     }
 
     @Override
     public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 
-	reevaluate(typedAdapter, sourceNode, type);
-	reevaluate(typedAdapter, targetNode, type);
+        reevaluate(typedAdapter, sourceNode, type);
+        reevaluate(typedAdapter, targetNode, type);
     }
 
     protected <N, T> void reevaluate(TypedModelAdapter<N, T> adapter, N node, T type) {
-	evaluate(adapter, node, type);
-	for (N neighbor : adapter.getNeighbors(node, type)) {
-	    evaluate(adapter, neighbor, type);
-	}
+        evaluate(adapter, node, type);
+        for (N neighbor : adapter.getNeighbors(node, type)) {
+            evaluate(adapter, neighbor, type);
+        }
     }
 
 }
