@@ -4,6 +4,4 @@ jdk:
 script:
   - cd plugins
   - mvn clean install --fail-at-end
-  
-after_success:
-  - mvn coveralls:report
+

@@ -30,6 +30,9 @@
 		<module>hu.bme.mit.mba.modelmetrics.tests.emf</module>
 		<module>hu.bme.mit.mba.tests.model</module>
 		<module>hu.bme.mit.mba.tests.model.emf</module>
+		<module>../features/hu.bme.mit.mba.base.feature</module>
+		<module>../features/hu.bme.mit.mba.modelanalyzer.feature</module>
+		<module>../releng/hu.bme.mit.mba.updatesite</module>
 	</modules>
 
 	<build>
