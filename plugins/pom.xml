@@ -100,11 +100,4 @@
 		</repository>
 	</repositories>
 
-	<pluginRepositories>
-		<pluginRepository>
-			<id>tycho-staged</id>
-			<url>https://oss.sonatype.org/content/repositories/orgeclipsetycho-1038/</url>
-		</pluginRepository>
-	</pluginRepositories>
-
 </project>
