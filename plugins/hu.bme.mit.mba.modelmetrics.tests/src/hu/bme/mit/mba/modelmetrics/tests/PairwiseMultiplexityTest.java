@@ -25,7 +25,7 @@ public class PairwiseMultiplexityTest extends ModelMetricTest<MapData<String, Do
         Consumer<MapData<String, Double>> checker = (data) -> {
         };
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
         case Motif3N_1:
         case Motif3N_2:
         case Motif3N_3:

@@ -19,7 +19,7 @@ public class NumberOfNodesTest extends ModelMetricTest<ScalarData<Integer>> {
     protected Object[] testCase(TestModelTypes modelType) {
         Consumer<ScalarData<Integer>> checker = null;
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
         case Loop_2T:
             checker = (data) -> {
                 assertEquals(data.getValue().intValue(), 1);

@@ -21,7 +21,7 @@ public class MultiplexParticipationCoefficientTest extends ModelMetricTest<ListD
         Consumer<ListData<Double>> checker = (data) -> {
         };
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
             checker = (data) -> {
                 checkSize(1, data);
                 checkAppearance(1, 0.0, data);

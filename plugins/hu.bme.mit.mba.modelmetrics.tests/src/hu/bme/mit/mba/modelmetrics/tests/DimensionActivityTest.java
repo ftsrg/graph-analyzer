@@ -24,7 +24,7 @@ public class DimensionActivityTest extends ModelMetricTest<MapData<String, Integ
         Consumer<MapData<String, Integer>> checker = (data) -> {
         };
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
             checker = (data) -> {
                 checkKeysSize(1, data);
                 checkValue(data, dim1, 1);

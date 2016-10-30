@@ -21,7 +21,7 @@ public class NodeActivityTest extends ModelMetricTest<ListData<Integer>> {
         Consumer<ListData<Integer>> checker = (data) -> {
         };
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
             checker = (data) -> {
                 checkSize(1, data);
                 checkAppearance(1, 1, data);

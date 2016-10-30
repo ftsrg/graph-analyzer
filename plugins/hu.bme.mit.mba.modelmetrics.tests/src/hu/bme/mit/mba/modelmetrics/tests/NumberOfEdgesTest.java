@@ -20,7 +20,7 @@ public class NumberOfEdgesTest extends ModelMetricTest<ScalarData<Integer>> {
         Consumer<ScalarData<Integer>> checker = (data) -> {
         };
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
             checker = (data) -> {
                 Assert.assertEquals(data.getValue().intValue(), 1);
             };

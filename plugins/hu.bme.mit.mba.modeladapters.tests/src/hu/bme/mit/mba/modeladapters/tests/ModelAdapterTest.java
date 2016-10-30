@@ -85,7 +85,7 @@ public class ModelAdapterTest {
         Runnable checker = () -> {
         };
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
             checker = () -> {
                 nodes(adapter, 1);
                 edges(adapter, 1);

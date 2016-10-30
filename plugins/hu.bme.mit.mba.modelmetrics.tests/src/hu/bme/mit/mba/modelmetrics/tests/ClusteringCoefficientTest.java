@@ -20,7 +20,7 @@ public class ClusteringCoefficientTest extends ModelMetricTest<ListData<Double>>
         Consumer<ListData<Double>> checker = (data) -> {
         };
         switch (modelType) {
-        case Loop:
+        case Loop_1T:
         case Loop_2T:
             checker = (data) -> {
                 checkSize(1, data);

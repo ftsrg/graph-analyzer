@@ -11,7 +11,7 @@ import static hu.bme.mit.mba.tests.model.ModelContext.node5;
 
 public enum TestModelTypes implements TestModelInitializer {
 
-    Loop {
+    Loop_1T {
 
         @Override
         public TestModel init() {
