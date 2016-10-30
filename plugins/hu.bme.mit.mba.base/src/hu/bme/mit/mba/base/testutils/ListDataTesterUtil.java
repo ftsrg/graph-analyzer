@@ -10,7 +10,7 @@ public class ListDataTesterUtil {
         Assert.assertEquals(expected, data.size());
     }
 
-    public static <V extends Number> void checkAppearance(int expecpectedAppearance, final V value,
+    public static <V extends Number> void checkAppearance(int expectedAppearance, final V value,
             final ListData<V> data) {
         int appearance = 0;
         for (int i = 0; i < data.size(); i++) {
@@ -18,10 +18,10 @@ public class ListDataTesterUtil {
                 appearance++;
             }
         }
-        Assert.assertEquals(expecpectedAppearance, appearance);
+        Assert.assertEquals(expectedAppearance, appearance);
     }
 
-    public static <V extends Number> void checkMinAppearance(int expecpectedMinAppearance, final V value,
+    public static <V extends Number> void checkMinAppearance(int expectedMinAppearance, final V value,
             final ListData<V> data) {
         int appearance = 0;
         for (int i = 0; i < data.size(); i++) {
@@ -29,10 +29,10 @@ public class ListDataTesterUtil {
                 appearance++;
             }
         }
-        Assert.assertTrue(appearance >= expecpectedMinAppearance);
+        Assert.assertTrue(appearance >= expectedMinAppearance);
     }
 
-    public static <V extends Number> void checkMaxAppearance(int expecpectedMaxAppearance, final V value,
+    public static <V extends Number> void checkMaxAppearance(int expectedMaxAppearance, final V value,
             final ListData<V> data) {
         int appearance = 0;
         for (int i = 0; i < data.size(); i++) {
@@ -40,7 +40,7 @@ public class ListDataTesterUtil {
                 appearance++;
             }
         }
-        Assert.assertTrue(appearance <= expecpectedMaxAppearance);
+        Assert.assertTrue(appearance <= expectedMaxAppearance);
     }
 
 }
