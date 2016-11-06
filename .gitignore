@@ -1,26 +1,13 @@
-plugin.xml_gen
+.project
+.classpath
+
 bin/
 target/
 tmp/
 .settings/
-MANIFEST.MF_gen
 .DS_Store*
 .metadata
-runtimeInfo
-workspace
-*._trace
 Thumbs.db
-.Rhistory
-.pydevproject
-deps/
-.idea
-log/
-catalog-v*.xml
-.RData
-.Rproj.user
-*.gml
-xtend-gen/
-test-output/
 
 ### Gradle ###
 .gradle
