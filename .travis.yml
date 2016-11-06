@@ -3,7 +3,3 @@ jdk:
   - oraclejdk8
 notifications:
   slack: ftsrg:BjWvKGpgAGjwE868tvFYZmZm
-branches:
-  only:
-  - incremental
-  - gradle
