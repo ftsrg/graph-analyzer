@@ -1,16 +1,26 @@
 rootProject.name = "model-analyzer"
 
 include ':hu.bme.mit.mba.base'
+
 include ':hu.bme.mit.mba.modeladapters'
 include ':hu.bme.mit.mba.modeladapters.emf'
-include ':hu.bme.mit.mba.modeladapters.emf.tests'
+include ':hu.bme.mit.mba.modeladapters.neo4j'
+
 include ':hu.bme.mit.mba.modeladapters.tests'
+include ':hu.bme.mit.mba.modeladapters.emf.tests'
+include ':hu.bme.mit.mba.modeladapters.neo4j.tests'
+
 include ':hu.bme.mit.mba.modelanalyzer'
 include ':hu.bme.mit.mba.modelanalyzer.tests'
+
 include ':hu.bme.mit.mba.modelmetrics'
 include ':hu.bme.mit.mba.modelmetrics.impl'
+
 include ':hu.bme.mit.mba.modelmetrics.tests'
 include ':hu.bme.mit.mba.modelmetrics.tests.emf'
+include ':hu.bme.mit.mba.modelmetrics.tests.neo4j'
+
 include ':hu.bme.mit.mba.tests.base'
 include ':hu.bme.mit.mba.tests.model'
 include ':hu.bme.mit.mba.tests.model.emf'
+include ':hu.bme.mit.mba.tests.model.neo4j'

@@ -1,0 +1,5 @@
+
+dependencies {
+  compile group: 'org.neo4j', name: 'neo4j', version: neo4jVersion
+  compile project(':hu.bme.mit.mba.tests.model')
+}

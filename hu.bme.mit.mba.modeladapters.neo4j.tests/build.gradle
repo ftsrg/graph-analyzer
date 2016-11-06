@@ -1,0 +1,5 @@
+
+dependencies {
+  compile project(':hu.bme.mit.mba.modeladapters.neo4j')
+  compile project(':hu.bme.mit.mba.modeladapters.tests')
+}
