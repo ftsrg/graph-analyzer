@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: ModelAdaptersEmf
-Bundle-SymbolicName: hu.bme.mit.mba.modeladapters.emf
-Bundle-Version: 1.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Require-Bundle: org.eclipse.emf.ecore,
- hu.bme.mit.mba.modeladapters;bundle-version="1.0.0"
-Export-Package: hu.bme.mit.mba.modeladapters.emf

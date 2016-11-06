@@ -1,4 +1,5 @@
 
 dependencies {
-  compile project(':hu.bme.mit.mba.modeladapters')
+  compile project(':hu.bme.mit.mba.base')
+  compile project(':hu.bme.mit.mba.modelmetrics.impl')
 }

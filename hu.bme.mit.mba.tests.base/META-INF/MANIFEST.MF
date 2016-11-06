@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: Base Plugin for all Test Plugins
-Bundle-SymbolicName: hu.bme.mit.mba.tests.base
-Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: jcommander-1.48.jar,
- testng-6.9.10.jar
-DynamicImport-Package: *
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8

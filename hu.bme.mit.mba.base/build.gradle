@@ -1,7 +1,4 @@
 
 dependencies {
-  compile group: 'com.google.guava', name: 'guava', version: guavaVersion
-  compile group: 'junit', name: 'junit', version: junitVersion
-  compile group: 'log4j', name: 'log4j', version: log4jVersion
   compile project(':hu.bme.mit.mba.modeladapters')
 }
