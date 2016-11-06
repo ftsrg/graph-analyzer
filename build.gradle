@@ -22,4 +22,5 @@ ext {
   guavaVersion = '20.0'
   junitVersion = '4.12'
   log4jVersion = '1.2.17'
+  neo4jVersion = '3.0.7'
 }
