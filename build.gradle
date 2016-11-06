@@ -12,6 +12,9 @@ subprojects {
     jcenter()
   }
 
+  test {
+    useTestNG()
+  }
 }
 
 ext {
