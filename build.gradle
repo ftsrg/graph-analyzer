@@ -1,0 +1,25 @@
+allprojects  {
+  group = 'model-analyzer'
+  version = '1.0.0-SNAPSHOT'
+}
+
+subprojects {
+  apply plugin: 'java'
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  repositories {
+    jcenter()
+  }
+
+  test {
+    useTestNG()
+  }
+}
+
+ext {
+  emfVersion = '2.10.0-v20140514-1158'
+  guavaVersion = '20.0'
+  junitVersion = '4.12'
+  log4jVersion = '1.2.17'
+}

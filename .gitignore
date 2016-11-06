@@ -1,22 +1,29 @@
-plugin.xml_gen
+.project
+.classpath
+
 bin/
 target/
 tmp/
 .settings/
-MANIFEST.MF_gen
 .DS_Store*
 .metadata
-runtimeInfo
-workspace
-*._trace
 Thumbs.db
-.Rhistory
-.pydevproject
-deps/
-.idea
-log/
-catalog-v*.xml
-.RData
-.Rproj.user
-*.gml
-xtend-gen/
+
+### Gradle ###
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
+hs_err_*.log
+replay_*.log
+
+~*.*
+*.~*

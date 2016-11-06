@@ -1,0 +1,5 @@
+
+dependencies {
+  compile group: 'com.google.guava', name: 'guava', version: guavaVersion
+  compile project(':hu.bme.mit.mba.modeladapters')
+}
