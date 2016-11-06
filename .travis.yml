@@ -1,9 +1,6 @@
 language: java
 jdk:
   - oraclejdk8
-script:
-  - cd plugins
-  - mvn clean install --fail-at-end
 notifications:
   slack: ftsrg:BjWvKGpgAGjwE868tvFYZmZm
 branches:
