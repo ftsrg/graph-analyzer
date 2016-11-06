@@ -1,28 +1,20 @@
 # Metric Based Analyzer
 
-[![Build Status](https://travis-ci.org/FTSRG/model-analyzer.svg?branch=incremental)](https://travis-ci.org/FTSRG/model-analyzer)
+[![Build Status](https://travis-ci.org/FTSRG/model-analyzer.svg)](https://travis-ci.org/FTSRG/model-analyzer)
 
 ## Prerequisites
 
 Environment:
  * Java 8
- * [Eclipse Modeling Tools - Mars](http://www.eclipse.org/downloads/packages/eclipse-modeling-tools/mars2)
+ * [Eclipse IDE for Java and DSL Developers - Neon](http://www.eclipse.org/downloads/packages/eclipse-ide-java-and-dsl-developers/neon1a)
 
 ## Usage from source
 
-Required third-party plug-ins:
- * Goggle Guava 15.0.0 - one possible installation is from the [Orbit update site](http://download.eclipse.org/tools/orbit/downloads/drops/R20151221205849/repository/)
- * For test purposes: [TestNG 6.9.12](http://testng.org/doc/index.html)
+The projects are developed and tested with **Eclipse Neon**.
 
-To use MBA, clone the project and import the plugins directory to the workspace. Use the **Import -> Import as Existing Projects into Workspace** option, select the `plugins/` directory and select the **Search for nested projects option** on the same page.
+To install the a Gradle Eclipse plugin, go to the **Eclipse Marketplace**, and install the **Buildship: Eclipse Plug-ins for Gradle** plug-in.
 
-It is also possible to the projects as Maven projects. For further information about Maven and Tycho, please visit [Maven-and-Eclipse](https://github.com/FTSRG/cheat-sheets/wiki/Maven-and-Eclipse).
-
-## Install to Eclipse
-
-Clone the project and build the project: `cd plugins && mvn clean install`
-
-After the build ended succesfully, go to Eclipse and open **Help -> Install New Software**. **Add** a repository by choosing **Local** and navigate to the `releng/hu.bme.mit.mba.updatesite/target/repository` directory. After adding the repository, an MBA category should appear with the features **MBA Base** and **MBA Model Analyzer**. Choose and install **MBA Model Analyzer.**
+To import the projects, choose **Import...** | **Gradle Project**, specify the root directory as the repository directory and import them with the default **Gradle distribution** (**Gradle wrapper (recommended)**).
 
 ## Use the library
 
