@@ -2,4 +2,6 @@
 dependencies {
   compile project(':hu.bme.mit.mba.modeladapters.neo4j')
   compile project(':hu.bme.mit.mba.modeladapters.tests')
+  testCompile group: 'org.neo4j', name: 'neo4j-kernel', version: neo4jVersion, classifier: 'tests'
+  testCompile group: 'org.neo4j', name: 'neo4j-io', version: neo4jVersion, classifier: 'tests'
 }
