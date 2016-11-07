@@ -1,6 +1,6 @@
 
 dependencies {
   compile project(':hu.bme.mit.mba.modeladapters')
-  compile project(':hu.bme.mit.mba.testmodels.base')
+  compile project(':hu.bme.mit.mba.testbase')
   compile project(':hu.bme.mit.mba.testmodels.model')
 }
