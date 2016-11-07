@@ -2,6 +2,7 @@
 dependencies {
   compile project(':hu.bme.mit.mba.modeladapters.neo4j')
   compile project(':hu.bme.mit.mba.modeladapters.tests')
+  compile project(':hu.bme.mit.mba.testmodels.neo4j')
   compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
   testCompile group: 'org.neo4j', name: 'neo4j-kernel', version: neo4jVersion, classifier: 'tests'
   testCompile group: 'org.neo4j', name: 'neo4j-io', version: neo4jVersion, classifier: 'tests'

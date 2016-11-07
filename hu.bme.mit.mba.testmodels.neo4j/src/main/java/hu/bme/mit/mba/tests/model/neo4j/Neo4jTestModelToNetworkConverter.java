@@ -6,6 +6,7 @@ import java.util.Map;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.RelationshipType;
+import org.neo4j.graphdb.Transaction;
 import org.neo4j.test.TestGraphDatabaseFactory;
 
 import hu.bme.mit.mba.tests.model.ModelContext;
@@ -19,22 +20,26 @@ public class Neo4jTestModelToNetworkConverter {
 		nodeMapping = new HashMap<>();
 		GraphDatabaseService graph = new TestGraphDatabaseFactory().newImpermanentDatabase();
 
-		for (final String nodeName : testModel.getAdjacency().rowKeySet()) {
-			addNode(nodeMapping, graph, nodeName);
+		try (Transaction tx = graph.beginTx()) {
+			for (final String nodeName : testModel.getAdjacency().rowKeySet()) {
+				addNode(nodeMapping, graph, nodeName);
 
-			for (final String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
-				addNode(nodeMapping, graph, neighborName);
-			}
-		}
-
-		for (final String nodeName : testModel.getAdjacency().rowKeySet()) {
-			for (final String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
-				for (final String dimensionName : testModel.getAdjacency().get(nodeName, neighborName)) {
-					Node node = nodeMapping.get(nodeName);
-					Node neighbor = nodeMapping.get(neighborName);
-					node.createRelationshipTo(neighbor, relationship(dimensionName));
+				for (final String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
+					addNode(nodeMapping, graph, neighborName);
 				}
 			}
+
+			for (final String nodeName : testModel.getAdjacency().rowKeySet()) {
+				for (final String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
+					for (final String dimensionName : testModel.getAdjacency().get(nodeName, neighborName)) {
+						Node node = nodeMapping.get(nodeName);
+						Node neighbor = nodeMapping.get(neighborName);
+						node.createRelationshipTo(neighbor, relationship(dimensionName));
+					}
+				}
+			}
+
+			tx.success();
 		}
 		return graph;
 	}

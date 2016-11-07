@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
-import org.neo4j.test.TestGraphDatabaseFactory;
 
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
@@ -13,6 +12,7 @@ import hu.bme.mit.mba.modeladapters.neo4j.Neo4jModelAdapter;
 import hu.bme.mit.mba.modeladapters.tests.ModelAdapterTest;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
+import hu.bme.mit.mba.tests.model.neo4j.Neo4jTestModelToNetworkConverter;
 
 public class Neo4jModelAdapterTest extends ModelAdapterTest {
 
@@ -21,13 +21,10 @@ public class Neo4jModelAdapterTest extends ModelAdapterTest {
 
     @Override
     public void runTests(final TestModelTypes modelType, final Runnable checker) {
-        GraphDatabaseService graph = new TestGraphDatabaseFactory().newImpermanentDatabase();
-
         final TestModel testModel = modelType.init();
-//        final TestModelToNetworkConverter converter = new TestModelToNetworkConverter();
-//        container = converter.convert(testModel);
-//        nodeMapping = converter.getNodeMapping();
-//
+        final Neo4jTestModelToNetworkConverter converter = new Neo4jTestModelToNetworkConverter();
+        GraphDatabaseService graph = converter.convert(testModel);
+
         neo4jAdapter = new Neo4jModelAdapter();
         neo4jAdapter.init(graph);
         checker.run();
