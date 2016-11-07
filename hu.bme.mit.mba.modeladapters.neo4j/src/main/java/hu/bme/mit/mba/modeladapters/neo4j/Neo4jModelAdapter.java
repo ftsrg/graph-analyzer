@@ -4,45 +4,48 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
+import org.neo4j.graphdb.Direction;
+import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.Relationship;
+import org.neo4j.graphdb.RelationshipType;
+import org.neo4j.graphdb.ResourceIterable;
 
 import hu.bme.mit.mba.modeladapters.ModelIndexer;
 import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 
 public class Neo4jModelAdapter extends TypedModelAdapter<Node, String> {
 
+	GraphDatabaseService graph;
+
     @Override
     public Iterator<Node> getModelIterator() {
-        return null; // TODO
+        return graph.getAllNodes().iterator();
     }
 
-    protected void init(final Iterator<EObject> iterator) {
-        indexer = new ModelIndexer<Node, String>();
+    public void init(GraphDatabaseService graph) {
+        this.graph = graph;
+        init(graph.getAllNodes());
+    }
 
-        while (iterator.hasNext()) {
-//            final EObject object = iterator.next();
-//            for (final EReference reference : object.eClass().getEReferences()) {
-//                if (reference.isMany()) { // many
-//                    for (final EObject neighbor : getNeighbors(object, reference)) {
-//                        addEdge(object, reference, neighbor);
-//                    }
-//                } else { // single
-//                    final EObject neighbor = (EObject) object.eGet(reference, true);
-//                    addEdge(object, reference, neighbor);
-//                }
-//            }
+    protected void init(ResourceIterable<Node> nodes) {
+    	indexer = new ModelIndexer<Node, String>();
+
+        for (Node node : nodes) {
+        	for (Relationship relationship: node.getRelationships(Direction.OUTGOING)) {
+        		Node neighbor = relationship.getOtherNode(node);
+        		addEdge(node, relationship.getType(), neighbor);
+        	}
         }
     }
 
-    protected List<Node> getNeighbors(final EObject object, final EReference reference) {
+    protected List<Node> getNeighbors(final Node object, final RelationshipType relationshipType) {
         return new ArrayList<>(); // TODO
     }
 
-    protected void addEdge(final EObject object, final EReference reference, final EObject neighbor) {
-        if (neighbor != null && reference != null) {
-//            indexer.addEdge(reference.getName(), object, neighbor);
+    protected void addEdge(final Node node, final RelationshipType relationshipType, final Node neighbor) {
+        if (neighbor != null && relationshipType != null) {
+            node.createRelationshipTo(neighbor, relationshipType);
         }
     }
 

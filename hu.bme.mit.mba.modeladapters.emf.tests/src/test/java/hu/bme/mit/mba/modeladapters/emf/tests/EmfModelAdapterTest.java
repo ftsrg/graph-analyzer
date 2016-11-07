@@ -9,7 +9,7 @@ import hu.bme.mit.mba.modeladapters.emf.EmfModelAdapter;
 import hu.bme.mit.mba.modeladapters.tests.ModelAdapterTest;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
-import hu.bme.mit.mba.tests.model.emf.TestModelToNetworkConverter;
+import hu.bme.mit.mba.tests.model.emf.EmfTestModelToNetworkConverter;
 import hu.bme.mit.mba.tests.model.emf.network.Node;
 import hu.bme.mit.mba.tests.model.emf.network.NodeContainer;
 
@@ -22,7 +22,7 @@ public class EmfModelAdapterTest extends ModelAdapterTest {
     @Override
     public void runTests(TestModelTypes modelType, Runnable checker) {
         TestModel testModel = modelType.init();
-        TestModelToNetworkConverter converter = new TestModelToNetworkConverter();
+        EmfTestModelToNetworkConverter converter = new EmfTestModelToNetworkConverter();
         container = converter.convert(testModel);
         nodeMapping = converter.getNodeMapping();
 

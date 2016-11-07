@@ -1,4 +1,4 @@
-rootProject.name = "model-analyzer"
+rootProject.name = "hu.bme.mit.mba"
 
 include ':hu.bme.mit.mba.base'
 

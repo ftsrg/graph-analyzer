@@ -3,13 +3,14 @@ package hu.bme.mit.mba.tests.model.emf;
 import java.util.HashMap;
 import java.util.Map;
 
+import hu.bme.mit.mba.tests.model.ModelContext;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.emf.network.NetworkFactory;
 import hu.bme.mit.mba.tests.model.emf.network.NetworkPackage;
 import hu.bme.mit.mba.tests.model.emf.network.Node;
 import hu.bme.mit.mba.tests.model.emf.network.NodeContainer;
 
-public class TestModelToNetworkConverter {
+public class EmfTestModelToNetworkConverter {
 
     private Map<String, Node> nodeMapping;
 
@@ -32,15 +33,17 @@ public class TestModelToNetworkConverter {
         for (String nodeName : testModel.getAdjacency().rowKeySet()) {
             for (String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
                 for (String dimensionName : testModel.getAdjacency().get(nodeName, neighborName)) {
-                    switch (dimensionName) {
-                    case "dim1":
-                        nodeMapping.get(nodeName).getDim1().add(nodeMapping.get(neighborName));
+                    Node node = nodeMapping.get(nodeName);
+					Node neighbor = nodeMapping.get(neighborName);
+					switch (dimensionName) {
+                    case ModelContext.dim1:
+                        node.getDim1().add(neighbor);
                         break;
-                    case "dim2":
-                        nodeMapping.get(nodeName).getDim2().add(nodeMapping.get(neighborName));
+                    case ModelContext.dim2:
+                        node.getDim2().add(neighbor);
                         break;
-                    case "dim3":
-                        nodeMapping.get(nodeName).getDim3().add(nodeMapping.get(neighborName));
+                    case ModelContext.dim3:
+                        node.getDim3().add(neighbor);
                         break;
                     default:
                         throw new IllegalArgumentException(
