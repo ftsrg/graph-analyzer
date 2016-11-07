@@ -3,5 +3,5 @@ dependencies {
   compile project(':hu.bme.mit.mba.modeladapters.neo4j')
   compile project(':hu.bme.mit.mba.modelmetrics.impl')
   compile project(':hu.bme.mit.mba.modelmetrics.tests')
-  compile project(':hu.bme.mit.mba.tests.model.neo4j')
+  compile project(':hu.bme.mit.mba.testmodels.neo4j')
 }
