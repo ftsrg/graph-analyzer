@@ -1,6 +1,7 @@
 package hu.bme.mit.mba.modeladapters;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import com.google.common.collect.HashBasedTable;
@@ -36,7 +37,7 @@ public class ModelIndexer<N, T> {
 
     public void addEdge(final T type, final N sourceNode, final N targetNode) {
         newNode(sourceNode);
-        if (sourceNode != targetNode) {
+        if (!Objects.equals(sourceNode, targetNode)) {
             newNode(targetNode);
         }
         if (!nodeIndex.contains(sourceNode, targetNode)) {
