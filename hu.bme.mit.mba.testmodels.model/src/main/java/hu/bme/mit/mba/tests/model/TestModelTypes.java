@@ -328,5 +328,5 @@ public enum TestModelTypes implements TestModelInitializer {
             return model;
         }
 
-    }
+    },
 }
