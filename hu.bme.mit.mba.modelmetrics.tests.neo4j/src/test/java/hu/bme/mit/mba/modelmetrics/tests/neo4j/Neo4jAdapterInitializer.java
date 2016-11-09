@@ -1,18 +1,18 @@
 package hu.bme.mit.mba.modelmetrics.tests.neo4j;
 
-import hu.bme.mit.mba.modeladapters.emf.EmfModelAdapter;
+import org.neo4j.graphdb.GraphDatabaseService;
+
+import hu.bme.mit.mba.modeladapters.neo4j.Neo4jModelAdapter;
 import hu.bme.mit.mba.tests.model.TestModel;
-import hu.bme.mit.mba.tests.model.emf.TestModelToNetworkConverter;
-import hu.bme.mit.mba.tests.model.emf.network.NodeContainer;
+import hu.bme.mit.mba.tests.model.neo4j.Neo4jTestModelToNetworkConverter;
 
 public class Neo4jAdapterInitializer {
 
-    public static EmfModelAdapter getAdapter(TestModel testModel) {
-        NodeContainer container = new TestModelToNetworkConverter().convert(testModel);
-        EmfModelAdapter emfAdapter = new EmfModelAdapter();
-        emfAdapter.init(container);
-
-        return emfAdapter;
-    }
+	public static Neo4jModelAdapter getAdapter(TestModel testModel) {
+		GraphDatabaseService graph = new Neo4jTestModelToNetworkConverter().convert(testModel);
+		Neo4jModelAdapter adapter = new Neo4jModelAdapter();
+		adapter.init(graph);
+		return adapter;
+	}
 
 }

@@ -27,3 +27,4 @@ replay_*.log
 
 ~*.*
 *.~*
+test-output

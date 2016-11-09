@@ -1,4 +1,4 @@
-rootProject.name = "model-analyzer"
+rootProject.name = "hu.bme.mit.mba"
 
 include ':hu.bme.mit.mba.base'
 
@@ -20,7 +20,7 @@ include ':hu.bme.mit.mba.modelmetrics.tests'
 include ':hu.bme.mit.mba.modelmetrics.tests.emf'
 include ':hu.bme.mit.mba.modelmetrics.tests.neo4j'
 
-include ':hu.bme.mit.mba.tests.base'
-include ':hu.bme.mit.mba.tests.model'
-include ':hu.bme.mit.mba.tests.model.emf'
-include ':hu.bme.mit.mba.tests.model.neo4j'
+include ':hu.bme.mit.mba.testbase'
+include ':hu.bme.mit.mba.testmodels.model'
+include ':hu.bme.mit.mba.testmodels.emf'
+include ':hu.bme.mit.mba.testmodels.neo4j'
