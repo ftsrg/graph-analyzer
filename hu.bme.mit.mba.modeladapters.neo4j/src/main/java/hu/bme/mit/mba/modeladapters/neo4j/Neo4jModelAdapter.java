@@ -42,13 +42,18 @@ public class Neo4jModelAdapter extends TypedModelAdapter<Node, String> {
 		}
 	}
 
-	protected List<Node> getNeighbors(final Node object, final RelationshipType relationshipType) {
-		return new ArrayList<>(); // TODO
+	protected List<Node> getNeighbors(final Node node, final RelationshipType relationshipType) {
+		List<Node> neighbors = new ArrayList<>();
+		for (Relationship relationship: node.getRelationships(Direction.OUTGOING, relationshipType)) {
+			Node otherNode = relationship.getOtherNode(node);
+			neighbors.add(otherNode);
+		}
+		return neighbors;
 	}
 
 	protected void addEdge(final Node node, final RelationshipType relationshipType, final Node neighbor) {
 		if (neighbor != null && relationshipType != null) {
-			node.createRelationshipTo(neighbor, relationshipType);
+			indexer.addEdge(relationshipType.name(), node, neighbor);
 		}
 	}
 
