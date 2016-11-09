@@ -1,6 +1,5 @@
 package hu.bme.mit.mba.modeladapters.neo4j.tests;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -16,14 +15,15 @@ import hu.bme.mit.mba.tests.model.neo4j.Neo4jTestModelToNetworkConverter;
 
 public class Neo4jModelAdapterTest extends ModelAdapterTest {
 
-    Neo4jModelAdapter neo4jAdapter;
-    private final Map<String, Node> nodeMapping = new HashMap<>();
+    private Neo4jModelAdapter neo4jAdapter;
+    private Map<String, Node> nodeMapping;
 
     @Override
     public void runTests(final TestModelTypes modelType, final Runnable checker) {
         final TestModel testModel = modelType.init();
         final Neo4jTestModelToNetworkConverter converter = new Neo4jTestModelToNetworkConverter();
         GraphDatabaseService graph = converter.convert(testModel);
+        nodeMapping = converter.getNodeMapping();
 
         neo4jAdapter = new Neo4jModelAdapter();
         neo4jAdapter.init(graph);
