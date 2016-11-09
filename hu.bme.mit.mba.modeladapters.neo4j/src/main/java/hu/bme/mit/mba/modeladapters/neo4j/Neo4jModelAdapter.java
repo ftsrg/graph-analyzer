@@ -21,7 +21,9 @@ public class Neo4jModelAdapter extends TypedModelAdapter<Node, String> {
 
 	@Override
 	public Iterator<Node> getModelIterator() {
-		return graph.getAllNodes().iterator();
+        try (Transaction tx = graph.beginTx()) {
+            return graph.getAllNodes().iterator();
+        }
 	}
 
 	public void init(GraphDatabaseService graph) {
