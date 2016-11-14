@@ -45,3 +45,7 @@ The metrics from the MODELS 2016 paper are demonstrated a simplified Train Bench
 #### Related work
 
 [gMark](https://arxiv.org/abs/1511.08386) is a scalable graph generator tool, designed to allow **scalable** model generation. The user of can specify the number/proportion of the node/edge types and specify the distribution of edges (uniform, Gaussian, Zipfian), which allows the generation of graphs that are **realistic** to some degree.
+
+[Xiao et al.](http://ieeexplore.ieee.org/document/7541886/)
+
+[Xiao et al.](https://www.computer.org/csdl/proceedings/compsac/2014/3575/00/3575a011.pdf)
