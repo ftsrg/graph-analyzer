@@ -11,7 +11,7 @@ In our view, an _ideal model generator_ satisfies the following properties.
 * **Diverse:** the generator is capable of producing models of that are different from each other, not only in size, but also in their structure.
 * **Realistic:** the generated models are realistic, i.e. based on their structure and type information, a domain expert cannot distinguish them from real models in the same domain. (Currently, this definition does not consider attribute values, so these must obfuscated or hidden from the domain expert.)
 
-(If you have a hard time memorizing these properties, think "core disc" for "consistent, realistic, diverse and scalable".)
+(If you have a hard time memorizing these properties, think "core disc" for "**co**nsistent, **re**alistic, **di**verse and **sc**alable".)
 
 ## Use cases
 
