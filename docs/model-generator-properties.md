@@ -32,7 +32,7 @@ We collected our results and the related work for each property.
 
 ### Our results
 
-In our [SOSYM 2015 paper](https://inf.mit.bme.hu/research/publications/formal-validation-domain-specific-languages-derived-features-and-well-formedne), ... (keywords: **consistent**, **diverse**)
+In our [SOSYM 2015 paper](https://inf.mit.bme.hu/research/publications/formal-validation-domain-specific-languages-derived-features-and-well-formedne), ... (keywords: **consistent**)
 
 In our [FASE 2016 paper](https://inf.mit.bme.hu/research/publications/iterative-and-incremental-model-generation-logic-solvers), ... (keywords: **consistent**, **diverse**)
 
@@ -41,6 +41,11 @@ In our [MODELS 2016 paper](https://inf.mit.bme.hu/research/publications/towards-
 In the [Train Benchmark](https://github.com/FTSRG/trainbenchmark), we implemented a model generator that is capable of generating models of increasing sizes in a **scalable** way.
 
 The metrics from the MODELS 2016 paper are demonstrated a simplified Train Benchmark model in a [GraphGist](http://portal.graphgist.org/graph_gists/1b9df3bc-5b01-47d3-8c37-ddff30c5c08d) (using Neo4j and Cypher queries).
+
+### Approaches
+
+* [design-space exploration techniques](https://inf.mit.bme.hu/research/publications/model-driven-framework-guided-design-space-exploration-1)
+* [logic solvers](), e.g. Z3
 
 #### Related work
 
