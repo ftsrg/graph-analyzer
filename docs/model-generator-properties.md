@@ -2,14 +2,16 @@
 
 ## Definitions
 
+A _model generator_ can produce domain-specific models, e.g. statecharts, railway networks, etc.
+
 In our view, an _ideal model generator_ satisfies the following properties.
 
 * **Consistent:** the generated models are well-formed with respect to a set of well-formedness constraints.
 * **Scalable:** the generator is able to generate models scalable in size. In other words, the execution time of the generator is approximately a linear function of the desired model size.
 * **Diverse:** the generator is capable of producing models of that are different from each other, not only in size, but also in their structure.
-* **Realistic:** the generated models are realistic. We define a model as _realistic_, based on its structure and type information, a domain expert cannot distinguish it from a real model. (Currently, this definition does not consider attribute values, so these must obfuscated or hidden from the domain expert.)
+* **Realistic:** the generated models are realistic, i.e. based on their structure and type information, a domain expert cannot distinguish them from real models in the same domain. (Currently, this definition does not consider attribute values, so these must obfuscated or hidden from the domain expert.)
 
-(If you have a hard time memorizing these properties, think "core disc", for "consistent, realistic, diverse and scalable".)
+(If you have a hard time memorizing these properties, think "core disc" for "consistent, realistic, diverse and scalable".)
 
 ## Use cases
 
@@ -42,4 +44,4 @@ The metrics from the MODELS 2016 paper are demonstrated a simplified Train Bench
 
 #### Related work
 
-[gMark](https://arxiv.org/abs/1511.08386) is a scalable graph generator tool, designed to allow **scalable** model generation. The user of can specify the number/proportion of the node/edge types and specify the degree distributions (uniform, Gaussian, Zipfian), which allows the generation of **realistic** graphs.
+[gMark](https://arxiv.org/abs/1511.08386) is a scalable graph generator tool, designed to allow **scalable** model generation. The user of can specify the number/proportion of the node/edge types and specify the distribution of edges (uniform, Gaussian, Zipfian), which allows the generation of graphs that are **realistic** to some degree.
