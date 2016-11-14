@@ -3,3 +3,6 @@ jdk:
   - oraclejdk8
 notifications:
   slack: ftsrg:BjWvKGpgAGjwE868tvFYZmZm
+  email: false
+  on_success: change
+  on_failure: always
