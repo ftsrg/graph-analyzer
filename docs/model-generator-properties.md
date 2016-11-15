@@ -40,7 +40,7 @@ In our [MODELS 2016 paper](https://inf.mit.bme.hu/research/publications/towards-
 
 In the [Train Benchmark](https://github.com/FTSRG/trainbenchmark), we implemented a model generator that is capable of generating models of increasing sizes in a **scalable** way.
 
-The metrics from the MODELS 2016 paper are demonstrated a simplified Train Benchmark model in a [GraphGist](http://portal.graphgist.org/graph_gists/1b9df3bc-5b01-47d3-8c37-ddff30c5c08d) (using Neo4j and Cypher queries).
+The metrics from the MODELS 2016 paper are demonstrated on a simplified Train Benchmark model in a [GraphGist](http://portal.graphgist.org/graph_gists/1b9df3bc-5b01-47d3-8c37-ddff30c5c08d) (using Neo4j and Cypher queries).
 
 ### Approaches
 
