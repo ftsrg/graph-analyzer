@@ -2,7 +2,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
 public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Double>> {
@@ -12,14 +11,14 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
+        // TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 
-        for (T firstType : typedAdapter.getTypes()) {
-            for (T secondType : typedAdapter.getTypes()) {
+        for (T firstType : adapter.<N, T>getTypes()) {
+            for (T secondType : adapter.<N, T>getTypes()) {
                 if (firstType != secondType) {
                     if (newPair(firstType, secondType)) {
-                        evaluate(typedAdapter, firstType, secondType);
+                        evaluateInternal(adapter, firstType, secondType);
                     }
                 }
             }
@@ -33,7 +32,7 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
         return !(data.getValues().containsKey(key) || data.getValues().containsKey(reversedKey));
     }
 
-    protected <N, T> void evaluate(TypedModelAdapter<N, T> adapter, T firstType, T secondType) {
+    protected <N, T> void evaluateInternal(ModelAdapter adapter, T firstType, T secondType) {
         int firstSizeofNodes = adapter.getNumberOfNodes(firstType);
         int secondSizeofNodes = adapter.getNumberOfNodes(secondType);
         int nodesInIntersection = 0;
@@ -54,9 +53,9 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
         return String.format("%s-%s", firstType.toString(), secondType.toString());
     }
 
-    protected <T, N> int getIntersection(TypedModelAdapter<N, T> adapter, T firstType, T secondType) {
+    protected <T, N> int getIntersection(ModelAdapter adapter, T firstType, T secondType) {
         int nodesInIntersection = 0;
-        for (N node : adapter.getNodes(firstType)) {
+        for (N node : adapter.<N, T>getNodes(firstType)) {
             if (adapter.getTypes(node).contains(secondType)) {
                 nodesInIntersection++;
             }

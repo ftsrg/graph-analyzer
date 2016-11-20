@@ -2,7 +2,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
 public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Integer>> {
@@ -24,12 +23,12 @@ public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Inte
     // }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-        for (T type : typedAdapter.getTypes()) {
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
+        // TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+        for (T type : adapter.<N, T>getTypes()) {
             int sumOfEdges = 0;
-            for (N node : typedAdapter.getNodes(type)) {
-                sumOfEdges += typedAdapter.getDegree(node, type);
+            for (N node : adapter.<N, T>getNodes(type)) {
+                sumOfEdges += adapter.getDegree(node, type);
             }
             sumOfEdges /= 2;
             data.put(type.toString(), sumOfEdges);

@@ -17,17 +17,17 @@ public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> impl
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
         data.setValue(adapter.getNumberOfEdges());
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter adapter, N element) {
         data.setValue(adapter.getDegree(element));
     }
 
     @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter adapter, T type, N sourceNode, N targetNode) {
         Integer value = data.getValue();
         value++;
         data.setValue(value);

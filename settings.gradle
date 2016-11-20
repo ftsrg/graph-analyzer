@@ -24,3 +24,5 @@ include ':hu.bme.mit.mba.testbase'
 include ':hu.bme.mit.mba.testmodels.model'
 include ':hu.bme.mit.mba.testmodels.emf'
 include ':hu.bme.mit.mba.testmodels.neo4j'
+
+//include ':hu.bme.mit.modelgen'

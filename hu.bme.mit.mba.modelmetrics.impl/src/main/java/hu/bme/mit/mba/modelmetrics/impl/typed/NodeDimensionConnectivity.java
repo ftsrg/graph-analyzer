@@ -2,7 +2,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
 /**
@@ -92,14 +91,15 @@ public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
     // }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-        for (T type : typedAdapter.getTypes()) {
-            evaluate(typedAdapter, type);
-        }
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
+        // TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+        adapter.<N, T>getTypes().forEach(t -> evaluateInternal(adapter, t));
+        // for (T type : adapter.getTypes()) {
+        // evaluate(adapter, type);
+        // }
     }
 
-    protected <N, T> void evaluate(final TypedModelAdapter<N, T> adapter, final T type) {
+    protected <N, T> void evaluateInternal(final ModelAdapter adapter, final T type) {
         data.put(type.toString(), (double) adapter.getNumberOfNodes(type) / adapter.getNumberOfNodes());
     }
 

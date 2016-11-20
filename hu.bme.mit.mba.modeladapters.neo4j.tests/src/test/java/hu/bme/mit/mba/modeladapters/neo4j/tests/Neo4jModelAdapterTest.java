@@ -6,8 +6,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
-import hu.bme.mit.mba.modeladapters.neo4j.Neo4jModelAdapter;
+import hu.bme.mit.mba.modeladapters.neo4j.Neo4jModelProvider;
 import hu.bme.mit.mba.modeladapters.tests.ModelAdapterTest;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
@@ -15,7 +14,6 @@ import hu.bme.mit.mba.tests.model.neo4j.Neo4jTestModelToNetworkConverter;
 
 public class Neo4jModelAdapterTest extends ModelAdapterTest {
 
-    private Neo4jModelAdapter neo4jAdapter;
     private Map<String, Node> nodeMapping;
 
     @Override
@@ -25,60 +23,62 @@ public class Neo4jModelAdapterTest extends ModelAdapterTest {
         GraphDatabaseService graph = converter.convert(testModel);
         nodeMapping = converter.getNodeMapping();
 
-        neo4jAdapter = new Neo4jModelAdapter();
-        neo4jAdapter.init(graph);
+        adapter = new ModelAdapter();
+        Neo4jModelProvider modelProvider = new Neo4jModelProvider(adapter);
+        modelProvider.init(graph);
         checker.run();
     }
 
     @Override
-    protected <N, T> void degree(final ModelAdapter<N, T> adapter, final N element, final int indegree, final int outdegree) {
-        super.degree(neo4jAdapter, nodeMapping.get(element.toString()), indegree, outdegree);
+    protected <N, T> void degree(final ModelAdapter adapter, final N element, final int indegree, final int outdegree) {
+        super.degree(adapter, nodeMapping.get(element.toString()), indegree, outdegree);
     }
 
     @Override
-    protected <N, T> void nodes(final ModelAdapter<N, T> adapter, final int expected) {
-        super.nodes(neo4jAdapter, expected);
+    protected <N, T> void nodes(final ModelAdapter adapter, final int expected) {
+        super.nodes(adapter, expected);
     }
 
     @Override
-    protected <N, T> void edges(final ModelAdapter<N, T> adapter, final int expected) {
-        super.edges(neo4jAdapter, expected);
+    protected <N, T> void edges(final ModelAdapter adapter, final int expected) {
+        super.edges(adapter, expected);
     }
 
     @Override
-    protected <N, T> void neighbor(final ModelAdapter<N, T> adapter, final N source, final N target) {
-        super.neighbor(neo4jAdapter, nodeMapping.get(source.toString()), nodeMapping.get(target.toString()));
+    protected <N, T> void neighbor(final ModelAdapter adapter, final N source, final N target) {
+        super.neighbor(adapter, nodeMapping.get(source.toString()), nodeMapping.get(target.toString()));
     }
 
     @Override
-    protected <N, T> void degree(final TypedModelAdapter<N, T> adapter, final N element, final T type, final int indegree, final int outdegree) {
-        super.degree(neo4jAdapter, nodeMapping.get(element), type.toString(), indegree, outdegree);
+    protected <N, T> void degree(final ModelAdapter adapter, final N element, final T type, final int indegree,
+            final int outdegree) {
+        super.degree(adapter, nodeMapping.get(element), type.toString(), indegree, outdegree);
     }
 
     @Override
-    protected <N, T> void neighbor(final TypedModelAdapter<N, T> adapter, final T type, final N source, final N target) {
-        super.neighbor(neo4jAdapter, type.toString(), nodeMapping.get(source.toString()),
+    protected <N, T> void neighbor(final ModelAdapter adapter, final T type, final N source, final N target) {
+        super.neighbor(adapter, type.toString(), nodeMapping.get(source.toString()),
                 nodeMapping.get(target.toString()));
     }
 
     @Override
-    protected <N, T> void notNeighbor(final TypedModelAdapter<N, T> adapter, final T type, final N source, final N target) {
-        super.notNeighbor(neo4jAdapter, type.toString(), nodeMapping.get(source.toString()),
+    protected <N, T> void notNeighbor(final ModelAdapter adapter, final T type, final N source, final N target) {
+        super.notNeighbor(adapter, type.toString(), nodeMapping.get(source.toString()),
                 nodeMapping.get(target.toString()));
     }
 
     @Override
-    protected <N, T> void types(final TypedModelAdapter<N, T> adapter, final int expected, final N node) {
-        super.types(neo4jAdapter, expected, nodeMapping.get(node));
+    protected <N, T> void types(final ModelAdapter adapter, final int expected, final N node) {
+        super.types(adapter, expected, nodeMapping.get(node));
     }
 
     @Override
-    protected <N, T> void types(final TypedModelAdapter<N, T> adapter, final int expected) {
-        super.types(neo4jAdapter, expected);
+    protected <N, T> void types(final ModelAdapter adapter, final int expected) {
+        super.types(adapter, expected);
     }
 
     @Override
-    protected <N, T> void nodes(final TypedModelAdapter<N, T> adapter, final T type, final int expected) {
-        super.nodes(neo4jAdapter, type.toString(), expected);
+    protected <N, T> void nodes(final ModelAdapter adapter, final T type, final int expected) {
+        super.nodes(adapter, type.toString(), expected);
     }
 }

@@ -5,7 +5,7 @@ import hu.bme.mit.mba.modelmetrics.ModelMetric;
 
 public interface IncrementalModelEvaluator extends ModelMetric {
 
-    public <N, T> void reevaluateNewEdge(final ModelAdapter<N, T> adapter, final T type, final N sourceNode,
+    public <N, T> void reevaluateNewEdge(final ModelAdapter adapter, final T type, final N sourceNode,
             final N targetNode);
 
 }
