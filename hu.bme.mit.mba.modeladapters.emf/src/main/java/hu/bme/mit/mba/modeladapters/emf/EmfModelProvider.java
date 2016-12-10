@@ -7,7 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import hu.bme.mit.mba.modeladapters.EdgeOperation;
+import hu.bme.mit.mba.modeladapters.Triple;
 import hu.bme.mit.mba.modeladapters.ModelIndexBuilder;
 import hu.bme.mit.mba.modeladapters.ModelProvider;
 
@@ -48,7 +48,7 @@ public class EmfModelProvider implements ModelProvider<EObject, String> {
 
     protected void addEdge(final EObject object, final EReference reference, EObject neighbor) {
         if (neighbor != null && reference != null) {
-            builder.build(new EdgeOperation<>(object, neighbor, reference.getName()));
+            builder.build(new Triple<>(object, neighbor, reference.getName()));
         }
     }
 
@@ -57,7 +57,7 @@ public class EmfModelProvider implements ModelProvider<EObject, String> {
     }
 
     @Override
-    public List<EdgeOperation<EObject, String>> getOperations() {
+    public List<Triple<EObject, String>> getOperations() {
         // TODO Auto-generated method stub
         return null;
     }

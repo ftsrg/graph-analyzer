@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ModelProvider<N, T> {
 
-    public List<EdgeOperation<N, T>> getOperations();
+    public List<Triple<N, T>> getOperations();
 
 }

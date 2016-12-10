@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import hu.bme.mit.mba.modeladapters.EdgeOperation;
+import hu.bme.mit.mba.modeladapters.Triple;
 import hu.bme.mit.mba.modeladapters.ModelIndexBuilder;
 import hu.bme.mit.mba.modeladapters.ModelProvider;
 import hu.bme.mit.mba.tests.model.TestModel;
@@ -23,14 +23,14 @@ public class CustomModelProvider implements ModelProvider<String, String> {
         for (String source : values.keySet()) {
             for (String target : values.get(source).keySet()) {
                 for (String type : values.get(source).get(target)) {
-                    builder.build(new EdgeOperation<>(source, target, type));
+                    builder.build(new Triple<>(source, target, type));
                 }
             }
         }
     }
 
     @Override
-    public List<EdgeOperation<String, String>> getOperations() {
+    public List<Triple<String, String>> getOperations() {
         // TODO Auto-generated method stub
         return null;
     }

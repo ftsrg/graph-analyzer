@@ -2,11 +2,15 @@ package hu.bme.mit.mba.modelmetrics;
 
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import hu.bme.mit.mba.base.data.BaseData;
 import hu.bme.mit.mba.base.metrics.BaseMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 
 public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements TraceableModelMetric {
+
+    private static final Logger logger = Logger.getLogger(AbstractModelMetric.class);
 
     protected BaseData tracing;
 
@@ -31,6 +35,7 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     @Override
     public <N, T> void evaluate(ModelAdapter adapter) {
         clear();
+        logger.debug("Start to evaluate " + getName());
         evaluateAll(adapter);
     }
 
@@ -40,18 +45,6 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
         Set<N> nodes = adapter.<N, T>getNodes();
         nodes.forEach(n -> evaluate(adapter, n));
     }
-
-    // protected <N, T> TypedModelAdapter castAdapter(final ModelAdapter
-    // adapter) {
-    // TypedModelAdapter typedAdapter;
-    // if (adapter instanceof TypedModelAdapter<?, ?>) {
-    // typedAdapter = (TypedModelAdapter) adapter;
-    // } else {
-    // throw new IllegalArgumentException("The adapter must be an instance of
-    // TypedModelAdapter.");
-    // }
-    // return typedAdapter;
-    // }
 
     @Override
     public <N, T> void trace() {

@@ -11,7 +11,7 @@ import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.Transaction;
 
-import hu.bme.mit.mba.modeladapters.EdgeOperation;
+import hu.bme.mit.mba.modeladapters.Triple;
 import hu.bme.mit.mba.modeladapters.ModelIndexBuilder;
 import hu.bme.mit.mba.modeladapters.ModelProvider;
 
@@ -51,12 +51,12 @@ public class Neo4jModelProvider implements ModelProvider<Node, String> {
 
     protected void addEdge(final Node node, final RelationshipType relationshipType, final Node neighbor) {
         if (neighbor != null && relationshipType != null) {
-            builder.build(new EdgeOperation<>(node, neighbor, relationshipType.name()));
+            builder.build(new Triple<>(node, neighbor, relationshipType.name()));
         }
     }
 
     @Override
-    public List<EdgeOperation<Node, String>> getOperations() {
+    public List<Triple<Node, String>> getOperations() {
         // TODO Auto-generated method stub
         return null;
     }

@@ -9,7 +9,7 @@ import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 public class Degrees extends AbstractModelMetric<ListData<Integer>> implements IncrementalModelEvaluator {
 
     public Degrees() {
-        super("DegreeList", new ListData<>());
+        super("Degrees", new ListData<>());
     }
 
     @Override

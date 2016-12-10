@@ -150,8 +150,12 @@ public class ModelAdapter implements ModelIndexBuilder {
     }
 
     @Override
-    public <N, T> void build(EdgeOperation<N, T> operation) {
+    public <N, T> void build(Triple<N, T> operation) {
         this.<N, T>getIndexer().addEdge(operation.getEdgeType(), operation.getSourceNode(), operation.getTargetNode());
+    }
+
+    public <N, T> void build(N sourceNode, N targetNode, T type) {
+        this.<N, T>getIndexer().addEdge(type, sourceNode, targetNode);
     }
 
 }
