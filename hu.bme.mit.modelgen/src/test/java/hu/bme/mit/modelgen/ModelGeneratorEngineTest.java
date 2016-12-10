@@ -29,7 +29,7 @@ import hu.bme.mit.modelgen.handler.EdgeOperationHandler;
 import hu.bme.mit.modelgen.handler.NodeOperationHandler;
 import hu.bme.mit.modelgen.handler.OperationHandler;
 import hu.bme.mit.modelgen.model.EvolvingModelProvider;
-import hu.bme.mit.modelgen.model.TestEvolvingModelProvider;
+import hu.bme.mit.modelgen.model.FakeEvolvingModelProvider;
 import hu.bme.mit.modelgen.op.EdgeOperation;
 import hu.bme.mit.modelgen.op.NodeOperation;
 import hu.bme.mit.modelgen.op.Operation;
@@ -113,8 +113,8 @@ public class ModelGeneratorEngineTest {
         nodeOp = new NodeOperation<>(null);
         sut.add(edgeOperationHandler);
         sut.add(nodeOperationHandler);
-        modelProvider = new TestEvolvingModelProvider();
-        adjacency = ((TestEvolvingModelProvider) modelProvider).getAdjacency();
+        modelProvider = new FakeEvolvingModelProvider();
+        adjacency = ((FakeEvolvingModelProvider) modelProvider).getAdjacency();
     }
 
     @Test
@@ -157,7 +157,7 @@ public class ModelGeneratorEngineTest {
 
         EvolvingModelProvider<String, String> spiedModelProvider = Mockito.spy(modelProvider);
         Assert.assertTrue(adjacency.isEmpty());
-        Assert.assertTrue(((TestEvolvingModelProvider) spiedModelProvider).getAdjacency().isEmpty());
+        Assert.assertTrue(((FakeEvolvingModelProvider) spiedModelProvider).getAdjacency().isEmpty());
 
         NumberOfNodes numberOfNodes = new NumberOfNodes();
         numberOfNodes.getData().setValue(0);

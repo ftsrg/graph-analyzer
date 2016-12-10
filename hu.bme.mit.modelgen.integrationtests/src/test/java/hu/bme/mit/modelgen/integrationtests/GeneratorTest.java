@@ -8,17 +8,17 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import hu.bme.mit.modelgen.ModelGeneratorRunner;
-import hu.bme.mit.modelgen.model.TestEvolvingModelProvider;
+import hu.bme.mit.modelgen.model.FakeEvolvingModelProvider;
 
 public class GeneratorTest {
 
-    private TestEvolvingModelProvider sourceModelProvider;
-    private TestEvolvingModelProvider targetModelProvider;
+    private FakeEvolvingModelProvider sourceModelProvider;
+    private FakeEvolvingModelProvider targetModelProvider;
 
     @Before
     public void setUp() {
-        sourceModelProvider = new TestEvolvingModelProvider();
-        targetModelProvider = new TestEvolvingModelProvider();
+        sourceModelProvider = new FakeEvolvingModelProvider();
+        targetModelProvider = new FakeEvolvingModelProvider();
     }
 
     @Test

@@ -8,13 +8,13 @@ import com.google.common.collect.Table;
 
 import hu.bme.mit.mba.modeladapters.Triple;
 
-public class TestEvolvingModelProvider implements EvolvingModelProvider<String, String> {
+public class FakeEvolvingModelProvider implements EvolvingModelProvider<String, String> {
 
     private Table<String, String, String> adjacency;
 
     private int nodeIndex;
 
-    public TestEvolvingModelProvider() {
+    public FakeEvolvingModelProvider() {
         adjacency = HashBasedTable.create();
     }
 
