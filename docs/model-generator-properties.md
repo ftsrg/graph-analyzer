@@ -45,7 +45,14 @@ The metrics from the MODELS 2016 paper are demonstrated on a simplified Train Be
 ### Approaches
 
 * [design-space exploration techniques](https://inf.mit.bme.hu/research/publications/model-driven-framework-guided-design-space-exploration-1)
-* [logic solvers](), e.g. Z3
+* Modeling languages with [logic solvers](), e.g. USE, Z3, Formule or Alloy
+* Iterative and Incremental generators (Alloy*, Formula iterative call)
+* Feature models with SAT solvers
+* Randomised, rule based model generators
+* Mutation generators
+* Verification of Model Transformation
+* Shape analysis: focusing a shape + concretization + consistency check
+* Augur-like reachibility analysis
 
 #### Related work
 
