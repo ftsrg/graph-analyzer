@@ -28,3 +28,4 @@ replay_*.log
 ~*.*
 *.~*
 test-output
+.idea/
