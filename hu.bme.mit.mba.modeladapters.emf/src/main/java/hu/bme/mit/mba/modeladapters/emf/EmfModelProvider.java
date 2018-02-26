@@ -1,21 +1,23 @@
 package hu.bme.mit.mba.modeladapters.emf;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import hu.bme.mit.mba.modeladapters.ModelIndexer;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
+import hu.bme.mit.mba.modeladapters.Triple;
+import hu.bme.mit.mba.modeladapters.ModelIndexBuilder;
+import hu.bme.mit.mba.modeladapters.ModelProvider;
 
-public class EmfModelAdapter extends TypedModelAdapter<EObject, String> {
+public class EmfModelProvider implements ModelProvider<EObject, String> {
 
     private EObject root;
+    private ModelIndexBuilder builder;
 
-    @Override
-    public Iterator<EObject> getModelIterator() {
-        return root.eAllContents();
+    public EmfModelProvider(ModelIndexBuilder builder) {
+        this.builder = builder;
     }
 
     public void init(EObject root) {
@@ -24,8 +26,6 @@ public class EmfModelAdapter extends TypedModelAdapter<EObject, String> {
     }
 
     protected void init(Iterator<EObject> iterator) {
-        indexer = new ModelIndexer<EObject, String>();
-
         while (iterator.hasNext()) {
             final EObject object = iterator.next();
             for (final EReference reference : object.eClass().getEReferences()) {
@@ -48,12 +48,18 @@ public class EmfModelAdapter extends TypedModelAdapter<EObject, String> {
 
     protected void addEdge(final EObject object, final EReference reference, EObject neighbor) {
         if (neighbor != null && reference != null) {
-            indexer.addEdge(reference.getName(), object, neighbor);
+            builder.build(new Triple<>(object, neighbor, reference.getName()));
         }
     }
 
     public EObject getRoot() {
         return root;
+    }
+
+    @Override
+    public List<Triple<EObject, String>> getOperations() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

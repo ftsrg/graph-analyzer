@@ -9,11 +9,11 @@ import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 public class Degrees extends AbstractModelMetric<ListData<Integer>> implements IncrementalModelEvaluator {
 
     public Degrees() {
-        super("DegreeList", new ListData<>());
+        super("Degrees", new ListData<>());
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
         evaluateEveryNode(adapter);
     }
 
@@ -28,7 +28,7 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>> implements I
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter adapter, N element) {
         int degree = adapter.getDegree(element);
         data.add(degree);
         updateTracing(element, degree);
@@ -41,12 +41,12 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>> implements I
     }
 
     @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter adapter, T type, N sourceNode, N targetNode) {
         reevaluateNode(adapter, getTracing(), sourceNode);
         reevaluateNode(adapter, getTracing(), targetNode);
     }
 
-    protected <N, T> void reevaluateNode(ModelAdapter<N, T> adapter, MapData<N, Integer> castedTracing, N node) {
+    protected <N, T> void reevaluateNode(ModelAdapter adapter, MapData<N, Integer> castedTracing, N node) {
         if (castedTracing.containsKey(node)) {
             Integer value = castedTracing.get(node);
             value++;

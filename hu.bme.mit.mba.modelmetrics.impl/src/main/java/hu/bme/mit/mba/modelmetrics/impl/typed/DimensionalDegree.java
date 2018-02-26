@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.MappedListData;
 import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
@@ -15,16 +14,16 @@ public class DimensionalDegree extends AbstractModelMetric<MappedListData<String
     }
 
     @Override
-    protected <N, T> void evaluateAll(final ModelAdapter<N, T> adapter) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-        for (T type : typedAdapter.getTypes()) {
-            for (N node : typedAdapter.getNodes(type)) {
-                evaluate(typedAdapter, type, node);
+    protected <N, T> void evaluateAll(final ModelAdapter adapter) {
+        // ModelAdapter typedAdapter = castAdapter(adapter);
+        for (T type : adapter.<N, T>getTypes()) {
+            for (N node : adapter.<N, T>getNodes(type)) {
+                evaluate(adapter, type, node);
             }
         }
     }
 
-    protected <N, T, M> void evaluate(TypedModelAdapter<N, T> typedAdapter, T type, N node) {
+    protected <N, T, M> void evaluate(ModelAdapter typedAdapter, T type, N node) {
         int degree = typedAdapter.getDegree(node, type);
         data.put(type.toString(), degree);
         updateTracing(node, type, degree);
@@ -47,13 +46,12 @@ public class DimensionalDegree extends AbstractModelMetric<MappedListData<String
     }
 
     @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        reevaluate(castAdapter(adapter), getTracing(), sourceNode, type);
-        reevaluate(castAdapter(adapter), getTracing(), targetNode, type);
+    public <N, T> void reevaluateNewEdge(ModelAdapter adapter, T type, N sourceNode, N targetNode) {
+        reevaluate(adapter, getTracing(), sourceNode, type);
+        reevaluate(adapter, getTracing(), targetNode, type);
     }
 
-    protected <N, T> void reevaluate(TypedModelAdapter<N, T> adapter, MatrixData<N, T, Integer> castedTracing, N node,
-            T type) {
+    protected <N, T> void reevaluate(ModelAdapter adapter, MatrixData<N, T, Integer> castedTracing, N node, T type) {
         if (castedTracing.getValues().contains(node, type)) {
             Integer value = castedTracing.getValues().get(node, type);
             value++;

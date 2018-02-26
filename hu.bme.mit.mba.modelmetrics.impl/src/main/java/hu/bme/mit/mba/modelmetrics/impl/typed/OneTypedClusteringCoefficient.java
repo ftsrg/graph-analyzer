@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.MappedListData;
 import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
@@ -78,7 +77,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     // }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
         evaluateEveryNode(adapter);
     }
 
@@ -87,16 +86,16 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     int maxNumberOfNeighbors = 100;
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+    public <N, T> void evaluate(ModelAdapter adapter, N element) {
+        // TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
         // long interConnected = 0;
         // long numberOfNeighbors = 0;
-        for (T type : typedAdapter.getTypes(element)) {
-            evaluate(typedAdapter, element, type);
+        for (T type : adapter.<N, T>getTypes(element)) {
+            evaluateInternal(adapter, element, type);
         }
     }
 
-    protected <T, N, M> void evaluate(TypedModelAdapter<N, T> typedAdapter, N element, T type) {
+    protected <T, N, M> void evaluateInternal(ModelAdapter typedAdapter, N element, T type) {
         long interConnected = 0;
         long numberOfNeighbors = 0;
         numberOfNeighbors = typedAdapter.getDegree(element, type);
@@ -127,7 +126,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
 
     protected <N, T> void putToTracing(N element, T type, double value) {
         if (tracing != null) {
-            ((MatrixData<N, T, Double>) tracing).put(element, type, value);
+            getTracing().put(element, type, value);
         }
     }
 
@@ -142,17 +141,17 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     }
 
     @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+    public <N, T> void reevaluateNewEdge(ModelAdapter adapter, T type, N sourceNode, N targetNode) {
+        // ModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 
-        reevaluate(typedAdapter, sourceNode, type);
-        reevaluate(typedAdapter, targetNode, type);
+        reevaluate(adapter, sourceNode, type);
+        reevaluate(adapter, targetNode, type);
     }
 
-    protected <N, T> void reevaluate(TypedModelAdapter<N, T> adapter, N node, T type) {
-        evaluate(adapter, node, type);
+    protected <N, T> void reevaluate(ModelAdapter adapter, N node, T type) {
+        evaluateInternal(adapter, node, type);
         for (N neighbor : adapter.getNeighbors(node, type)) {
-            evaluate(adapter, neighbor, type);
+            evaluateInternal(adapter, neighbor, type);
         }
     }
 

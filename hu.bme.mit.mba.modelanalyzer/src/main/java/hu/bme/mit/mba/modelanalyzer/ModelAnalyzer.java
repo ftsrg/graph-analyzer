@@ -8,7 +8,6 @@ import com.google.common.base.Preconditions;
 
 import hu.bme.mit.mba.base.Analyzer;
 import hu.bme.mit.mba.base.metrics.Metric;
-import hu.bme.mit.mba.base.metrics.SummaryMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
@@ -117,13 +116,13 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
                 "The ModelAnalyzer already contains metrics, so the useAll function cannot be used.");
     }
 
-    private ModelAnalyzer useSummary(final SummaryMetric<?, ?> summary) {
-        // checkArgument(metrics.containsKey(metric.toString()),
-        // "The " + metric.toString() + " should be contained by the
-        // ModelAnalyzer");
-        // TODO
-        return this;
-    }
+    // private ModelAnalyzer useSummary(final SummaryMetric<?, ?> summary) {
+    // checkArgument(metrics.containsKey(metric.toString()),
+    // "The " + metric.toString() + " should be contained by the
+    // ModelAnalyzer");
+    // TODO
+    // return this;
+    // }
 
     /**
      * Removes the metric parameter (see {@link ModelMetricsEnum}) from the
@@ -176,7 +175,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
      *
      * @return this
      */
-    public <N, T> ModelAnalyzer evaluate(final ModelAdapter<N, T> adapter) {
+    public <N, T> ModelAnalyzer evaluate(final ModelAdapter adapter) {
         for (final ModelMetric m : metrics.values()) {
             m.evaluate(adapter);
         }
@@ -199,7 +198,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
      *
      * @return this
      */
-    public <N, T> ModelAnalyzer evaluate(final ModelAdapter<N, T> adapter, final ModelMetricsEnum metric) {
+    public <N, T> ModelAnalyzer evaluate(final ModelAdapter adapter, final ModelMetricsEnum metric) {
         final ModelMetric metricObj = getMetric(metric);
         Preconditions.checkNotNull("The " + metric + " metric was not added to the analyzer.", metricObj);
 
@@ -223,9 +222,9 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
      *
      * @return this
      */
-    private ModelAnalyzer validate(final ModelAdapter<?, ?> adapter) {
-        throw new UnsupportedOperationException("Not implemented yet");
-        // return this;
-    }
+    // private ModelAnalyzer validate(final ModelAdapter adapter) {
+    // throw new UnsupportedOperationException("Not implemented yet");
+    // // return this;
+    // }
 
 }

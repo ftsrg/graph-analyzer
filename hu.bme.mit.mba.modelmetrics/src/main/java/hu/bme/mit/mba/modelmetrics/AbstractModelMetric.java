@@ -1,13 +1,16 @@
 package hu.bme.mit.mba.modelmetrics;
 
-import java.util.Iterator;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 import hu.bme.mit.mba.base.data.BaseData;
 import hu.bme.mit.mba.base.metrics.BaseMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 
 public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements TraceableModelMetric {
+
+    private static final Logger logger = Logger.getLogger(AbstractModelMetric.class);
 
     protected BaseData tracing;
 
@@ -25,33 +28,22 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter adapter, N element) {
         throw new UnsupportedOperationException("Cannot evaluate metric " + name + " on one element.");
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter) {
+    public <N, T> void evaluate(ModelAdapter adapter) {
         clear();
+        logger.debug("Start to evaluate " + getName());
         evaluateAll(adapter);
     }
 
-    protected abstract <N, T> void evaluateAll(ModelAdapter<N, T> adapter);
+    protected abstract <N, T> void evaluateAll(ModelAdapter adapter);
 
-    protected <N, T> void evaluateEveryNode(final ModelAdapter<N, T> adapter) {
-        Iterator<N> iterator = adapter.getModelIterator();
-        while (iterator.hasNext()) {
-            this.evaluate(adapter, iterator.next());
-        }
-    }
-
-    protected <N, T> TypedModelAdapter<N, T> castAdapter(final ModelAdapter<N, T> adapter) {
-        TypedModelAdapter<N, T> typedAdapter;
-        if (adapter instanceof TypedModelAdapter<?, ?>) {
-            typedAdapter = (TypedModelAdapter<N, T>) adapter;
-        } else {
-            throw new IllegalArgumentException("The adapter must be an instance of TypedModelAdapter.");
-        }
-        return typedAdapter;
+    protected <N, T> void evaluateEveryNode(final ModelAdapter adapter) {
+        Set<N> nodes = adapter.<N, T>getNodes();
+        nodes.forEach(n -> evaluate(adapter, n));
     }
 
     @Override

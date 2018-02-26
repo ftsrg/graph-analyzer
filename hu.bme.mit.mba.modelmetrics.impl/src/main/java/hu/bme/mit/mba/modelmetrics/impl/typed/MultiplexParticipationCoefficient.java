@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
@@ -15,7 +14,7 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
         evaluateEveryNode(adapter);
     }
 
@@ -24,22 +23,22 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
     boolean exclusive = false;
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
+    public <N, T> void evaluate(ModelAdapter adapter, N element) {
+        // TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
 
         int numOfDimensions = 0;
         if (exclusive) {
-            numOfDimensions = typedAdapter.getNumberOfTypes(element);
+            numOfDimensions = adapter.getNumberOfTypes(element);
         } else {
-            numOfDimensions = typedAdapter.getNumberOfTypes();
+            numOfDimensions = adapter.getNumberOfTypes();
         }
 
         double coef = 0.0;
         if (numOfDimensions == 1) {
             coef = 0.0;
         } else {
-            for (T type : typedAdapter.getTypes(element)) {
-                coef += Math.pow(typedAdapter.getDegree(element, type) / (double) typedAdapter.getDegree(element), 2.0);
+            for (T type : adapter.<N, T>getTypes(element)) {
+                coef += Math.pow(adapter.getDegree(element, type) / (double) adapter.getDegree(element), 2.0);
             }
             coef = 1 - coef;
             coef = coef * numOfDimensions / (numOfDimensions - 1);
@@ -66,12 +65,12 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
     }
 
     @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter adapter, T type, N sourceNode, N targetNode) {
         reevaluate(adapter, type, sourceNode);
         reevaluate(adapter, type, targetNode);
     }
 
-    protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, T type, N node) {
+    protected <N, T> void reevaluate(ModelAdapter adapter, T type, N node) {
         if (!getTracing().containsKey(node)) {
             updateTracing(node, 0.0);
         } else {

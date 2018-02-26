@@ -2,7 +2,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
@@ -13,22 +12,24 @@ public class NodeActivity extends AbstractModelMetric<ListData<Integer>> impleme
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter adapter) {
         evaluateEveryNode(adapter);
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-        evaluate(castAdapter(adapter), element);
-    }
-
-    protected <N, T> void evaluate(TypedModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(ModelAdapter adapter, N element) {
+        // evaluate(adapter, element);
         int numberOfTypes = adapter.getNumberOfTypes(element);
         data.add(numberOfTypes);
     }
 
+    // protected <N, T> void evaluate(ModelAdapter adapter, N element) {
+    // int numberOfTypes = adapter.getNumberOfTypes(element);
+    // data.add(numberOfTypes);
+    // }
+
     @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
+    public <N, T> void reevaluateNewEdge(ModelAdapter adapter, T type, N sourceNode, N targetNode) {
         evaluate(adapter, sourceNode);
         evaluate(adapter, targetNode);
     }

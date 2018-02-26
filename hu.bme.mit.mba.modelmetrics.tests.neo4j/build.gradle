@@ -4,4 +4,6 @@ dependencies {
   compile project(':hu.bme.mit.mba.modelmetrics.impl')
   compile project(':hu.bme.mit.mba.modelmetrics.tests')
   compile project(':hu.bme.mit.mba.testmodels.neo4j')
+  testRuntime group: 'com.google.inject', name: 'guice', version: '4.0'
+  
 }

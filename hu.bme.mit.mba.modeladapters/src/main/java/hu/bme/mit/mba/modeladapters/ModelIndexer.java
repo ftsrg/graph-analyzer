@@ -1,6 +1,8 @@
 package hu.bme.mit.mba.modeladapters;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,11 +16,25 @@ public class ModelIndexer<N, T> {
     protected int numberOfAddedEdges;
     protected int numberOfAddedNodes;
 
+    private static final Map<ModelAdapter, ModelIndexer<?, ?>> instances = new HashMap<>();
+
     public ModelIndexer() {
         nodeIndex = HashBasedTable.create();
         typeIndex = HashBasedTable.create();
         numberOfAddedEdges = 0;
         numberOfAddedNodes = 0;
+    }
+
+    public static <N, T> ModelIndexer<N, T> getInstance(ModelAdapter adapter) {
+        if (!instances.containsKey(adapter)) {
+            instances.put(adapter, new ModelIndexer<>());
+        }
+        return getInstanceInternal(adapter);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <N, T> ModelIndexer<N, T> getInstanceInternal(ModelAdapter adapter) {
+        return (ModelIndexer<N, T>) instances.get(adapter);
     }
 
     public boolean isAdjacent(final N source, final N target) {
