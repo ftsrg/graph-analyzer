@@ -1,0 +1,7 @@
+
+dependencies {
+  compile project(':hu.bme.mit.mba.modeladapters.csv')
+  compile project(':hu.bme.mit.mba.modelmetrics.impl')
+  compile project(':hu.bme.mit.mba.modelmetrics.tests')
+  compile project(':hu.bme.mit.mba.testmodels.csv')
+}

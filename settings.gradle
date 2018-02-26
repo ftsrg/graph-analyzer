@@ -3,10 +3,12 @@ rootProject.name = "hu.bme.mit.mba"
 include ':hu.bme.mit.mba.base'
 
 include ':hu.bme.mit.mba.modeladapters'
+include ':hu.bme.mit.mba.modeladapters.csv'
 include ':hu.bme.mit.mba.modeladapters.emf'
 include ':hu.bme.mit.mba.modeladapters.neo4j'
 
 include ':hu.bme.mit.mba.modeladapters.tests'
+include ':hu.bme.mit.mba.modeladapters.csv.tests'
 include ':hu.bme.mit.mba.modeladapters.emf.tests'
 include ':hu.bme.mit.mba.modeladapters.neo4j.tests'
 
@@ -17,10 +19,12 @@ include ':hu.bme.mit.mba.modelmetrics'
 include ':hu.bme.mit.mba.modelmetrics.impl'
 
 include ':hu.bme.mit.mba.modelmetrics.tests'
+include ':hu.bme.mit.mba.modelmetrics.tests.csv'
 include ':hu.bme.mit.mba.modelmetrics.tests.emf'
 include ':hu.bme.mit.mba.modelmetrics.tests.neo4j'
 
 include ':hu.bme.mit.mba.testbase'
 include ':hu.bme.mit.mba.testmodels.model'
+include ':hu.bme.mit.mba.testmodels.csv'
 include ':hu.bme.mit.mba.testmodels.emf'
 include ':hu.bme.mit.mba.testmodels.neo4j'
