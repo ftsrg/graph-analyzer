@@ -1,27 +1,28 @@
 package hu.bme.mit.mba.modeladapters.tests;
 
+import hu.bme.mit.mba.modeladapters.ModelAdapter;
+import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
+import hu.bme.mit.mba.tests.model.TestModel;
+import hu.bme.mit.mba.tests.model.TestModelTypes;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static hu.bme.mit.mba.tests.model.ModelContext.dim1;
 import static hu.bme.mit.mba.tests.model.ModelContext.dim2;
 import static hu.bme.mit.mba.tests.model.ModelContext.node1;
 import static hu.bme.mit.mba.tests.model.ModelContext.node2;
 import static hu.bme.mit.mba.tests.model.ModelContext.node3;
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertTrue;
 import static org.testng.Assert.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
-import hu.bme.mit.mba.tests.model.TestModel;
-import hu.bme.mit.mba.tests.model.TestModelTypes;
+//import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertTrue;
 
 public class ModelAdapterTest {
 
@@ -29,16 +30,16 @@ public class ModelAdapterTest {
     protected TestModel model;
 
     @Test(dataProvider = "data")
-    public void testAdapter(TestModelTypes modelType, Runnable checker) {
+    public void testAdapter(TestModelTypes modelType, Runnable checker) throws IOException {
         runTests(modelType, checker);
     }
 
     @Test(dataProvider = "typedData")
-    public void testTypedAdapter(TestModelTypes modelType, Runnable checker) {
+    public void testTypedAdapter(TestModelTypes modelType, Runnable checker) throws IOException {
         runTests(modelType, checker);
     }
 
-    protected void runTests(TestModelTypes modelType, Runnable checker) {
+    protected void runTests(TestModelTypes modelType, Runnable checker) throws IOException {
         model = modelType.init();
         adapter = new CustomTypedModelAdapter();
         adapter.init(model);

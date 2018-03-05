@@ -1,14 +1,5 @@
 package hu.bme.mit.mba.modelmetrics.tests;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
-import org.apache.log4j.Logger;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-
 import hu.bme.mit.mba.base.data.BaseData;
 import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modeladapters.tests.CustomTypedModelAdapter;
@@ -17,6 +8,15 @@ import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
+import org.apache.log4j.Logger;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class ModelMetricTest<D extends BaseData> {
 
@@ -52,7 +52,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     @Test(dataProvider = "data")
     public void testEvaluation(TestModelTypes modelType, Consumer<D> checker)
-            throws InstantiationException, IllegalAccessException {
+        throws InstantiationException, IllegalAccessException, IOException {
         metric = getMetric().instantiate();
         initData();
         initModel(modelType);
@@ -65,7 +65,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     @Test(dataProvider = "data")
     public void testEvaluationWithAnalyzer(TestModelTypes modelType, Consumer<D> checker)
-            throws InstantiationException, IllegalAccessException {
+        throws InstantiationException, IllegalAccessException, IOException {
         initModel(modelType);
         ModelAnalyzer analyzer = new ModelAnalyzer();
         analyzer.use(getMetric());
@@ -82,7 +82,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
     }
 
     @Test(dataProvider = "data")
-    public void testEvaluationWithAnalyzerUsingAll(TestModelTypes modelType, Consumer<D> checker) {
+    public void testEvaluationWithAnalyzerUsingAll(TestModelTypes modelType, Consumer<D> checker) throws IOException {
         initModel(modelType);
         ModelAnalyzer analyzer = new ModelAnalyzer();
         analyzer.useAll();
@@ -115,7 +115,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
         testModel.clear();
     }
 
-    protected void initModel(TestModelTypes modelType) {
+    protected void initModel(TestModelTypes modelType) throws IOException {
         testModel = modelType.init();
         adapter = new CustomTypedModelAdapter();
         ((CustomTypedModelAdapter) adapter).init(testModel);

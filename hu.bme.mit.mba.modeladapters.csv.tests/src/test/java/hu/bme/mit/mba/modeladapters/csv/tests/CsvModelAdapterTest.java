@@ -3,30 +3,29 @@ package hu.bme.mit.mba.modeladapters.csv.tests;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modeladapters.csv.CsvModelAdapter;
-import hu.bme.mit.mba.modeladapters.neo4j.Neo4jModelAdapter;
 import hu.bme.mit.mba.modeladapters.tests.ModelAdapterTest;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 import hu.bme.mit.mba.tests.model.csv.CsvTestModelToNetworkConverter;
-import org.neo4j.graphdb.GraphDatabaseService;
-import org.neo4j.graphdb.Node;
+import org.apache.commons.lang3.tuple.Pair;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class CsvModelAdapterTest extends ModelAdapterTest {
 
     private CsvModelAdapter neo4jAdapter;
-    private Map<String, Node> nodeMapping;
+    private Map<String, Long> nodeMapping;
 
     @Override
-    public void runTests(final TestModelTypes modelType, final Runnable checker) {
+    public void runTests(final TestModelTypes modelType, final Runnable checker) throws IOException {
         final TestModel testModel = modelType.init();
         final CsvTestModelToNetworkConverter converter = new CsvTestModelToNetworkConverter();
-        GraphDatabaseService graph = converter.convert(testModel);
+        final Pair<String, String> csvFiles = converter.convert(testModel);
         nodeMapping = converter.getNodeMapping();
 
-        neo4jAdapter = new Neo4jModelAdapter();
-        neo4jAdapter.init(graph);
+        neo4jAdapter = new CsvModelAdapter();
+        neo4jAdapter.init(csvFiles.getLeft(), csvFiles.getRight());
         checker.run();
     }
 

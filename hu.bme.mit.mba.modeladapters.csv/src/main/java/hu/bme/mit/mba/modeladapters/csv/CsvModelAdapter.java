@@ -25,10 +25,10 @@ public class CsvModelAdapter extends TypedModelAdapter<Long, String> {
         return new CsvIterator(nodeMapReader, header,processors);
 	}
 
-	public void init(String relsCsv, String nodeCsv) {
+	public void init(String nodeCsv, String relsCsv) {
         try {
-            edgeMapReader = new CsvMapReader(new FileReader(relsCsv), CsvPreference.STANDARD_PREFERENCE);
             nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.STANDARD_PREFERENCE);
+            edgeMapReader = new CsvMapReader(new FileReader(relsCsv), CsvPreference.STANDARD_PREFERENCE);
             init();
             }
         catch (java.io.IOException e) {
