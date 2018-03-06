@@ -5,7 +5,7 @@ import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegree;
 import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 
