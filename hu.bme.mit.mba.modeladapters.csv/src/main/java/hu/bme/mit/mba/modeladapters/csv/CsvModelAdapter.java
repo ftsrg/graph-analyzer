@@ -25,14 +25,10 @@ public class CsvModelAdapter extends TypedModelAdapter<Long, String> {
         return new CsvIterator(nodeMapReader, header,processors);
 	}
 
-	public void init(String nodeCsv, String relsCsv) {
-        try {
-            nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.STANDARD_PREFERENCE);
-            edgeMapReader = new CsvMapReader(new FileReader(relsCsv), CsvPreference.STANDARD_PREFERENCE);
-            init();
-            }
-        catch (java.io.IOException e) {
-        }
+	public void init(String nodeCsv, String relsCsv) throws IOException {
+        nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.STANDARD_PREFERENCE);
+        edgeMapReader = new CsvMapReader(new FileReader(relsCsv), CsvPreference.STANDARD_PREFERENCE);
+        init();
     }
     protected void init() throws IOException {
         final CellProcessor[] processors = getProcessors("edges");
