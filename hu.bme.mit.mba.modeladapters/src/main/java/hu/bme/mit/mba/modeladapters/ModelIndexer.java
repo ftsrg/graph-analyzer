@@ -30,7 +30,8 @@ public class ModelIndexer<N, T> {
     }
 
     protected void newNode(final N node) {
-        if (!nodeIndex.containsColumn(node) && !nodeIndex.containsRow(node)) {
+        if (//!nodeIndex.containsColumn(node) &&
+            !nodeIndex.containsRow(node)) {
             numberOfAddedNodes++;
         }
     }
