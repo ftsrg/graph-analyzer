@@ -13,7 +13,7 @@ public class CsvTest {
     public void test() throws IOException {
         System.out.println("Example for using concrete metric");
         // the adapter represents a bridge between model and metrics
-        CsvModelAdapter adapter = new CsvModelAdapter(ImmutableList.of("intermediary_of", "registered_address"));
+        CsvModelAdapter adapter = new CsvModelAdapter(ImmutableList.of("intermediary_of", "officer_of", "registered_address"));
         // adapter must be initialized by a container node, this will create
         // an index which is necessary during the evaluation
         adapter.init("nodes.csv", "edges.csv");
