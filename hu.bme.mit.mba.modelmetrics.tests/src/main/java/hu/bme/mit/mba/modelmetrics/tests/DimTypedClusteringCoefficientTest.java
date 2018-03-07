@@ -16,7 +16,7 @@ package hu.bme.mit.mba.modelmetrics.tests;
 // import org.junit.Test;
 //
 // import eu.mondo.map.base.data.MappedListData;
-// import eu.mondo.map.modeladapters.tests.CustomTypedModelAdapter;
+// import eu.mondo.map.modeladapters.tests.CustomModelAdapter;
 // import eu.mondo.map.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
 // import eu.mondo.map.tests.model.TestModel;
 //
@@ -25,7 +25,7 @@ package hu.bme.mit.mba.modelmetrics.tests;
 // OneTypedClusteringCoefficient> {
 //
 // protected TestModel model;
-// protected CustomTypedModelAdapter adapter;
+// protected CustomModelAdapter adapter;
 //
 // @Override
 // public OneTypedClusteringCoefficient newMetric() {
@@ -36,7 +36,7 @@ package hu.bme.mit.mba.modelmetrics.tests;
 // public void init() {
 // super.init();
 // model = new TestModel();
-// adapter = new CustomTypedModelAdapter();
+// adapter = new CustomModelAdapter();
 // }
 //
 // @Override

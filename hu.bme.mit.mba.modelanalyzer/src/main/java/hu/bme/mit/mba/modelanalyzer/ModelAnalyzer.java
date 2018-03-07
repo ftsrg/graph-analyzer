@@ -193,7 +193,7 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
      *            instance of {@link ModelAdapter}
      * @param metric
      *            value in {@link ModelMetricsEnum}, identifies the
-     *            {@link Metric} to evaluate
+     *            {@link Metric} to evaluateT
      * @param <N>
      *            type of the model
      *

@@ -1,17 +1,20 @@
 package hu.bme.mit.mba.modeladapters.emf;
 
-import java.util.Iterator;
-
+import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import hu.bme.mit.mba.modeladapters.ModelIndexer;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
+import java.util.Collection;
+import java.util.Iterator;
 
-public class EmfModelAdapter extends TypedModelAdapter<EObject, String> {
+public class EmfModelAdapter extends ModelAdapter<EObject, String> {
 
     private EObject root;
+
+    public EmfModelAdapter(Collection<String> dimensions) {
+        super(dimensions);
+    }
 
     @Override
     public Iterator<EObject> getModelIterator() {
@@ -24,7 +27,11 @@ public class EmfModelAdapter extends TypedModelAdapter<EObject, String> {
     }
 
     protected void init(Iterator<EObject> iterator) {
-        indexer = new ModelIndexer<EObject, String>();
+        while (iterator.hasNext()) {
+            final EObject object = iterator.next();
+            // copy stuff to a collection
+        }
+        //indexer = new ModelIndexer<>();
 
         while (iterator.hasNext()) {
             final EObject object = iterator.next();

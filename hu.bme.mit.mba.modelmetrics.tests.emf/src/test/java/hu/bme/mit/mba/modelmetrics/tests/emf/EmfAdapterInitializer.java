@@ -9,7 +9,7 @@ public class EmfAdapterInitializer {
 
     public static EmfModelAdapter getAdapter(TestModel testModel) {
         NodeContainer container = new EmfTestModelToNetworkConverter().convert(testModel);
-        EmfModelAdapter emfAdapter = new EmfModelAdapter();
+        EmfModelAdapter emfAdapter = new EmfModelAdapter(testModel.getDimensions());
         emfAdapter.init(container);
 
         return emfAdapter;

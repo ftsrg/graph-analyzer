@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
@@ -25,21 +24,19 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
 
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-
         int numOfDimensions = 0;
         if (exclusive) {
-            numOfDimensions = typedAdapter.getNumberOfTypes(element);
+            numOfDimensions = adapter.getNumberOfTypes(element);
         } else {
-            numOfDimensions = typedAdapter.getNumberOfTypes();
+            numOfDimensions = adapter.getNumberOfTypes();
         }
 
         double coef = 0.0;
         if (numOfDimensions == 1) {
             coef = 0.0;
         } else {
-            for (T type : typedAdapter.getTypes(element)) {
-                coef += Math.pow(typedAdapter.getDegree(element, type) / (double) typedAdapter.getDegree(element), 2.0);
+            for (T type : adapter.getTypes(element)) {
+                coef += Math.pow(adapter.getDegree(element, type) / (double) adapter.getDegree(element), 2.0);
             }
             coef = 1 - coef;
             coef = coef * numOfDimensions / (numOfDimensions - 1);

@@ -216,7 +216,7 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 // }
 //
 // @Override
-// public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+// public <N, T> void evaluateT(ModelAdapter<N, T> adapter, N element) {
 // // TODO Auto-generated method stub
 //
 // }

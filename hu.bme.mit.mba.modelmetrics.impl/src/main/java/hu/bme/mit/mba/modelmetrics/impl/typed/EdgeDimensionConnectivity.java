@@ -2,7 +2,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
 public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<String, Double>> {
@@ -60,19 +59,18 @@ public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-	TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-	for (T type : typedAdapter.getTypes()) {
-	    evaluate(typedAdapter, type);
-	}
+        for (T type : adapter.getTypes()) {
+            evaluateT(adapter, type);
+        }
     }
 
-    protected <N, T> void evaluate(TypedModelAdapter<N, T> adapter, T type) {
-	int sumOfEdges = 0;
-	for (N node : adapter.getNodes(type)) {
-	    sumOfEdges += adapter.getDegree(node, type);
-	}
-	sumOfEdges /= 2;
-	data.put(type.toString(), (double) sumOfEdges / adapter.getNumberOfEdges());
+    protected <N, T> void evaluateT(ModelAdapter<N, T> adapter, T type) {
+        int sumOfEdges = 0;
+        for (N node : adapter.getNodes(type)) {
+            sumOfEdges += adapter.getDegree(node, type);
+        }
+        sumOfEdges /= 2;
+        data.put(type.toString(), (double) sumOfEdges / adapter.getNumberOfEdges());
     }
 
 }

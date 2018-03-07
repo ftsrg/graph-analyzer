@@ -5,7 +5,7 @@ import hu.bme.mit.mba.modeladapters.ModelAdapter;
 
 public interface ModelMetric extends Metric {
 
-    public <N, T> void evaluate(final ModelAdapter<N, T> adapter);
+    <N, T> void evaluate(final ModelAdapter<N, T> adapter);
 
-    public <N, T> void evaluate(final ModelAdapter<N, T> adapter, final N element);
+    <N, T> void evaluate(final ModelAdapter<N, T> adapter, final N element);
 }

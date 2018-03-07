@@ -1,20 +1,23 @@
 package hu.bme.mit.mba.modeladapters.tests;
 
+import hu.bme.mit.mba.modeladapters.ModelAdapter;
+import hu.bme.mit.mba.tests.model.TestModel;
+
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import hu.bme.mit.mba.modeladapters.ModelIndexer;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
-import hu.bme.mit.mba.tests.model.TestModel;
-
-public class CustomTypedModelAdapter extends TypedModelAdapter<String, String> {
+public class CsvModelAdapter extends ModelAdapter<String, String> {
 
     private TestModel model;
 
+    public CsvModelAdapter(Collection<String> dimensions) {
+        super(dimensions);
+    }
+
     public void init(TestModel model) {
         this.model = model;
-        indexer = new ModelIndexer<String, String>();
         Map<String, Map<String, Set<String>>> values = model.getAdjacency().rowMap();
         for (String source : values.keySet()) {
             for (String target : values.get(source).keySet()) {

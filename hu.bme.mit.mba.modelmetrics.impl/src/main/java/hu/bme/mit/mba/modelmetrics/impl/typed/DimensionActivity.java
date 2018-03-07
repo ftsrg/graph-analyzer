@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
@@ -16,14 +15,13 @@ public class DimensionActivity extends AbstractModelMetric<MapData<String, Integ
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        TypedModelAdapter<N, T> typedAdapter = castAdapter(adapter);
-        for (T type : typedAdapter.getTypes()) {
+        for (T type : adapter.getTypes()) {
             if (tracing != null) {
-                for (N node : typedAdapter.getNodes(type)) {
+                for (N node : adapter.getNodes(type)) {
                     getTracing().put(node, type, 1);
                 }
             }
-            data.put(type.toString(), typedAdapter.getNumberOfNodes(type));
+            data.put(type.toString(), adapter.getNumberOfNodes(type));
         }
     }
 

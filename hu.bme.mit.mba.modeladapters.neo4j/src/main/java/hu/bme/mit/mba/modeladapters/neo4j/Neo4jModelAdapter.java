@@ -1,9 +1,6 @@
 package hu.bme.mit.mba.modeladapters.neo4j;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -12,14 +9,20 @@ import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.Transaction;
 
-import hu.bme.mit.mba.modeladapters.ModelIndexer;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
-public class Neo4jModelAdapter extends TypedModelAdapter<Node, String> {
+public class Neo4jModelAdapter extends ModelAdapter<Node, String> {
 
-	GraphDatabaseService graph;
+	private GraphDatabaseService graph;
 
-	@Override
+    public Neo4jModelAdapter(Collection<String> dimensions) {
+        super(dimensions);
+    }
+
+    @Override
 	public Iterator<Node> getModelIterator() {
         try (Transaction tx = graph.beginTx()) {
             return graph.getAllNodes().iterator();
@@ -34,7 +37,7 @@ public class Neo4jModelAdapter extends TypedModelAdapter<Node, String> {
 	}
 
 	protected void init(ResourceIterable<Node> nodes) {
-		indexer = new ModelIndexer<Node, String>();
+		//indexer = new ModelIndexer<Node, String>();
 
 		for (Node node : nodes) {
 			for (Relationship relationship : node.getRelationships(Direction.OUTGOING)) {

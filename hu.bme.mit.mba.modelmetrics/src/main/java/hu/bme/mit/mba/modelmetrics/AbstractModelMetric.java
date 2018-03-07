@@ -1,11 +1,10 @@
 package hu.bme.mit.mba.modelmetrics;
 
-import java.util.Iterator;
-
 import hu.bme.mit.mba.base.data.BaseData;
 import hu.bme.mit.mba.base.metrics.BaseMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
+
+import java.util.Iterator;
 
 public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements TraceableModelMetric {
 
@@ -42,16 +41,6 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
         while (iterator.hasNext()) {
             this.evaluate(adapter, iterator.next());
         }
-    }
-
-    protected <N, T> TypedModelAdapter<N, T> castAdapter(final ModelAdapter<N, T> adapter) {
-        TypedModelAdapter<N, T> typedAdapter;
-        if (adapter instanceof TypedModelAdapter<?, ?>) {
-            typedAdapter = (TypedModelAdapter<N, T>) adapter;
-        } else {
-            throw new IllegalArgumentException("The adapter must be an instance of TypedModelAdapter.");
-        }
-        return typedAdapter;
     }
 
     @Override

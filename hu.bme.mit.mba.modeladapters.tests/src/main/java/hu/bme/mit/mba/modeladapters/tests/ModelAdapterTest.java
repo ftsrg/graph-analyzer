@@ -1,7 +1,6 @@
 package hu.bme.mit.mba.modeladapters.tests;
 
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 import org.testng.annotations.DataProvider;
@@ -21,12 +20,9 @@ import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
 
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertTrue;
-
 public class ModelAdapterTest {
 
-    protected CustomTypedModelAdapter adapter;
+    protected CsvModelAdapter adapter;
     protected TestModel model;
 
     @Test(dataProvider = "data")
@@ -41,16 +37,9 @@ public class ModelAdapterTest {
 
     protected void runTests(TestModelTypes modelType, Runnable checker) throws IOException {
         model = modelType.init();
-        adapter = new CustomTypedModelAdapter();
+        adapter = new CsvModelAdapter(model.getDimensions());
         adapter.init(model);
 
-        checker.run();
-
-        adapter.getIndexer().clear();
-        adapter.init(model);
-        checker.run();
-
-        adapter.init(model);
         checker.run();
     }
 
@@ -478,21 +467,21 @@ public class ModelAdapterTest {
         adjacent(adapter, source, target);
     }
 
-    protected <N, T> void degree(TypedModelAdapter<N, T> adapter, N node, T type, int indegree, int outdegree) {
+    protected <N, T> void degree(ModelAdapter<N, T> adapter, N node, T type, int indegree, int outdegree) {
         notNull(node, type);
         assertEquals(indegree, adapter.getIndegree(node, type), node.toString());
         assertEquals(outdegree, adapter.getOutdegree(node, type), node.toString());
         assertEquals(indegree + outdegree, adapter.getDegree(node, type), node.toString());
     }
 
-    protected <N, T> void adjacent(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
+    protected <N, T> void adjacent(ModelAdapter<N, T> adapter, T type, N source, N target) {
         notNull(source, target, type);
         assertTrue(String.format("Adjacent: %s %s %s", source.toString(), target.toString(), type.toString()),
                 adapter.isAdjacentUndirected(source, target, type));
         assertTrue(adapter.isAdjacentUndirected(target, source, type));
     }
 
-    protected <N, T> void neighbor(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
+    protected <N, T> void neighbor(ModelAdapter<N, T> adapter, T type, N source, N target) {
         notNull(source, target, type);
         assertTrue(adapter.getOutgoingNeighbors(source, type).contains(target));
         assertTrue(adapter.getIncomingNeighbors(target, type).contains(source));
@@ -501,22 +490,22 @@ public class ModelAdapterTest {
         adjacent(adapter, type, source, target);
     }
 
-    protected <N, T> void notNeighbor(TypedModelAdapter<N, T> adapter, T type, N source, N target) {
+    protected <N, T> void notNeighbor(ModelAdapter<N, T> adapter, T type, N source, N target) {
         notNull(source, target, type);
         assertFalse(adapter.getOutgoingNeighbors(source, type).contains(target));
         assertFalse(adapter.getIncomingNeighbors(target, type).contains(source));
     }
 
-    protected <N, T> void types(TypedModelAdapter<N, T> adapter, int expected, N node) {
+    protected <N, T> void types(ModelAdapter<N, T> adapter, int expected, N node) {
         notNull(node);
         assertEquals(adapter.getNumberOfTypes(node), expected);
     }
 
-    protected <N, T> void types(TypedModelAdapter<N, T> adapter, int expected) {
+    protected <N, T> void types(ModelAdapter<N, T> adapter, int expected) {
         assertEquals(adapter.getNumberOfTypes(), expected);
     }
 
-    protected <N, T> void nodes(TypedModelAdapter<N, T> adapter, T type, int expected) {
+    protected <N, T> void nodes(ModelAdapter<N, T> adapter, T type, int expected) {
         notNull(type);
         assertEquals(adapter.getNumberOfNodes(type), expected);
         assertEquals(adapter.getNodes(type).size(), expected);

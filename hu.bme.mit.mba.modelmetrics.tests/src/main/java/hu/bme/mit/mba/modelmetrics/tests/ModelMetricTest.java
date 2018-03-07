@@ -1,8 +1,8 @@
 package hu.bme.mit.mba.modelmetrics.tests;
 
 import hu.bme.mit.mba.base.data.BaseData;
-import hu.bme.mit.mba.modeladapters.TypedModelAdapter;
-import hu.bme.mit.mba.modeladapters.tests.CustomTypedModelAdapter;
+import hu.bme.mit.mba.modeladapters.ModelAdapter;
+import hu.bme.mit.mba.modeladapters.tests.CsvModelAdapter;
 import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
@@ -23,7 +23,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
     protected TestModel testModel;
     protected ModelMetric metric;
     protected D data;
-    protected TypedModelAdapter<?, ?> adapter;
+    protected ModelAdapter<?, ?> adapter;
 
     protected final Logger logger = Logger.getLogger(this.getClass());
 
@@ -117,8 +117,8 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     protected void initModel(TestModelTypes modelType) throws IOException {
         testModel = modelType.init();
-        adapter = new CustomTypedModelAdapter();
-        ((CustomTypedModelAdapter) adapter).init(testModel);
+        adapter = new CsvModelAdapter(testModel.getDimensions());
+        ((CsvModelAdapter) adapter).init(testModel);
     }
 
     @SuppressWarnings("unchecked")

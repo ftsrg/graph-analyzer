@@ -1,29 +1,27 @@
 package hu.bme.mit.mba.tests.model;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
-
 public class TestModel {
 
-    protected Table<String, String, Set<String>> adjacency;
-    protected List<String> nodes;
-
-    public TestModel() {
-        adjacency = HashBasedTable.create();
-        nodes = new ArrayList<>();
-    }
+    protected Table<String, String, Set<String>> adjacency = HashBasedTable.create();
+    protected List<String> nodes = new ArrayList<>();
+    protected Set<String> dimensions = new HashSet<>();
 
     public void addEdge(final String type, final String sourceNode, final String targetNode) {
+        dimensions.add(type);
         newNode(sourceNode);
         newNode(targetNode);
         if (!adjacency.contains(sourceNode, targetNode)) {
-            Set<String> dimSet = new HashSet<String>();
+            Set<String> dimSet = new HashSet<>();
             dimSet.add(type);
             adjacency.put(sourceNode, targetNode, dimSet);
         } else {
@@ -43,17 +41,6 @@ public class TestModel {
         return adjacency;
     }
 
-    public boolean isAdjacent(final String sourceNode, final String targetNode) {
-        return adjacency.contains(sourceNode, targetNode);
-    }
-
-    public boolean isAdjacent(final String sourceNode, final String targetNode, final String dimension) {
-        if (adjacency.contains(sourceNode, targetNode)) {
-            return adjacency.get(sourceNode, targetNode).contains(dimension);
-        }
-        return false;
-    }
-
     public void clear() {
         adjacency.clear();
     }
@@ -61,4 +48,13 @@ public class TestModel {
     public Iterator<String> getNodeIterator() {
         return nodes.iterator();
     }
+
+    public List<String> getNodes() {
+        return nodes;
+    }
+
+    public Collection<String> getDimensions() {
+        return dimensions;
+    }
+
 }
