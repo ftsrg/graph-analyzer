@@ -7,16 +7,11 @@ import hu.bme.mit.mba.modelmetrics.impl.simple.Degrees;
 import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
 import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionActivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.typed.NodeActivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
+import hu.bme.mit.mba.modelmetrics.impl.typed.*;
 
 public enum ModelMetricsEnum implements ModelMetricInitializer {
 
     ClusteringCoefficient {
-
         @Override
         public Class<ClusteringCoefficient> getMetric() {
             return ClusteringCoefficient.class;
@@ -25,7 +20,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     Degrees {
-
         @Override
         public Class<Degrees> getMetric() {
             return Degrees.class;
@@ -34,7 +28,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     Density {
-
         @Override
         public Class<Density> getMetric() {
             return Density.class;
@@ -43,7 +36,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     DimensionActivity {
-
         @Override
         public Class<DimensionActivity> getMetric() {
             return DimensionActivity.class;
@@ -52,7 +44,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     MultiplexParticipationCoefficient {
-
         @Override
         public Class<MultiplexParticipationCoefficient> getMetric() {
             return MultiplexParticipationCoefficient.class;
@@ -61,7 +52,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     NodeActivity {
-
         @Override
         public Class<NodeActivity> getMetric() {
             return NodeActivity.class;
@@ -70,7 +60,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     NumberOfEdges {
-
         @Override
         public Class<NumberOfEdges> getMetric() {
             return NumberOfEdges.class;
@@ -78,7 +67,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
 
     },
     NumberOfNodes {
-
         @Override
         public Class<NumberOfNodes> getMetric() {
             return NumberOfNodes.class;
@@ -87,7 +75,6 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     OneTypedClusteringCoefficient {
-
         @Override
         public Class<OneTypedClusteringCoefficient> getMetric() {
             return OneTypedClusteringCoefficient.class;
@@ -96,12 +83,17 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
     },
 
     PairwiseMultiplexity {
-
         @Override
         public Class<PairwiseMultiplexity> getMetric() {
             return PairwiseMultiplexity.class;
         }
 
+    },
+    DimensionalClusteringCoefficient {
+        @Override
+        public Class<DimensionalClusteringCoefficient> getMetric() {
+            return DimensionalClusteringCoefficient.class;
+        }
     };
 
     public static ModelMetricsEnum getEnum(ModelMetric metric) {
@@ -111,7 +103,7 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
             }
         }
         throw new IllegalArgumentException(
-                "Does not exist a value in ModelMetricsEnum that belongs to metric " + metric);
+            "Does not exist a value in ModelMetricsEnum that belongs to metric " + metric);
     }
 
 }

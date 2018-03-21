@@ -36,6 +36,7 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
             coef = 0.0;
         } else {
             for (T type : adapter.getTypes(element)) {
+                int degree = adapter.getDegree(element, type);
                 coef += Math.pow(adapter.getDegree(element, type) / (double) adapter.getDegree(element), 2.0);
             }
             coef = 1 - coef;

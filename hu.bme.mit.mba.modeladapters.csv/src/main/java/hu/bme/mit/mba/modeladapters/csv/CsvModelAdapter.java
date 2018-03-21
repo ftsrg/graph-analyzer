@@ -36,7 +36,6 @@ public class CsvModelAdapter extends ModelAdapter<Long, String> {
             nodes.add(id);
         }
 
-
         // edges
         final CellProcessor[] edgeProcessors = getProcessors("edges");
         final String[] edgeHeader = {"source_id", "type", "target_id"};

@@ -15,7 +15,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
 
     // public void calculate(final Network<N> network) {
     // clear();
-    // for (Node<N> node : network.getNodes()) {
+    // for (N node : network.getNodes()) {
     // calculate(network, node, false, 0);
     // }
     // }
@@ -23,21 +23,21 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     // public void calculate(final Network<N> network, final int
     // maxNumberOfNeighbors) {
     // clear();
-    // for (Node<N> node : network.getNodes()) {
+    // for (N node : network.getNodes()) {
     // calculate(network, node, true, maxNumberOfNeighbors);
     // }
     // }
     //
-    // public void calculate(final Network<N> network, final Node<N> node, final
+    // public void calculate(final Network<N> network, final N node, final
     // int maxNumberOfNeighbors) {
     // calculate(network, node, true, maxNumberOfNeighbors);
     // }
     //
-    // public void calculate(final Network<N> network, final Node<N> node) {
+    // public void calculate(final Network<N> network, final N node) {
     // calculate(network, node, false, 0);
     // }
     //
-    // protected void calculate(final Network<N> network, final Node<N> node,
+    // protected void calculate(final Network<N> network, final N node,
     // final boolean bounded,
     // final int maxNumberOfNeighbors) {
     // long interConnected = 0;
@@ -50,8 +50,8 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     // typedValues.put(dimension, 0.0);
     // continue;
     // }
-    // for (Node<N> neighbor1 : node.getNeighbors(dimension)) {
-    // for (Node<N> neighbor2 : node.getNeighbors(dimension)) {
+    // for (N neighbor1 : node.getNeighbors(dimension)) {
+    // for (N neighbor2 : node.getNeighbors(dimension)) {
     // if (neighbor1 != neighbor2) {
     // if (network.isAdjacentUndirected(neighbor1, neighbor2, dimension)) {
     // interConnected++;

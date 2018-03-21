@@ -1,11 +1,10 @@
 package hu.bme.mit.mba.modeladapters;
 
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public abstract class ModelAdapter<N, T> {
 
@@ -37,11 +36,11 @@ public abstract class ModelAdapter<N, T> {
     }
 
     public int getIndegree(final N element) {
-        return getIncomingNeighbors(element).size();
+        return indexer.getInDegree(element);
     }
 
     public int getOutdegree(final N element) {
-        return getOutgoingNeighbors(element).size();
+        return indexer.getOutDegree(element);
     }
 
     public Set<N> getNeighbors(final N element) {
@@ -49,31 +48,17 @@ public abstract class ModelAdapter<N, T> {
     }
 
     public Set<N> getIncomingNeighbors(final N element) {
-        final Set<N> neighbors = new HashSet<>();
-        final int[][][] m = indexer.getNodeMatrix();
-        final int target = indexer.getNodeIndex(element);
-
-        for (int d = 0; d < m.length; d++) {
-            for (int source = 0; source < m[d].length; source++) {
-                if (m[d][source][target] != 0) {
-                    neighbors.add(indexer.getNodeByIndex(source));
-                };
-            }
+        Set<N> neighbors = new HashSet();
+        for(T type:indexer.getDimensions()){
+            neighbors.addAll(indexer.getIncoming(element,type));
         }
         return neighbors;
     }
 
     public Set<N> getOutgoingNeighbors(final N element) {
-        final Set<N> neighbors = new HashSet<>();
-        final int[][][] m = indexer.getNodeMatrix();
-        final int source = indexer.getNodeIndex(element);
-
-        for (int d = 0; d < m.length; d++) {
-            for (int target = 0; target < m[d].length; target++) {
-                if (m[d][source][target] != 0) {
-                    neighbors.add(indexer.getNodeByIndex(source));
-                };
-            }
+        Set<N> neighbors = new HashSet();
+        for(T type:indexer.getDimensions()){
+            neighbors.addAll(indexer.getOutgoing(element,type));
         }
         return neighbors;
     }
@@ -125,29 +110,15 @@ public abstract class ModelAdapter<N, T> {
 
     public Set<N> getIncomingNeighbors(final N element, final T type) {
         final Set<N> neighbors = new HashSet<>();
-        final int[][][] m = indexer.getNodeMatrix();
-        final int target = indexer.getNodeIndex(element);
-        final int d = indexer.getDimensionIndex(type);
-
-        for (int source = 0; source < m[d].length; source++) {
-            if (m[d][source][target] != 0) {
-                neighbors.add(indexer.getNodeByIndex(source));
-            };
-        }
+        Collection<N> outGoingNeighbors = indexer.getIncoming(element,type);
+        neighbors.addAll(outGoingNeighbors);
         return neighbors;
     }
 
     public Set<N> getOutgoingNeighbors(final N element, final T type) {
         final Set<N> neighbors = new HashSet<>();
-        final int[][][] m = indexer.getNodeMatrix();
-        final int source = indexer.getNodeIndex(element);
-        final int d = indexer.getDimensionIndex(type);
-
-        for (int target = 0; target < m[d].length; target++) {
-            if (m[d][source][target] != 0) {
-                neighbors.add(indexer.getNodeByIndex(target));
-            };
-        }
+        Collection<N> outgoingNeighbors = indexer.getOutgoing(element,type);
+        neighbors.addAll(outgoingNeighbors);
         return neighbors;
     }
 
@@ -156,45 +127,15 @@ public abstract class ModelAdapter<N, T> {
     }
 
     public int getIndegree(final N element, final T type) {
-        int countNeighbors = 0;
-        final int[][][] m = indexer.getNodeMatrix();
-        final int target = indexer.getNodeIndex(element);
-        final int d = indexer.getDimensionIndex(type);
-
-        for (int source = 0; source < m[d].length; source++) {
-            countNeighbors += m[d][source][target];
-        }
-        return countNeighbors;
+       return indexer.getIncoming(element, type).size();
     }
 
     public int getOutdegree(final N element, final T type) {
-        int countNeighbors = 0;
-        final int[][][] m = indexer.getNodeMatrix();
-        final int source = indexer.getNodeIndex(element);
-        final int d = indexer.getDimensionIndex(type);
-
-        for (int target = 0; target < m[d].length; target++) {
-            countNeighbors += m[d][source][target];
-        }
-        return countNeighbors;
+        return indexer.getOutgoing(element, type).size();
     }
 
     public int getNumberOfNodes(final T type) {
-        Set<Integer> nodes = new HashSet<>();
-        final int[][][] m = indexer.getNodeMatrix();
-        final int d = indexer.getDimensionIndex(type);
-
-        for (int i = 0; i < m[d].length; i++) {
-            boolean out = false;
-            boolean in = false;
-            for (int j = 0; j < m[d].length; j++) {
-                if (m[d][i][j] != 0) { out = true; }
-                if (m[d][j][i] != 0) { in  = true; }
-            }
-            if (out || in) nodes.add(i);
-        }
-
-        return nodes.size();
+        return indexer.getNodes(type).size();
     }
 
     public boolean isAdjacent(final N source, final N target, final T type) {

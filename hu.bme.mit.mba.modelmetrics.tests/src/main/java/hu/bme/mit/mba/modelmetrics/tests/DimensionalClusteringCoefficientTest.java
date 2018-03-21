@@ -1,39 +1,100 @@
 package hu.bme.mit.mba.modelmetrics.tests;
-// package eu.mondo.map.modelmetrics.tests;
-//
-// import static eu.mondo.map.tests.model.ModelContext.dim1;
-// import static eu.mondo.map.tests.model.ModelContext.dim2;
-// import static eu.mondo.map.tests.model.ModelContext.dim3;
-// import static eu.mondo.map.tests.model.ModelContext.dim4;
-// import static eu.mondo.map.tests.model.ModelContext.network;
-// import static eu.mondo.map.tests.model.ModelContext.node1;
-// import static eu.mondo.map.tests.model.ModelContext.node2;
-// import static eu.mondo.map.tests.model.ModelContext.node3;
-// import static eu.mondo.map.tests.model.ModelContext.node4;
-// import static eu.mondo.map.tests.model.ModelContext.node5;
-//
-// import org.junit.Assert;
-// import org.junit.Test;
-//
-// import eu.mondo.map.base.tests.ListDataTesterUtil;
-// import eu.mondo.map.modelmetrics.impl.typed.DimensionalClusteringCoefficient;
-//
-// public class DimensionalClusteringCoefficientTest extends
-// ListDataTesterUtil<Double, DimensionalClusteringCoefficient> {
-//
-// @Override
-// public DimensionalClusteringCoefficient initMetric() {
-// return new DimensionalClusteringCoefficient();
-// }
-//
-// @Override
+
+ import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalClusteringCoefficient;
+ import org.junit.Assert;
+ import org.junit.Test;
+
+ import static hu.bme.mit.mba.base.testutils.ListDataTesterUtil.checkAppearance;
+ import static hu.bme.mit.mba.base.testutils.ListDataTesterUtil.checkSize;
+
+ import java.util.function.Consumer;
+
+ import hu.bme.mit.mba.base.data.ListData;
+ import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
+ import hu.bme.mit.mba.tests.model.TestModelTypes;
+
+
+
+ public class DimensionalClusteringCoefficientTest extends
+     ModelMetricTest<ListData<Double>> {
+
+     @Override
+     public ModelMetricsEnum getMetric() {
+         return ModelMetricsEnum.DimensionalClusteringCoefficient;
+     }
+
+     @Override
+     protected Object[] testCase(TestModelTypes modelType) {
+         Consumer<ListData<Double>> checker = (data) -> {
+         };
+         switch (modelType) {
+             case Loop_1T:
+             case Loop_2T:
+                 checker = (data) -> {
+                     checkSize(1, data);
+                     checkAppearance(1, 0.0, data);
+                 };
+                 break;
+             case Motif3N_1:
+             case Motif3N_2:
+             case Motif3N_3:
+             case Motif3N_3_2T:
+             case Motif3N_4:
+             case Motif3N_7:
+             case Motif3N_7_2T:
+             case Motif3N_8:
+             case Motif3N_8_2T:
+                 checker = (data) -> {
+                     checkSize(3, data);
+                     checkAppearance(3, 0.0, data);
+                 };
+                 break;
+             case Motif3N_5:
+             case Motif3N_6:
+             case Motif3N_6_2T:
+             case Motif3N_9:
+             case Motif3N_10:
+             case Motif3N_10_2T:
+             case Motif3N_11:
+             case Motif3N_11_2T:
+             case Motif3N_12:
+             case Motif3N_12_2T:
+             case Motif3N_13:
+             case Motif3N_13_2T:
+                 checker = (data) -> {
+                     checkSize(3, data);
+                     checkAppearance(3, 1.0, data);
+                 };
+                 break;
+             case Motif5N_1_3T:
+                 checker = (data) -> {
+                     checkSize(5, data);
+                     checkAppearance(5, 0.0, data);
+                 };
+                 break;
+             case Motif5N_2_3T:
+                 checker = (data) -> {
+                     checkSize(5, data);
+                     checkAppearance(2, 0.0, data);
+                     checkAppearance(1, 1.0, data);
+                     checkAppearance(2, 1.0 / 3.0, data);
+                 };
+                 break;
+             default:
+                 skippedModel(modelType);
+         }
+         return new Object[] { modelType, checker };
+     }
+
+ }
+
+//     @Override
 // public void clear() {
-// network.clear();
 // }
 //
-// protected void checkFirstValue(double expected, String node) {
+// protected void checkFirstValue(double expected, Long node) {
 // Assert.assertEquals(expected, metric.calculateFirstDefinition(network,
-// network.getNode(node)), 0.01);
+// adapter.getNode(node)), 0.01);
 // }
 //
 // protected void checkSecondValue(double expected, String node) {
@@ -366,5 +427,5 @@ package hu.bme.mit.mba.modelmetrics.tests;
 // checkSecondValue(0.33, node2);
 // checkSecondValue(0.33, node3);
 // }
-//
-// }
+
+
