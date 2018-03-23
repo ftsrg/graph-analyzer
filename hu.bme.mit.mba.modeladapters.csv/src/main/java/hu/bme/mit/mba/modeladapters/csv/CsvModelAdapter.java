@@ -13,7 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class CsvModelAdapter extends ModelAdapter<Long, String> {
+public class CsvModelAdapter<N> extends ModelAdapter<N, String> {
+
+    private final CellProcessor cellProcessor;
+
+    public CsvModelAdapter() {
+        this.cellProcessor = new ParseLong();
+    }
+
+    public CsvModelAdapter(CellProcessor cellProcessor) {
+        this.cellProcessor = cellProcessor;
+    }
 
 	public void init(String nodeCsv, String relsCsv) throws IOException {
         final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.STANDARD_PREFERENCE);
@@ -23,10 +33,10 @@ public class CsvModelAdapter extends ModelAdapter<Long, String> {
         final String[] nodeHeader = {"id"};
         final CellProcessor[] nodeProcessors = getProcessors("nodes");
 
-        final CsvIterator iterator = new CsvIterator(nodeMapReader, nodeHeader, nodeProcessors);
-        List<Long> nodes = new ArrayList<>();
+        final CsvIterator<N> iterator = new CsvIterator<>(nodeMapReader, nodeHeader, nodeProcessors);
+        List<N> nodes = new ArrayList<>();
         while (iterator.hasNext()) {
-            final Long id = iterator.next();
+            final N id = iterator.next();
             nodes.add(id);
         }
 
@@ -35,31 +45,31 @@ public class CsvModelAdapter extends ModelAdapter<Long, String> {
         final String[] edgeHeader = {"source_id", "type", "target_id"};
         Map<String, Object> edgeMap;
         while (((edgeMap = edgeMapReader.read(edgeHeader, edgeProcessors)) != null)){
-            Long sourceId = (Long) edgeMap.get("source_id");
-            Long targetId = (Long) edgeMap.get("target_id");
+            N sourceId = (N) edgeMap.get("source_id");
+            N targetId = (N) edgeMap.get("target_id");
             String relType = (String) edgeMap.get("type");
             addEdge(sourceId, relType, targetId);
         }
 	}
 
-	protected void addEdge(final Long node, final String relationshipType, final Long neighbor) {
+	protected void addEdge(final N node, final String relationshipType, final N neighbor) {
 		if (neighbor != null && relationshipType != null) {
 			indexer.addEdge(relationshipType, node, neighbor);
 		}
 	}
-    private static CellProcessor[] getProcessors(String type) {
+
+    private CellProcessor[] getProcessors(String type) {
         CellProcessor[] processors;
         if (type.equals("nodes")) {
-            processors = new CellProcessor[]{
-                new NotNull(new ParseLong())};
+            processors = new CellProcessor[] {
+                new NotNull(cellProcessor)};
         } else {
-            processors = new CellProcessor[]{
-                new NotNull(new ParseLong()),
+            processors = new CellProcessor[] {
+                new NotNull(cellProcessor),
                 new NotNull(),
-                new NotNull(new ParseLong())
+                new NotNull(cellProcessor)
             };
         }
-
         return processors;
     }
 

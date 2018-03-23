@@ -8,39 +8,41 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class CsvIterator implements Iterator<Long> {
-    ICsvMapReader reader;
-    String[] header;
-    CellProcessor[] processors;
-    Map<String, Object> nodeMap;
+public class CsvIterator<N> implements Iterator<N> {
+
+    protected ICsvMapReader reader;
+    protected String[] header;
+    protected CellProcessor[] processors;
+    protected Map<String, Object> nodeMap;
+
     public CsvIterator(ICsvMapReader reader, String[] header, CellProcessor[] processors){
         this.reader = reader;
         this.header = header;
         this.processors=processors;
-
     }
+
     @Override
     public boolean hasNext() {
-        boolean hasNext=false;
         try {
-            hasNext= (this.nodeMap=reader.read(header, processors))!=null;
+            return (this.nodeMap = reader.read(header, processors)) != null;
         } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return hasNext;
     }
 
     @Override
-    public Long next() {
-        return (Long) nodeMap.get("id");
+    public N next() {
+        return (N) nodeMap.get("id");
     }
 
     @Override
     public void remove() {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public void forEachRemaining(Consumer<? super Long> action) {
-
+    public void forEachRemaining(Consumer<? super N> action) {
+        throw new UnsupportedOperationException();
     }
+
 }
