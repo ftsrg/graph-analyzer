@@ -11,7 +11,7 @@ public class CsvAdapterInitializer {
 
 	public static CsvModelAdapter getAdapter(TestModel testModel) throws IOException {
         final Pair<String, String> csvFiles = new CsvTestModelToNetworkConverter().convert(testModel);
-        CsvModelAdapter adapter = new CsvModelAdapter(testModel.getDimensions());
+        CsvModelAdapter adapter = new CsvModelAdapter();
 		adapter.init(csvFiles.getLeft(), csvFiles.getRight());
 		return adapter;
 	}

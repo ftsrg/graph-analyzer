@@ -1,19 +1,15 @@
 package hu.bme.mit.mba.modeladapters;
 
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public abstract class ModelAdapter<N, T> {
 
-    protected ModelIndexer<N, T> indexer;
-    protected Collection<T> dimensions;
-
-    public ModelAdapter(Collection<T> dimensions) {
-        this.dimensions = dimensions;
-    }
+    protected ModelIndexer<N, T> indexer = new ModelIndexer<>();
 
     public Iterator<N> getModelIterator() {
         return indexer.getNodes().iterator();

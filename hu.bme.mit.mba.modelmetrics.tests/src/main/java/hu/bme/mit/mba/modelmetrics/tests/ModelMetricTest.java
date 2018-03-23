@@ -117,7 +117,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     protected void initModel(TestModelTypes modelType) throws IOException {
         testModel = modelType.init();
-        adapter = new CsvModelAdapter(testModel.getDimensions());
+        adapter = new CsvModelAdapter();
         ((CsvModelAdapter) adapter).init(testModel);
     }
 

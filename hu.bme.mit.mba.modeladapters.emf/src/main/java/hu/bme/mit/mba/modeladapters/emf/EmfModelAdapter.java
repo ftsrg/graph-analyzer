@@ -5,16 +5,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 public class EmfModelAdapter extends ModelAdapter<EObject, String> {
 
     private EObject root;
-
-    public EmfModelAdapter(Collection<String> dimensions) {
-        super(dimensions);
-    }
 
     @Override
     public Iterator<EObject> getModelIterator() {
@@ -27,12 +22,6 @@ public class EmfModelAdapter extends ModelAdapter<EObject, String> {
     }
 
     protected void init(Iterator<EObject> iterator) {
-        while (iterator.hasNext()) {
-            final EObject object = iterator.next();
-            // copy stuff to a collection
-        }
-        //indexer = new ModelIndexer<>();
-
         while (iterator.hasNext()) {
             final EObject object = iterator.next();
             for (final EReference reference : object.eClass().getEReferences()) {

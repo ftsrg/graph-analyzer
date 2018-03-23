@@ -10,17 +10,12 @@ import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.Transaction;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 public class Neo4jModelAdapter extends ModelAdapter<Node, String> {
 
 	private GraphDatabaseService graph;
-
-    public Neo4jModelAdapter(Collection<String> dimensions) {
-        super(dimensions);
-    }
 
     @Override
 	public Iterator<Node> getModelIterator() {
@@ -37,8 +32,6 @@ public class Neo4jModelAdapter extends ModelAdapter<Node, String> {
 	}
 
 	protected void init(ResourceIterable<Node> nodes) {
-		//indexer = new ModelIndexer<Node, String>();
-
 		for (Node node : nodes) {
 			for (Relationship relationship : node.getRelationships(Direction.OUTGOING)) {
 				Node neighbor = relationship.getOtherNode(node);

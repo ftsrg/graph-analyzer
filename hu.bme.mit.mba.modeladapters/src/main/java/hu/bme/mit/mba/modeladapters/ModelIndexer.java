@@ -1,10 +1,13 @@
 package hu.bme.mit.mba.modeladapters;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class ModelIndexer<N, T> {
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
@@ -14,13 +17,7 @@ public class ModelIndexer<N, T> {
 
     protected int numberOfAddedEdges;
 
-    public ModelIndexer(final List<N> nodes, final Collection<T> dimensions) {
-        this.nodes.addAll(nodes);
-        for (T type : dimensions) {
-            this.dimensions.add(type);
-            outgoing.put(type, ArrayListMultimap.create());
-            incoming.put(type, ArrayListMultimap.create());
-        }
+    public ModelIndexer() {
         numberOfAddedEdges = 0;
     }
 
@@ -66,7 +63,7 @@ public class ModelIndexer<N, T> {
         if (!nodes.contains(targetNode)) {
             nodes.add(targetNode);
         }
-        if (outgoing.get(type) == null) {
+        if (!outgoing.containsKey(type)) {
             dimensions.add(type);
             outgoing.put(type, ArrayListMultimap.create());
             incoming.put(type, ArrayListMultimap.create());

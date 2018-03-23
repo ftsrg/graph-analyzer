@@ -23,7 +23,7 @@ public class CsvModelAdapterTest extends ModelAdapterTest {
         final Pair<String, String> csvFiles = converter.convert(testModel);
         nodeMapping = converter.getNodeMapping();
 
-        csvModelAdapter = new CsvModelAdapter(testModel.getDimensions());
+        csvModelAdapter = new CsvModelAdapter();
         csvModelAdapter.init(csvFiles.getLeft(), csvFiles.getRight());
         checker.run();
     }

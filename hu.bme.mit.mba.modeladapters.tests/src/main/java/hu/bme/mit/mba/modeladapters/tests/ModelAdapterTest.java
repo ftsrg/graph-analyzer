@@ -37,7 +37,7 @@ public class ModelAdapterTest {
 
     protected void runTests(TestModelTypes modelType, Runnable checker) throws IOException {
         model = modelType.init();
-        adapter = new CsvModelAdapter(model.getDimensions());
+        adapter = new CsvModelAdapter();
         adapter.init(model);
 
         checker.run();

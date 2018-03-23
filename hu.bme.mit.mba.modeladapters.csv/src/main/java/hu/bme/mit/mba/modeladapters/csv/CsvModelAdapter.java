@@ -1,7 +1,6 @@
 package hu.bme.mit.mba.modeladapters.csv;
 
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.ModelIndexer;
 import org.supercsv.cellprocessor.ParseLong;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -11,15 +10,10 @@ import org.supercsv.prefs.CsvPreference;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public class CsvModelAdapter extends ModelAdapter<Long, String> {
-
-    public CsvModelAdapter(Collection<String> dimensions) {
-        super(dimensions);
-    }
 
 	public void init(String nodeCsv, String relsCsv) throws IOException {
         final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.STANDARD_PREFERENCE);
@@ -39,7 +33,6 @@ public class CsvModelAdapter extends ModelAdapter<Long, String> {
         // edges
         final CellProcessor[] edgeProcessors = getProcessors("edges");
         final String[] edgeHeader = {"source_id", "type", "target_id"};
-        indexer = new ModelIndexer<>(nodes, dimensions);
         Map<String, Object> edgeMap;
         while (((edgeMap = edgeMapReader.read(edgeHeader, edgeProcessors)) != null)){
             Long sourceId = (Long) edgeMap.get("source_id");

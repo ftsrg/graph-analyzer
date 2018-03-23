@@ -23,7 +23,7 @@ public class Neo4jModelAdapterTest extends ModelAdapterTest {
         GraphDatabaseService graph = converter.convert(testModel);
         nodeMapping = converter.getNodeMapping();
 
-//        neo4jAdapter = new Neo4jModelAdapter();
+        neo4jAdapter = new Neo4jModelAdapter();
         neo4jAdapter.init(graph);
         checker.run();
     }

@@ -10,7 +10,7 @@ public class Neo4jAdapterInitializer {
 
 	public static Neo4jModelAdapter getAdapter(TestModel testModel) {
 		GraphDatabaseService graph = new Neo4jTestModelToNetworkConverter().convert(testModel);
-		Neo4jModelAdapter adapter = new Neo4jModelAdapter(testModel.getDimensions());
+		Neo4jModelAdapter adapter = new Neo4jModelAdapter();
 		adapter.init(graph);
 		return adapter;
 	}
