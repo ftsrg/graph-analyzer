@@ -4,6 +4,11 @@ import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Integer>> {
 
     public NumberOfTypedEdges() {
@@ -32,6 +37,21 @@ public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Inte
             sumOfEdges /= 2;
             data.put(type.toString(), sumOfEdges);
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        for (String type : data.getValues().keySet()) {
+            Map<String, Object> row = new HashMap<>();
+            Integer value = data.getValues().get(type);
+            row.put(header[0], "NumberOfTypedEdges");
+            row.put(header[1], type);
+            row.put(header[2], null);
+            row.put(header[3], value);
+            values.add(row);
+        }
+        return values;
     }
 
 }

@@ -4,10 +4,14 @@ import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Takes values in [0,1] and computes the ratio of nodes of the network that
  * belong to a particular dimension.
- *
  */
 public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<String, Double>> {
 
@@ -101,4 +105,18 @@ public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
         data.put(type.toString(), (double) adapter.getNumberOfNodes(type) / adapter.getNumberOfNodes());
     }
 
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        for (String type : data.getValues().keySet()) {
+            Double value = data.getValues().get(type);
+            Map<String, Object> row = new HashMap<>();
+            row.put(header[0], "NodeDimensionConnectivity");
+            row.put(header[1], type);
+            row.put(header[2], null);
+            row.put(header[3], value);
+            values.add(row);
+        }
+        return values;
+    }
 }

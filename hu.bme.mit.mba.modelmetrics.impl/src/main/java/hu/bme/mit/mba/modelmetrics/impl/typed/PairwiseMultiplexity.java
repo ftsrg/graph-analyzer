@@ -4,6 +4,11 @@ import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Double>> {
 
     public PairwiseMultiplexity() {
@@ -59,6 +64,21 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
             }
         }
         return nodesInIntersection;
+    }
+
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        for (String type : data.getValues().keySet()) {
+            Double value = data.getValues().get(type);
+            Map<String, Object> row = new HashMap<>();
+            row.put(header[0], "PairwiseMultiplexity");
+            row.put(header[1], type);
+            row.put(header[2], null);
+            row.put(header[3], value);
+            values.add(row);
+        }
+        return values;
     }
 
 }

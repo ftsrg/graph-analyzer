@@ -6,8 +6,13 @@ import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListData<Double>>
-        implements IncrementalModelEvaluator {
+    implements IncrementalModelEvaluator {
 
     public MultiplexParticipationCoefficient() {
         super("MultiplexParticipationCoefficient", new ListData<>());
@@ -76,5 +81,22 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
             evaluate(adapter, node);
         }
     }
+
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        int i = 0;
+        for (Double value : data.getValues()) {
+            Map<String, Object> row = new HashMap<>();
+            row.put(header[0], "MultiplexParticipationCoefficient");
+            row.put(header[1], null);
+            row.put(header[2], i);
+            row.put(header[3], value);
+            values.add(row);
+            i++;
+        }
+        return values;
+    }
+
 
 }

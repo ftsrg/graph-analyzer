@@ -4,6 +4,12 @@ import hu.bme.mit.mba.base.data.ScalarData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
+import org.supercsv.io.ICsvMapWriter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> implements IncrementalModelEvaluator {
 
@@ -31,6 +37,17 @@ public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> impl
         Integer value = data.getValue();
         value++;
         data.setValue(value);
+    }
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        Map<String, Object> value = new HashMap<>();
+        value.put(header[0], "NumberOfEdges");
+        value.put(header[1], null);
+        value.put(header[2], null);
+        value.put(header[3], data.getValue());
+        values.add(value);
+        return values;
     }
 
 }

@@ -8,4 +8,5 @@ public interface ModelMetric extends Metric {
     <N, T> void evaluate(final ModelAdapter<N, T> adapter);
 
     <N, T> void evaluate(final ModelAdapter<N, T> adapter, final N element);
+
 }

@@ -212,5 +212,4 @@ public class ShortestPath<N> extends ListData<Integer> {
         depth++;
         depths.put(child, depth);
     }
-
 }

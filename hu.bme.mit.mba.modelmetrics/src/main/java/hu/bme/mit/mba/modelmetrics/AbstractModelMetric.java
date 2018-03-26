@@ -4,7 +4,7 @@ import hu.bme.mit.mba.base.data.BaseData;
 import hu.bme.mit.mba.base.metrics.BaseMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 
-import java.util.Iterator;
+import java.util.*;
 
 public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements TraceableModelMetric {
 
@@ -57,5 +57,8 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     protected boolean notNullTracing() {
         return tracing != null;
     }
+
+    abstract public List<Map<String, Object>> getTsvMaps(String[] header);
+
 
 }

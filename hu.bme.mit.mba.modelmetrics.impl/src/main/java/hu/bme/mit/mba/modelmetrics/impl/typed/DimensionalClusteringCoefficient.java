@@ -1,12 +1,11 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import org.supercsv.io.ICsvMapWriter;
 
 public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListData<Double>> {
 
@@ -32,7 +31,8 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
     public void setUseHeuristic(boolean useHeuristic) {
         this.useHeuristic = useHeuristic;
     }
-@Override
+
+    @Override
     public <N, T> void evaluate(final ModelAdapter<N, T> adapter) {
         clear();
         for (N node : adapter.getNodes()) {
@@ -40,7 +40,7 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
         }
     }
 
-//    public <N, T> void calculateSecondDefinition(final ModelAdapter<N, T> adapter) {
+    //    public <N, T> void calculateSecondDefinition(final ModelAdapter<N, T> adapter) {
 //        clear();
 //        for (N node : adapter.getNodes()) {
 //            calculateSecondDefinition(adapter, node);
@@ -213,5 +213,21 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
         evaluateEveryNode(adapter);
         evaluate(adapter);
+    }
+
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        int index = 0;
+        for (Double v : data.getValues()) {
+            Map<String, Object> value = new HashMap<>();
+            value.put(header[0], "DimensionalClusteringCoefficient");
+            value.put(header[1], null);
+            value.put(header[2], index);
+            value.put(header[3], v);
+            values.add(value);
+            index++;
+        }
+        return values;
     }
 }
