@@ -26,7 +26,7 @@ public class CsvTest {
 
     @Test
     public void test() throws IOException {
-        final String filename = "target/modelmetrics.tsv";
+        final String filename = "modelmetrics.tsv";
         final String[] header = new String[]{"Category", "Instance", "Index", "Value"};
         List<AbstractModelMetric> modelMetrics = new ArrayList<>();
         System.out.println("Example for using concrete metric");
@@ -79,10 +79,6 @@ public class CsvTest {
         NumberOfEdges numberOfEdges = new NumberOfEdges();
         numberOfEdges.evaluate(adapter);
         modelMetrics.add(numberOfEdges);
-
-        Degrees degrees = new Degrees();
-        degrees.evaluate(adapter);
-        modelMetrics.add(degrees);
 
         NodeActivity nodeActivity = new NodeActivity();
         nodeActivity.evaluate(adapter);
