@@ -4,10 +4,10 @@ import hu.bme.mit.mba.modeladapters.csv.CsvModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.simple.Degrees;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionActivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeDimensionConnectivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
+import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
+import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
+import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
+import hu.bme.mit.mba.modelmetrics.impl.typed.*;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -34,7 +34,7 @@ public class CsvTest {
         CsvModelAdapter adapter = new CsvModelAdapter(new NotNull());
         // adapter must be initialized by a container node, this will create
         // an index which is necessary during the evaluation
-        adapter.init("nodes1.csv", "edges1.csv");
+        adapter.init("nodes.csv", "edges.csv");
         System.out.println("initialized");
 
         // calculate metrics
@@ -67,25 +67,34 @@ public class CsvTest {
         edgeDimensionConnectivity.evaluate(adapter);
         showResult(edgeDimensionConnectivity);
         modelMetrics.add(edgeDimensionConnectivity);
-//
-//        ClusteringCoefficient cc = new ClusteringCoefficient();
-//        cc.evaluate(adapter);
-//        modelMetrics.add(cc);
-//
-//        DimensionalClusteringCoefficient dimensionalClusteringCoefficient = new DimensionalClusteringCoefficient();
-//        dimensionalClusteringCoefficient.evaluate(adapter);
-//        System.out.println("dcc");
-//        modelMetrics.add(dimensionalClusteringCoefficient);
-//
-//        NodeActivity nodeActivity = new NodeActivity();
-//        nodeActivity.evaluate(adapter);
-//        showResult(nodeActivity);
-//        modelMetrics.add(nodeActivity);
-//
-//        NodeDimensionConnectivity ndc = new NodeDimensionConnectivity();
-//        ndc.evaluate(adapter);
-//        System.out.println("ndc");
-//        modelMetrics.add(ndc);
+
+        Density d = new Density();
+        d.evaluate(adapter);
+        modelMetrics.add(d);
+
+        NumberOfNodes numberOfNodes = new NumberOfNodes();
+        numberOfNodes.evaluate(adapter);
+        modelMetrics.add(numberOfNodes);
+
+        NumberOfEdges numberOfEdges = new NumberOfEdges();
+        numberOfEdges.evaluate(adapter);
+        modelMetrics.add(numberOfEdges);
+
+        Degrees degrees = new Degrees();
+        degrees.evaluate(adapter);
+        modelMetrics.add(degrees);
+
+        NodeActivity nodeActivity = new NodeActivity();
+        nodeActivity.evaluate(adapter);
+        modelMetrics.add(nodeActivity);
+
+        NumberOfTypedEdges numberOfTypedEdges = new NumberOfTypedEdges();
+        numberOfEdges.evaluate(adapter);
+        modelMetrics.add(numberOfTypedEdges);
+
+        DimensionalDegree dimensionalDegree = new DimensionalDegree();
+        dimensionalDegree.evaluate(adapter);
+        modelMetrics.add(dimensionalDegree);
 
         writeToTsv(modelMetrics, header, filename);
 
