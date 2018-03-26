@@ -3,4 +3,6 @@ dependencies {
   compile project(':hu.bme.mit.mba.modeladapters.csv')
   compile project(':hu.bme.mit.mba.modelanalyzer')
   compile project(':hu.bme.mit.mba.testbase')
+    compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
+
 }

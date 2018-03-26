@@ -5,6 +5,12 @@ import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
+import org.supercsv.io.ICsvMapWriter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Degrees extends AbstractModelMetric<ListData<Integer>> implements IncrementalModelEvaluator {
 
@@ -55,5 +61,21 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>> implements I
             evaluate(adapter, node);
         }
     }
+@Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        int index = 0;
+        for (Integer i : data.getValues()) {
+            Map<String, Object> value = new HashMap<>();
+            value.put(header[0], "DegreeList");
+            value.put(header[1], null);
+            value.put(header[2], index);
+            value.put(header[3], i);
+            values.add(value);
+            index++;
+        }
+        return values;
+    }
+
 
 }

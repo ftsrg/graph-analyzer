@@ -1,9 +1,6 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import com.google.common.collect.ListMultimap;
 
@@ -23,7 +20,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
     }
 
 
-    public <N,T> void calculate(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
+    public <N, T> void calculate(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
         clear();
         ListMultimap<Integer, Integer> pairs =
             shortestPathList.determineRandomPairs(adapter, numberOfRandomPairs);
@@ -40,7 +37,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         }
     }
 
-    public <N,T> void calculate(final ModelAdapter<N, T> adapter, final N sourceNode, final N targetNode) {
+    public <N, T> void calculate(final ModelAdapter<N, T> adapter, final N sourceNode, final N targetNode) {
         List<Path<N>> paths = shortestPathList.calculate(adapter, sourceNode, targetNode);
         if (!paths.isEmpty()) {
             double interdependence = calculate(adapter, paths);
@@ -48,7 +45,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         }
     }
 
-    public <N,T> double calculate(final ModelAdapter<N, T> adapter, final List<Path<N>> paths) {
+    public <N, T> double calculate(final ModelAdapter<N, T> adapter, final List<Path<N>> paths) {
         int allPossibleRoutes = 0;
         int allMultidimensionalRoutes = 0;
         int possibleRoutesInPath = 1;
@@ -75,10 +72,10 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         return allMultidimensionalRoutes / (double) allPossibleRoutes;
     }
 
-    protected <N,T> Set<T> getCheckedDimensions(final ModelAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
+    protected <N, T> Set<T> getCheckedDimensions(final ModelAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
         Set<T> dimensions = new HashSet<>();
-        for(T dim : adapter.getTypes(nodesInPath.get(sourceIndex))){
-            if (adapter.isAdjacent(nodesInPath.get(sourceIndex),nodesInPath.get(targetIndex),dim)){
+        for (T dim : adapter.getTypes(nodesInPath.get(sourceIndex))) {
+            if (adapter.isAdjacent(nodesInPath.get(sourceIndex), nodesInPath.get(targetIndex), dim)) {
                 dimensions.add(dim);
             }
         }
@@ -90,7 +87,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         return dimensions;
     }
 
-    protected <N,T> List<N> getCheckedNodes(final Path<N> path) {
+    protected <N, T> List<N> getCheckedNodes(final Path<N> path) {
         List<N> nodesInPath = path.getPath();
         if (nodesInPath.size() < 2) {
             throw new IllegalArgumentException("The path size is not acceptable, it is lower than 2.");
@@ -104,7 +101,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
     }
 
     @Override
-    protected <N ,T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
         clear();
         for (N sourceNode : adapter.getNodes()) {
             for (N targetNode : adapter.getNodes()) {
@@ -115,5 +112,21 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         }
         shortestPathList.calculate(adapter);
 
+    }
+
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        int i = 0;
+        for (Double value : data.getValues()) {
+            Map<String, Object> row = new HashMap<>();
+            row.put(header[0], "NodeInterDependence");
+            row.put(header[1], null);
+            row.put(header[2], i);
+            row.put(header[3], value);
+            values.add(row);
+            i++;
+        }
+        return values;
     }
 }

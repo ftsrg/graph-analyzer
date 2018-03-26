@@ -5,6 +5,11 @@ import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class NodeActivity extends AbstractModelMetric<ListData<Integer>> implements IncrementalModelEvaluator {
 
     public NodeActivity() {
@@ -27,4 +32,19 @@ public class NodeActivity extends AbstractModelMetric<ListData<Integer>> impleme
         evaluate(adapter, targetNode);
     }
 
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        int i = 0;
+        for (Integer value : data.getValues()) {
+            Map<String, Object> row = new HashMap<>();
+            row.put(header[0], "NodeActivityList");
+            row.put(header[1], null);
+            row.put(header[2], i);
+            row.put(header[3], value);
+            values.add(row);
+            i++;
+        }
+        return values;
+    }
 }

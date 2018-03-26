@@ -3,11 +3,17 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import org.supercsv.io.ICsvMapWriter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<String, Double>> {
 
     public EdgeDimensionConnectivity() {
-	super("EdgeDimensionConnectivity", new MapData<>());
+        super("EdgeDimensionConnectivity", new MapData<>());
     }
 
     // public void calculate(final String dimension, final Network<?> network) {
@@ -73,4 +79,18 @@ public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
         data.put(type.toString(), (double) sumOfEdges / adapter.getNumberOfEdges());
     }
 
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        for (String type : data.getValues().keySet()) {
+            Double value = data.getValues().get(type);
+            Map<String, Object> row = new HashMap<>();
+            row.put(header[0], "EdgeDimensionConnectivity");
+            row.put(header[1], type);
+            row.put(header[2], null);
+            row.put(header[3], value);
+            values.add(row);
+        }
+        return values;
+    }
 }

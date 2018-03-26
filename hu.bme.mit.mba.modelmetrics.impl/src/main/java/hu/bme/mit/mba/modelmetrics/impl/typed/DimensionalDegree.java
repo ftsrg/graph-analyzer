@@ -3,12 +3,17 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.MappedListData;
 import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
+import org.supercsv.io.ICsvMapWriter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DimensionalDegree extends AbstractModelMetric<MappedListData<String, Integer>>
-        implements IncrementalModelEvaluator {
+    implements IncrementalModelEvaluator {
 
     public DimensionalDegree() {
         super("DimensionalDegreeList", new MappedListData<>());
@@ -52,7 +57,7 @@ public class DimensionalDegree extends AbstractModelMetric<MappedListData<String
     }
 
     protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, MatrixData<N, T, Integer> castedTracing, N node,
-            T type) {
+                                     T type) {
         if (castedTracing.getValues().contains(node, type)) {
             Integer value = castedTracing.getValues().get(node, type);
             value++;
@@ -60,6 +65,24 @@ public class DimensionalDegree extends AbstractModelMetric<MappedListData<String
         } else {
             evaluate(adapter, type, node);
         }
+    }
+
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        for (String type : data.getValues().keySet()) {
+            int index = 0;
+            for (Integer i : data.getValues().get(type)) {
+                Map<String, Object> value = new HashMap<>();
+                value.put(header[0], "DimensionalDegree");
+                value.put(header[1], type);
+                value.put(header[2], index);
+                value.put(header[3], i);
+                values.add(value);
+                index++;
+            }
+        }
+        return values;
     }
 
 }

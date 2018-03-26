@@ -6,8 +6,13 @@ import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedListData<String, Double>>
-        implements IncrementalModelEvaluator {
+    implements IncrementalModelEvaluator {
 
     public OneTypedClusteringCoefficient() {
         super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
@@ -152,4 +157,21 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
         }
     }
 
+    @Override
+    public List<Map<String, Object>> getTsvMaps(String[] header) {
+        final List<Map<String, Object>> values = new ArrayList<>();
+        for (String type : data.getValues().keySet()) {
+            int i = 0;
+            for (Double value : data.getValues().get(type)) {
+                Map<String, Object> row = new HashMap<>();
+                row.put(header[0], "OneTypedClusteringCoefficient");
+                row.put(header[1], type);
+                row.put(header[2], i);
+                row.put(header[3], value);
+                values.add(row);
+                i++;
+            }
+        }
+        return values;
+    }
 }
