@@ -8,7 +8,9 @@ Java 8
 
 ## Use the library
 
-For examples, please consult the test classes and visit [Model Analyzer Examples](https://github.com/ZsoltKovari/model-analyzer-examples).
+For examples, please consult the test classes.
+
+For visualizing results, use the R scripts at https://github.com/FTSRG/model-analyzer-visualization/.
 
 ## License
 
