@@ -1,6 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
+script:
+  - ./gradlew assemble --stacktrace
+  - ./gradlew check --stacktrace
 notifications:
   slack: bme-db-lab:MkQbOsqXwkFmGPr2RdyMeB5d
   email: false
