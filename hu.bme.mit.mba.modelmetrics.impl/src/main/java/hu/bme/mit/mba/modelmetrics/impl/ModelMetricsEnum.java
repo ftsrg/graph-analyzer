@@ -2,11 +2,7 @@ package hu.bme.mit.mba.modelmetrics.impl;
 
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.ModelMetricInitializer;
-import hu.bme.mit.mba.modelmetrics.impl.simple.ClusteringCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.simple.Degrees;
-import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
+import hu.bme.mit.mba.modelmetrics.impl.simple.*;
 import hu.bme.mit.mba.modelmetrics.impl.typed.*;
 
 public enum ModelMetricsEnum implements ModelMetricInitializer {
@@ -41,6 +37,18 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
             return DimensionActivity.class;
         }
 
+    },
+    DimensionalDegreeEntropy {
+        @Override
+        public Class<DimensionalDegreeEntropy> getMetric() {
+            return DimensionalDegreeEntropy.class;
+        }
+    },
+    EdgeOverlap {
+        @Override
+        public Class<EdgeOverlap> getMetric() {
+            return EdgeOverlap.class;
+        }
     },
 
     MultiplexParticipationCoefficient {

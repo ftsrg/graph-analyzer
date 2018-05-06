@@ -97,6 +97,14 @@ public class ModelIndexer<N, T> {
         return incoming.get(type).get(node);
     }
 
+    public Multimap<N, N> getOutgoing(T type){
+        return outgoing.get(type);
+    }
+
+    public Multimap<N,N> getIncoming(T type){
+        return incoming.get(type);
+    }
+
     public Set<N> getNodes(T type) {
         Set<N> nodeSet = new HashSet<>();
         nodeSet.addAll(incoming.get(type).keySet());
