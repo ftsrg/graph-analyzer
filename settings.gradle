@@ -29,4 +29,4 @@ include ':hu.bme.mit.mba.testmodels.csv'
 include ':hu.bme.mit.mba.testmodels.emf'
 include ':hu.bme.mit.mba.testmodels.neo4j'
 
-include ':csv-example'
+include ':analyzer'

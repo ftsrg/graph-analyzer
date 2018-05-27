@@ -1,4 +1,4 @@
-package csv;
+package analyzer;
 
 import hu.bme.mit.mba.modeladapters.csv.CsvModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;

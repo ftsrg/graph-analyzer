@@ -2,6 +2,7 @@
 .classpath
 
 bin/
+lib/
 target/
 tmp/
 .settings/
@@ -31,3 +32,4 @@ test-output
 .idea/
 out/
 .Rproj.user
+*.tsv
