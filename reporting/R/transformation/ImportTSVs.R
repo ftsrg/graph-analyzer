@@ -27,16 +27,7 @@ ImportsTSVToDataTable <- function(file.name, cont = T){
   file.name <- gsub("/", "_", unique(tsv$file.name), fixed = T)
   category <- strsplit(file.name, split = "_", fixed = T)[[1]][2]
   tsv[, category := category]
-  
-  if(grepl("VB", x = file.name)){tsv[, ModelType := "VIATRA Solver (base)"]} else
-  if(grepl("VM", x = file.name)){tsv[, ModelType := "VIATRA Solver (MM)"]} else
-  if(grepl("VW", x = file.name)){tsv[, ModelType := "VIATRA Solver (WF)"]} else
-  if(grepl("AB", x = file.name)){tsv[, ModelType := "Alloy (base)"]} else
-  if(grepl("AM", x = file.name)){tsv[, ModelType := "Alloy (MM)"]} else
-  if(grepl("AW", x = file.name)){tsv[, ModelType := "Alloy (WF)"]} else
-  if(grepl("R", x = file.name)) {tsv[, ModelType := "Real"]} else
-  {error('unknown model type')}
-  
+  tsv[, ModelType := file.name]
   tsv[, Scope := "nd"]  
   tsv[, Instance := gsub("-", "_", tsv$Instance)]
   

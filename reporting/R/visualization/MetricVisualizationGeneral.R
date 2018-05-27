@@ -10,7 +10,7 @@ source("R/transformation/ImportTSVs.R")
 figures.path <- "reports/"
 default.theme <- theme_bw() + theme(legend.position = "bottom")
 
-tsvs <- list.files("../models-metrics/", pattern = "-nd.tsv", full.names = T, recursive = T)
+tsvs <- list.files("tsv", pattern = ".tsv", full.names = T, recursive = T)
 
 # uncomment this for testing
 # tsvs <- c(

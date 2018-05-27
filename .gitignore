@@ -30,3 +30,4 @@ replay_*.log
 test-output
 .idea/
 out/
+.Rproj.user
