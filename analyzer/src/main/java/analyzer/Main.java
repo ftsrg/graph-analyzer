@@ -8,7 +8,9 @@ import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
 import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionActivity;
 import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegree;
+import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegreeEntropy;
 import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeDimensionConnectivity;
+import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeOverlap;
 import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.mba.modelmetrics.impl.typed.NodeActivity;
 import hu.bme.mit.mba.modelmetrics.impl.typed.NumberOfTypedEdges;
@@ -67,6 +69,16 @@ public class Main {
         Density d = new Density();
         d.evaluate(adapter);
         modelMetrics.add(d);
+
+        System.out.println("edge overlap");
+        EdgeOverlap eo = new EdgeOverlap();
+        eo.evaluate(adapter);
+        modelMetrics.add(eo);
+
+        System.out.println("dimensional degree entropy");
+        DimensionalDegreeEntropy dde = new DimensionalDegreeEntropy();
+        dde.evaluate(adapter);
+        modelMetrics.add(dde);
 
         System.out.println("number of nodes");
         NumberOfNodes numberOfNodes = new NumberOfNodes();
