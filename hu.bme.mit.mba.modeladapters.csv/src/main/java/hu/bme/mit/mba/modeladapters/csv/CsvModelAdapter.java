@@ -26,8 +26,8 @@ public class CsvModelAdapter<N> extends ModelAdapter<N, String> {
     }
 
 	public void init(String nodeCsv, String relsCsv) throws IOException {
-        final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.STANDARD_PREFERENCE);
-        final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), CsvPreference.STANDARD_PREFERENCE);
+        final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.TAB_PREFERENCE);
+        final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), CsvPreference.TAB_PREFERENCE);
 
 	    // nodes
         final String[] nodeHeader = {"id"};
