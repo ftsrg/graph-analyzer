@@ -6,8 +6,8 @@ deCamelCase <- function(s) {
   gsub("([A-Z])", " \\1", s)
 }
 
-theme <- theme(#legend.position = "bottom",
-               legend.position = c(0.82, 0.2),
+theme <- theme(legend.position = "bottom",
+               #legend.position = c(0.82, 0.2),
                axis.text = element_text(size = 14),
                text = element_text(size = 18)
               )
