@@ -25,7 +25,7 @@ public class CsvModelAdapter<N> extends ModelAdapter<N, String> {
         this.cellProcessor = cellProcessor;
     }
 
-    public static final CsvPreference PREF = new CsvPreference.Builder('×', '\t', "\n").build();
+    public static final CsvPreference PREF = new CsvPreference.Builder('\0', '\t', "\n").build();
 
 
 	public void init(String nodeCsv, String relsCsv) throws IOException {
