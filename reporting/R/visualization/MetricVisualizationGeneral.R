@@ -12,14 +12,9 @@ default.theme <- theme_bw() + theme(legend.position = "bottom")
 
 # put the tsv files to the tsv directory
 tsvs <- list.files("tsv", pattern = ".tsv", full.names = T, recursive = T)
-
 l <- lapply(tsvs, ImportsTSVToDataTable, cont = F)
 tsv <- rbindlist(l)
-tsv$file.name = gsub("\\.tsv", "", tsv$file.name)
-tsv$file.name = gsub("tsv/",   "", tsv$file.name)
-#tsv[, file.name := as.numeric(as.factor(file.name))]
-#tsv[, file.name := paste0("File ", file.name)]
-#tsv[, file.name := factor(file.name, levels = paste0("File ", seq_len(length(unique(tsv$file.name)))))]
+tsv
 
 source("R/metrics/MetricVisualization.R")
 source("R/metrics/BasicInformationVisualization.R")
@@ -32,7 +27,7 @@ source("R/metrics/MetricVisualization.R")
 basic.information <- subset(tsv, Category %in% c("Density",
                                                  "NumberOfNodes",
                                                  "NumberOfEdges"))
-basic.information <- dcast.data.table(basic.information, file.name + category ~ Category,
+basic.information <- dcast.data.table(basic.information, file.name + ModelType ~ Category,
                                       value.var = "Value")
 BasicInformationVisualization(basic.information, figures.path)
 
@@ -44,7 +39,7 @@ edge.type <- subset(tsv, Category %in% c(#"NumberOfTypedEdges",
   "NodeExclusiveDimensionConnectivity",
   "EdgeDimensionConnectivity"
 ))
-edge.type <- dcast.data.table(data = edge.type, file.name + category + Instance ~ Category,
+edge.type <- dcast.data.table(data = edge.type, file.name + ModelType + Instance ~ Category,
                               value.var = "Value")
 
 DimensionalEdgeVisualization(edge.type, basic.information, figures.path)
@@ -57,16 +52,17 @@ node.type <- subset(tsv, Category %in% c(#"ClusteringCoefficientList",
   "MultiplexParticipationCoefficient",
   "DimensionalClusteringCoefficient"
 ))
-node.type <- dcast.data.table(data = node.type, file.name + category + Index ~ Category, value.var = "Value")
+node.type <- dcast.data.table(data = node.type, file.name + ModelType + Index ~ Category, value.var = "Value")
 GeneralNodeVisualization(node.type, figures.path)
 #########################################################
 
 #### Pairwise multiplexity ##############################
 pairwise <- subset(tsv, Category %in% "PairwiseMultiplexity")
 setnames(pairwise, "Value", "PairwiseMultiplexity")
-PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "PairwiseMultiplexity_ecdf_oneside.pdf"), x = "PairwiseMultiplexity", col = "category", title = 'PairwiseMultiplexity')
+PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "PairwiseMultiplexity_ecdf_oneside.pdf"), x = "PairwiseMultiplexity", col = "ModelType", title = 'PairwiseMultiplexity')
 
 #### Edge overlap ##############################
 edgeoverlap <- subset(tsv, Category %in% "EdgeOverlap")
 setnames(edgeoverlap, "Value", "EdgeOverlap")
-PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "EdgeOverlap_ecdf_oneside.pdf"), x = "PairwiseMultiplexity", col = "category", title = 'PairwiseMultiplexity')
+PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "EdgeOverlap_ecdf_oneside.pdf"), x = "PairwiseMultiplexity", col = "ModelType", title = 'PairwiseMultiplexity')
+
