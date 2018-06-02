@@ -27,7 +27,7 @@ source("R/metrics/MetricVisualization.R")
 basic.information <- subset(tsv, Category %in% c("Density",
                                                  "NumberOfNodes",
                                                  "NumberOfEdges"))
-basic.information <- dcast.data.table(basic.information, file.name + ModelType ~ Category,
+basic.information <- dcast.data.table(basic.information, file.name + GraphType ~ Category,
                                       value.var = "Value")
 BasicInformationVisualization(basic.information, figures.path)
 
@@ -39,7 +39,7 @@ edge.type <- subset(tsv, Category %in% c(#"NumberOfTypedEdges",
   "NodeExclusiveDimensionConnectivity",
   "EdgeDimensionConnectivity"
 ))
-edge.type <- dcast.data.table(data = edge.type, file.name + ModelType + Instance ~ Category,
+edge.type <- dcast.data.table(data = edge.type, file.name + GraphType + Instance ~ Category,
                               value.var = "Value")
 
 DimensionalEdgeVisualization(edge.type, basic.information, figures.path)
@@ -52,17 +52,18 @@ node.type <- subset(tsv, Category %in% c(#"ClusteringCoefficientList",
   "MultiplexParticipationCoefficient",
   "DimensionalClusteringCoefficient"
 ))
-node.type <- dcast.data.table(data = node.type, file.name + ModelType + Index ~ Category, value.var = "Value")
+node.type <- dcast.data.table(data = node.type, file.name + GraphType + Index ~ Category, value.var = "Value")
 GeneralNodeVisualization(node.type, figures.path)
 #########################################################
 
 #### Pairwise multiplexity ##############################
 pairwise <- subset(tsv, Category %in% "PairwiseMultiplexity")
 setnames(pairwise, "Value", "PairwiseMultiplexity")
-PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "PairwiseMultiplexity_ecdf_oneside.pdf"), x = "PairwiseMultiplexity", col = "ModelType", title = 'PairwiseMultiplexity')
+PlotsECDFByFileName       (pairwise, paste0(figures.path, "PairwiseMultiplexity_ecdf_faceted.pdf"), x = "PairwiseMultiplexity", col = "GraphType", title = 'PairwiseMultiplexity')
+PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "PairwiseMultiplexity_ecdf_oneside.pdf"), x = "PairwiseMultiplexity", col = "GraphType", title = 'PairwiseMultiplexity')
 
 #### Edge overlap ##############################
 edgeoverlap <- subset(tsv, Category %in% "EdgeOverlap")
 setnames(edgeoverlap, "Value", "EdgeOverlap")
-PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "EdgeOverlap_ecdf_oneside.pdf"), x = "PairwiseMultiplexity", col = "ModelType", title = 'PairwiseMultiplexity')
-
+PlotsECDFByFileName       (edgeoverlap, paste0(figures.path, "EdgeOverlap_ecdf_oneside.pdf"), x = "EdgeOverlap", col = "GraphType", title = 'EdgeOverlap')
+PlotsECDFByFileNameOneSide(edgeoverlap, paste0(figures.path, "EdgeOverlap_ecdf_oneside.pdf"), x = "EdgeOverlap", col = "GraphType", title = 'EdgeOverlap')

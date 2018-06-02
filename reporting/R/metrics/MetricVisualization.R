@@ -17,7 +17,7 @@ PlotsECDFByFileName <- function(dt,
                                 col,
                                 x = "Value",
                                 group = "file.name",
-                                facetwrap = "ModelType",
+                                facetwrap = "GraphType",
                                 scalex = F,
                                 title){
   
@@ -128,7 +128,7 @@ PlotsBasicScatterplotGrid <- function(dt, plot.file.name,
 
 PlotsScatterplotByFileName <- function(dt, plot.file.name, x, y,
                                        label = "file.name",
-                                    col = "ModelType",
+                                    col = "GraphType",
                                     scalex = T, scaley = T,
                                     shape = NULL){
   pdf(plot.file.name)
@@ -149,7 +149,7 @@ PlotsScatterplotByFileName <- function(dt, plot.file.name, x, y,
 
 PlotsBoxplot <- function(dt, plot.file.name, x, y,
                          label = "file.name",
-                         col = "ModelType",
+                         col = "GraphType",
                          facetwrap = "file.name",
                          scalex = T, scaley = T){
   df <- as.data.frame(dt)
@@ -169,7 +169,7 @@ PlotsBoxplot <- function(dt, plot.file.name, x, y,
 
 PlotsBoxplotGrid <- function(dt, plot.file.name, x, y,
                          label = "file.name",
-                         col = "ModelType",
+                         col = "GraphType",
                          facetgrid = "file.name",
                          scalex = T, scaley = T){
   df <- as.data.frame(dt)
