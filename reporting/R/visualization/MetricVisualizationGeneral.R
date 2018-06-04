@@ -65,5 +65,5 @@ PlotsECDFByFileNameOneSide(pairwise, paste0(figures.path, "PairwiseMultiplexity_
 #### Edge overlap ##############################
 edgeoverlap <- subset(tsv, Category %in% "EdgeOverlap")
 setnames(edgeoverlap, "Value", "EdgeOverlap")
-PlotsECDFByFileName       (edgeoverlap, paste0(figures.path, "EdgeOverlap_ecdf_oneside.pdf"), x = "EdgeOverlap", col = "GraphType", title = 'EdgeOverlap')
+PlotsECDFByFileName       (edgeoverlap, paste0(figures.path, "EdgeOverlap_ecdf_faceted.pdf"), x = "EdgeOverlap", col = "GraphType", title = 'EdgeOverlap')
 PlotsECDFByFileNameOneSide(edgeoverlap, paste0(figures.path, "EdgeOverlap_ecdf_oneside.pdf"), x = "EdgeOverlap", col = "GraphType", title = 'EdgeOverlap')
