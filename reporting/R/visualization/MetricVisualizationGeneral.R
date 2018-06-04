@@ -8,7 +8,7 @@ library(combinat)
 source("R/transformation/ImportTSVs.R")
 
 figures.path <- "reports/"
-default.theme <- theme_bw() + theme(legend.position = "bottom")
+default.theme <- theme(legend.position = "bottom")
 
 # put the tsv files to the tsv directory
 tsvs <- list.files("tsv", pattern = ".tsv", full.names = T, recursive = T)

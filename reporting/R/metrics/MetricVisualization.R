@@ -20,7 +20,7 @@ PlotsECDFByFileName <- function(dt,
                                 facetwrap = "GraphType",
                                 scalex = F,
                                 title){
-  
+
   print(plot.file.name)
   pdf(plot.file.name, width = 12)
   base <- ggplot(as.data.frame(dt))
@@ -31,7 +31,6 @@ PlotsECDFByFileName <- function(dt,
     xlab('') +
     ylab(deCamelCase(title)) +
     guides +
-    theme_bw() +
     theme
   if(scalex) base <- base + scale_x_log10()
   print(base)
@@ -39,7 +38,7 @@ PlotsECDFByFileName <- function(dt,
 }
 
 
-PlotsECDFByFileNameOneSide <- function(dt, 
+PlotsECDFByFileNameOneSide <- function(dt,
                                 plot.file.name,
                                 col,
                                 x = "Value",
@@ -54,7 +53,6 @@ PlotsECDFByFileNameOneSide <- function(dt,
     xlab('') +
     ylab(deCamelCase(title)) +
     guides +
-    theme_bw() +
     theme
   if(scalex) base <- base + scale_x_log10()
   print(base)
@@ -77,7 +75,6 @@ PlotsEcdfByFileNameGrid <- function(dt, plot.file.name,
     xlab('') +
     ylab(deCamelCase(title)) +
     guides +
-    theme_bw() +
     theme
   if(scalex) base <- base + scale_x_log10()
   print(base)
@@ -96,7 +93,6 @@ PlotsBasicScatterplot <- function(dt, plot.file.name,
     facet_wrap(facetwrap,drop  = T, scales = "free_y") +
     scale_color_brewer(palette = 'Set1') +
     guides +
-    theme_bw() +
     theme
   if(scalex) base <- base + scale_x_log10()
   if(scaley) base <- base + scale_y_log10()
@@ -117,7 +113,6 @@ PlotsBasicScatterplotGrid <- function(dt, plot.file.name,
   base <- base + geom_point(aes_string(x = x,y = y, col = col)) +
     facet_grid(facetgrid,drop  = T, scales = "free_y") +
     scale_color_brewer(palette = 'Set1') +
-    theme_bw() +
     theme
   if(scalex) base <- base + scale_x_log10()
   if(scaley) base <- base + scale_y_log10()
@@ -138,7 +133,6 @@ PlotsScatterplotByFileName <- function(dt, plot.file.name, x, y,
     #geom_text_repel(aes_string(x = x, y = y, label = label, col = col)) +
     scale_color_brewer(palette = "Set1") +
     guides +
-    theme_bw() +
     theme
   if(scalex) {
     base <- base + scale_x_continuous(trans = "log10")}
@@ -157,7 +151,6 @@ PlotsBoxplot <- function(dt, plot.file.name, x, y,
   base <- ggplot(df)
   base <- base + geom_boxplot(aes_string(x = x, y = y)) +
     facet_wrap(facetwrap, drop = T, scales = "free_y", nrow = 2) +
-    theme_bw() +
     theme +
     theme(axis.text.x = element_blank()) +
     scale_fill_brewer(palette = 'Set1')
@@ -177,7 +170,6 @@ PlotsBoxplotGrid <- function(dt, plot.file.name, x, y,
   base <- ggplot(df)
   base <- base + geom_boxplot(aes_string(x = x, y = y)) +
     facet_grid(facetgrid, drop = T, scales = "free") +
-    theme_bw() +
     theme(axis.text.x = element_blank()) +
     scale_fill_brewer(palette = 'Set1')
   if(scaley)  base <- base + scale_y_log10()
