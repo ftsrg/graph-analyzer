@@ -9,13 +9,16 @@ ImportsTSVToDataTable <- function(file.name, cont = T){
                              "DimensionalClusteringCoefficientDef1" ,
                              "DimensionalClusteringCoefficientDef2" ,
                              "DimensionalClusteringCoefficientDef3" ,
+                             "DimensionalDegreeEntropy" ,
+                             "EdgeOverlap" , 
                              "EdgeDimensionConnectivity" ,
                              "MultiplexParticipationCoefficient",
                              "NodeActivityList" ,
                              "NodeDimensionConnectivity" ,
                              "NodeExclusiveDimensionConnectivity",
                              "NumberOfTypedEdges",
-                             "PairwiseMultiplexity")
+                             "PairwiseMultiplexity"
+                           )
   tsv <- subset(tsv, Category %in% c(distribution.metrics, "Density", "NumberOfNodes",
                                      "NumberOfEdges"))
   

@@ -50,6 +50,8 @@ DimensionalEdgeVisualization(edge.type, basic.information, figures.path)
 node.type <- subset(tsv, Category %in% c(#"ClusteringCoefficientList",
 #  "DegreeList",
   "MultiplexParticipationCoefficient",
+  "DimensionalDegreeEntropy",
+  "NodeActivity",
   "DimensionalClusteringCoefficient"
 ))
 node.type <- dcast.data.table(data = node.type, file.name + GraphType + Index ~ Category, value.var = "Value")
