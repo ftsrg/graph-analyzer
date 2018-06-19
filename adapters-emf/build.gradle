@@ -3,6 +3,6 @@ dependencies {
     compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.common', version: emfVersion
     compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.ecore', version: emfVersion
     compile project(':adapters')
-    testCompile project(':adapters.tests')
-    testCompile project(':testmodels.emf')
+    testCompile project(':adapters-tests')
+    testCompile project(':testmodels-emf')
 }

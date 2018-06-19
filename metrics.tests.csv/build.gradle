@@ -1,7 +1,0 @@
-
-dependencies {
-    compile project(':adapters.csv')
-    compile project(':metrics')
-    compile project(':metrics.tests')
-    compile project(':testmodels.csv')
-}

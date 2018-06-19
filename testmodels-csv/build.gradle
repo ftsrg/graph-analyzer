@@ -1,6 +1,6 @@
 
 dependencies {
-    compile project(':testmodels.model')
+    compile project(':testmodels-model')
     compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
 }

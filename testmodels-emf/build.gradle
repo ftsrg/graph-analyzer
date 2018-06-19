@@ -2,5 +2,5 @@
 dependencies {
     compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.common', version: emfVersion
     compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.ecore', version: emfVersion
-    compile project(':testmodels.model')
+    compile project(':testmodels-model')
 }

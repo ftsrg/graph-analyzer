@@ -1,14 +1,14 @@
 rootProject.name = "hu.bme.mit.mba"
 
 include ':adapters'
-include ':adapters.csv'
-include ':adapters.emf'
-include ':adapters.neo4j'
+include ':adapters-csv'
+include ':adapters-emf'
+include ':adapters-neo4j'
 
-include ':adapters.tests'
-include ':adapters.csv.tests'
-include ':adapters.emf.tests'
-include ':adapters.neo4j.tests'
+include ':adapters-tests'
+include ':adapters-csv-tests'
+include ':adapters-emf-tests'
+include ':adapters-neo4j-tests'
 
 include ':analyzer'
 
@@ -16,15 +16,15 @@ include ':base'
 
 include ':metrics'
 
-include ':metrics.tests'
-include ':metrics.tests.csv'
-include ':metrics.tests.emf'
-include ':metrics.tests.neo4j'
+include ':metrics-tests'
+include ':metrics-tests-csv'
+include ':metrics-tests-emf'
+include ':metrics-tests-neo4j'
 
 include ':testbase'
-include ':testmodels.model'
-include ':testmodels.csv'
-include ':testmodels.emf'
-include ':testmodels.neo4j'
+include ':testmodels-model'
+include ':testmodels-csv'
+include ':testmodels-emf'
+include ':testmodels-neo4j'
 
 include ':analyzer'

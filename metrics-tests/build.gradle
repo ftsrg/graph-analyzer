@@ -1,9 +1,9 @@
 
 dependencies {
     compile project(':adapters')
-    compile project(':adapters.tests')
+    compile project(':adapters-tests')
     compile project(':analyzer')
     compile project(':metrics')
     compile project(':testbase')
-    compile project(':testmodels.model')
+    compile project(':testmodels-model')
 }

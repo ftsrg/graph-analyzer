@@ -2,5 +2,5 @@
 dependencies {
     compile project(':adapters')
     compile project(':testbase')
-    compile project(':testmodels.model')
+    compile project(':testmodels-model')
 }
