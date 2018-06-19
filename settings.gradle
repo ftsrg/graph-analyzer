@@ -13,7 +13,6 @@ include ':hu.bme.mit.mba.modeladapters.emf.tests'
 include ':hu.bme.mit.mba.modeladapters.neo4j.tests'
 
 include ':hu.bme.mit.mba.modelanalyzer'
-include ':hu.bme.mit.mba.modelanalyzer.tests'
 
 include ':hu.bme.mit.mba.modelmetrics'
 
