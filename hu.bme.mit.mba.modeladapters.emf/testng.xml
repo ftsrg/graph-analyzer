@@ -4,7 +4,7 @@
     <test name="Test">
         <classes>
             <class
-                name="hu.bme.mit.mba.modeladapters.emf.tests.EmfModelAdapterTests"></class>
+                name="hu.bme.mit.mba.modeladapters.emf.tests.EmfModelAdapterTest"></class>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->
