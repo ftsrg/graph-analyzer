@@ -27,4 +27,4 @@ include ':testmodels-csv'
 include ':testmodels-emf'
 include ':testmodels-neo4j'
 
-include ':analyzer'
+include ':analyzer-app'
