@@ -1,6 +1,8 @@
-# Metric Based Analyzer
+# Graph analyzer
 
 [![Build Status](https://travis-ci.org/FTSRG/graph-analyzer.svg)](https://travis-ci.org/FTSRG/graph-analyzer)
+
+Analysis and metric visualisation toolkit for typed graphs, based on our [MODELS 2016 paper](https://inf.mit.bme.hu/sites/default/files/publications/models2016-metrics.pdf) ([ACM DL](https://dl.acm.org/citation.cfm?id=2976786), [DBLP](http://dblp.uni-trier.de/rec/bibtex/conf/models/SzarnyasKSV16)).
 
 ## Prerequisites
 
