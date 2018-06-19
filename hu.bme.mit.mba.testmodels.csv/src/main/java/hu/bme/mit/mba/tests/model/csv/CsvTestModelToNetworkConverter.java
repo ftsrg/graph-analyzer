@@ -40,7 +40,7 @@ public class CsvTestModelToNetworkConverter {
 
             for (Long node: nodeMapping.values()) {
                 final Map<String, Long> line = ImmutableMap.of("id", node);
-                nodesCsvWriter.write(line, header);
+                nodesCsvWriter.write(line, header, processors);
             }
         } finally {
             if( nodesCsvWriter != null ) {
@@ -58,16 +58,14 @@ public class CsvTestModelToNetworkConverter {
             for (final String nodeName : testModel.getAdjacency().rowKeySet()) {
                 for (final String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
                     for (final String dimensionName : testModel.getAdjacency().get(nodeName, neighborName)) {
-                        Long node = nodeMapping.get(nodeName);
-                        Long neighbor = nodeMapping.get(neighborName);
+                        final Long node = nodeMapping.get(nodeName);
+                        final Long neighbor = nodeMapping.get(neighborName);
 
-                        Map<String, Object> line = ImmutableMap.of(
+                        final Map<String, Object> line = ImmutableMap.of(
                             "source_id", node,
                             "type", dimensionName,
                             "target_id", neighbor
                         );
-
-                        // write the customer maps
                         edgesCsvWriter.write(line, header, processors);
                     }
                 }
