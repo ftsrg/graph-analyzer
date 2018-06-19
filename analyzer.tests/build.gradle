@@ -1,7 +1,0 @@
-
-dependencies {
-    compile project(':analyzer')
-    compile project(':metrics')
-    compile project(':metrics')
-    compile project(':testbase')
-}
