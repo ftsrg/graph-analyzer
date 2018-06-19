@@ -50,7 +50,7 @@ public class CsvTestModelToNetworkConverter {
 
         ICsvMapWriter edgesCsvWriter = null;
         try {
-            edgesCsvWriter = new CsvMapWriter(new FileWriter("edges.csv"), CsvPreference.STANDARD_PREFERENCE);
+            edgesCsvWriter = new CsvMapWriter(new FileWriter("edges.csv"), CsvPreference.TAB_PREFERENCE);
 
             final CellProcessor[] processors = getProcessors("edges");
             final String header[] = new String[]{"source_id", "type", "target_id"};
