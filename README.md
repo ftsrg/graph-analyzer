@@ -1,6 +1,6 @@
 # Metric Based Analyzer
 
-[![Build Status](https://travis-ci.org/FTSRG/model-analyzer.svg)](https://travis-ci.org/FTSRG/model-analyzer)
+[![Build Status](https://travis-ci.org/FTSRG/graph-analyzer.svg)](https://travis-ci.org/FTSRG/graph-analyzer)
 
 ## Prerequisites
 
