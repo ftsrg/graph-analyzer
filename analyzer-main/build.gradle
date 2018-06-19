@@ -4,6 +4,6 @@ mainClassName = 'analyzer.Main'
 dependencies {
     compile project(':adapters-csv')
     compile project(':analyzer')
-    compile project(':testbase')
+    compile project(':test-common')
     compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
 }

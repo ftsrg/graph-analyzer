@@ -2,5 +2,5 @@
 dependencies {
     compile project(':base')
     compile project(':metrics')
-    compile project(':testbase')
+    compile project(':test-common')
 }

@@ -21,7 +21,7 @@ include ':metrics-tests-csv'
 include ':metrics-tests-emf'
 include ':metrics-tests-neo4j'
 
-include ':testbase'
+include ':test-common'
 include ':testmodels-model'
 include ':testmodels-csv'
 include ':testmodels-emf'

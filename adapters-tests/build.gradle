@@ -1,6 +1,6 @@
 
 dependencies {
     compile project(':adapters')
-    compile project(':testbase')
+    compile project(':test-common')
     compile project(':testmodels-model')
 }
