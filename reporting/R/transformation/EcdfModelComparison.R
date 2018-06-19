@@ -21,7 +21,7 @@ distribution.metrics <- c( "ClusteringCoefficientList",
                           "PairwiseMultiplexity")
 
 distribut <- subset(tsv, Category %in% distribution.metrics)
-distribut <- dcast.data.table(distribut, file.name + category + Iscontainment + Instance + Index ~ Category, value.var = "Value")
+distribut <- dcast.data.table(distribut, file.name + GraphType + Iscontainment + Instance + Index ~ Category, value.var = "Value")
 files <- unique(distribut$file.name)
 #base.of.com <- files[c(1:5, 41,44, 48, 49:51, 54:56,62:63, 70:73)]
 #tr <- files[c(1, 41, 49, 54, 62, 70)]
@@ -103,12 +103,12 @@ ecdfComparison <- function(tmp, ind, plot.file.name){
 }
 
 distribut <- subset(tsv, Category %in% distribution.metrics)
-distribut <- dcast.data.table(distribut, file.name + category + Iscontainment + Instance + Index ~ Category, value.var = "Value")
+distribut <- dcast.data.table(distribut, file.name + GraphType + Iscontainment + Instance + Index ~ Category, value.var = "Value")
 
 l <- lapply(seq(6, length(distribut)), function(col.index){
   print(colnames(distribut)[col.index])
   tmp <- distribut[,
-                   c("file.name", "category", "Iscontainment", "Instance", "Index", colnames(distribut)[col.index]),
+                   c("file.name", "GraphType", "Iscontainment", "Instance", "Index", colnames(distribut)[col.index]),
                    with = F]
   tmp <- as.data.frame(tmp)
   tmp <- tmp[!is.na(tmp[, 6]), ]

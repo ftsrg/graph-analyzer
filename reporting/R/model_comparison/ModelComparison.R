@@ -8,7 +8,7 @@ source("R/transformation/ImportTSVs.R")
 source("R/model_comparison/CalculatesHomogenityAndDistinctiveness.R")
 
 figures.path <- "reports/"
-default.theme <- theme_bw() + theme(legend.position = "bottom") 
+default.theme <- theme(legend.position = "bottom")
 
 ########################### Reading #########################################
 tsvs <- list.files("../models-metrics/", pattern = "-nd.tsv", full.names = T, recursive = T)
@@ -30,7 +30,7 @@ dm$mm2 <- substring(dm$second, first = 0, last = 2)
 
 #############################################################################################
 
-## Distinctiveness 
+## Distinctiveness
 distinctiveness <- CalculatesDistinctiveness(dm)
 distinctiveness[distinctiveness$metric == "PairwiseMultiplexity", ]
 distinctiveness[distinctiveness$metric == "MultiplexParticipationCoefficient", ]
