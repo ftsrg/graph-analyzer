@@ -2,12 +2,15 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import com.google.common.collect.Multimap;
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.base.data.MappedListData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modeladapters.ModelIndexer;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EdgeOverlap extends AbstractModelMetric<MapData<String, Double>> {
     public EdgeOverlap() {
@@ -49,6 +52,17 @@ public class EdgeOverlap extends AbstractModelMetric<MapData<String, Double>> {
 
     @Override
     public List<Map<String, Object>> getTsvMaps(String[] header) {
-        return null;
+        final List<Map<String, Object>> values = new ArrayList<>();
+        for (String type : data.getValues().keySet()) {
+            Double value = data.getValues().get(type);
+            Map<String, Object> row = new HashMap<>();
+            row.put(header[0], "EdgeOverlap");
+            row.put(header[1], type);
+            row.put(header[2], null);
+            row.put(header[3], value);
+            values.add(row);
+        }
+        return values;
     }
+
 }

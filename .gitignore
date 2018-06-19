@@ -2,6 +2,7 @@
 .classpath
 
 bin/
+lib/
 target/
 tmp/
 .settings/
@@ -30,3 +31,5 @@ replay_*.log
 test-output
 .idea/
 out/
+.Rproj.user
+*.tsv

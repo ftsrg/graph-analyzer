@@ -1,13 +1,13 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
-import com.google.common.collect.Multimap;
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.base.data.MappedListData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.ModelIndexer;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DimensionalDegreeEntropy extends AbstractModelMetric<ListData<Double>> {
     public DimensionalDegreeEntropy() {
@@ -50,7 +50,6 @@ public class DimensionalDegreeEntropy extends AbstractModelMetric<ListData<Doubl
             index += 1;
         }
         return values;
-
-
     }
+
 }

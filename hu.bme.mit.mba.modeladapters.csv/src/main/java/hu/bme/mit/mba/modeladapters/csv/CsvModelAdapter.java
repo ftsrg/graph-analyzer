@@ -25,9 +25,12 @@ public class CsvModelAdapter<N> extends ModelAdapter<N, String> {
         this.cellProcessor = cellProcessor;
     }
 
+    public static final CsvPreference PREF = new CsvPreference.Builder('\0', '\t', "\n").build();
+
+
 	public void init(String nodeCsv, String relsCsv) throws IOException {
-        final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), CsvPreference.STANDARD_PREFERENCE);
-        final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), CsvPreference.STANDARD_PREFERENCE);
+        final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), PREF);
+        final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), PREF);
 
 	    // nodes
         final String[] nodeHeader = {"id"};
