@@ -28,12 +28,12 @@ public class CsvTest {
     public void test() throws IOException {
         final String filename = "modelmetrics.tsv";
         final String[] header = new String[]{"Category", "Instance", "Index", "Value"};
-        List<AbstractModelMetric> modelMetrics = new ArrayList<>();
-        System.out.println("Example for using concrete metric");
+        final List<AbstractModelMetric> modelMetrics = new ArrayList<>();
+
         // the adapter represents a bridge between model and metrics
         CsvModelAdapter adapter = new CsvModelAdapter(new NotNull());
-        // adapter must be initialized by a container node, this will create
-        // an index which is necessary during the evaluation
+
+        // adapter must be initialized, this will create an index which is necessary during the evaluation
         adapter.init("nodes.csv", "edges.csv");
         System.out.println("initialized");
 
@@ -42,15 +42,14 @@ public class CsvTest {
         Degrees dd = new Degrees();
         dd.evaluate(adapter);
         modelMetrics.add(dd);
-
 //        showResult(dd);
-//
+
         System.out.println("pm");
         PairwiseMultiplexity pm = new PairwiseMultiplexity();
         pm.evaluate(adapter);
         showResult(pm);
         modelMetrics.add(pm);
-//
+
         MultiplexParticipationCoefficient mpc = new MultiplexParticipationCoefficient();
         System.out.println("mpc");
         mpc.evaluate(adapter);
