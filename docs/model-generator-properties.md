@@ -32,9 +32,9 @@ We collected our results and the related work for each property.
 
 ### Our results
 
-In our [SOSYM 2015 paper](https://inf.mit.bme.hu/research/publications/formal-validation-domain-specific-languages-derived-features-and-well-formedne), ... (keywords: **consistent**)
+In our [SOSYM 2015 paper](https://inf.mit.bme.hu/research/publications/formal-validation-domain-specific-languages-derived-features-and-well-formedne), we defined methods to enforce the **consistency** of models.
 
-In our [FASE 2016 paper](https://inf.mit.bme.hu/research/publications/iterative-and-incremental-model-generation-logic-solvers), ... (keywords: **consistent**, **diverse**)
+In our [FASE 2016 paper](https://inf.mit.bme.hu/research/publications/iterative-and-incremental-model-generation-logic-solvers), we presented approaches to generate **consistent** and **diverse** models.
 
 In our [MODELS 2016 paper](https://inf.mit.bme.hu/research/publications/towards-characterization-realistic-models-evaluation-multidisciplinary-graph-m), we analyzed models from typical MDE domains, such as architecture modeling, code analysis, statecharts, system modeling. We gathered a set of graph metrics for determining if a model is **realistic**.
 
@@ -52,12 +52,8 @@ The metrics from the MODELS 2016 paper are demonstrated on a simplified Train Be
 * Mutation generators
 * Verification of Model Transformation
 * Shape analysis: focusing a shape + concretization + consistency check
-* Augur-like reachibility analysis
+* Augur-like reachability analysis
 
 #### Related work
 
-[gMark](https://arxiv.org/abs/1511.08386) is a scalable graph generator tool, designed to allow **scalable** model generation. The user of can specify the number/proportion of the node/edge types and specify the distribution of edges (uniform, Gaussian, Zipfian), which allows the generation of graphs that are **realistic** to some degree.
-
-[Xiao et al.](http://ieeexplore.ieee.org/document/7541886/)
-
-[Xiao et al.](https://www.computer.org/csdl/proceedings/compsac/2014/3575/00/3575a011.pdf)
+[gMark](https://ieeexplore.ieee.org/document/7762945/) is a scalable graph generator tool, designed to allow **scalable** model generation. The user of can specify the number/proportion of the node/edge types and specify the distribution of edges (uniform, Gaussian, Zipfian), which allows the generation of graphs that are **realistic** to some degree.
