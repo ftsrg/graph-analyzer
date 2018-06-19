@@ -1,6 +1,0 @@
-
-dependencies {
-    compile project(':hu.bme.mit.mba.testmodels.emf')
-    compile project(':hu.bme.mit.mba.modeladapters.emf')
-    compile project(':hu.bme.mit.mba.modeladapters.tests')
-}

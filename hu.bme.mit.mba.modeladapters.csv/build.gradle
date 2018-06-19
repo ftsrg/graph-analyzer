@@ -2,4 +2,7 @@
 dependencies {
     compile project(':hu.bme.mit.mba.modeladapters')
     compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
+    compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
+    testCompile project(':hu.bme.mit.mba.modeladapters.tests')
+    testCompile project(':hu.bme.mit.mba.testmodels.csv')
 }
