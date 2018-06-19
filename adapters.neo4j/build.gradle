@@ -1,0 +1,10 @@
+
+dependencies {
+    compile project(':adapters')
+    compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
+    compile group: 'org.neo4j', name: 'neo4j', version: neo4jVersion
+    testCompile group: 'org.neo4j', name: 'neo4j-kernel', version: neo4jVersion, classifier: 'tests'
+    testCompile group: 'org.neo4j', name: 'neo4j-io', version: neo4jVersion, classifier: 'tests'
+    testCompile project(':adapters.tests')
+    testCompile project(':testmodels.neo4j')
+}
