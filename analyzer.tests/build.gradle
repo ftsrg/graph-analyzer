@@ -1,6 +1,7 @@
 
 dependencies {
-    compile project(':base')
+    compile project(':analyzer')
+    compile project(':metrics')
     compile project(':metrics')
     compile project(':testbase')
 }
