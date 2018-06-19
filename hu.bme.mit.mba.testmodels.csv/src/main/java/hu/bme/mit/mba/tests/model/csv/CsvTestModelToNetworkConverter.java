@@ -82,12 +82,13 @@ public class CsvTestModelToNetworkConverter {
     }
 
     private static CellProcessor[] getProcessors(String type) {
-        CellProcessor[] processors;
+        final CellProcessor[] processors;
         if (type.equals("nodes")) {
-            processors = new CellProcessor[]{
-                new NotNull(new ParseLong())};
+            processors = new CellProcessor[] {
+                new NotNull(new ParseLong())
+            };
         } else {
-            processors = new CellProcessor[]{
+            processors = new CellProcessor[] {
                 new NotNull(new ParseLong()),
                 new NotNull(),
                 new NotNull(new ParseLong())
