@@ -33,7 +33,7 @@ public class CsvTestModelToNetworkConverter {
 
         ICsvMapWriter nodesCsvWriter = null;
         try {
-            nodesCsvWriter = new CsvMapWriter(new FileWriter("nodes.csv"), CsvPreference.STANDARD_PREFERENCE);
+            nodesCsvWriter = new CsvMapWriter(new FileWriter("nodes.csv"), CsvPreference.TAB_PREFERENCE);
 
             final CellProcessor[] processors = getProcessors("nodes");
             final String header[] = new String[]{"id"};
