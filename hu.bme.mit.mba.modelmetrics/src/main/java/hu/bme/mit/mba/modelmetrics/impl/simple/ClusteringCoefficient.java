@@ -1,13 +1,11 @@
 package hu.bme.mit.mba.modelmetrics.impl.simple;
 
 import com.google.common.base.Preconditions;
-
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
-import org.supercsv.io.ICsvMapWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,8 +1,7 @@
 
 dependencies {
-  compile project(':hu.bme.mit.mba.modelanalyzer')
-  compile project(':hu.bme.mit.mba.modelmetrics')
-  compile project(':hu.bme.mit.mba.base')
-  compile project(':hu.bme.mit.mba.modelmetrics.impl')
-  compile project(':hu.bme.mit.mba.testbase')
+    compile project(':hu.bme.mit.mba.modelanalyzer')
+    compile project(':hu.bme.mit.mba.modelmetrics')
+    compile project(':hu.bme.mit.mba.modelmetrics')
+    compile project(':hu.bme.mit.mba.testbase')
 }

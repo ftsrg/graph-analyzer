@@ -1,4 +1,4 @@
 
 dependencies {
-  compile project(':hu.bme.mit.mba.modeladapters')
+    compile project(':hu.bme.mit.mba.modeladapters')
 }

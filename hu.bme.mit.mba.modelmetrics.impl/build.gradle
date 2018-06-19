@@ -1,8 +1,0 @@
-
-dependencies {
-  compile project(':hu.bme.mit.mba.base')
-  compile project(':hu.bme.mit.mba.modeladapters')
-  compile project(':hu.bme.mit.mba.modelmetrics')
-  compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
-  compile group: 'edu.mit.ll', name: 'graphulo', version: '3.0.0'
-}

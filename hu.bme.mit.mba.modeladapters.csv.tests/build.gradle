@@ -1,8 +1,7 @@
 
 dependencies {
-  compile project(':hu.bme.mit.mba.modeladapters.csv')
-  compile project(':hu.bme.mit.mba.modeladapters.tests')
-  compile project(':hu.bme.mit.mba.testmodels.csv')
-  compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
-
+    compile project(':hu.bme.mit.mba.modeladapters.csv')
+    compile project(':hu.bme.mit.mba.modeladapters.tests')
+    compile project(':hu.bme.mit.mba.testmodels.csv')
+    compile group: 'com.google.inject', name: 'guice', version: '4.1.0'
 }
