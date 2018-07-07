@@ -22,7 +22,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class ModelAdapterTest {
 
-    protected CsvModelAdapter adapter;
+    protected TestModelAdapter adapter;
     protected TestModel model;
 
     @Test(dataProvider = "data")
@@ -37,7 +37,7 @@ public class ModelAdapterTest {
 
     protected void runTests(TestModelTypes modelType, Runnable checker) throws IOException {
         model = modelType.init();
-        adapter = new CsvModelAdapter();
+        adapter = new TestModelAdapter();
         adapter.init(model);
 
         checker.run();
