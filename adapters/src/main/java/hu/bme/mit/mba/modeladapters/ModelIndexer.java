@@ -1,15 +1,20 @@
 package hu.bme.mit.mba.modeladapters;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Output;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class ModelIndexer<N, T> {
+public final class ModelIndexer<N, T> {
+
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
     private Set<T> dimensions = new HashSet<>();
@@ -111,4 +116,12 @@ public class ModelIndexer<N, T> {
         nodeSet.addAll(outgoing.get(type).keySet());
         return nodeSet;
     }
+
+    public void persist(String path) throws FileNotFoundException {
+        final Kryo kryo = new Kryo();
+        try (final Output output = new Output(new FileOutputStream(path))) {
+            kryo.writeObject(output, this);
+        }
+    }
+
 }

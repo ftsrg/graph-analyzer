@@ -27,7 +27,6 @@ public class CsvModelAdapter<N> extends ModelAdapter<N, String> {
 
     public static final CsvPreference PREF = new CsvPreference.Builder('\0', '\t', "\n").build();
 
-
 	public void init(String nodeCsv, String relsCsv) throws IOException {
         final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), PREF);
         final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), PREF);
