@@ -4,15 +4,13 @@ import hu.bme.mit.mba.base.data.MappedListData;
 import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedListData<String, Double>>
-    implements IncrementalModelEvaluator {
+public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedListData<String, Double>> {
 
     public OneTypedClusteringCoefficient() {
         super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
@@ -142,19 +140,6 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     @Override
     public <N, T> MatrixData<N, T, Double> getTracing() {
         return (MatrixData<N, T, Double>) tracing;
-    }
-
-    @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        reevaluate(adapter, sourceNode, type);
-        reevaluate(adapter, targetNode, type);
-    }
-
-    protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, N node, T type) {
-        evaluate(adapter, node, type);
-        for (N neighbor : adapter.getNeighbors(node, type)) {
-            evaluate(adapter, neighbor, type);
-        }
     }
 
     @Override

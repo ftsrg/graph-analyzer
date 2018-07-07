@@ -4,15 +4,13 @@ import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
-import org.supercsv.io.ICsvMapWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Degrees extends AbstractModelMetric<ListData<Integer>> implements IncrementalModelEvaluator {
+public class Degrees extends AbstractModelMetric<ListData<Integer>> {
 
     public Degrees() {
         super("DegreeList", new ListData<>());
@@ -47,21 +45,6 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>> implements I
     }
 
     @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        reevaluateNode(adapter, getTracing(), sourceNode);
-        reevaluateNode(adapter, getTracing(), targetNode);
-    }
-
-    protected <N, T> void reevaluateNode(ModelAdapter<N, T> adapter, MapData<N, Integer> castedTracing, N node) {
-        if (castedTracing.containsKey(node)) {
-            Integer value = castedTracing.get(node);
-            value++;
-            castedTracing.put(node, value);
-        } else {
-            evaluate(adapter, node);
-        }
-    }
-@Override
     public List<Map<String, Object>> getTsvMaps(String[] header) {
         final List<Map<String, Object>> values = new ArrayList<>();
         int index = 0;

@@ -4,15 +4,13 @@ import hu.bme.mit.mba.base.data.MappedListData;
 import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DimensionalDegree extends AbstractModelMetric<MappedListData<String, Integer>>
-    implements IncrementalModelEvaluator {
+public class DimensionalDegree extends AbstractModelMetric<MappedListData<String, Integer>> {
 
     public DimensionalDegree() {
         super("DimensionalDegreeList", new MappedListData<>());
@@ -47,23 +45,6 @@ public class DimensionalDegree extends AbstractModelMetric<MappedListData<String
     @Override
     public <N, T> MatrixData<N, T, Integer> getTracing() {
         return (MatrixData<N, T, Integer>) tracing;
-    }
-
-    @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        reevaluate(adapter, getTracing(), sourceNode, type);
-        reevaluate(adapter, getTracing(), targetNode, type);
-    }
-
-    protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, MatrixData<N, T, Integer> castedTracing, N node,
-                                     T type) {
-        if (castedTracing.getValues().contains(node, type)) {
-            Integer value = castedTracing.getValues().get(node, type);
-            value++;
-            castedTracing.put(node, type, value);
-        } else {
-            evaluate(adapter, type, node);
-        }
     }
 
     @Override

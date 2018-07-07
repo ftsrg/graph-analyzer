@@ -4,15 +4,13 @@ import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListData<Double>>
-    implements IncrementalModelEvaluator {
+public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListData<Double>> {
 
     public MultiplexParticipationCoefficient() {
         super("MultiplexParticipationCoefficient", new ListData<>());
@@ -66,12 +64,6 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
         if (notNullTracing()) {
             getTracing().put(node, value);
         }
-    }
-
-    @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        reevaluate(adapter, type, sourceNode);
-        reevaluate(adapter, type, targetNode);
     }
 
     protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, T type, N node) {

@@ -3,15 +3,13 @@ package hu.bme.mit.mba.modelmetrics.impl.simple;
 import hu.bme.mit.mba.base.data.ScalarData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
-import org.supercsv.io.ICsvMapWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NumberOfNodes extends AbstractModelMetric<ScalarData<Integer>> implements IncrementalModelEvaluator {
+public class NumberOfNodes extends AbstractModelMetric<ScalarData<Integer>> {
 
     public NumberOfNodes() {
         super("NumberOfNodes", new ScalarData<>());
@@ -25,11 +23,6 @@ public class NumberOfNodes extends AbstractModelMetric<ScalarData<Integer>> impl
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
         data.setValue(adapter.getNumberOfNodes());
-    }
-
-    @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        evaluateAll(adapter);
     }
 
     @Override

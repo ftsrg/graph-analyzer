@@ -3,15 +3,13 @@ package hu.bme.mit.mba.modelmetrics.impl.simple;
 import hu.bme.mit.mba.base.data.ScalarData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
-import org.supercsv.io.ICsvMapWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> implements IncrementalModelEvaluator {
+public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> {
 
     public NumberOfEdges() {
         super("NumberOfEdges", new ScalarData<>());
@@ -32,12 +30,6 @@ public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> impl
         data.setValue(adapter.getDegree(element));
     }
 
-    @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        Integer value = data.getValue();
-        value++;
-        data.setValue(value);
-    }
     @Override
     public List<Map<String, Object>> getTsvMaps(String[] header) {
         final List<Map<String, Object>> values = new ArrayList<>();

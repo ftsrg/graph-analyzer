@@ -3,14 +3,13 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NodeActivity extends AbstractModelMetric<ListData<Integer>> implements IncrementalModelEvaluator {
+public class NodeActivity extends AbstractModelMetric<ListData<Integer>> {
 
     public NodeActivity() {
         super("NodeActivityList", new ListData<>());
@@ -24,12 +23,6 @@ public class NodeActivity extends AbstractModelMetric<ListData<Integer>> impleme
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
         int numberOfTypes = adapter.getNumberOfTypes(element);
         data.add(numberOfTypes);
-    }
-
-    @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        evaluate(adapter, sourceNode);
-        evaluate(adapter, targetNode);
     }
 
     @Override

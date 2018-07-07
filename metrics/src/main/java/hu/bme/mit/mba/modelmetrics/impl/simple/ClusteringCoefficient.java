@@ -1,18 +1,16 @@
 package hu.bme.mit.mba.modelmetrics.impl.simple;
 
-import com.google.common.base.Preconditions;
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>> implements IncrementalModelEvaluator {
+public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>> {
 
     @Deprecated
     protected int maxNeighbours = 1000;
@@ -81,22 +79,6 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
         if (tracing != null) {
             getTracing().put(element, clusteringCoef);
         }
-    }
-
-    @Override
-    public <N, T> void reevaluateNewEdge(final ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        Preconditions.checkNotNull(tracing);
-        evaluate(adapter, sourceNode);
-        evaluate(adapter, targetNode);
-
-        for (N neighbor : adapter.getNeighbors(sourceNode)) {
-            evaluate(adapter, neighbor);
-        }
-
-        for (N neighbor : adapter.getNeighbors(targetNode)) {
-            evaluate(adapter, neighbor);
-        }
-
     }
 
     @Override

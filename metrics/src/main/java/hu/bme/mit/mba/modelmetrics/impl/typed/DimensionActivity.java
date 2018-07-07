@@ -4,16 +4,13 @@ import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.incr.IncrementalModelEvaluator;
-import org.supercsv.io.ICsvMapWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DimensionActivity extends AbstractModelMetric<MapData<String, Integer>>
-    implements IncrementalModelEvaluator {
+public class DimensionActivity extends AbstractModelMetric<MapData<String, Integer>> {
 
     public DimensionActivity() {
         super("DimensionActivity", new MapData<>());
@@ -39,26 +36,6 @@ public class DimensionActivity extends AbstractModelMetric<MapData<String, Integ
     @Override
     public <N, T> MatrixData<N, T, Integer> getTracing() {
         return (MatrixData<N, T, Integer>) tracing;
-    }
-
-    @Override
-    public <N, T> void reevaluateNewEdge(ModelAdapter<N, T> adapter, T type, N sourceNode, N targetNode) {
-        update(type, sourceNode, getTracing());
-        update(type, targetNode, getTracing());
-    }
-
-    protected <N, T> void update(T type, N node, MatrixData<N, T, Integer> tracing) {
-        if (!tracing.getValues().contains(node, type)) {
-            tracing.put(node, type, 1);
-
-            int value = 0;
-            if (data.containsKey(type.toString())) {
-                value = data.get(type.toString());
-            }
-            value++;
-            data.put(type.toString(), value);
-
-        }
     }
 
     @Override
