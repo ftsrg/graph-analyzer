@@ -4,7 +4,7 @@ import hu.bme.mit.mba.base.data.BaseData;
 
 public interface TraceableModelMetric extends ModelMetric {
 
-    public <N, T> void trace();
+    <N, T> void trace();
 
-    public <N, T> BaseData getTracing();
+    <N, T> BaseData getTracing();
 }
