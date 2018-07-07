@@ -33,3 +33,5 @@ test-output
 out/
 .Rproj.user
 *.tsv
+
+*.iml
