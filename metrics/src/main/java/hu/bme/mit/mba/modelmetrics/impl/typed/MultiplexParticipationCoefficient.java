@@ -21,18 +21,10 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
         evaluateEveryNode(adapter);
     }
 
-    // TODO delete later
-    @Deprecated
-    boolean exclusive = false;
-
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
         int numOfDimensions = 0;
-        if (exclusive) {
-            numOfDimensions = adapter.getNumberOfTypes(element);
-        } else {
-            numOfDimensions = adapter.getNumberOfTypes();
-        }
+        numOfDimensions = adapter.getNumberOfTypes();
 
         double coef = 0.0;
         if (numOfDimensions == 1) {
@@ -89,6 +81,5 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
         }
         return values;
     }
-
-
+    
 }

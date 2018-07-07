@@ -12,34 +12,13 @@ import java.util.Map;
 
 public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>> {
 
-    @Deprecated
-    protected int maxNeighbours = 1000;
-    @Deprecated
-    protected boolean useHeuristic = false;
-
     public ClusteringCoefficient() {
         super("ClusteringCoefficientList", new ListData<>());
-    }
-
-    public int getMaxNeighbours() {
-        return maxNeighbours;
     }
 
     @Override
     public <N, T> void trace() {
         tracing = new MapData<N, Double>();
-    }
-
-    public void setMaxNeighbours(int maxNeighbours) {
-        this.maxNeighbours = maxNeighbours;
-    }
-
-    public boolean isUseHeuristic() {
-        return useHeuristic;
-    }
-
-    public void setUseHeuristic(boolean useHeuristic) {
-        this.useHeuristic = useHeuristic;
     }
 
     @Override
@@ -52,12 +31,6 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
         long interConnected = 0;
         long numberOfNeighbors = 0;
         double clusteringCoef = 0.0;
-        if (useHeuristic && adapter.getDegree(element) > maxNeighbours) {
-            data.add(clusteringCoef);
-            if (tracing != null) {
-                getTracing().put(element, clusteringCoef);
-            }
-        }
         for (N neighbor1 : adapter.getNeighbors(element)) {
             for (N neighbor2 : adapter.getNeighbors(element)) {
                 if (neighbor1 != neighbor2) {
@@ -101,6 +74,5 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
         }
         return values;
     }
-
 
 }

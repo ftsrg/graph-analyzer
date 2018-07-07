@@ -1,17 +1,15 @@
 package hu.bme.mit.mba.modelanalyzer;
 
-import static com.google.common.base.Preconditions.checkState;
-
-import org.apache.log4j.Logger;
-
 import com.google.common.base.Preconditions;
-
 import hu.bme.mit.mba.base.Analyzer;
 import hu.bme.mit.mba.base.metrics.Metric;
 import hu.bme.mit.mba.base.metrics.SummaryMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
+import org.apache.log4j.Logger;
+
+import static com.google.common.base.Preconditions.checkState;
 
 public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
 
@@ -205,27 +203,6 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
 
         metricObj.evaluate(adapter);
         return this;
-    }
-
-    /**
-     * Runs a preliminary validation to check whether every metric requirement
-     * is provided by the adapter parameter or not (see {@link ModelAdapter}).
-     * Throws an {@link IllegalStateException} if the adapter parameter does not
-     * implement an interface that is required by the evaluation of at least one
-     * metric.
-     *
-     * @param <N>
-     *            type of the model
-     *
-     * @throws IllegalArgumentException
-     *             if the adapter parameter does not implement an interface that
-     *             is necessary for the calculations of metrics
-     *
-     * @return this
-     */
-    private ModelAnalyzer validate(final ModelAdapter<?, ?> adapter) {
-        throw new UnsupportedOperationException("Not implemented yet");
-        // return this;
     }
 
 }
