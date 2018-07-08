@@ -17,8 +17,8 @@ public class PairwiseMultiplexity extends AbstractGraphMetric<MapData<String, Do
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
-        for (T firstType : adapter.getIndexer().getDimensions()) {
-            for (T secondType : adapter.getIndexer().getDimensions()) {
+        for (T firstType : adapter.getIndexer().getTypes()) {
+            for (T secondType : adapter.getIndexer().getTypes()) {
                 if (firstType != secondType) {
                     if (newPair(firstType, secondType)) {
                         evaluate(adapter, firstType, secondType);
@@ -59,7 +59,7 @@ public class PairwiseMultiplexity extends AbstractGraphMetric<MapData<String, Do
     protected <T, N> int getIntersection(GraphAdapter<N, T> adapter, T firstType, T secondType) {
         int nodesInIntersection = 0;
         for (N node : adapter.getIndexer().getNodes(firstType)) {
-            if (adapter.getIndexer().getDimensions(node).contains(secondType)) {
+            if (adapter.getIndexer().getTypes(node).contains(secondType)) {
                 nodesInIntersection++;
             }
         }

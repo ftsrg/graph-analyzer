@@ -17,7 +17,7 @@ public class TypedActivity extends AbstractGraphMetric<MapData<String, Integer>>
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
-        for (T type : adapter.getIndexer().getDimensions()) {
+        for (T type : adapter.getIndexer().getTypes()) {
             data.put(type.toString(), adapter.getIndexer().getNumberOfNodes(type));
         }
     }

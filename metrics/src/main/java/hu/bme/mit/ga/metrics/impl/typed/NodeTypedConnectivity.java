@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * Takes values in [0,1] and computes the ratio of nodes of the network that
- * belong to a particular dimension.
+ * belong to a particular type.
  */
 public class NodeTypedConnectivity extends AbstractGraphMetric<MapData<String, Double>> {
 
@@ -20,27 +20,27 @@ public class NodeTypedConnectivity extends AbstractGraphMetric<MapData<String, D
     }
 
     // /**
-    // * Calculates the Node Dimension Connectivity for a particular dimension.
+    // * Calculates the Node Type Connectivity for a particular type.
     // *
-    // * @param dimension
-    // * String representing the dimension
+    // * @param type
+    // * String representing the type
     // * @param typedEdges
     // * NumberOfTypedEdges object
     // * @param numberOfNodes
     // * NumberOfNodes object
     // */
-    // public void calculate(final String dimension, final NumberOfTypedEdges
+    // public void calculate(final String type, final NumberOfTypedEdges
     // typedEdges,
     // final NumberOfNodes numberOfNodes) {
-    // if (!typedEdges.getValues().containsKey(dimension)) {
-    // throw new IllegalArgumentException("The dimension does not exist in the
-    // map:" + dimension);
+    // if (!typedEdges.getValues().containsKey(type)) {
+    // throw new IllegalArgumentException("The type does not exist in the
+    // map:" + type);
     // }
-    // putRatio(dimension, numberOfNodes.getValue(), typedEdges.getValues());
+    // putRatio(type, numberOfNodes.getValue(), typedEdges.getValues());
     // }
 
     // /**
-    // * Calculates the Node Dimension Connectivity for every possible dimension
+    // * Calculates the Node Type Connectivity for every possible type
     // * that can be found in the given parameter.
     // *
     // * @param typedEdges
@@ -54,49 +54,49 @@ public class NodeTypedConnectivity extends AbstractGraphMetric<MapData<String, D
     // }
     // }
 
-    // public void calculate(final String dimension, final Network<?> network) {
-    // typedValues.put(dimension, (double) network.getNumberOfNodes(dimension) /
+    // public void calculate(final String type, final Network<?> network) {
+    // typedValues.put(type, (double) network.getNumberOfNodes(type) /
     // network.getNumberOfNodes());
     // }
 
-    // public void calculateExclusive(final String dimension, final Network<?>
+    // public void calculateExclusive(final String type, final Network<?>
     // network) {
-    // if (!network.getNodesOnDimensions().containsKey(dimension)) {
-    // throw new IllegalArgumentException("Dimension does not exist: " +
-    // dimension);
+    // if (!network.getNodesOnTypes().containsKey(type)) {
+    // throw new IllegalArgumentException("Type does not exist: " +
+    // type);
     // }
     // int numOfNodes = 0;
-    // for (Node<?> node : network.getNodesOnDimensions().get(dimension)) {
-    // if (node.getDimensions().keySet().size() == 1) {
+    // for (Node<?> node : network.getNodesOnTypes().get(type)) {
+    // if (node.getTypes().keySet().size() == 1) {
     // numOfNodes++;
     // }
     // }
-    // typedValues.put(dimension, (double) numOfNodes /
+    // typedValues.put(type, (double) numOfNodes /
     // network.getNumberOfNodes());
     // }
     //
     // public void calculate(final Network<?> network) {
     // clear();
-    // for (String dimension : network.getDimensions()) {
-    // calculate(dimension, network);
+    // for (String type : network.getTypes()) {
+    // calculate(type, network);
     // }
     // }
 
     // public void calculateExclusive(final Network<?> network) {
     // clear();
-    // for (String dimension : network.getDimensions()) {
-    // calculateExclusive(dimension, network);
+    // for (String type : network.getTypes()) {
+    // calculateExclusive(type, network);
     // }
     // }
     //
-    // protected void putRatio(final String dimension, final double allNodes,
+    // protected void putRatio(final String type, final double allNodes,
     // final Map<String, Integer> edges) {
-    // typedValues.put(dimension, edges.get(dimension) / allNodes);
+    // typedValues.put(type, edges.get(type) / allNodes);
     // }
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
-        for (T type : adapter.getIndexer().getDimensions()) {
+        for (T type : adapter.getIndexer().getTypes()) {
             evaluateT(adapter, type);
         }
     }

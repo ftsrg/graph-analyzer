@@ -31,22 +31,22 @@ public class TestGraphToEmfConverter extends TestGraphToConcreteFormatConverter<
 
         for (String nodeName : testGraph.getAdjacency().rowKeySet()) {
             for (String neighborName : testGraph.getAdjacency().row(nodeName).keySet()) {
-                for (String dimensionName : testGraph.getAdjacency().get(nodeName, neighborName)) {
+                for (String typeName : testGraph.getAdjacency().get(nodeName, neighborName)) {
                     Node node = nodeMapping.get(nodeName);
                     Node neighbor = nodeMapping.get(neighborName);
-                    switch (dimensionName) {
-                        case TestGraphConstants.dim1:
-                            node.getDim1().add(neighbor);
+                    switch (typeName) {
+                        case TestGraphConstants.type1:
+                            node.getType1().add(neighbor);
                             break;
-                        case TestGraphConstants.dim2:
-                            node.getDim2().add(neighbor);
+                        case TestGraphConstants.type2:
+                            node.getType2().add(neighbor);
                             break;
-                        case TestGraphConstants.dim3:
-                            node.getDim3().add(neighbor);
+                        case TestGraphConstants.type3:
+                            node.getType3().add(neighbor);
                             break;
                         default:
                             throw new IllegalArgumentException(
-                                "The TestGraph " + testGraph + " contains an unrecognized dimension " + dimensionName);
+                                "The TestGraph " + testGraph + " contains an unrecognized type " + typeName);
                     }
 
                 }

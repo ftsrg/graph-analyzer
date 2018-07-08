@@ -29,10 +29,10 @@ public class TestGraphToNeo4jConverter extends TestGraphToConcreteFormatConverte
 
             for (final String nodeName : testGraph.getAdjacency().rowKeySet()) {
                 for (final String neighborName : testGraph.getAdjacency().row(nodeName).keySet()) {
-                    for (final String dimensionName : testGraph.getAdjacency().get(nodeName, neighborName)) {
+                    for (final String typeName : testGraph.getAdjacency().get(nodeName, neighborName)) {
                         Node node = nodeMapping.get(nodeName);
                         Node neighbor = nodeMapping.get(neighborName);
-                        node.createRelationshipTo(neighbor, relationship(dimensionName));
+                        node.createRelationshipTo(neighbor, relationship(typeName));
                     }
                 }
             }

@@ -58,13 +58,13 @@ public class TestGraphToCsvConverter extends TestGraphToConcreteFormatConverter<
 
             for (final String nodeName : testGraph.getAdjacency().rowKeySet()) {
                 for (final String neighborName : testGraph.getAdjacency().row(nodeName).keySet()) {
-                    for (final String dimensionName : testGraph.getAdjacency().get(nodeName, neighborName)) {
+                    for (final String typeName : testGraph.getAdjacency().get(nodeName, neighborName)) {
                         final Long node = nodeMapping.get(nodeName);
                         final Long neighbor = nodeMapping.get(neighborName);
 
                         final Map<String, Object> line = ImmutableMap.of(
                             "source_id", node,
-                            "type", dimensionName,
+                            "type", typeName,
                             "target_id", neighbor
                         );
                         edgesCsvWriter.write(line, header, processors);

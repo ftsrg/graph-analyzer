@@ -1,10 +1,10 @@
 package hu.bme.mit.ga.metrics.tests;
 // package eu.mondo.map.modelmetrics.tests;
 //
-// import static eu.mondo.map.tests.model.TestGraphConstants.dim1;
-// import static eu.mondo.map.tests.model.TestGraphConstants.dim2;
-// import static eu.mondo.map.tests.model.TestGraphConstants.dim3;
-// import static eu.mondo.map.tests.model.TestGraphConstants.dim4;
+// import static eu.mondo.map.tests.model.TestGraphConstants.type1;
+// import static eu.mondo.map.tests.model.TestGraphConstants.type2;
+// import static eu.mondo.map.tests.model.TestGraphConstants.type3;
+// import static eu.mondo.map.tests.model.TestGraphConstants.type4;
 // import static eu.mondo.map.tests.model.TestGraphConstants.network;
 // import static eu.mondo.map.tests.model.TestGraphConstants.node1;
 // import static eu.mondo.map.tests.model.TestGraphConstants.node2;
@@ -51,8 +51,8 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void nullPath() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
 //
 // calculate(node3, node2);
 // checkSize(0);
@@ -60,9 +60,9 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void nullPath2() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node3, node4);
-// network.addEdge(dim1, node2, node4);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node3, node4);
+// network.addEdge(type1, node2, node4);
 //
 // calculate(node1, node3);
 // checkSize(0);
@@ -71,24 +71,24 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test(expected = IllegalArgumentException.class)
 // public void nullSource() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
 //
 // calculate(node4, node2);
 // }
 //
 // @Test(expected = IllegalArgumentException.class)
 // public void nullTarget() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
 //
 // calculate(node1, node4);
 // }
 //
 // @Test
 // public void absentSource() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
 // network.addNode(node4);
 //
 // calculate(node4, node3);
@@ -98,8 +98,8 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void absentTarget() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
 // network.addNode(node4);
 //
 // calculate(node1, node4);
@@ -108,8 +108,8 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void singlePath1() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
 //
 // calculate(node1, node3);
 // checkSize(1);
@@ -119,8 +119,8 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void singlePath2() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
 //
 // calculate(node2, node3);
 // checkSize(1);
@@ -129,9 +129,9 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void singlePath3() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
-// network.addEdge(dim1, node1, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
+// network.addEdge(type1, node1, node3);
 //
 // calculate(node1, node3);
 // checkSize(1);
@@ -140,11 +140,11 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void singlePath4() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node3, node2);
-// network.addEdge(dim1, node3, node1);
-// network.addEdge(dim1, node2, node1);
-// network.addEdge(dim1, node2, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node3, node2);
+// network.addEdge(type1, node3, node1);
+// network.addEdge(type1, node2, node1);
+// network.addEdge(type1, node2, node3);
 //
 // calculate(node1, node3);
 // checkSize(1);
@@ -153,18 +153,18 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void singlePath5() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
-// network.addEdge(dim1, node1, node4);
-// network.addEdge(dim1, node2, node5);
-// network.addEdge(dim1, node2, node8);
-// network.addEdge(dim1, node2, node6);
-// network.addEdge(dim1, node3, node6);
-// network.addEdge(dim1, node4, node7);
-// network.addEdge(dim1, node4, node6);
-// network.addEdge(dim1, node5, node8);
-// network.addEdge(dim1, node6, node8);
-// network.addEdge(dim1, node7, node8);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
+// network.addEdge(type1, node1, node4);
+// network.addEdge(type1, node2, node5);
+// network.addEdge(type1, node2, node8);
+// network.addEdge(type1, node2, node6);
+// network.addEdge(type1, node3, node6);
+// network.addEdge(type1, node4, node7);
+// network.addEdge(type1, node4, node6);
+// network.addEdge(type1, node5, node8);
+// network.addEdge(type1, node6, node8);
+// network.addEdge(type1, node7, node8);
 //
 // calculate(node1, node8);
 // checkSize(1);
@@ -172,10 +172,10 @@ package hu.bme.mit.ga.metrics.tests;
 // }
 //
 // @Test
-// public void singlePathMultidimensional() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node1);
-// network.addEdge(dim2, node2, node3);
+// public void singlePathMultitypeal() {
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node1);
+// network.addEdge(type2, node2, node3);
 //
 // calculate(node1, node3);
 // calculate(node1, node2);
@@ -186,10 +186,10 @@ package hu.bme.mit.ga.metrics.tests;
 // }
 //
 // @Test
-// public void singlePathMultidimensional2() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
-// network.addEdge(dim2, node2, node3);
+// public void singlePathMultitypeal2() {
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
+// network.addEdge(type2, node2, node3);
 //
 // calculate(node1, node3);
 // calculate(node1, node2);
@@ -203,11 +203,11 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void multiplePath2() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node4);
-// network.addEdge(dim1, node2, node3);
-// network.addEdge(dim2, node2, node3);
-// network.addEdge(dim1, node4, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node4);
+// network.addEdge(type1, node2, node3);
+// network.addEdge(type2, node2, node3);
+// network.addEdge(type1, node4, node3);
 //
 // calculate(node1, node2);
 // calculate(node1, node3);
@@ -223,12 +223,12 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void multiplePath3() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
-// network.addEdge(dim1, node2, node4);
-// network.addEdge(dim1, node3, node5);
-// network.addEdge(dim1, node4, node6);
-// network.addEdge(dim1, node5, node6);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
+// network.addEdge(type1, node2, node4);
+// network.addEdge(type1, node3, node5);
+// network.addEdge(type1, node4, node6);
+// network.addEdge(type1, node5, node6);
 //
 // calculate(node1, node6);
 // calculate(node1, node3);
@@ -241,13 +241,13 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void multiplePath3Extended() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
-// network.addEdge(dim1, node2, node4);
-// network.addEdge(dim1, node3, node5);
-// network.addEdge(dim2, node3, node5);
-// network.addEdge(dim1, node4, node6);
-// network.addEdge(dim1, node5, node6);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
+// network.addEdge(type1, node2, node4);
+// network.addEdge(type1, node3, node5);
+// network.addEdge(type2, node3, node5);
+// network.addEdge(type1, node4, node6);
+// network.addEdge(type1, node5, node6);
 //
 // calculate(node1, node6);
 // calculate(node1, node3);
@@ -264,15 +264,15 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void multiplePath3Extended2() {
-// network.addEdge(dim2, node1, node2);
-// network.addEdge(dim1, node1, node3);
-// network.addEdge(dim1, node2, node4);
-// network.addEdge(dim1, node3, node5);
-// network.addEdge(dim2, node3, node5);
-// network.addEdge(dim3, node3, node5);
-// network.addEdge(dim1, node4, node6);
-// network.addEdge(dim1, node5, node6);
-// network.addEdge(dim4, node5, node6);
+// network.addEdge(type2, node1, node2);
+// network.addEdge(type1, node1, node3);
+// network.addEdge(type1, node2, node4);
+// network.addEdge(type1, node3, node5);
+// network.addEdge(type2, node3, node5);
+// network.addEdge(type3, node3, node5);
+// network.addEdge(type1, node4, node6);
+// network.addEdge(type1, node5, node6);
+// network.addEdge(type4, node5, node6);
 //
 // calculate(node1, node2);
 // calculate(node1, node3);
@@ -292,18 +292,18 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void multiplePath4() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
-// network.addEdge(dim2, node1, node3);
-// network.addEdge(dim3, node1, node3);
-// network.addEdge(dim1, node2, node4);
-// network.addEdge(dim1, node3, node5);
-// network.addEdge(dim1, node4, node6);
-// network.addEdge(dim3, node4, node6);
-// network.addEdge(dim1, node5, node6);
-// network.addEdge(dim2, node5, node6);
-// network.addEdge(dim3, node5, node6);
-// network.addEdge(dim2, node6, node7);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
+// network.addEdge(type2, node1, node3);
+// network.addEdge(type3, node1, node3);
+// network.addEdge(type1, node2, node4);
+// network.addEdge(type1, node3, node5);
+// network.addEdge(type1, node4, node6);
+// network.addEdge(type3, node4, node6);
+// network.addEdge(type1, node5, node6);
+// network.addEdge(type2, node5, node6);
+// network.addEdge(type3, node5, node6);
+// network.addEdge(type2, node6, node7);
 //
 // calculate(node1, node2);
 // calculate(node1, node3);
@@ -325,14 +325,14 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void multiplePath5() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
-// network.addEdge(dim1, node2, node4);
-// network.addEdge(dim1, node2, node5);
-// network.addEdge(dim1, node3, node5);
-// network.addEdge(dim1, node4, node6);
-// network.addEdge(dim1, node4, node3);
-// network.addEdge(dim1, node5, node6);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
+// network.addEdge(type1, node2, node4);
+// network.addEdge(type1, node2, node5);
+// network.addEdge(type1, node3, node5);
+// network.addEdge(type1, node4, node6);
+// network.addEdge(type1, node4, node3);
+// network.addEdge(type1, node5, node6);
 //
 // calculate(node1, node2);
 // calculate(node1, node3);
@@ -348,29 +348,29 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test(expected = IllegalArgumentException.class)
 // public void testRandomSampleException1() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
 // calculate(-2);
 // }
 //
 // @Test(expected = IllegalArgumentException.class)
 // public void testRandomSampleException2() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
 // calculate(0);
 // }
 //
 // @Test(expected = IllegalArgumentException.class)
 // public void testRandomSampleException3() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
 // calculate(7);
 // }
 //
 // @Test
 // public void testRandomSample1() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
 //
 // calculate(6);
 // checkSize(2);
@@ -379,11 +379,11 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void testRandomSample2() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
-// network.addEdge(dim1, node2, node4);
-// network.addEdge(dim1, node2, node5);
-// network.addEdge(dim1, node4, node5);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
+// network.addEdge(type1, node2, node4);
+// network.addEdge(type1, node2, node5);
+// network.addEdge(type1, node4, node5);
 //
 // calculate(20);
 // checkSize(8);
@@ -392,8 +392,8 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void testCalculationforAll1() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node1, node3);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node1, node3);
 //
 // calculate();
 //
@@ -403,11 +403,11 @@ package hu.bme.mit.ga.metrics.tests;
 //
 // @Test
 // public void testCalculationforAll2() {
-// network.addEdge(dim1, node1, node2);
-// network.addEdge(dim1, node2, node3);
-// network.addEdge(dim1, node2, node4);
-// network.addEdge(dim1, node2, node5);
-// network.addEdge(dim1, node4, node5);
+// network.addEdge(type1, node1, node2);
+// network.addEdge(type1, node2, node3);
+// network.addEdge(type1, node2, node4);
+// network.addEdge(type1, node2, node5);
+// network.addEdge(type1, node4, node5);
 //
 // calculate();
 //

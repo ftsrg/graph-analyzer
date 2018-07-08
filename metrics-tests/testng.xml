@@ -9,7 +9,7 @@
             <class name="hu.bme.mit.mba.ga.tests.NumberOfNodesTest"/>
             <class name="hu.bme.mit.mba.ga.tests.NumberOfEdgesTest"/>
             <class
-                name="hu.bme.mit.mba.ga.tests.DimensionActivityTest"/>
+                name="hu.bme.mit.mba.ga.tests.TypeActivityTest"/>
             <class name="hu.bme.mit.mba.ga.tests.NodeActivityTest"/>
             <class
                 name="hu.bme.mit.mba.ga.tests.MultiplexParticipationCoefficientTest"/>

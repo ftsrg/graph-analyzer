@@ -15,35 +15,35 @@ public class EdgeTypedConnectivity extends AbstractGraphMetric<MapData<String, D
         super("EdgeTypedConnectivity", new MapData<>());
     }
 
-    // public void calculate(final String dimension, final Network<?> network) {
+    // public void calculate(final String type, final Network<?> network) {
     // int sumOfEdges = 0;
-    // for (Node<?> node : network.getNodes(dimension)) {
-    // sumOfEdges += node.getNumberOfNeighbors(dimension);
+    // for (Node<?> node : network.getNodes(type)) {
+    // sumOfEdges += node.getNumberOfNeighbors(type);
     // }
     // sumOfEdges /= 2;
-    // typedValues.put(dimension, (double) sumOfEdges /
+    // typedValues.put(type, (double) sumOfEdges /
     // network.getNumberOfEdges());
     // }
 
     // public void calculate(final Network<?> network) {
     // clear();
-    // for (String dimension : network.getDimensions()) {
-    // calculate(dimension, network);
+    // for (String type : network.getTypes()) {
+    // calculate(type, network);
     // }
     // }
 
-    // public void calculateExclusive(final String dimension, final Network<?>
+    // public void calculateExclusive(final String type, final Network<?>
     // network) {
     // throw new UnsupportedOperationException("calculateExclusive is not
     // implemented");
     // int sumOfEdges = 0;
-    // Set<String> otherDimensions;
-    // for (Node<?> node : network.getNodes(dimension)) {
-    // for (Node<?> neighbor : node.getNeighbors(dimension)) {
-    // otherDimensions = node.getDimensionsAsSet();
-    // otherDimensions.remove(dimension);
-    // for (String dim : otherDimensions) {
-    // if (node.getNeighbors(dimension).contains(neighbor)) {
+    // Set<String> otherTypes;
+    // for (Node<?> node : network.getNodes(type)) {
+    // for (Node<?> neighbor : node.getNeighbors(type)) {
+    // otherTypes = node.getTypesAsSet();
+    // otherTypes.remove(type);
+    // for (String type : otherTypes) {
+    // if (node.getNeighbors(type).contains(neighbor)) {
     // continue;
     // }
     // sumOfEdges++;
@@ -51,20 +51,20 @@ public class EdgeTypedConnectivity extends AbstractGraphMetric<MapData<String, D
     // }
     // }
     // sumOfEdges /= 2;
-    // typedValues.put(dimension, (double) sumOfEdges /
+    // typedValues.put(type, (double) sumOfEdges /
     // network.getNumberOfEdges());
     // }
 
     // public void calculateExclusive(final Network<?> network) {
     // clear();
-    // for (String dimension : network.getDimensions()) {
-    // calculateExclusive(dimension, network);
+    // for (String type : network.getTypes()) {
+    // calculateExclusive(type, network);
     // }
     // }
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
-        for (T type : adapter.getIndexer().getDimensions()) {
+        for (T type : adapter.getIndexer().getTypes()) {
             evaluateT(adapter, type);
         }
     }

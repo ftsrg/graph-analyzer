@@ -128,7 +128,7 @@ public class NetworkPackageImpl extends EPackageImpl implements NetworkPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        public EReference getNode_Dim1() {
+        public EReference getNode_Type1() {
                 return (EReference)nodeEClass.getEStructuralFeatures().get(0);
         }
 
@@ -146,7 +146,7 @@ public class NetworkPackageImpl extends EPackageImpl implements NetworkPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        public EReference getNode_Dim2() {
+        public EReference getNode_Type2() {
                 return (EReference)nodeEClass.getEStructuralFeatures().get(2);
         }
 
@@ -155,7 +155,7 @@ public class NetworkPackageImpl extends EPackageImpl implements NetworkPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        public EReference getNode_Dim3() {
+        public EReference getNode_Type3() {
                 return (EReference)nodeEClass.getEStructuralFeatures().get(3);
         }
 
@@ -191,10 +191,10 @@ public class NetworkPackageImpl extends EPackageImpl implements NetworkPackage {
                 createEReference(nodeContainerEClass, NODE_CONTAINER__NODES);
 
                 nodeEClass = createEClass(NODE);
-                createEReference(nodeEClass, NODE__DIM1);
+                createEReference(nodeEClass, NODE__TYPE1);
                 createEAttribute(nodeEClass, NODE__NAME);
-                createEReference(nodeEClass, NODE__DIM2);
-                createEReference(nodeEClass, NODE__DIM3);
+                createEReference(nodeEClass, NODE__TYPE2);
+                createEReference(nodeEClass, NODE__TYPE3);
         }
 
         /**
@@ -231,10 +231,10 @@ public class NetworkPackageImpl extends EPackageImpl implements NetworkPackage {
                 initEReference(getNodeContainer_Nodes(), this.getNode(), null, "nodes", null, 0, -1, NodeContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
                 initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-                initEReference(getNode_Dim1(), this.getNode(), null, "dim1", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+                initEReference(getNode_Type1(), this.getNode(), null, "type1", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
                 initEAttribute(getNode_Name(), ecorePackage.getEString(), "name", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-                initEReference(getNode_Dim2(), this.getNode(), null, "dim2", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-                initEReference(getNode_Dim3(), this.getNode(), null, "dim3", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+                initEReference(getNode_Type2(), this.getNode(), null, "type2", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+                initEReference(getNode_Type3(), this.getNode(), null, "type3", null, 0, -1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
                 // Create resource
                 createResource(eNS_URI);

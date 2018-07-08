@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim1;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim2;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type1;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type2;
 import static hu.bme.mit.ga.tests.graph.TestGraphConstants.node1;
 import static hu.bme.mit.ga.tests.graph.TestGraphConstants.node2;
 import static hu.bme.mit.ga.tests.graph.TestGraphConstants.node3;
@@ -258,168 +258,168 @@ public class GraphAdapterTest {
         switch (modelType) {
             case Loop_2T:
                 checker = () -> {
-                    degree(adapter, node1, dim1, 1, 1);
-                    degree(adapter, node1, dim2, 1, 1);
-                    neighbor(adapter, dim1, node1, node1);
-                    neighbor(adapter, dim2, node1, node1);
+                    degree(adapter, node1, type1, 1, 1);
+                    degree(adapter, node1, type2, 1, 1);
+                    neighbor(adapter, type1, node1, node1);
+                    neighbor(adapter, type2, node1, node1);
                     types(adapter, 2, node1);
                     types(adapter, 2);
-                    nodes(adapter, dim1, 1);
-                    nodes(adapter, dim2, 1);
+                    nodes(adapter, type1, 1);
+                    nodes(adapter, type2, 1);
                 };
                 break;
             case Motif3N_3_2T:
                 checker = () -> {
-                    degree(adapter, node1, dim1, 0, 2);
-                    degree(adapter, node1, dim2, 1, 0);
-                    degree(adapter, node2, dim1, 1, 0);
-                    degree(adapter, node2, dim2, 0, 1);
-                    degree(adapter, node3, dim1, 1, 0);
-                    degree(adapter, node3, dim2, 0, 0);
+                    degree(adapter, node1, type1, 0, 2);
+                    degree(adapter, node1, type2, 1, 0);
+                    degree(adapter, node2, type1, 1, 0);
+                    degree(adapter, node2, type2, 0, 1);
+                    degree(adapter, node3, type1, 1, 0);
+                    degree(adapter, node3, type2, 0, 0);
 
-                    neighbor(adapter, dim1, node1, node2);
-                    neighbor(adapter, dim2, node2, node1);
-                    neighbor(adapter, dim1, node1, node3);
+                    neighbor(adapter, type1, node1, node2);
+                    neighbor(adapter, type2, node2, node1);
+                    neighbor(adapter, type1, node1, node3);
 
-                    notNeighbor(adapter, dim2, node1, node2);
-                    notNeighbor(adapter, dim2, node1, node3);
+                    notNeighbor(adapter, type2, node1, node2);
+                    notNeighbor(adapter, type2, node1, node3);
                     types(adapter, 2, node1);
                     types(adapter, 2, node2);
                     types(adapter, 1, node3);
                     types(adapter, 2);
-                    nodes(adapter, dim1, 3);
-                    nodes(adapter, dim2, 2);
+                    nodes(adapter, type1, 3);
+                    nodes(adapter, type2, 2);
                 };
                 break;
             case Motif3N_6_2T:
                 checker = () -> {
-                    degree(adapter, node1, dim1, 0, 2);
-                    degree(adapter, node1, dim2, 1, 0);
-                    degree(adapter, node2, dim1, 1, 1);
-                    degree(adapter, node2, dim2, 0, 1);
-                    degree(adapter, node3, dim1, 2, 0);
-                    degree(adapter, node3, dim2, 0, 0);
+                    degree(adapter, node1, type1, 0, 2);
+                    degree(adapter, node1, type2, 1, 0);
+                    degree(adapter, node2, type1, 1, 1);
+                    degree(adapter, node2, type2, 0, 1);
+                    degree(adapter, node3, type1, 2, 0);
+                    degree(adapter, node3, type2, 0, 0);
 
-                    neighbor(adapter, dim1, node1, node2);
-                    neighbor(adapter, dim2, node2, node1);
-                    neighbor(adapter, dim1, node2, node3);
-                    neighbor(adapter, dim1, node1, node3);
+                    neighbor(adapter, type1, node1, node2);
+                    neighbor(adapter, type2, node2, node1);
+                    neighbor(adapter, type1, node2, node3);
+                    neighbor(adapter, type1, node1, node3);
 
-                    notNeighbor(adapter, dim2, node1, node2);
-                    notNeighbor(adapter, dim2, node2, node3);
-                    notNeighbor(adapter, dim2, node1, node3);
+                    notNeighbor(adapter, type2, node1, node2);
+                    notNeighbor(adapter, type2, node2, node3);
+                    notNeighbor(adapter, type2, node1, node3);
                     types(adapter, 2, node1);
                     types(adapter, 2, node2);
                     types(adapter, 1, node3);
                     types(adapter, 2);
-                    nodes(adapter, dim1, 3);
-                    nodes(adapter, dim2, 2);
+                    nodes(adapter, type1, 3);
+                    nodes(adapter, type2, 2);
                 };
                 break;
             case Motif3N_7_2T:
                 checker = () -> {
-                    degree(adapter, node1, dim1, 1, 1);
-                    degree(adapter, node1, dim2, 1, 0);
-                    degree(adapter, node2, dim1, 1, 0);
-                    degree(adapter, node2, dim2, 0, 1);
-                    degree(adapter, node3, dim1, 0, 1);
-                    degree(adapter, node3, dim2, 0, 0);
+                    degree(adapter, node1, type1, 1, 1);
+                    degree(adapter, node1, type2, 1, 0);
+                    degree(adapter, node2, type1, 1, 0);
+                    degree(adapter, node2, type2, 0, 1);
+                    degree(adapter, node3, type1, 0, 1);
+                    degree(adapter, node3, type2, 0, 0);
 
-                    neighbor(adapter, dim1, node1, node2);
-                    neighbor(adapter, dim2, node2, node1);
-                    neighbor(adapter, dim1, node3, node1);
+                    neighbor(adapter, type1, node1, node2);
+                    neighbor(adapter, type2, node2, node1);
+                    neighbor(adapter, type1, node3, node1);
 
-                    notNeighbor(adapter, dim2, node1, node2);
-                    notNeighbor(adapter, dim2, node3, node1);
-                    notNeighbor(adapter, dim1, node1, node3);
+                    notNeighbor(adapter, type2, node1, node2);
+                    notNeighbor(adapter, type2, node3, node1);
+                    notNeighbor(adapter, type1, node1, node3);
                     types(adapter, 2, node1);
                     types(adapter, 2, node2);
                     types(adapter, 1, node3);
                     types(adapter, 2);
-                    nodes(adapter, dim1, 3);
-                    nodes(adapter, dim2, 2);
+                    nodes(adapter, type1, 3);
+                    nodes(adapter, type2, 2);
                 };
                 break;
             case Motif3N_8_2T:
                 checker = () -> {
-                    degree(adapter, node1, dim1, 0, 2);
-                    degree(adapter, node1, dim2, 2, 0);
-                    degree(adapter, node2, dim1, 1, 0);
-                    degree(adapter, node2, dim2, 0, 1);
-                    degree(adapter, node3, dim1, 1, 0);
-                    degree(adapter, node3, dim2, 0, 1);
+                    degree(adapter, node1, type1, 0, 2);
+                    degree(adapter, node1, type2, 2, 0);
+                    degree(adapter, node2, type1, 1, 0);
+                    degree(adapter, node2, type2, 0, 1);
+                    degree(adapter, node3, type1, 1, 0);
+                    degree(adapter, node3, type2, 0, 1);
 
-                    neighbor(adapter, dim1, node1, node2);
-                    neighbor(adapter, dim2, node2, node1);
-                    neighbor(adapter, dim2, node3, node1);
-                    neighbor(adapter, dim1, node1, node3);
+                    neighbor(adapter, type1, node1, node2);
+                    neighbor(adapter, type2, node2, node1);
+                    neighbor(adapter, type2, node3, node1);
+                    neighbor(adapter, type1, node1, node3);
 
-                    notNeighbor(adapter, dim2, node1, node2);
-                    notNeighbor(adapter, dim1, node2, node1);
-                    notNeighbor(adapter, dim1, node3, node1);
-                    notNeighbor(adapter, dim2, node1, node3);
+                    notNeighbor(adapter, type2, node1, node2);
+                    notNeighbor(adapter, type1, node2, node1);
+                    notNeighbor(adapter, type1, node3, node1);
+                    notNeighbor(adapter, type2, node1, node3);
                     types(adapter, 2, node1);
                     types(adapter, 2, node2);
                     types(adapter, 2, node3);
                     types(adapter, 2);
-                    nodes(adapter, dim1, 3);
-                    nodes(adapter, dim2, 3);
+                    nodes(adapter, type1, 3);
+                    nodes(adapter, type2, 3);
                 };
                 break;
             case Motif3N_10_2T:
                 checker = () -> {
-                    degree(adapter, node1, dim1, 0, 2);
-                    degree(adapter, node1, dim2, 1, 0);
-                    degree(adapter, node2, dim1, 1, 1);
-                    degree(adapter, node2, dim2, 0, 0);
-                    degree(adapter, node3, dim1, 2, 0);
-                    degree(adapter, node3, dim2, 0, 1);
-                    neighbor(adapter, dim1, node1, node2);
-                    neighbor(adapter, dim2, node3, node1);
-                    neighbor(adapter, dim1, node1, node3);
-                    neighbor(adapter, dim1, node2, node3);
+                    degree(adapter, node1, type1, 0, 2);
+                    degree(adapter, node1, type2, 1, 0);
+                    degree(adapter, node2, type1, 1, 1);
+                    degree(adapter, node2, type2, 0, 0);
+                    degree(adapter, node3, type1, 2, 0);
+                    degree(adapter, node3, type2, 0, 1);
+                    neighbor(adapter, type1, node1, node2);
+                    neighbor(adapter, type2, node3, node1);
+                    neighbor(adapter, type1, node1, node3);
+                    neighbor(adapter, type1, node2, node3);
 
-                    notNeighbor(adapter, dim2, node1, node2);
-                    notNeighbor(adapter, dim2, node2, node1);
-                    notNeighbor(adapter, dim1, node2, node1);
-                    notNeighbor(adapter, dim1, node3, node1);
-                    notNeighbor(adapter, dim2, node1, node3);
-                    notNeighbor(adapter, dim2, node2, node3);
+                    notNeighbor(adapter, type2, node1, node2);
+                    notNeighbor(adapter, type2, node2, node1);
+                    notNeighbor(adapter, type1, node2, node1);
+                    notNeighbor(adapter, type1, node3, node1);
+                    notNeighbor(adapter, type2, node1, node3);
+                    notNeighbor(adapter, type2, node2, node3);
                     types(adapter, 2, node1);
                     types(adapter, 1, node2);
                     types(adapter, 2, node3);
                     types(adapter, 2);
-                    nodes(adapter, dim1, 3);
-                    nodes(adapter, dim2, 2);
+                    nodes(adapter, type1, 3);
+                    nodes(adapter, type2, 2);
                 };
                 break;
             case Motif3N_13_2T:
                 checker = () -> {
-                    degree(adapter, node1, dim1, 0, 2);
-                    degree(adapter, node1, dim2, 2, 0);
-                    degree(adapter, node2, dim1, 1, 1);
-                    degree(adapter, node2, dim2, 1, 1);
-                    degree(adapter, node3, dim1, 2, 0);
-                    degree(adapter, node3, dim2, 0, 2);
-                    neighbor(adapter, dim1, node1, node2);
-                    neighbor(adapter, dim1, node1, node3);
-                    neighbor(adapter, dim2, node2, node1);
-                    neighbor(adapter, dim1, node2, node3);
-                    neighbor(adapter, dim2, node3, node2);
-                    neighbor(adapter, dim2, node3, node1);
+                    degree(adapter, node1, type1, 0, 2);
+                    degree(adapter, node1, type2, 2, 0);
+                    degree(adapter, node2, type1, 1, 1);
+                    degree(adapter, node2, type2, 1, 1);
+                    degree(adapter, node3, type1, 2, 0);
+                    degree(adapter, node3, type2, 0, 2);
+                    neighbor(adapter, type1, node1, node2);
+                    neighbor(adapter, type1, node1, node3);
+                    neighbor(adapter, type2, node2, node1);
+                    neighbor(adapter, type1, node2, node3);
+                    neighbor(adapter, type2, node3, node2);
+                    neighbor(adapter, type2, node3, node1);
 
-                    notNeighbor(adapter, dim2, node1, node2);
-                    notNeighbor(adapter, dim2, node1, node3);
-                    notNeighbor(adapter, dim1, node2, node1);
-                    notNeighbor(adapter, dim2, node2, node3);
-                    notNeighbor(adapter, dim1, node3, node2);
-                    notNeighbor(adapter, dim1, node3, node1);
+                    notNeighbor(adapter, type2, node1, node2);
+                    notNeighbor(adapter, type2, node1, node3);
+                    notNeighbor(adapter, type1, node2, node1);
+                    notNeighbor(adapter, type2, node2, node3);
+                    notNeighbor(adapter, type1, node3, node2);
+                    notNeighbor(adapter, type1, node3, node1);
                     types(adapter, 2, node1);
                     types(adapter, 2, node2);
                     types(adapter, 2, node3);
                     types(adapter, 2);
-                    nodes(adapter, dim1, 3);
-                    nodes(adapter, dim2, 3);
+                    nodes(adapter, type1, 3);
+                    nodes(adapter, type2, 3);
                 };
                 break;
             default:

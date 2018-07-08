@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static hu.bme.mit.ga.base.testutils.MapDataTesterUtil.checkKeysSize;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim1;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim2;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim3;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type1;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type2;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type3;
 
 public class EdgeOverlapTest extends GraphMetricTest<MapData<List<String>, Double>> {
 
@@ -46,8 +46,8 @@ public class EdgeOverlapTest extends GraphMetricTest<MapData<List<String>, Doubl
             case Motif3N_3_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    check(data, dim1, dim2, 1);
-                    check(data, dim2, dim1, 0.5);
+                    check(data, type1, type2, 1);
+                    check(data, type2, type1, 0.5);
                 };
                 break;
             case Motif3N_13_2T:
@@ -55,16 +55,16 @@ public class EdgeOverlapTest extends GraphMetricTest<MapData<List<String>, Doubl
             case Loop_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    check(data, dim1, dim2, 1.0);
-                    check(data, dim2, dim1, 1.0);
+                    check(data, type1, type2, 1.0);
+                    check(data, type2, type1, 1.0);
                 };
                 break;
 
             case Motif3N_12_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    check(data, dim1, dim2, 1.0);
-                    check(data, dim2, dim1, 2.0 / 3.0);
+                    check(data, type1, type2, 1.0);
+                    check(data, type2, type1, 2.0 / 3.0);
                 };
                 break;
 
@@ -73,16 +73,16 @@ public class EdgeOverlapTest extends GraphMetricTest<MapData<List<String>, Doubl
             case Motif3N_11_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    check(data, dim1, dim2, 1.0);
-                    check(data, dim2, dim1, 1.0 / 3.0);
+                    check(data, type1, type2, 1.0);
+                    check(data, type2, type1, 1.0 / 3.0);
                 };
                 break;
 
             case Motif3N_7_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    check(data, dim1, dim2, 1.0);
-                    check(data, dim2, dim1, 1.0 / 2.0);
+                    check(data, type1, type2, 1.0);
+                    check(data, type2, type1, 1.0 / 2.0);
                 };
                 break;
 
@@ -90,24 +90,24 @@ public class EdgeOverlapTest extends GraphMetricTest<MapData<List<String>, Doubl
             case Motif5N_1_3T:
                 checker = (data) -> {
                     checkKeysSize(6, data);
-                    check(data, dim1, dim2, 0.0);
-                    check(data, dim2, dim1, 0.0);
-                    check(data, dim3, dim2, 0.0);
-                    check(data, dim2, dim3, 0.0);
-                    check(data, dim3, dim1, 0.0);
-                    check(data, dim1, dim3, 0.0);
+                    check(data, type1, type2, 0.0);
+                    check(data, type2, type1, 0.0);
+                    check(data, type3, type2, 0.0);
+                    check(data, type2, type3, 0.0);
+                    check(data, type3, type1, 0.0);
+                    check(data, type1, type3, 0.0);
                 };
                 break;
 
             case Motif5N_2_3T:
                 checker = (data) -> {
                     checkKeysSize(6, data);
-                    check(data, dim1, dim2, 2.0 / 3.0);
-                    check(data, dim2, dim1, 2.0 / 3.0);
-                    check(data, dim3, dim2, 0.0);
-                    check(data, dim2, dim3, 0.0);
-                    check(data, dim3, dim1, 0.0);
-                    check(data, dim1, dim3, 0.0);
+                    check(data, type1, type2, 2.0 / 3.0);
+                    check(data, type2, type1, 2.0 / 3.0);
+                    check(data, type3, type2, 0.0);
+                    check(data, type2, type3, 0.0);
+                    check(data, type3, type1, 0.0);
+                    check(data, type1, type3, 0.0);
                 };
                 break;
             default:

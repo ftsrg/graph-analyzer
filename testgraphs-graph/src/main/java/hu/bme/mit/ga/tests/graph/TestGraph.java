@@ -12,20 +12,20 @@ public class TestGraph {
 
     protected Table<String, String, Set<String>> adjacency = HashBasedTable.create();
     protected List<String> nodes = new ArrayList<>();
-    protected Set<String> dimensions = new HashSet<>();
+    protected Set<String> types = new HashSet<>();
 
     public void addEdge(final String type, final String sourceNode, final String targetNode) {
-        dimensions.add(type);
+        types.add(type);
         newNode(sourceNode);
         newNode(targetNode);
         if (!adjacency.contains(sourceNode, targetNode)) {
-            Set<String> dimSet = new HashSet<>();
-            dimSet.add(type);
-            adjacency.put(sourceNode, targetNode, dimSet);
+            Set<String> typeSet = new HashSet<>();
+            typeSet.add(type);
+            adjacency.put(sourceNode, targetNode, typeSet);
         } else {
-            Set<String> dimSet = adjacency.get(sourceNode, targetNode);
-            dimSet.add(type);
-            adjacency.put(sourceNode, targetNode, dimSet);
+            Set<String> typeSet = adjacency.get(sourceNode, targetNode);
+            typeSet.add(type);
+            adjacency.put(sourceNode, targetNode, typeSet);
         }
     }
 

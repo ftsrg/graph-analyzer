@@ -70,7 +70,7 @@ public class Main {
         dde.evaluate(adapter);
         modelMetrics.add(dde);
 
-        System.out.println("edge dimension connectivity");
+        System.out.println("edge type connectivity");
         EdgeTypedConnectivity edgeTypedConnectivity = new EdgeTypedConnectivity();
         edgeTypedConnectivity.evaluate(adapter);
         modelMetrics.add(edgeTypedConnectivity);

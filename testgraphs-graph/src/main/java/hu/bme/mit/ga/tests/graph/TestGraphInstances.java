@@ -6,7 +6,7 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node1);
             return model;
         }
 
@@ -16,8 +16,8 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node1, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node1, TestGraphConstants.node1);
             return model;
         }
 
@@ -26,8 +26,8 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
             return model;
         }
 
@@ -36,8 +36,8 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
             return model;
         }
 
@@ -46,9 +46,9 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
             return model;
         }
 
@@ -57,8 +57,8 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -67,9 +67,9 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -78,10 +78,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
             return model;
         }
 
@@ -90,9 +90,9 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
             return model;
         }
 
@@ -101,10 +101,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
             return model;
         }
 
@@ -113,9 +113,9 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -124,10 +124,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -136,10 +136,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -148,11 +148,11 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -161,12 +161,12 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node2);
             return model;
         }
 
@@ -175,9 +175,9 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node1);
             return model;
         }
     },
@@ -185,10 +185,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node1);
             return model;
         }
     },
@@ -196,9 +196,9 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node1);
             return model;
         }
     },
@@ -206,10 +206,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node3, TestGraphConstants.node1);
             return model;
         }
 
@@ -218,10 +218,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -230,10 +230,10 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -242,11 +242,11 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
             return model;
         }
 
@@ -255,12 +255,12 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node3, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node3, TestGraphConstants.node2);
             return model;
         }
     },
@@ -269,11 +269,11 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim3, TestGraphConstants.node3, TestGraphConstants.node4);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node4, TestGraphConstants.node5);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node5, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type3, TestGraphConstants.node3, TestGraphConstants.node4);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node4, TestGraphConstants.node5);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node5, TestGraphConstants.node2);
             return model;
         }
 
@@ -283,14 +283,14 @@ public enum TestGraphInstances implements TestGraphInitializer {
         @Override
         public TestGraph init() {
             TestGraph model = new TestGraph();
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node1, TestGraphConstants.node2);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node2, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node2, TestGraphConstants.node3);
-            model.addEdge(TestGraphConstants.dim3, TestGraphConstants.node3, TestGraphConstants.node1);
-            model.addEdge(TestGraphConstants.dim1, TestGraphConstants.node3, TestGraphConstants.node4);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node3, TestGraphConstants.node4);
-            model.addEdge(TestGraphConstants.dim3, TestGraphConstants.node4, TestGraphConstants.node5);
-            model.addEdge(TestGraphConstants.dim2, TestGraphConstants.node5, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node1, TestGraphConstants.node2);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node2, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node2, TestGraphConstants.node3);
+            model.addEdge(TestGraphConstants.type3, TestGraphConstants.node3, TestGraphConstants.node1);
+            model.addEdge(TestGraphConstants.type1, TestGraphConstants.node3, TestGraphConstants.node4);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node3, TestGraphConstants.node4);
+            model.addEdge(TestGraphConstants.type3, TestGraphConstants.node4, TestGraphConstants.node5);
+            model.addEdge(TestGraphConstants.type2, TestGraphConstants.node5, TestGraphConstants.node2);
             return model;
         }
 

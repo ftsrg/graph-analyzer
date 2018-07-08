@@ -34,21 +34,21 @@ GeneralNodeVisualization <- function(node.type, figures.path){
   #                       scalex = T, scaley = T)
   # 
   # PlotsBasicScatterplot(dt = node.type,
-  #                       plot.file.name = paste0(figures.path, "ClusteringCoefficientListVsDimensionalClusteringCoefficientDef1.pdf"),
+  #                       plot.file.name = paste0(figures.path, "ClusteringCoefficientListVsTypedClusteringCoefficientDef1.pdf"),
   #                       x = "ClusteringCoefficientList",
-  #                       y = "DimensionalClusteringCoefficientDef1",
+  #                       y = "TypedClusteringCoefficientDef1",
   #                       col = "GraphType", facetwrap = "file.name")
   # 
   # PlotsBasicScatterplot(dt = node.type,
-  #                       plot.file.name = paste0(figures.path, "ClusteringCoefficientListVsDimensionalClusteringCoefficientDef2.pdf"),
+  #                       plot.file.name = paste0(figures.path, "ClusteringCoefficientListVsTypedClusteringCoefficientDef2.pdf"),
   #                       x = "ClusteringCoefficientList",
-  #                       y = "DimensionalClusteringCoefficientDef2",
+  #                       y = "TypedClusteringCoefficientDef2",
   #                       col = "GraphType", facetwrap = "file.name")
   # 
   # 
   # PlotsBasicScatterplot(dt = node.type,
-  #                       plot.file.name = paste0(figures.path, "DimensionalClusteringCoefficientDefs.pdf"),
-  #                       x = "DimensionalClusteringCoefficientDef1",
-  #                       y = "DimensionalClusteringCoefficientDef2",
+  #                       plot.file.name = paste0(figures.path, "TypedClusteringCoefficientDefs.pdf"),
+  #                       x = "TypedClusteringCoefficientDef1",
+  #                       y = "TypedClusteringCoefficientDef2",
   #                       col = "GraphType", facetwrap = "file.name")
 }

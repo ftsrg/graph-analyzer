@@ -17,7 +17,7 @@ public class TypedDegree extends AbstractGraphMetric<MappedListData<String, Inte
 
     @Override
     protected <N, T> void evaluateAll(final GraphAdapter<N, T> adapter) {
-        for (T type : adapter.getIndexer().getDimensions()) {
+        for (T type : adapter.getIndexer().getTypes()) {
             for (N node : adapter.getIndexer().getNodes(type)) {
                 evaluate(adapter, type, node);
             }

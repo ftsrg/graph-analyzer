@@ -11,7 +11,6 @@ import hu.bme.mit.ga.metrics.impl.typed.TypedDegreeEntropy;
 import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
-import hu.bme.mit.ga.metrics.impl.typed.OneTypedClusteringCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
 import hu.bme.mit.ga.metrics.GraphMetric;
 import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficient;
@@ -89,14 +88,6 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
         @Override
         public Class<hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes> getMetric() {
             return NumberOfNodes.class;
-        }
-
-    },
-
-    OneTypedClusteringCoefficient {
-        @Override
-        public Class<hu.bme.mit.ga.metrics.impl.typed.OneTypedClusteringCoefficient> getMetric() {
-            return OneTypedClusteringCoefficient.class;
         }
 
     },

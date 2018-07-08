@@ -8,9 +8,9 @@ import org.testng.Assert;
 import java.util.function.Consumer;
 
 import static hu.bme.mit.ga.base.testutils.MapDataTesterUtil.checkKeysSize;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim1;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim2;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim3;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type1;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type2;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type3;
 
 public class PairwiseMultiplexityTest extends GraphMetricTest<MapData<String, Double>> {
 
@@ -48,7 +48,7 @@ public class PairwiseMultiplexityTest extends GraphMetricTest<MapData<String, Do
             case Motif3N_13_2T:
                 checker = (data) -> {
                     checkKeysSize(1, data);
-                    check(data, dim1, dim2, 1.0);
+                    check(data, type1, type2, 1.0);
                 };
                 break;
             case Motif3N_3_2T:
@@ -58,23 +58,23 @@ public class PairwiseMultiplexityTest extends GraphMetricTest<MapData<String, Do
             case Motif3N_11_2T:
                 checker = (data) -> {
                     checkKeysSize(1, data);
-                    check(data, dim1, dim2, 2.0 / 3.0);
+                    check(data, type1, type2, 2.0 / 3.0);
                 };
                 break;
             case Motif5N_1_3T:
                 checker = (data) -> {
                     checkKeysSize(3, data);
-                    check(data, dim1, dim2, 2.0 / 5.0);
-                    check(data, dim1, dim3, 0.0);
-                    check(data, dim3, dim2, 2.0 / 5.0);
+                    check(data, type1, type2, 2.0 / 5.0);
+                    check(data, type1, type3, 0.0);
+                    check(data, type3, type2, 2.0 / 5.0);
                 };
                 break;
             case Motif5N_2_3T:
                 checker = (data) -> {
                     checkKeysSize(3, data);
-                    check(data, dim1, dim2, 4.0 / 5.0);
-                    check(data, dim1, dim3, 3.0 / 5.0);
-                    check(data, dim3, dim2, 4.0 / 5.0);
+                    check(data, type1, type2, 4.0 / 5.0);
+                    check(data, type1, type3, 3.0 / 5.0);
+                    check(data, type3, type2, 4.0 / 5.0);
                 };
                 break;
             default:

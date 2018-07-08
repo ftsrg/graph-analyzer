@@ -14,9 +14,9 @@ public class MappedListDataTesterUtil {
         Assert.assertEquals(expectedSize, data.getValues().get(type).size());
     }
 
-    public static <T, V extends Number> void checkDimensionsNumber(final int expectedNumberOfDimensions,
+    public static <T, V extends Number> void checkTypesNumber(final int expectedNumberOfTypes,
                                                                    final MappedListData<T, V> data) {
-        Assert.assertEquals(expectedNumberOfDimensions, data.getValues().keySet().size());
+        Assert.assertEquals(expectedNumberOfTypes, data.getValues().keySet().size());
     }
 
     public static <T, V extends Number> void checkValue(final V expectedValue, final T type, final int index,

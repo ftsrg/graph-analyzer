@@ -22,7 +22,7 @@ public final class GraphIndexer<N, T> {
     private int numberOfEdges;
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
-    private Set<T> dimensions = new HashSet<>();
+    private Set<T> types = new HashSet<>();
     private Set<N> nodes = new HashSet<>();
 
     public GraphIndexer() {
@@ -51,7 +51,7 @@ public final class GraphIndexer<N, T> {
             nodes.add(targetNode);
         }
         if (!outgoing.containsKey(type)) {
-            dimensions.add(type);
+            types.add(type);
             outgoing.put(type, ArrayListMultimap.create());
             incoming.put(type, ArrayListMultimap.create());
         }
@@ -62,7 +62,7 @@ public final class GraphIndexer<N, T> {
 
 
     public boolean isAdjacentDirected(final N source, final N target) {
-        for (T d : dimensions) {
+        for (T d : types) {
             if (outgoing.get(d).containsEntry(source, target)) {
                 return true;
             }
@@ -84,16 +84,16 @@ public final class GraphIndexer<N, T> {
 
     public int getIndegree(N element) {
         int inDegree = 0;
-        for (T dim : dimensions) {
-            inDegree += incoming.get(dim).get(element).size();
+        for (T type : types) {
+            inDegree += incoming.get(type).get(element).size();
         }
         return inDegree;
     }
 
     public int getOutdegree(N element) {
         int outDegree = 0;
-        for (T dim : dimensions) {
-            outDegree += outgoing.get(dim).get(element).size();
+        for (T type : types) {
+            outDegree += outgoing.get(type).get(element).size();
         }
         return outDegree;
     }
@@ -163,7 +163,7 @@ public final class GraphIndexer<N, T> {
 
     public Set<N> getIncomingNeighbors(final N element) {
         Set<N> neighbors = new HashSet<>();
-        for (T type : getDimensions()) {
+        for (T type : getTypes()) {
             neighbors.addAll(getIncoming(element, type));
         }
         return neighbors;
@@ -171,19 +171,19 @@ public final class GraphIndexer<N, T> {
 
     public Set<N> getOutgoingNeighbors(final N element) {
         Set<N> neighbors = new HashSet<>();
-        for (T type : getDimensions()) {
+        for (T type : getTypes()) {
             neighbors.addAll(getOutgoing(element, type));
         }
         return neighbors;
     }
 
-    public Set<T> getDimensions() {
-        return dimensions;
+    public Set<T> getTypes() {
+        return types;
     }
 
-    public Set<T> getDimensions(final N element) {
+    public Set<T> getTypes(final N element) {
         Set<T> types = new HashSet<>();
-        for (T type : getDimensions()) {
+        for (T type : getTypes()) {
             if (!getOutgoing(element, type).isEmpty() || !getIncoming(element, type).isEmpty()) {
                 types.add(type);
             }
@@ -192,11 +192,11 @@ public final class GraphIndexer<N, T> {
     }
 
     public int getNumberOfTypes() {
-        return getDimensions().size();
+        return getTypes().size();
     }
 
     public int getNumberOfTypes(final N element) {
-        return getDimensions(element).size();
+        return getTypes(element).size();
     }
 
     public Iterator<N> getModelIterator() {

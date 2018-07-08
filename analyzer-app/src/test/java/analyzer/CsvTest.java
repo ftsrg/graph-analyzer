@@ -74,7 +74,7 @@ public class CsvTest {
         modelMetrics.add(mpc);
         showResult(mpc);
 
-        System.out.println("dimension activity");
+        System.out.println("type activity");
         TypedActivity typedActivity = new TypedActivity();
         typedActivity.evaluate(adapter);
         showResult(typedActivity);

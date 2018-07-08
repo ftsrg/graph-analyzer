@@ -107,13 +107,13 @@ public interface NetworkPackage extends EPackage {
         int NODE = 1;
 
         /**
-         * The feature id for the '<em><b>Dim1</b></em>' reference list.
+         * The feature id for the '<em><b>Type1</b></em>' reference list.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          * @ordered
          */
-        int NODE__DIM1 = 0;
+        int NODE__TYPE1 = 0;
 
         /**
          * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -125,22 +125,22 @@ public interface NetworkPackage extends EPackage {
         int NODE__NAME = 1;
 
         /**
-         * The feature id for the '<em><b>Dim2</b></em>' reference list.
+         * The feature id for the '<em><b>Type2</b></em>' reference list.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          * @ordered
          */
-        int NODE__DIM2 = 2;
+        int NODE__TYPE2 = 2;
 
         /**
-         * The feature id for the '<em><b>Dim3</b></em>' reference list.
+         * The feature id for the '<em><b>Type3</b></em>' reference list.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          * @ordered
          */
-        int NODE__DIM3 = 3;
+        int NODE__TYPE3 = 3;
 
         /**
          * The number of structural features of the '<em>Node</em>' class.
@@ -193,15 +193,15 @@ public interface NetworkPackage extends EPackage {
         EClass getNode();
 
         /**
-         * Returns the meta object for the reference list '{@link Node#getDim1 <em>Dim1</em>}'.
+         * Returns the meta object for the reference list '{@link Node#getType1 <em>Type1</em>}'.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @return the meta object for the reference list '<em>Dim1</em>'.
-         * @see Node#getDim1()
+         * @return the meta object for the reference list '<em>Type1</em>'.
+         * @see Node#getType1()
          * @see #getNode()
          * @generated
          */
-        EReference getNode_Dim1();
+        EReference getNode_Type1();
 
         /**
          * Returns the meta object for the attribute '{@link Node#getName <em>Name</em>}'.
@@ -215,26 +215,26 @@ public interface NetworkPackage extends EPackage {
         EAttribute getNode_Name();
 
         /**
-         * Returns the meta object for the reference list '{@link Node#getDim2 <em>Dim2</em>}'.
+         * Returns the meta object for the reference list '{@link Node#getType2 <em>Type2</em>}'.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @return the meta object for the reference list '<em>Dim2</em>'.
-         * @see Node#getDim2()
+         * @return the meta object for the reference list '<em>Type2</em>'.
+         * @see Node#getType2()
          * @see #getNode()
          * @generated
          */
-        EReference getNode_Dim2();
+        EReference getNode_Type2();
 
         /**
-         * Returns the meta object for the reference list '{@link Node#getDim3 <em>Dim3</em>}'.
+         * Returns the meta object for the reference list '{@link Node#getType3 <em>Type3</em>}'.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @return the meta object for the reference list '<em>Dim3</em>'.
-         * @see Node#getDim3()
+         * @return the meta object for the reference list '<em>Type3</em>'.
+         * @see Node#getType3()
          * @see #getNode()
          * @generated
          */
-        EReference getNode_Dim3();
+        EReference getNode_Type3();
 
         /**
          * Returns the factory that creates the instances of the model.
@@ -288,12 +288,12 @@ public interface NetworkPackage extends EPackage {
                 EClass NODE = eINSTANCE.getNode();
 
                 /**
-                 * The meta object literal for the '<em><b>Dim1</b></em>' reference list feature.
+                 * The meta object literal for the '<em><b>Type1</b></em>' reference list feature.
                  * <!-- begin-user-doc -->
                  * <!-- end-user-doc -->
                  * @generated
                  */
-                EReference NODE__DIM1 = eINSTANCE.getNode_Dim1();
+                EReference NODE__TYPE1 = eINSTANCE.getNode_Type1();
 
                 /**
                  * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -304,20 +304,20 @@ public interface NetworkPackage extends EPackage {
                 EAttribute NODE__NAME = eINSTANCE.getNode_Name();
 
                 /**
-                 * The meta object literal for the '<em><b>Dim2</b></em>' reference list feature.
+                 * The meta object literal for the '<em><b>Type2</b></em>' reference list feature.
                  * <!-- begin-user-doc -->
                  * <!-- end-user-doc -->
                  * @generated
                  */
-                EReference NODE__DIM2 = eINSTANCE.getNode_Dim2();
+                EReference NODE__TYPE2 = eINSTANCE.getNode_Type2();
 
                 /**
-                 * The meta object literal for the '<em><b>Dim3</b></em>' reference list feature.
+                 * The meta object literal for the '<em><b>Type3</b></em>' reference list feature.
                  * <!-- begin-user-doc -->
                  * <!-- end-user-doc -->
                  * @generated
                  */
-                EReference NODE__DIM3 = eINSTANCE.getNode_Dim3();
+                EReference NODE__TYPE3 = eINSTANCE.getNode_Type3();
 
         }
 

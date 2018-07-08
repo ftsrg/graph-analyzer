@@ -15,10 +15,10 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link Node#getDim1 <em>Dim1</em>}</li>
+ *   <li>{@link Node#getType1 <em>Type1</em>}</li>
  *   <li>{@link Node#getName <em>Name</em>}</li>
- *   <li>{@link Node#getDim2 <em>Dim2</em>}</li>
- *   <li>{@link Node#getDim3 <em>Dim3</em>}</li>
+ *   <li>{@link Node#getType2 <em>Type2</em>}</li>
+ *   <li>{@link Node#getType3 <em>Type3</em>}</li>
  * </ul>
  *
  * @see NetworkPackage#getNode()
@@ -27,20 +27,20 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Node extends EObject {
         /**
-         * Returns the value of the '<em><b>Dim1</b></em>' reference list.
+         * Returns the value of the '<em><b>Type1</b></em>' reference list.
          * The list contents are of type {@link Node}.
          * <!-- begin-user-doc -->
          * <p>
-         * If the meaning of the '<em>Dim1</em>' reference list isn't clear,
+         * If the meaning of the '<em>Type1</em>' reference list isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @return the value of the '<em>Dim1</em>' reference list.
-         * @see NetworkPackage#getNode_Dim1()
+         * @return the value of the '<em>Type1</em>' reference list.
+         * @see NetworkPackage#getNode_Type1()
          * @model
          * @generated
          */
-        EList<Node> getDim1();
+        EList<Node> getType1();
 
         /**
          * Returns the value of the '<em><b>Name</b></em>' attribute.
@@ -69,35 +69,35 @@ public interface Node extends EObject {
         void setName(String value);
 
         /**
-         * Returns the value of the '<em><b>Dim2</b></em>' reference list.
+         * Returns the value of the '<em><b>Type2</b></em>' reference list.
          * The list contents are of type {@link Node}.
          * <!-- begin-user-doc -->
          * <p>
-         * If the meaning of the '<em>Dim2</em>' reference list isn't clear,
+         * If the meaning of the '<em>Type2</em>' reference list isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @return the value of the '<em>Dim2</em>' reference list.
-         * @see NetworkPackage#getNode_Dim2()
+         * @return the value of the '<em>Type2</em>' reference list.
+         * @see NetworkPackage#getNode_Type2()
          * @model
          * @generated
          */
-        EList<Node> getDim2();
+        EList<Node> getType2();
 
         /**
-         * Returns the value of the '<em><b>Dim3</b></em>' reference list.
+         * Returns the value of the '<em><b>Type3</b></em>' reference list.
          * The list contents are of type {@link Node}.
          * <!-- begin-user-doc -->
          * <p>
-         * If the meaning of the '<em>Dim3</em>' reference list isn't clear,
+         * If the meaning of the '<em>Type3</em>' reference list isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @return the value of the '<em>Dim3</em>' reference list.
-         * @see NetworkPackage#getNode_Dim3()
+         * @return the value of the '<em>Type3</em>' reference list.
+         * @see NetworkPackage#getNode_Type3()
          * @model
          * @generated
          */
-        EList<Node> getDim3();
+        EList<Node> getType3();
 
 } // Node

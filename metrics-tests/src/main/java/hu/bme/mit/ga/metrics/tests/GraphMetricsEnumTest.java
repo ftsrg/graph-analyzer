@@ -10,7 +10,6 @@ import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
 import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
-import hu.bme.mit.ga.metrics.impl.typed.OneTypedClusteringCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
 import org.testng.Assert;
 import org.testng.AssertJUnit;
@@ -53,9 +52,6 @@ public class GraphMetricsEnumTest {
                     break;
                 case NumberOfNodes:
                     isSameInstance(metric, new NumberOfNodes());
-                    break;
-                case OneTypedClusteringCoefficient:
-                    isSameInstance(metric, new OneTypedClusteringCoefficient());
                     break;
                 case PairwiseMultiplexity:
                     isSameInstance(metric, new PairwiseMultiplexity());

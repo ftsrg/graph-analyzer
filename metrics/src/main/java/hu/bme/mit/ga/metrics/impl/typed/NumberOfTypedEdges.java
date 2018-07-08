@@ -17,19 +17,19 @@ public class NumberOfTypedEdges extends AbstractGraphMetric<MapData<String, Inte
 
     // public void calculate(final Network<?> network) {
     // clear();
-    // for (String dimension : network.getNodesOnDimensions().keySet()) {
+    // for (String type : network.getNodesOnTypes().keySet()) {
     // int sumOfEdges = 0;
-    // for (Node<?> node : network.getNodesOnDimensions().get(dimension)) {
-    // sumOfEdges += node.getNumberOfNeighbors(dimension);
+    // for (Node<?> node : network.getNodesOnTypes().get(type)) {
+    // sumOfEdges += node.getNumberOfNeighbors(type);
     // }
     // sumOfEdges /= 2;
-    // typedValues.put(dimension, sumOfEdges);
+    // typedValues.put(type, sumOfEdges);
     // }
     // }
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
-        for (T type : adapter.getIndexer().getDimensions()) {
+        for (T type : adapter.getIndexer().getTypes()) {
             int sumOfEdges = 0;
             for (N node : adapter.getIndexer().getNodes(type)) {
                 sumOfEdges += adapter.getIndexer().getDegree(node, type);

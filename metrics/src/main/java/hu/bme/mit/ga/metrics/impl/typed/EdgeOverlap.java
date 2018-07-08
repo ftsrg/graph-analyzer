@@ -19,8 +19,8 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
-        for (T condType : adapter.getIndexer().getDimensions()) {
-            for (T type : adapter.getIndexer().getDimensions()) {
+        for (T condType : adapter.getIndexer().getTypes()) {
+            for (T type : adapter.getIndexer().getTypes()) {
                 if (type != condType) {
                     evaluate(adapter, condType, type);
                 }

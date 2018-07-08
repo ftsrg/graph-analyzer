@@ -8,9 +8,9 @@ import java.util.function.Consumer;
 
 import static hu.bme.mit.ga.base.testutils.MapDataTesterUtil.checkKeysSize;
 import static hu.bme.mit.ga.base.testutils.MapDataTesterUtil.checkValue;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim1;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim2;
-import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim3;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type1;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type2;
+import static hu.bme.mit.ga.tests.graph.TestGraphConstants.type3;
 
 public class TypedActivityTest extends GraphMetricTest<MapData<String, Integer>> {
 
@@ -27,15 +27,15 @@ public class TypedActivityTest extends GraphMetricTest<MapData<String, Integer>>
             case Loop_1T:
                 checker = (data) -> {
                     checkKeysSize(1, data);
-                    checkValue(data, dim1, 1);
+                    checkValue(data, type1, 1);
                 };
                 break;
             case Loop_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    checkValue(data, dim1, 1);
-                    checkValue(data, dim2, 1);
-                    checkValue(data, dim3, null);
+                    checkValue(data, type1, 1);
+                    checkValue(data, type2, 1);
+                    checkValue(data, type3, null);
                 };
                 break;
             case Motif3N_1:
@@ -53,9 +53,9 @@ public class TypedActivityTest extends GraphMetricTest<MapData<String, Integer>>
             case Motif3N_13:
                 checker = (data) -> {
                     checkKeysSize(1, data);
-                    checkValue(data, dim1, 3);
-                    checkValue(data, dim2, null);
-                    checkValue(data, dim3, null);
+                    checkValue(data, type1, 3);
+                    checkValue(data, type2, null);
+                    checkValue(data, type3, null);
                 };
                 break;
             case Motif3N_3_2T:
@@ -65,9 +65,9 @@ public class TypedActivityTest extends GraphMetricTest<MapData<String, Integer>>
             case Motif3N_11_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    checkValue(data, dim1, 3);
-                    checkValue(data, dim2, 2);
-                    checkValue(data, dim3, null);
+                    checkValue(data, type1, 3);
+                    checkValue(data, type2, 2);
+                    checkValue(data, type3, null);
                 };
                 break;
             case Motif3N_8_2T:
@@ -75,25 +75,25 @@ public class TypedActivityTest extends GraphMetricTest<MapData<String, Integer>>
             case Motif3N_13_2T:
                 checker = (data) -> {
                     checkKeysSize(2, data);
-                    checkValue(data, dim1, 3);
-                    checkValue(data, dim2, 3);
-                    checkValue(data, dim3, null);
+                    checkValue(data, type1, 3);
+                    checkValue(data, type2, 3);
+                    checkValue(data, type3, null);
                 };
                 break;
             case Motif5N_1_3T:
                 checker = (data) -> {
                     checkKeysSize(3, data);
-                    checkValue(data, dim1, 3);
-                    checkValue(data, dim2, 4);
-                    checkValue(data, dim3, 2);
+                    checkValue(data, type1, 3);
+                    checkValue(data, type2, 4);
+                    checkValue(data, type3, 2);
                 };
                 break;
             case Motif5N_2_3T:
                 checker = (data) -> {
                     checkKeysSize(3, data);
-                    checkValue(data, dim1, 4);
-                    checkValue(data, dim2, 5);
-                    checkValue(data, dim3, 4);
+                    checkValue(data, type1, 4);
+                    checkValue(data, type2, 5);
+                    checkValue(data, type3, 4);
                 };
                 break;
             default:

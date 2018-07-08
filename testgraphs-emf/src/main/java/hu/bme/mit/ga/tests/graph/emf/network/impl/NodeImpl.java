@@ -26,24 +26,24 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link NodeImpl#getDim1 <em>Dim1</em>}</li>
+ *   <li>{@link NodeImpl#getType1 <em>Type1</em>}</li>
  *   <li>{@link NodeImpl#getName <em>Name</em>}</li>
- *   <li>{@link NodeImpl#getDim2 <em>Dim2</em>}</li>
- *   <li>{@link NodeImpl#getDim3 <em>Dim3</em>}</li>
+ *   <li>{@link NodeImpl#getType2 <em>Type2</em>}</li>
+ *   <li>{@link NodeImpl#getType3 <em>Type3</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
         /**
-         * The cached value of the '{@link #getDim1() <em>Dim1</em>}' reference list.
+         * The cached value of the '{@link #getType1() <em>Type1</em>}' reference list.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see #getDim1()
+         * @see #getType1()
          * @generated
          * @ordered
          */
-        protected EList<Node> dim1;
+        protected EList<Node> type1;
 
         /**
          * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -66,24 +66,24 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
         protected String name = NAME_EDEFAULT;
 
         /**
-         * The cached value of the '{@link #getDim2() <em>Dim2</em>}' reference list.
+         * The cached value of the '{@link #getType2() <em>Type2</em>}' reference list.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see #getDim2()
+         * @see #getType2()
          * @generated
          * @ordered
          */
-        protected EList<Node> dim2;
+        protected EList<Node> type2;
 
         /**
-         * The cached value of the '{@link #getDim3() <em>Dim3</em>}' reference list.
+         * The cached value of the '{@link #getType3() <em>Type3</em>}' reference list.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see #getDim3()
+         * @see #getType3()
          * @generated
          * @ordered
          */
-        protected EList<Node> dim3;
+        protected EList<Node> type3;
 
         /**
          * <!-- begin-user-doc -->
@@ -109,11 +109,11 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
          * <!-- end-user-doc -->
          * @generated
          */
-        public EList<Node> getDim1() {
-                if (dim1 == null) {
-                        dim1 = new EObjectResolvingEList<Node>(Node.class, this, NetworkPackage.NODE__DIM1);
+        public EList<Node> getType1() {
+                if (type1 == null) {
+                        type1 = new EObjectResolvingEList<Node>(Node.class, this, NetworkPackage.NODE__TYPE1);
                 }
-                return dim1;
+                return type1;
         }
 
         /**
@@ -142,11 +142,11 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
          * <!-- end-user-doc -->
          * @generated
          */
-        public EList<Node> getDim2() {
-                if (dim2 == null) {
-                        dim2 = new EObjectResolvingEList<Node>(Node.class, this, NetworkPackage.NODE__DIM2);
+        public EList<Node> getType2() {
+                if (type2 == null) {
+                        type2 = new EObjectResolvingEList<Node>(Node.class, this, NetworkPackage.NODE__TYPE2);
                 }
-                return dim2;
+                return type2;
         }
 
         /**
@@ -154,11 +154,11 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
          * <!-- end-user-doc -->
          * @generated
          */
-        public EList<Node> getDim3() {
-                if (dim3 == null) {
-                        dim3 = new EObjectResolvingEList<Node>(Node.class, this, NetworkPackage.NODE__DIM3);
+        public EList<Node> getType3() {
+                if (type3 == null) {
+                        type3 = new EObjectResolvingEList<Node>(Node.class, this, NetworkPackage.NODE__TYPE3);
                 }
-                return dim3;
+                return type3;
         }
 
         /**
@@ -169,14 +169,14 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
         @Override
         public Object eGet(int featureID, boolean resolve, boolean coreType) {
                 switch (featureID) {
-                        case NetworkPackage.NODE__DIM1:
-                                return getDim1();
+                        case NetworkPackage.NODE__TYPE1:
+                                return getType1();
                         case NetworkPackage.NODE__NAME:
                                 return getName();
-                        case NetworkPackage.NODE__DIM2:
-                                return getDim2();
-                        case NetworkPackage.NODE__DIM3:
-                                return getDim3();
+                        case NetworkPackage.NODE__TYPE2:
+                                return getType2();
+                        case NetworkPackage.NODE__TYPE3:
+                                return getType3();
                 }
                 return super.eGet(featureID, resolve, coreType);
         }
@@ -190,20 +190,20 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
         @Override
         public void eSet(int featureID, Object newValue) {
                 switch (featureID) {
-                        case NetworkPackage.NODE__DIM1:
-                                getDim1().clear();
-                                getDim1().addAll((Collection<? extends Node>)newValue);
+                        case NetworkPackage.NODE__TYPE1:
+                                getType1().clear();
+                                getType1().addAll((Collection<? extends Node>)newValue);
                                 return;
                         case NetworkPackage.NODE__NAME:
                                 setName((String)newValue);
                                 return;
-                        case NetworkPackage.NODE__DIM2:
-                                getDim2().clear();
-                                getDim2().addAll((Collection<? extends Node>)newValue);
+                        case NetworkPackage.NODE__TYPE2:
+                                getType2().clear();
+                                getType2().addAll((Collection<? extends Node>)newValue);
                                 return;
-                        case NetworkPackage.NODE__DIM3:
-                                getDim3().clear();
-                                getDim3().addAll((Collection<? extends Node>)newValue);
+                        case NetworkPackage.NODE__TYPE3:
+                                getType3().clear();
+                                getType3().addAll((Collection<? extends Node>)newValue);
                                 return;
                 }
                 super.eSet(featureID, newValue);
@@ -217,17 +217,17 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
         @Override
         public void eUnset(int featureID) {
                 switch (featureID) {
-                        case NetworkPackage.NODE__DIM1:
-                                getDim1().clear();
+                        case NetworkPackage.NODE__TYPE1:
+                                getType1().clear();
                                 return;
                         case NetworkPackage.NODE__NAME:
                                 setName(NAME_EDEFAULT);
                                 return;
-                        case NetworkPackage.NODE__DIM2:
-                                getDim2().clear();
+                        case NetworkPackage.NODE__TYPE2:
+                                getType2().clear();
                                 return;
-                        case NetworkPackage.NODE__DIM3:
-                                getDim3().clear();
+                        case NetworkPackage.NODE__TYPE3:
+                                getType3().clear();
                                 return;
                 }
                 super.eUnset(featureID);
@@ -241,14 +241,14 @@ public class NodeImpl extends MinimalEObjectImpl.Container implements Node {
         @Override
         public boolean eIsSet(int featureID) {
                 switch (featureID) {
-                        case NetworkPackage.NODE__DIM1:
-                                return dim1 != null && !dim1.isEmpty();
+                        case NetworkPackage.NODE__TYPE1:
+                                return type1 != null && !type1.isEmpty();
                         case NetworkPackage.NODE__NAME:
                                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-                        case NetworkPackage.NODE__DIM2:
-                                return dim2 != null && !dim2.isEmpty();
-                        case NetworkPackage.NODE__DIM3:
-                                return dim3 != null && !dim3.isEmpty();
+                        case NetworkPackage.NODE__TYPE2:
+                                return type2 != null && !type2.isEmpty();
+                        case NetworkPackage.NODE__TYPE3:
+                                return type3 != null && !type3.isEmpty();
                 }
                 return super.eIsSet(featureID);
         }

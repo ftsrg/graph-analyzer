@@ -25,7 +25,7 @@ public class TypedDegreeEntropy extends AbstractGraphMetric<ListData<Double>> {
     public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
         double dde = 0;
         double overallDegree = adapter.getIndexer().getDegree(element);
-        for (T type : adapter.getIndexer().getDimensions(element)) {
+        for (T type : adapter.getIndexer().getTypes(element)) {
             double ratio = adapter.getIndexer().getDegree(element, type) / overallDegree;
             if (ratio != 0) {
                 dde += ratio * Math.log(1 / ratio);

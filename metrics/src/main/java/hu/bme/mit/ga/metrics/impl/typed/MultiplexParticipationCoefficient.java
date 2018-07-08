@@ -22,20 +22,20 @@ public class MultiplexParticipationCoefficient extends AbstractGraphMetric<ListD
 
     @Override
     public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
-        int numOfDimensions = 0;
-        numOfDimensions = adapter.getIndexer().getNumberOfTypes();
+        int numOfTypes = 0;
+        numOfTypes = adapter.getIndexer().getNumberOfTypes();
 
         double coef = 0.0;
-        if (numOfDimensions == 1) {
+        if (numOfTypes == 1) {
             coef = 0.0;
         } else {
-            for (T type : adapter.getIndexer().getDimensions(element)) {
-                int dimDegree = adapter.getIndexer().getDegree(element, type);
+            for (T type : adapter.getIndexer().getTypes(element)) {
+                int typeDegree = adapter.getIndexer().getDegree(element, type);
                 int degree = adapter.getIndexer().getDegree(element);
-                coef += Math.pow(dimDegree / (double) degree, 2.0);
+                coef += Math.pow(typeDegree / (double) degree, 2.0);
             }
             coef = 1 - coef;
-            coef = coef * numOfDimensions / (numOfDimensions - 1);
+            coef = coef * numOfTypes / (numOfTypes - 1);
         }
 
         data.add(coef);

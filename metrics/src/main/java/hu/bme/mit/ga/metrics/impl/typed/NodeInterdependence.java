@@ -50,44 +50,44 @@ public class NodeInterdependence extends AbstractGraphMetric<ListData<Double>> {
 
     public <N, T> double calculate(final GraphAdapter<N, T> adapter, final List<Path<N>> paths) {
         int allPossibleRoutes = 0;
-        int allmultitypedRoutes = 0;
+        int allMultitypedRoutes = 0;
         int possibleRoutesInPath = 1;
         int multitypedRoutesInPath = 0;
-        Set<T> firstDimensions;
+        Set<T> firstTypes;
 
         for (Path<N> path : paths) {
             List<N> nodesInPath = getCheckedNodes(path);
-            Set<T> dimensions = getCheckedDimensions(adapter, nodesInPath, 1, 0);
-            firstDimensions = new HashSet<>();
-            firstDimensions.addAll(dimensions);
+            Set<T> types = getCheckedTypes(adapter, nodesInPath, 1, 0);
+            firstTypes = new HashSet<>();
+            firstTypes.addAll(types);
 
             possibleRoutesInPath = 1;
             multitypedRoutesInPath = 0;
             for (int i = 0; i < nodesInPath.size() - 1; i++) {
-                dimensions = getCheckedDimensions(adapter, nodesInPath, i + 1, i);
-                possibleRoutesInPath *= dimensions.size();
-                firstDimensions.retainAll(dimensions);
+                types = getCheckedTypes(adapter, nodesInPath, i + 1, i);
+                possibleRoutesInPath *= types.size();
+                firstTypes.retainAll(types);
             }
-            multitypedRoutesInPath = possibleRoutesInPath - firstDimensions.size();
+            multitypedRoutesInPath = possibleRoutesInPath - firstTypes.size();
             allPossibleRoutes += possibleRoutesInPath;
-            allmultitypedRoutes += multitypedRoutesInPath;
+            allMultitypedRoutes += multitypedRoutesInPath;
         }
-        return allmultitypedRoutes / (double) allPossibleRoutes;
+        return allMultitypedRoutes / (double) allPossibleRoutes;
     }
 
-    protected <N, T> Set<T> getCheckedDimensions(final GraphAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
-        Set<T> dimensions = new HashSet<>();
-        for (T dim : adapter.getIndexer().getDimensions(nodesInPath.get(sourceIndex))) {
-            if (adapter.getIndexer().isAdjacentDirected(nodesInPath.get(sourceIndex), nodesInPath.get(targetIndex), dim)) {
-                dimensions.add(dim);
+    protected <N, T> Set<T> getCheckedTypes(final GraphAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
+        Set<T> types = new HashSet<>();
+        for (T type : adapter.getIndexer().getTypes(nodesInPath.get(sourceIndex))) {
+            if (adapter.getIndexer().isAdjacentDirected(nodesInPath.get(sourceIndex), nodesInPath.get(targetIndex), type)) {
+                types.add(type);
             }
         }
-        if (dimensions.isEmpty()) {
-            throw new RuntimeException("There is no dimension between the nodes: " +
+        if (types.isEmpty()) {
+            throw new RuntimeException("There is no type between the nodes: " +
                 nodesInPath.get(sourceIndex) + ", "
                 + nodesInPath.get(targetIndex));
         }
-        return dimensions;
+        return types;
     }
 
     protected <N, T> List<N> getCheckedNodes(final Path<N> path) {
