@@ -50,22 +50,22 @@ public class Main {
         d.evaluate(adapter);
         modelMetrics.add(d);
 
-        System.out.println("dimension activity");
+        System.out.println("typed activity");
         TypedActivity typedActivity = new TypedActivity();
         typedActivity.evaluate(adapter);
         modelMetrics.add(typedActivity);
 
-        System.out.println("dimensional degree");
+        System.out.println("typed degree");
         TypedDegree typedDegree = new TypedDegree();
         typedDegree.evaluate(adapter);
         modelMetrics.add(typedDegree);
 
-        System.out.println("dimensional clustering coefficient");
+        System.out.println("typed clustering coefficient");
         TypedClusteringCoefficient dcc = new TypedClusteringCoefficient();
         dcc.evaluate(adapter);
         modelMetrics.add(dcc);
 
-        System.out.println("dimensional degree entropy");
+        System.out.println("typed degree entropy");
         TypedDegreeEntropy dde = new TypedDegreeEntropy();
         dde.evaluate(adapter);
         modelMetrics.add(dde);

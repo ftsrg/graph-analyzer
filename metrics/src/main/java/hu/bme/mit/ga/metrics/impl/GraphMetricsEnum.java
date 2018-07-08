@@ -42,14 +42,14 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
 
     },
 
-    DimensionActivity {
+    TypedActivity {
         @Override
         public Class<TypedActivity> getMetric() {
             return TypedActivity.class;
         }
 
     },
-    DimensionalDegreeEntropy {
+    TypedDegreeEntropy {
         @Override
         public Class<TypedDegreeEntropy> getMetric() {
             return TypedDegreeEntropy.class;
@@ -108,7 +108,7 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
         }
 
     },
-    DimensionalClusteringCoefficient {
+    TypedClusteringCoefficient {
         @Override
         public Class<TypedClusteringCoefficient> getMetric() {
             return TypedClusteringCoefficient.class;

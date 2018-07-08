@@ -79,7 +79,7 @@ public class OneTypedClusteringCoefficient extends AbstractGraphMetric<MappedLis
     int maxNumberOfNeighbors = 100;
 
     public OneTypedClusteringCoefficient() {
-        super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
+        super("TypedClusteringCoefficient", new MappedListData<>());
     }
 
     @Override
@@ -96,7 +96,7 @@ public class OneTypedClusteringCoefficient extends AbstractGraphMetric<MappedLis
         }
     }
 
-    protected <T, N, M> void evaluate(GraphAdapter<N, T> typedAdapter, N element, T type) {
+    protected <N, T> void evaluate(GraphAdapter<N, T> typedAdapter, N element, T type) {
         long interConnected = 0;
         long numberOfNeighbors = 0;
         numberOfNeighbors = typedAdapter.getIndexer().getDegree(element, type);
@@ -130,7 +130,7 @@ public class OneTypedClusteringCoefficient extends AbstractGraphMetric<MappedLis
             int i = 0;
             for (Double value : data.getValues().get(type)) {
                 Map<String, Object> row = new HashMap<>();
-                row.put(header[0], "OneTypedClusteringCoefficient");
+                row.put(header[0], "TypedClusteringCoefficient");
                 row.put(header[1], type);
                 row.put(header[2], i);
                 row.put(header[3], value);

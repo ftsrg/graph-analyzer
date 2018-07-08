@@ -13,7 +13,7 @@ public class TypedDegreeEntropyTest extends GraphMetricTest<ListData<Double>> {
 
     @Override
     public GraphMetricsEnum getMetric() {
-        return GraphMetricsEnum.DimensionalDegreeEntropy;
+        return GraphMetricsEnum.TypedDegreeEntropy;
     }
 
     protected Object[] testCase(TestGraphInstances modelType) {

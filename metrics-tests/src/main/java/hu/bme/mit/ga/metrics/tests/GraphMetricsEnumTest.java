@@ -39,7 +39,7 @@ public class GraphMetricsEnumTest {
                 case Density:
                     isSameInstance(metric, new Density());
                     break;
-                case DimensionActivity:
+                case TypedActivity:
                     isSameInstance(metric, new TypedActivity());
                     break;
                 case MultiplexParticipationCoefficient:

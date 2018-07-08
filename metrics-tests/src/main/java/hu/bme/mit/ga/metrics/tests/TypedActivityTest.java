@@ -16,7 +16,7 @@ public class TypedActivityTest extends GraphMetricTest<MapData<String, Integer>>
 
     @Override
     public GraphMetricsEnum getMetric() {
-        return GraphMetricsEnum.DimensionActivity;
+        return GraphMetricsEnum.TypedActivity;
     }
 
     @Override

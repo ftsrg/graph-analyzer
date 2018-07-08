@@ -50,9 +50,9 @@ public class NodeInterdependence extends AbstractGraphMetric<ListData<Double>> {
 
     public <N, T> double calculate(final GraphAdapter<N, T> adapter, final List<Path<N>> paths) {
         int allPossibleRoutes = 0;
-        int allMultidimensionalRoutes = 0;
+        int allmultitypedRoutes = 0;
         int possibleRoutesInPath = 1;
-        int multiDimensionalRoutesInPath = 0;
+        int multitypedRoutesInPath = 0;
         Set<T> firstDimensions;
 
         for (Path<N> path : paths) {
@@ -62,17 +62,17 @@ public class NodeInterdependence extends AbstractGraphMetric<ListData<Double>> {
             firstDimensions.addAll(dimensions);
 
             possibleRoutesInPath = 1;
-            multiDimensionalRoutesInPath = 0;
+            multitypedRoutesInPath = 0;
             for (int i = 0; i < nodesInPath.size() - 1; i++) {
                 dimensions = getCheckedDimensions(adapter, nodesInPath, i + 1, i);
                 possibleRoutesInPath *= dimensions.size();
                 firstDimensions.retainAll(dimensions);
             }
-            multiDimensionalRoutesInPath = possibleRoutesInPath - firstDimensions.size();
+            multitypedRoutesInPath = possibleRoutesInPath - firstDimensions.size();
             allPossibleRoutes += possibleRoutesInPath;
-            allMultidimensionalRoutes += multiDimensionalRoutesInPath;
+            allmultitypedRoutes += multitypedRoutesInPath;
         }
-        return allMultidimensionalRoutes / (double) allPossibleRoutes;
+        return allmultitypedRoutes / (double) allPossibleRoutes;
     }
 
     protected <N, T> Set<T> getCheckedDimensions(final GraphAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
