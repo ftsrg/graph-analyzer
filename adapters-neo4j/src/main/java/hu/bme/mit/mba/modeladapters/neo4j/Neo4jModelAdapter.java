@@ -9,9 +9,7 @@ import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.Transaction;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public class Neo4jModelAdapter extends ModelAdapter<Node, String> {
 
@@ -38,15 +36,6 @@ public class Neo4jModelAdapter extends ModelAdapter<Node, String> {
 				addEdge(node, relationship.getType(), neighbor);
 			}
 		}
-	}
-
-	protected List<Node> getNeighbors(final Node node, final RelationshipType relationshipType) {
-		List<Node> neighbors = new ArrayList<>();
-		for (Relationship relationship: node.getRelationships(Direction.OUTGOING, relationshipType)) {
-			Node otherNode = relationship.getOtherNode(node);
-			neighbors.add(otherNode);
-		}
-		return neighbors;
 	}
 
 	protected void addEdge(final Node node, final RelationshipType relationshipType, final Node neighbor) {
