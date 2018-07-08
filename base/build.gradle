@@ -1,4 +1,3 @@
-
 dependencies {
     compile project(':adapters')
     compile group: 'junit', name: 'junit', version: junitVersion

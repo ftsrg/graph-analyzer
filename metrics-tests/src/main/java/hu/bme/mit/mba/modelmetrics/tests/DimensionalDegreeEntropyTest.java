@@ -1,22 +1,22 @@
 package hu.bme.mit.mba.modelmetrics.tests;
 
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
-import hu.bme.mit.mba.tests.model.TestModelTypes;
+import hu.bme.mit.mba.modelmetrics.impl.GraphMetricsEnum;
+import hu.bme.mit.mba.tests.model.TestGraphInstances;
 
 import java.util.function.Consumer;
 
 import static hu.bme.mit.mba.base.testutils.ListDataTesterUtil.checkAppearance;
 import static hu.bme.mit.mba.base.testutils.ListDataTesterUtil.checkSize;
 
-public class DimensionalDegreeEntropyTest extends ModelMetricTest<ListData<Double>> {
+public class DimensionalDegreeEntropyTest extends GraphMetricTest<ListData<Double>> {
 
     @Override
-    public ModelMetricsEnum getMetric() {
-        return ModelMetricsEnum.DimensionalDegreeEntropy;
+    public GraphMetricsEnum getMetric() {
+        return GraphMetricsEnum.DimensionalDegreeEntropy;
     }
 
-    protected Object[] testCase(TestModelTypes modelType) {
+    protected Object[] testCase(TestGraphInstances modelType) {
         Consumer<ListData<Double>> checker = (data) -> {
         };
         switch (modelType) {

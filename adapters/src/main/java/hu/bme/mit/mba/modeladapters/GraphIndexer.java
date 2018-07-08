@@ -14,16 +14,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public final class ModelIndexer<N, T> {
+public final class GraphIndexer<N, T> {
 
+    protected int numberOfEdges;
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
     private Set<T> dimensions = new HashSet<>();
     private Set<N> nodes = new HashSet<>();
 
-    protected int numberOfEdges;
-
-    public ModelIndexer() {
+    public GraphIndexer() {
         numberOfEdges = 0;
     }
 
@@ -128,11 +127,11 @@ public final class ModelIndexer<N, T> {
         return new HashSet<>(incoming.get(type).get(node));
     }
 
-    public Multimap<N, N> getOutgoing(T type){
+    public Multimap<N, N> getOutgoing(T type) {
         return outgoing.get(type);
     }
 
-    public Multimap<N,N> getIncoming(T type){
+    public Multimap<N, N> getIncoming(T type) {
         return incoming.get(type);
     }
 

@@ -15,10 +15,10 @@ public class CsvIterator<N> implements Iterator<N> {
     protected CellProcessor[] processors;
     protected Map<String, Object> nodeMap;
 
-    public CsvIterator(ICsvMapReader reader, String[] header, CellProcessor[] processors){
+    public CsvIterator(ICsvMapReader reader, String[] header, CellProcessor[] processors) {
         this.reader = reader;
         this.header = header;
-        this.processors=processors;
+        this.processors = processors;
     }
 
     @Override

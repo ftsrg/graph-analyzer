@@ -3,7 +3,7 @@ package hu.bme.mit.mba.modelmetrics.impl.simple;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +24,7 @@ public class ShortestPath<N> extends ListData<Integer> {
         super();
     }
 
-    public <T> void calculate(final ModelAdapter<N, T> adapter) {
+    public <T> void calculate(final GraphAdapter<N, T> adapter) {
         for (N sourceNode : adapter.getIndexer().getNodes()) {
             for (N targetNode : adapter.getIndexer().getNodes()) {
                 if (sourceNode != targetNode) {
@@ -35,7 +35,7 @@ public class ShortestPath<N> extends ListData<Integer> {
 
     }
 
-    public <T> void calculate(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
+    public <T> void calculate(final GraphAdapter<N, T> adapter, final int numberOfRandomPairs) {
         ListMultimap<Integer, Integer> pairs = determineRandomPairs(adapter, numberOfRandomPairs);
         ArrayList<N> nodeList = new ArrayList<>(adapter.getIndexer().getNodes());
         N sourceNode;
@@ -49,7 +49,7 @@ public class ShortestPath<N> extends ListData<Integer> {
         }
     }
 
-    public <T> ListMultimap<Integer, Integer> determineRandomPairs(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
+    public <T> ListMultimap<Integer, Integer> determineRandomPairs(final GraphAdapter<N, T> adapter, final int numberOfRandomPairs) {
         int numberOfNodes = adapter.getIndexer().getNumberOfNodes();
         checkNumberOfRandomPairs(numberOfNodes, numberOfRandomPairs);
         ListMultimap<Integer, Integer> pairs = ArrayListMultimap.create();
@@ -71,7 +71,7 @@ public class ShortestPath<N> extends ListData<Integer> {
         return pairs;
     }
 
-    protected  void addDepth(final List<Path<N>> paths) {
+    protected void addDepth(final List<Path<N>> paths) {
         if (!paths.isEmpty()) {
             values.add(paths.get(0).getDepth());
         }
@@ -90,7 +90,7 @@ public class ShortestPath<N> extends ListData<Integer> {
 
     }
 
-    public <T> List<Path<N>> calculate(ModelAdapter<N, T> adapter, N sourceNode, N targetNode) {
+    public <T> List<Path<N>> calculate(GraphAdapter<N, T> adapter, N sourceNode, N targetNode) {
         if (sourceNode == null) {
             throw new IllegalArgumentException("The sourceNode is null!");
         }

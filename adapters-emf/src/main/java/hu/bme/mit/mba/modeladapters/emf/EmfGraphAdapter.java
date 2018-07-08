@@ -1,13 +1,13 @@
 package hu.bme.mit.mba.modeladapters.emf;
 
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 import java.util.Iterator;
 
-public class EmfModelAdapter extends ModelAdapter<EObject, String> {
+public class EmfGraphAdapter extends GraphAdapter<EObject, String> {
 
     public void init(EObject root) {
         init(root.eAllContents());

@@ -1,18 +1,18 @@
 package hu.bme.mit.mba.modelmetrics.tests;
 // package eu.mondo.map.modelmetrics.tests;
 //
-// import static eu.mondo.map.tests.model.ModelContext.dim1;
-// import static eu.mondo.map.tests.model.ModelContext.dim2;
-// import static eu.mondo.map.tests.model.ModelContext.dim3;
-// import static eu.mondo.map.tests.model.ModelContext.network;
-// import static eu.mondo.map.tests.model.ModelContext.node1;
-// import static eu.mondo.map.tests.model.ModelContext.node2;
-// import static eu.mondo.map.tests.model.ModelContext.node3;
-// import static eu.mondo.map.tests.model.ModelContext.node4;
-// import static eu.mondo.map.tests.model.ModelContext.node5;
-// import static eu.mondo.map.tests.model.ModelContext.node6;
-// import static eu.mondo.map.tests.model.ModelContext.node7;
-// import static eu.mondo.map.tests.model.ModelContext.node8;
+// import static eu.mondo.map.tests.model.TestGraphConstants.dim1;
+// import static eu.mondo.map.tests.model.TestGraphConstants.dim2;
+// import static eu.mondo.map.tests.model.TestGraphConstants.dim3;
+// import static eu.mondo.map.tests.model.TestGraphConstants.network;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node1;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node2;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node3;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node4;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node5;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node6;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node7;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node8;
 //
 // import java.util.ArrayList;
 // import java.util.List;
@@ -26,15 +26,15 @@ package hu.bme.mit.mba.modelmetrics.tests;
 // import eu.mondo.map.base.tests.ListDataTesterUtil;
 // import eu.mondo.map.modelmetrics.impl.simple.Path;
 // import eu.mondo.map.modelmetrics.impl.simple.ShortestPath;
-// import eu.mondo.map.tests.model.ModelContext;
+// import eu.mondo.map.tests.model.TestGraphConstants;
 //
 // public class ShortestPathTest extends ListDataTesterUtil<Integer,
 // ShortestPath<String>> {
 //
-// protected ModelContext mc;
+// protected TestGraphConstants mc;
 //
 // public ShortestPathTest() {
-// mc = new ModelContext();
+// mc = new TestGraphConstants();
 // }
 //
 // @Override

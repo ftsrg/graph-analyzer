@@ -1,7 +1,8 @@
 package hu.bme.mit.mba.tests.model.csv;
 
 import com.google.common.collect.ImmutableMap;
-import hu.bme.mit.mba.tests.model.TestModel;
+import hu.bme.mit.mba.tests.model.TestGraph;
+import hu.bme.mit.mba.tests.model.TestGraphToConcreteFormatConverter;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.supercsv.cellprocessor.ParseLong;
@@ -16,17 +17,17 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CsvTestModelToNetworkConverter {
+public class TestGraphToCsvConverter extends TestGraphToConcreteFormatConverter<Long, Pair<String, String>> {
 
-    private Map<String, Long> nodeMapping;
+    Long i = 0L;
 
-    public Pair<String, String> convert(final TestModel testModel) throws IOException {
+    public Pair<String, String> convert(final TestGraph testGraph) throws IOException {
         nodeMapping = new HashMap<>();
 
-        for (final String nodeName : testModel.getAdjacency().rowKeySet()) {
+        for (final String nodeName : testGraph.getAdjacency().rowKeySet()) {
             addNode(nodeMapping, nodeName);
 
-            for (final String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
+            for (final String neighborName : testGraph.getAdjacency().row(nodeName).keySet()) {
                 addNode(nodeMapping, neighborName);
             }
         }
@@ -38,12 +39,12 @@ public class CsvTestModelToNetworkConverter {
             final CellProcessor[] processors = getProcessors("nodes");
             final String header[] = new String[]{"id"};
 
-            for (Long node: nodeMapping.values()) {
+            for (Long node : nodeMapping.values()) {
                 final Map<String, Long> line = ImmutableMap.of("id", node);
                 nodesCsvWriter.write(line, header, processors);
             }
         } finally {
-            if( nodesCsvWriter != null ) {
+            if (nodesCsvWriter != null) {
                 nodesCsvWriter.close();
             }
         }
@@ -55,9 +56,9 @@ public class CsvTestModelToNetworkConverter {
             final CellProcessor[] processors = getProcessors("edges");
             final String header[] = new String[]{"source_id", "type", "target_id"};
 
-            for (final String nodeName : testModel.getAdjacency().rowKeySet()) {
-                for (final String neighborName : testModel.getAdjacency().row(nodeName).keySet()) {
-                    for (final String dimensionName : testModel.getAdjacency().get(nodeName, neighborName)) {
+            for (final String nodeName : testGraph.getAdjacency().rowKeySet()) {
+                for (final String neighborName : testGraph.getAdjacency().row(nodeName).keySet()) {
+                    for (final String dimensionName : testGraph.getAdjacency().get(nodeName, neighborName)) {
                         final Long node = nodeMapping.get(nodeName);
                         final Long neighbor = nodeMapping.get(neighborName);
 
@@ -71,7 +72,7 @@ public class CsvTestModelToNetworkConverter {
                 }
             }
         } finally {
-            if( edgesCsvWriter != null ) {
+            if (edgesCsvWriter != null) {
                 edgesCsvWriter.close();
             }
         }
@@ -79,14 +80,21 @@ public class CsvTestModelToNetworkConverter {
         return ImmutablePair.of("nodes.csv", "edges.csv");
     }
 
+    private void addNode(final Map<String, Long> nodeMapping, final String nodeName) {
+        if (!nodeMapping.containsKey(nodeName)) {
+            nodeMapping.put(nodeName, i);
+            i++;
+        }
+    }
+
     private static CellProcessor[] getProcessors(String type) {
         final CellProcessor[] processors;
         if (type.equals("nodes")) {
-            processors = new CellProcessor[] {
+            processors = new CellProcessor[]{
                 new NotNull(new ParseLong())
             };
         } else {
-            processors = new CellProcessor[] {
+            processors = new CellProcessor[]{
                 new NotNull(new ParseLong()),
                 new NotNull(),
                 new NotNull(new ParseLong())
@@ -94,19 +102,6 @@ public class CsvTestModelToNetworkConverter {
         }
 
         return processors;
-    }
-
-    Long i = 0L;
-
-    protected void addNode(final Map<String, Long> nodeMapping, final String nodeName) {
-        if (!nodeMapping.containsKey(nodeName)) {
-            nodeMapping.put(nodeName, i);
-            i++;
-        }
-    }
-
-    public Map<String, Long> getNodeMapping() {
-        return nodeMapping;
     }
 
 }

@@ -1,31 +1,31 @@
-Category	Instance	Index	Value
-DegreeList		0	1
-DegreeList		1	2
-DegreeList		2	2
-DegreeList		3	1
-PairwiseMultiplexity	registered_address-officer_of		0.25
-PairwiseMultiplexity	intermediary_of-officer_of		0.25
-PairwiseMultiplexity	intermediary_of-registered_address		0.0
-MultiplexParticipationCoefficient		0	0.0
-MultiplexParticipationCoefficient		1	0.75
-MultiplexParticipationCoefficient		2	0.75
-MultiplexParticipationCoefficient		3	0.0
-DimensionActivity	intermediary_of		2
-DimensionActivity	registered_address		2
-DimensionActivity	officer_of		2
-EdgeDimensionConnectivity	intermediary_of		0.3333333333333333
-EdgeDimensionConnectivity	registered_address		0.3333333333333333
-EdgeDimensionConnectivity	officer_of		0.3333333333333333
-Density			0.25
-NumberOfNodes			4
-NumberOfEdges			3
-NodeActivityList		0	1
-NodeActivityList		1	2
-NodeActivityList		2	2
-NodeActivityList		3	1
-DimensionalDegree	intermediary_of	0	1
-DimensionalDegree	intermediary_of	1	1
-DimensionalDegree	registered_address	0	1
-DimensionalDegree	registered_address	1	1
-DimensionalDegree	officer_of	0	1
-DimensionalDegree	officer_of	1	1
+Category                         	Instance                          	Index	Value
+DegreeList                       	                                  	0    	1
+DegreeList                       	                                  	1    	2
+DegreeList                       	                                  	2    	2
+DegreeList                       	                                  	3    	1
+PairwiseMultiplexity             	registered_address-officer_of     	     	0.25
+PairwiseMultiplexity             	intermediary_of-officer_of        	     	0.25
+PairwiseMultiplexity             	intermediary_of-registered_address	     	0.0
+MultiplexParticipationCoefficient	                                  	0    	0.0
+MultiplexParticipationCoefficient	                                  	1    	0.75
+MultiplexParticipationCoefficient	                                  	2    	0.75
+MultiplexParticipationCoefficient	                                  	3    	0.0
+DimensionActivity                	intermediary_of                   	     	2
+DimensionActivity                	registered_address                	     	2
+DimensionActivity                	officer_of                        	     	2
+EdgeDimensionConnectivity        	intermediary_of                   	     	0.3333333333333333
+EdgeDimensionConnectivity        	registered_address                	     	0.3333333333333333
+EdgeDimensionConnectivity        	officer_of                        	     	0.3333333333333333
+Density                          	                                  	     	0.25
+NumberOfNodes                    	                                  	     	4
+NumberOfEdges                    	                                  	     	3
+NodeActivityList                 	                                  	0    	1
+NodeActivityList                 	                                  	1    	2
+NodeActivityList                 	                                  	2    	2
+NodeActivityList                 	                                  	3    	1
+DimensionalDegree                	intermediary_of                   	0    	1
+DimensionalDegree                	intermediary_of                   	1    	1
+DimensionalDegree                	registered_address                	0    	1
+DimensionalDegree                	registered_address                	1    	1
+DimensionalDegree                	officer_of                        	0    	1
+DimensionalDegree                	officer_of                        	1    	1

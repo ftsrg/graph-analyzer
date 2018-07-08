@@ -1,8 +1,7 @@
 package hu.bme.mit.mba.base.testutils;
 
-import org.junit.Assert;
-
 import hu.bme.mit.mba.base.data.MapData;
+import org.junit.Assert;
 
 public class MapDataTesterUtil {
 

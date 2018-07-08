@@ -5,26 +5,26 @@ package hu.bme.mit.mba.modelmetrics.tests;
 // eu.mondo.map.base.tests.MappedListDataTesterUtil.checkDimensionsNumber;
 // import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkSize;
 // import static eu.mondo.map.base.tests.MappedListDataTesterUtil.checkValue;
-// import static eu.mondo.map.tests.model.ModelContext.dim1;
-// import static eu.mondo.map.tests.model.ModelContext.dim2;
-// import static eu.mondo.map.tests.model.ModelContext.node1;
-// import static eu.mondo.map.tests.model.ModelContext.node2;
-// import static eu.mondo.map.tests.model.ModelContext.node3;
-// import static eu.mondo.map.tests.model.ModelContext.node4;
-// import static eu.mondo.map.tests.model.ModelContext.node5;
+// import static eu.mondo.map.tests.model.TestGraphConstants.dim1;
+// import static eu.mondo.map.tests.model.TestGraphConstants.dim2;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node1;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node2;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node3;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node4;
+// import static eu.mondo.map.tests.model.TestGraphConstants.node5;
 //
 // import org.junit.Test;
 //
 // import eu.mondo.map.base.data.MappedListData;
 // import eu.mondo.map.modeladapters.tests.CustomModelAdapter;
 // import eu.mondo.map.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
-// import eu.mondo.map.tests.model.TestModel;
+// import eu.mondo.map.tests.model.TestGraph;
 //
 // public class DimTypedClusteringCoefficientTest
 // extends ModelMetricTest2<MappedListData<String, Double>,
 // OneTypedClusteringCoefficient> {
 //
-// protected TestModel model;
+// protected TestGraph model;
 // protected CustomModelAdapter adapter;
 //
 // @Override
@@ -35,7 +35,7 @@ package hu.bme.mit.mba.modelmetrics.tests;
 // @Override
 // public void init() {
 // super.init();
-// model = new TestModel();
+// model = new TestGraph();
 // adapter = new CustomModelAdapter();
 // }
 //

@@ -1,4 +1,3 @@
-
 dependencies {
     compile project(':adapters-csv')
     compile project(':metrics')

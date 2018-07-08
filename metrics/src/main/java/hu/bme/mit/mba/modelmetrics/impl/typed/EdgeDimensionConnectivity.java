@@ -1,15 +1,15 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<String, Double>> {
+public class EdgeDimensionConnectivity extends AbstractGraphMetric<MapData<String, Double>> {
 
     public EdgeDimensionConnectivity() {
         super("EdgeDimensionConnectivity", new MapData<>());
@@ -63,13 +63,13 @@ public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
     // }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         for (T type : adapter.getIndexer().getDimensions()) {
             evaluateT(adapter, type);
         }
     }
 
-    protected <N, T> void evaluateT(ModelAdapter<N, T> adapter, T type) {
+    protected <N, T> void evaluateT(GraphAdapter<N, T> adapter, T type) {
         int sumOfEdges = 0;
         for (N node : adapter.getIndexer().getNodes(type)) {
             sumOfEdges += adapter.getIndexer().getDegree(node, type);

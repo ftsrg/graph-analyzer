@@ -1,11 +1,22 @@
 package hu.bme.mit.mba.modelmetrics.impl;
 
-import hu.bme.mit.mba.modelmetrics.ModelMetric;
-import hu.bme.mit.mba.modelmetrics.ModelMetricInitializer;
-import hu.bme.mit.mba.modelmetrics.impl.simple.*;
-import hu.bme.mit.mba.modelmetrics.impl.typed.*;
+import hu.bme.mit.mba.modelmetrics.GraphMetricInitializer;
+import hu.bme.mit.mba.modelmetrics.GraphMetric;
+import hu.bme.mit.mba.modelmetrics.impl.simple.ClusteringCoefficient;
+import hu.bme.mit.mba.modelmetrics.impl.simple.Degrees;
+import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
+import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
+import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
+import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionActivity;
+import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalClusteringCoefficient;
+import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegreeEntropy;
+import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeOverlap;
+import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
+import hu.bme.mit.mba.modelmetrics.impl.typed.NodeActivity;
+import hu.bme.mit.mba.modelmetrics.impl.typed.OneTypedClusteringCoefficient;
+import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
 
-public enum ModelMetricsEnum implements ModelMetricInitializer {
+public enum GraphMetricsEnum implements GraphMetricInitializer {
 
     ClusteringCoefficient {
         @Override
@@ -104,14 +115,14 @@ public enum ModelMetricsEnum implements ModelMetricInitializer {
         }
     };
 
-    public static ModelMetricsEnum getEnum(ModelMetric metric) {
-        for (ModelMetricsEnum m : values()) {
+    public static GraphMetricsEnum getEnum(GraphMetric metric) {
+        for (GraphMetricsEnum m : values()) {
             if (m.getMetric().isInstance(metric)) {
                 return m;
             }
         }
         throw new IllegalArgumentException(
-            "Does not exist a value in ModelMetricsEnum that belongs to metric " + metric);
+            "Does not exist a value in GraphMetricsEnum that belongs to metric " + metric);
     }
 
 }

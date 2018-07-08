@@ -1,15 +1,15 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Integer>> {
+public class NumberOfTypedEdges extends AbstractGraphMetric<MapData<String, Integer>> {
 
     public NumberOfTypedEdges() {
         super("NumberOfTypedEdges", new MapData<>());
@@ -28,7 +28,7 @@ public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Inte
     // }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         for (T type : adapter.getIndexer().getDimensions()) {
             int sumOfEdges = 0;
             for (N node : adapter.getIndexer().getNodes(type)) {

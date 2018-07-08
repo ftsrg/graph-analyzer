@@ -1,22 +1,22 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MappedListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DimensionalDegree extends AbstractModelMetric<MappedListData<String, Integer>> {
+public class DimensionalDegree extends AbstractGraphMetric<MappedListData<String, Integer>> {
 
     public DimensionalDegree() {
         super("DimensionalDegreeList", new MappedListData<>());
     }
 
     @Override
-    protected <N, T> void evaluateAll(final ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(final GraphAdapter<N, T> adapter) {
         for (T type : adapter.getIndexer().getDimensions()) {
             for (N node : adapter.getIndexer().getNodes(type)) {
                 evaluate(adapter, type, node);
@@ -24,7 +24,7 @@ public class DimensionalDegree extends AbstractModelMetric<MappedListData<String
         }
     }
 
-    protected <N, T> void evaluate(ModelAdapter<N, T> typedAdapter, T type, N node) {
+    protected <N, T> void evaluate(GraphAdapter<N, T> typedAdapter, T type, N node) {
         int degree = typedAdapter.getIndexer().getDegree(node, type);
         data.put(type.toString(), degree);
     }

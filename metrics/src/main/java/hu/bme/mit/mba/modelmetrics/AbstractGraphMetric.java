@@ -2,30 +2,32 @@ package hu.bme.mit.mba.modelmetrics;
 
 import hu.bme.mit.mba.base.data.BaseData;
 import hu.bme.mit.mba.base.metrics.BaseMetric;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements ModelMetric {
+public abstract class AbstractGraphMetric<D extends BaseData> extends BaseMetric<D> implements GraphMetric {
 
-    public AbstractModelMetric(String defaultName, final D data) {
+    public AbstractGraphMetric(String defaultName, final D data) {
         super(defaultName);
         this.data = data;
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
         throw new UnsupportedOperationException("Cannot evaluate metric " + name + " on one element.");
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter) {
+    public <N, T> void evaluate(GraphAdapter<N, T> adapter) {
         evaluateAll(adapter);
     }
 
-    protected abstract <N, T> void evaluateAll(ModelAdapter<N, T> adapter);
+    protected abstract <N, T> void evaluateAll(GraphAdapter<N, T> adapter);
 
-    protected <N, T> void evaluateEveryNode(final ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateEveryNode(final GraphAdapter<N, T> adapter) {
         Iterator<N> iterator = adapter.getIndexer().getModelIterator();
         while (iterator.hasNext()) {
             this.evaluate(adapter, iterator.next());

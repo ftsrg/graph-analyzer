@@ -1,28 +1,29 @@
 package hu.bme.mit.mba.base.testutils;
 
-import org.junit.Assert;
-
 import hu.bme.mit.mba.base.data.ListData;
+import org.junit.Assert;
 
 public class ListDataTesterUtil {
 
-	/**
-	 * Check if the size of {@code data} is equal to {@code expected}.
-	 * @param expected
-	 * @param data
-	 */
+    /**
+     * Check if the size of {@code data} is equal to {@code expected}.
+     *
+     * @param expected
+     * @param data
+     */
     public static <V extends Number> void checkSize(int expected, final ListData<V> data) {
         Assert.assertEquals(expected, data.size());
     }
 
     /**
      * Check if the number of appearances of {@code value} in {@code data} is equal to {@code expectedAppearance}.
+     *
      * @param expectedAppearance
      * @param value
      * @param data
      */
     public static <V extends Number> void checkAppearance(int expectedAppearance, final V value,
-            final ListData<V> data) {
+                                                          final ListData<V> data) {
         int appearance = 0;
         for (int i = 0; i < data.size(); i++) {
             if (value.equals(data.get(i))) {
@@ -33,7 +34,7 @@ public class ListDataTesterUtil {
     }
 
     public static <V extends Number> void checkMinAppearance(int expectedMinAppearance, final V value,
-            final ListData<V> data) {
+                                                             final ListData<V> data) {
         int appearance = 0;
         for (int i = 0; i < data.size(); i++) {
             if (value.equals(data.get(i))) {
@@ -44,7 +45,7 @@ public class ListDataTesterUtil {
     }
 
     public static <V extends Number> void checkMaxAppearance(int expectedMaxAppearance, final V value,
-            final ListData<V> data) {
+                                                             final ListData<V> data) {
         int appearance = 0;
         for (int i = 0; i < data.size(); i++) {
             if (value.equals(data.get(i))) {

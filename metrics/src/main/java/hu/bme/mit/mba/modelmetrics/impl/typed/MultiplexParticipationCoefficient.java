@@ -1,27 +1,27 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListData<Double>> {
+public class MultiplexParticipationCoefficient extends AbstractGraphMetric<ListData<Double>> {
 
     public MultiplexParticipationCoefficient() {
         super("MultiplexParticipationCoefficient", new ListData<>());
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         evaluateEveryNode(adapter);
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
         int numOfDimensions = 0;
         numOfDimensions = adapter.getIndexer().getNumberOfTypes();
 

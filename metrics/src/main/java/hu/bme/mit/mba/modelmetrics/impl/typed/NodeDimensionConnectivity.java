@@ -1,8 +1,8 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,7 +13,7 @@ import java.util.Map;
  * Takes values in [0,1] and computes the ratio of nodes of the network that
  * belong to a particular dimension.
  */
-public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<String, Double>> {
+public class NodeDimensionConnectivity extends AbstractGraphMetric<MapData<String, Double>> {
 
     public NodeDimensionConnectivity() {
         super("NodeDimensionConnectivity", new MapData<>());
@@ -95,13 +95,13 @@ public class NodeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
     // }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         for (T type : adapter.getIndexer().getDimensions()) {
             evaluateT(adapter, type);
         }
     }
 
-    protected <N, T> void evaluateT(final ModelAdapter<N, T> adapter, final T type) {
+    protected <N, T> void evaluateT(final GraphAdapter<N, T> adapter, final T type) {
         data.put(type.toString(), (double) adapter.getIndexer().getNumberOfNodes(type) / adapter.getIndexer().getNumberOfNodes());
     }
 

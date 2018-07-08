@@ -1,8 +1,8 @@
 package hu.bme.mit.mba.modelanalyzer.tests;
 
 import hu.bme.mit.mba.base.metrics.Metric;
-import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
+import hu.bme.mit.mba.modelanalyzer.GraphAnalyzer;
+import hu.bme.mit.mba.modelmetrics.impl.GraphMetricsEnum;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -11,21 +11,21 @@ import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfEdges;
-import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfNodes;
+import static hu.bme.mit.mba.modelmetrics.impl.GraphMetricsEnum.NumberOfEdges;
+import static hu.bme.mit.mba.modelmetrics.impl.GraphMetricsEnum.NumberOfNodes;
 
-public class ModelAnalyzerTest {
+public class GraphAnalyzerTest {
 
-    protected ModelAnalyzer analyzer;
+    protected GraphAnalyzer analyzer;
 
-    public ModelAnalyzerTest() {
+    public GraphAnalyzerTest() {
         PropertyConfigurator.configure("src/log4j.properties");
         Logger.getRootLogger().setLevel(Level.OFF);
     }
 
     @BeforeMethod
     public void init() {
-        analyzer = new ModelAnalyzer();
+        analyzer = new GraphAnalyzer();
     }
 
     protected void checkSize(int expected) {
@@ -33,7 +33,7 @@ public class ModelAnalyzerTest {
         AssertJUnit.assertEquals(expected, analyzer.getMetricsInOrder().size());
     }
 
-    protected void checkMetric(ModelMetricsEnum metric) {
+    protected void checkMetric(GraphMetricsEnum metric) {
         Metric metricObject = analyzer.getMetric(metric);
         AssertJUnit.assertNotNull(metricObject);
         try {
@@ -79,7 +79,7 @@ public class ModelAnalyzerTest {
     @Test
     public void testUseAll() {
         analyzer.useAll();
-        checkSize(ModelMetricsEnum.values().length);
+        checkSize(GraphMetricsEnum.values().length);
 
         checkMetric(NumberOfNodes);
         checkMetric(NumberOfEdges);

@@ -1,7 +1,7 @@
 package analyzer;
 
-import hu.bme.mit.mba.modeladapters.csv.CsvModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.csv.CsvGraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
 import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
@@ -30,10 +30,10 @@ public class Main {
         final String edges = graph + "-edges.csv";
 
         final String[] header = new String[]{"Category", "Instance", "Index", "Value"};
-        List<AbstractModelMetric> modelMetrics = new ArrayList<>();
+        List<AbstractGraphMetric> modelMetrics = new ArrayList<>();
 
         // the adapter represents a bridge between model and metrics
-        CsvModelAdapter adapter = new CsvModelAdapter(new NotNull());
+        CsvGraphAdapter adapter = new CsvGraphAdapter(new NotNull());
 
         // adapter must be initialized, this will create an index which is necessary during the evaluation
         adapter.init(nodes, edges);

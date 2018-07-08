@@ -2,8 +2,8 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import com.google.common.collect.ListMultimap;
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 import hu.bme.mit.mba.modelmetrics.impl.simple.Path;
 import hu.bme.mit.mba.modelmetrics.impl.simple.ShortestPath;
 
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
+public class NodeInterdependence extends AbstractGraphMetric<ListData<Double>> {
 
     private ShortestPath shortestPathList;
 
@@ -24,7 +24,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
     }
 
 
-    public <N, T> void calculate(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
+    public <N, T> void calculate(final GraphAdapter<N, T> adapter, final int numberOfRandomPairs) {
         ListMultimap<Integer, Integer> pairs =
             shortestPathList.determineRandomPairs(adapter, numberOfRandomPairs);
 
@@ -40,7 +40,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         }
     }
 
-    public <N, T> void calculate(final ModelAdapter<N, T> adapter, final N sourceNode, final N targetNode) {
+    public <N, T> void calculate(final GraphAdapter<N, T> adapter, final N sourceNode, final N targetNode) {
         List<Path<N>> paths = shortestPathList.calculate(adapter, sourceNode, targetNode);
         if (!paths.isEmpty()) {
             double interdependence = calculate(adapter, paths);
@@ -48,7 +48,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         }
     }
 
-    public <N, T> double calculate(final ModelAdapter<N, T> adapter, final List<Path<N>> paths) {
+    public <N, T> double calculate(final GraphAdapter<N, T> adapter, final List<Path<N>> paths) {
         int allPossibleRoutes = 0;
         int allMultidimensionalRoutes = 0;
         int possibleRoutesInPath = 1;
@@ -75,7 +75,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         return allMultidimensionalRoutes / (double) allPossibleRoutes;
     }
 
-    protected <N, T> Set<T> getCheckedDimensions(final ModelAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
+    protected <N, T> Set<T> getCheckedDimensions(final GraphAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
         Set<T> dimensions = new HashSet<>();
         for (T dim : adapter.getIndexer().getDimensions(nodesInPath.get(sourceIndex))) {
             if (adapter.getIndexer().isAdjacentDirected(nodesInPath.get(sourceIndex), nodesInPath.get(targetIndex), dim)) {
@@ -99,12 +99,12 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter) {
+    public <N, T> void evaluate(GraphAdapter<N, T> adapter) {
         super.evaluate(adapter);
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         for (N sourceNode : adapter.getIndexer().getNodes()) {
             for (N targetNode : adapter.getIndexer().getNodes()) {
                 if (sourceNode != targetNode) {

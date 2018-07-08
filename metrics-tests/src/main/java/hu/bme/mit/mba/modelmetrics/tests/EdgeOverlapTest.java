@@ -1,25 +1,27 @@
 package hu.bme.mit.mba.modelmetrics.tests;
 
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
-import hu.bme.mit.mba.tests.model.TestModelTypes;
+import hu.bme.mit.mba.modelmetrics.impl.GraphMetricsEnum;
+import hu.bme.mit.mba.tests.model.TestGraphInstances;
 import org.testng.Assert;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 import static hu.bme.mit.mba.base.testutils.MapDataTesterUtil.checkKeysSize;
-import static hu.bme.mit.mba.tests.model.ModelContext.*;
+import static hu.bme.mit.mba.tests.model.TestGraphConstants.dim1;
+import static hu.bme.mit.mba.tests.model.TestGraphConstants.dim2;
+import static hu.bme.mit.mba.tests.model.TestGraphConstants.dim3;
 
-public class EdgeOverlapTest extends ModelMetricTest<MapData<List<String>, Double>> {
+public class EdgeOverlapTest extends GraphMetricTest<MapData<List<String>, Double>> {
 
     @Override
-    public ModelMetricsEnum getMetric() {
-        return ModelMetricsEnum.EdgeOverlap;
+    public GraphMetricsEnum getMetric() {
+        return GraphMetricsEnum.EdgeOverlap;
     }
 
     @Override
-    protected Object[] testCase(TestModelTypes modelType) {
+    protected Object[] testCase(TestGraphInstances modelType) {
         Consumer<MapData<String, Double>> checker = (data) -> {
         };
         switch (modelType) {

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TestModel {
+public class TestGraph {
 
     protected Table<String, String, Set<String>> adjacency = HashBasedTable.create();
     protected List<String> nodes = new ArrayList<>();

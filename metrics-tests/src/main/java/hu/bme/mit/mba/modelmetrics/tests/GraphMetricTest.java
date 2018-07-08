@@ -1,13 +1,13 @@
 package hu.bme.mit.mba.modelmetrics.tests;
 
 import hu.bme.mit.mba.base.data.BaseData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modeladapters.tests.TestModelAdapter;
-import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
-import hu.bme.mit.mba.modelmetrics.ModelMetric;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
-import hu.bme.mit.mba.tests.model.TestModel;
-import hu.bme.mit.mba.tests.model.TestModelTypes;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modeladapters.tests.TestGraphAdapter;
+import hu.bme.mit.mba.modelanalyzer.GraphAnalyzer;
+import hu.bme.mit.mba.modelmetrics.GraphMetric;
+import hu.bme.mit.mba.modelmetrics.impl.GraphMetricsEnum;
+import hu.bme.mit.mba.tests.model.TestGraph;
+import hu.bme.mit.mba.tests.model.TestGraphInstances;
 import org.apache.log4j.Logger;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -17,21 +17,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class ModelMetricTest<D extends BaseData> {
-
-    protected TestModel testModel;
-    protected ModelMetric metric;
-    protected D data;
-    protected ModelAdapter<?, ?> adapter;
+public abstract class GraphMetricTest<D extends BaseData> {
 
     protected final Logger logger = Logger.getLogger(this.getClass());
+    protected TestGraph testGraph;
+    protected GraphMetric metric;
+    protected D data;
+    protected GraphAdapter<?, ?> adapter;
 
-    public abstract ModelMetricsEnum getMetric();
+    public abstract GraphMetricsEnum getMetric();
 
     @DataProvider
     public Object[][] data() {
         List<Object[]> casesList = new ArrayList<>();
-        for (TestModelTypes type : TestModelTypes.values()) {
+        for (TestGraphInstances type : TestGraphInstances.values()) {
             casesList.add(testCase(type));
         }
 
@@ -42,10 +41,10 @@ public abstract class ModelMetricTest<D extends BaseData> {
         return casesArray;
     }
 
-    protected abstract Object[] testCase(TestModelTypes modelType);
+    protected abstract Object[] testCase(TestGraphInstances modelType);
 
     @Test(dataProvider = "data")
-    public void testEvaluation(TestModelTypes modelType, Consumer<D> checker)
+    public void testEvaluation(TestGraphInstances modelType, Consumer<D> checker)
         throws InstantiationException, IllegalAccessException, IOException {
         metric = getMetric().instantiate();
         initData();
@@ -55,10 +54,10 @@ public abstract class ModelMetricTest<D extends BaseData> {
     }
 
     @Test(dataProvider = "data")
-    public void testEvaluationWithAnalyzer(TestModelTypes modelType, Consumer<D> checker)
+    public void testEvaluationWithAnalyzer(TestGraphInstances modelType, Consumer<D> checker)
         throws InstantiationException, IllegalAccessException, IOException {
         initModel(modelType);
-        ModelAnalyzer analyzer = new ModelAnalyzer();
+        GraphAnalyzer analyzer = new GraphAnalyzer();
         analyzer.use(getMetric());
         metric = analyzer.getMetric(getMetric());
         initData();
@@ -67,9 +66,9 @@ public abstract class ModelMetricTest<D extends BaseData> {
     }
 
     @Test(dataProvider = "data")
-    public void testEvaluationWithAnalyzerUsingAll(TestModelTypes modelType, Consumer<D> checker) throws IOException {
+    public void testEvaluationWithAnalyzerUsingAll(TestGraphInstances modelType, Consumer<D> checker) throws IOException {
         initModel(modelType);
-        ModelAnalyzer analyzer = new ModelAnalyzer();
+        GraphAnalyzer analyzer = new GraphAnalyzer();
         analyzer.useAll();
         metric = analyzer.getMetric(getMetric());
         initData();
@@ -77,14 +76,14 @@ public abstract class ModelMetricTest<D extends BaseData> {
         evaluateAndCheck(checker, analyzer);
     }
 
-    protected void skippedModel(TestModelTypes modelType) {
+    protected void skippedModel(TestGraphInstances modelType) {
         logger.warn("The model " + modelType + " is not evaluated");
     }
 
-    protected void initModel(TestModelTypes modelType) throws IOException {
-        testModel = modelType.init();
-        adapter = new TestModelAdapter();
-        ((TestModelAdapter) adapter).init(testModel);
+    protected void initModel(TestGraphInstances modelType) throws IOException {
+        testGraph = modelType.init();
+        adapter = new TestGraphAdapter();
+        ((TestGraphAdapter) adapter).init(testGraph);
     }
 
     @SuppressWarnings("unchecked")
@@ -97,7 +96,7 @@ public abstract class ModelMetricTest<D extends BaseData> {
         checker.accept(data);
     }
 
-    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer analyzer) {
+    protected void evaluateAndCheck(Consumer<D> checker, GraphAnalyzer analyzer) {
         analyzer.evaluate(adapter);
         checker.accept(data);
     }

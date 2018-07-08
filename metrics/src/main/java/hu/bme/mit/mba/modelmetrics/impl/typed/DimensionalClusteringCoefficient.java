@@ -1,8 +1,8 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListData<Double>> {
+public class DimensionalClusteringCoefficient extends AbstractGraphMetric<ListData<Double>> {
 
     protected int maxNeighbours = 1000;
     protected boolean useHeuristic = false;
@@ -37,19 +37,19 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
     }
 
     @Override
-    public <N, T> void evaluate(final ModelAdapter<N, T> adapter) {
+    public <N, T> void evaluate(final GraphAdapter<N, T> adapter) {
         for (N node : adapter.getIndexer().getNodes()) {
             calculateFirstDefinition(adapter, node);
         }
     }
 
-    //    public <N, T> void calculateSecondDefinition(final ModelAdapter<N, T> adapter) {
+    //    public <N, T> void calculateSecondDefinition(final GraphAdapter<N, T> adapter) {
 //        clear();
 //        for (N node : adapter.getNodes()) {
 //            calculateSecondDefinition(adapter, node);
 //        }
 //    }
-    public <N, T> double calculateFirstDefinition(final ModelAdapter<N, T> adapter, final
+    public <N, T> double calculateFirstDefinition(final GraphAdapter<N, T> adapter, final
     N node) {
         long interConnected = 0;
         long numberOfNeighbors = 0;
@@ -91,7 +91,7 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
         return coef;
     }
 
-//    public <N, T> double calculateSecondDefinition(final ModelAdapter<N, T> adapter, final
+//    public <N, T> double calculateSecondDefinition(final GraphAdapter<N, T> adapter, final
 //    N node) {
 //        long interConnected = 0;
 //        long numberOfPossibleConnections = 0;
@@ -213,7 +213,7 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
 //    }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         evaluateEveryNode(adapter);
         evaluate(adapter);
     }

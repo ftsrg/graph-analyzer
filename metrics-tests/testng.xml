@@ -4,15 +4,15 @@
     <test name="Test">
         <classes>
             <class
-                name="hu.bme.mit.mba.modelmetrics.tests.ClusteringCoefficientTest" />
-            <class name="hu.bme.mit.mba.modelmetrics.tests.ModelMetricTest" />
-            <class name="hu.bme.mit.mba.modelmetrics.tests.NumberOfNodesTest" />
-            <class name="hu.bme.mit.mba.modelmetrics.tests.NumberOfEdgesTest" />
+                name="hu.bme.mit.mba.modelmetrics.tests.ClusteringCoefficientTest"/>
+            <class name="hu.bme.mit.mba.modelmetrics.tests.GraphMetricTest"/>
+            <class name="hu.bme.mit.mba.modelmetrics.tests.NumberOfNodesTest"/>
+            <class name="hu.bme.mit.mba.modelmetrics.tests.NumberOfEdgesTest"/>
             <class
-                name="hu.bme.mit.mba.modelmetrics.tests.DimensionActivityTest" />
-            <class name="hu.bme.mit.mba.modelmetrics.tests.NodeActivityTest" />
+                name="hu.bme.mit.mba.modelmetrics.tests.DimensionActivityTest"/>
+            <class name="hu.bme.mit.mba.modelmetrics.tests.NodeActivityTest"/>
             <class
-                name="hu.bme.mit.mba.modelmetrics.tests.MultiplexParticipationCoefficientTest" />
+                name="hu.bme.mit.mba.modelmetrics.tests.MultiplexParticipationCoefficientTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

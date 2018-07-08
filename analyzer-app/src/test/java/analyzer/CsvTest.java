@@ -1,13 +1,19 @@
 package analyzer;
 
-import hu.bme.mit.mba.modeladapters.csv.CsvModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.ModelMetric;
+import hu.bme.mit.mba.modeladapters.csv.CsvGraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
+import hu.bme.mit.mba.modelmetrics.GraphMetric;
 import hu.bme.mit.mba.modelmetrics.impl.simple.Degrees;
 import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
 import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.mba.modelmetrics.impl.typed.*;
+import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionActivity;
+import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegree;
+import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeDimensionConnectivity;
+import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
+import hu.bme.mit.mba.modelmetrics.impl.typed.NodeActivity;
+import hu.bme.mit.mba.modelmetrics.impl.typed.NumberOfTypedEdges;
+import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -24,14 +30,26 @@ import java.util.Map;
 
 public class CsvTest {
 
+    private static CellProcessor[] getProcessors() {
+
+        final CellProcessor[] processors = new CellProcessor[]{
+            new NotNull(),
+            new Optional(),
+            new Optional(),
+            new NotNull()
+        };
+
+        return processors;
+    }
+
     @Test
     public void test() throws IOException {
         final String filename = "modelmetrics.tsv";
         final String[] header = new String[]{"Category", "Instance", "Index", "Value"};
-        final List<AbstractModelMetric> modelMetrics = new ArrayList<>();
+        final List<AbstractGraphMetric> modelMetrics = new ArrayList<>();
 
         // the adapter represents a bridge between model and metrics
-        CsvModelAdapter adapter = new CsvModelAdapter(new NotNull());
+        CsvGraphAdapter adapter = new CsvGraphAdapter(new NotNull());
 
         // adapter must be initialized, this will create an index which is necessary during the evaluation
         adapter.init("nodes.csv", "edges.csv");
@@ -95,24 +113,11 @@ public class CsvTest {
 
     }
 
-
-    private void showResult(ModelMetric metric) {
+    private void showResult(GraphMetric metric) {
         System.out.println(String.format("Data of %s : %s", metric.getName(), metric.getData().toString()));
     }
 
-    private static CellProcessor[] getProcessors() {
-
-        final CellProcessor[] processors = new CellProcessor[]{
-            new NotNull(),
-            new Optional(),
-            new Optional(),
-            new NotNull()
-        };
-
-        return processors;
-    }
-
-    private void writeToTsv(List<AbstractModelMetric> metrics, String[] header, String filename) throws IOException {
+    private void writeToTsv(List<AbstractGraphMetric> metrics, String[] header, String filename) throws IOException {
         ICsvMapWriter mapWriter = null;
 
         try {
@@ -124,7 +129,7 @@ public class CsvTest {
             // write the header
             mapWriter.writeHeader(header);
 
-            for (AbstractModelMetric metric : metrics) {
+            for (AbstractGraphMetric metric : metrics) {
                 List<Map<String, Object>> mapList = metric.getTsvMaps(header);
                 for (Map<String, Object> map : mapList) {
                     mapWriter.write(map, header, processors);

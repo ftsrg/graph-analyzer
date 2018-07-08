@@ -1,27 +1,27 @@
 package hu.bme.mit.mba.modelmetrics.impl.simple;
 
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>> {
+public class ClusteringCoefficient extends AbstractGraphMetric<ListData<Double>> {
 
     public ClusteringCoefficient() {
         super("ClusteringCoefficientList", new ListData<>());
     }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         evaluateEveryNode(adapter);
     }
 
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
         long interConnected = 0;
         long numberOfNeighbors = 0;
         double clusteringCoef = 0.0;

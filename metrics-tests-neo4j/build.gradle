@@ -1,4 +1,3 @@
-
 dependencies {
     compile project(':adapters-neo4j')
     compile project(':metrics')

@@ -1,19 +1,19 @@
 package hu.bme.mit.mba.modelmetrics.tests.csv;
 
-import hu.bme.mit.mba.modeladapters.csv.CsvModelAdapter;
-import hu.bme.mit.mba.tests.model.TestModel;
-import hu.bme.mit.mba.tests.model.csv.CsvTestModelToNetworkConverter;
+import hu.bme.mit.mba.modeladapters.csv.CsvGraphAdapter;
+import hu.bme.mit.mba.tests.model.TestGraph;
+import hu.bme.mit.mba.tests.model.csv.TestGraphToCsvConverter;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
 
 public class CsvAdapterInitializer {
 
-	public static CsvModelAdapter getAdapter(TestModel testModel) throws IOException {
-        final Pair<String, String> csvFiles = new CsvTestModelToNetworkConverter().convert(testModel);
-        CsvModelAdapter adapter = new CsvModelAdapter();
-		adapter.init(csvFiles.getLeft(), csvFiles.getRight());
-		return adapter;
-	}
+    public static CsvGraphAdapter getAdapter(TestGraph testGraph) throws IOException {
+        final Pair<String, String> csvFiles = new TestGraphToCsvConverter().convert(testGraph);
+        CsvGraphAdapter adapter = new CsvGraphAdapter();
+        adapter.init(csvFiles.getLeft(), csvFiles.getRight());
+        return adapter;
+    }
 
 }

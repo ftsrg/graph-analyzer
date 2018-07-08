@@ -1,19 +1,18 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MappedListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
+import hu.bme.mit.mba.modeladapters.GraphAdapter;
+import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedListData<String, Double>> {
+public class OneTypedClusteringCoefficient extends AbstractGraphMetric<MappedListData<String, Double>> {
 
-    public OneTypedClusteringCoefficient() {
-        super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
-    }
+    // TODO delete later
+    boolean bounded = false;
 
     // public void calculate(final Network<N> network) {
     // clear();
@@ -77,18 +76,19 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     // protected boolean isSkippable(Double value) {
     // return value.equals(0.0);
     // }
+    int maxNumberOfNeighbors = 100;
+
+    public OneTypedClusteringCoefficient() {
+        super("DimensionalTypedClusteringCoefficientList", new MappedListData<>());
+    }
 
     @Override
-    protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
+    protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         evaluateEveryNode(adapter);
     }
 
-    // TODO delete later
-    boolean bounded = false;
-    int maxNumberOfNeighbors = 100;
-
     @Override
-    public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
+    public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
         // long interConnected = 0;
         // long numberOfNeighbors = 0;
         for (T type : adapter.getIndexer().getDimensions(element)) {
@@ -96,7 +96,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
         }
     }
 
-    protected <T, N, M> void evaluate(ModelAdapter<N, T> typedAdapter, N element, T type) {
+    protected <T, N, M> void evaluate(GraphAdapter<N, T> typedAdapter, N element, T type) {
         long interConnected = 0;
         long numberOfNeighbors = 0;
         numberOfNeighbors = typedAdapter.getIndexer().getDegree(element, type);
