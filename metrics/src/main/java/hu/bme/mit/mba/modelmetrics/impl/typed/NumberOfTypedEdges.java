@@ -29,10 +29,10 @@ public class NumberOfTypedEdges extends AbstractModelMetric<MapData<String, Inte
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        for (T type : adapter.getTypes()) {
+        for (T type : adapter.getIndexer().getDimensions()) {
             int sumOfEdges = 0;
-            for (N node : adapter.getNodes(type)) {
-                sumOfEdges += adapter.getDegree(node, type);
+            for (N node : adapter.getIndexer().getNodes(type)) {
+                sumOfEdges += adapter.getIndexer().getDegree(node, type);
             }
             sumOfEdges /= 2;
             data.put(type.toString(), sumOfEdges);

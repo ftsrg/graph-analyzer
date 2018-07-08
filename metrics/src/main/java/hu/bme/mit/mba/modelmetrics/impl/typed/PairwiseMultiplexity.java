@@ -17,8 +17,8 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        for (T firstType : adapter.getTypes()) {
-            for (T secondType : adapter.getTypes()) {
+        for (T firstType : adapter.getIndexer().getDimensions()) {
+            for (T secondType : adapter.getIndexer().getDimensions()) {
                 if (firstType != secondType) {
                     if (newPair(firstType, secondType)) {
                         evaluate(adapter, firstType, secondType);
@@ -36,8 +36,8 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
     }
 
     protected <N, T> void evaluate(ModelAdapter<N, T> adapter, T firstType, T secondType) {
-        int firstSizeofNodes = adapter.getNumberOfNodes(firstType);
-        int secondSizeofNodes = adapter.getNumberOfNodes(secondType);
+        int firstSizeofNodes = adapter.getIndexer().getNumberOfNodes(firstType);
+        int secondSizeofNodes = adapter.getIndexer().getNumberOfNodes(secondType);
         int nodesInIntersection = 0;
 
         if (firstSizeofNodes < secondSizeofNodes) {
@@ -48,7 +48,7 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
 
         double multiplexity = 0.0;
 
-        multiplexity = nodesInIntersection / (double) adapter.getNumberOfNodes();
+        multiplexity = nodesInIntersection / (double) adapter.getIndexer().getNumberOfNodes();
         data.put(getKey(firstType, secondType), multiplexity);
     }
 
@@ -58,8 +58,8 @@ public class PairwiseMultiplexity extends AbstractModelMetric<MapData<String, Do
 
     protected <T, N> int getIntersection(ModelAdapter<N, T> adapter, T firstType, T secondType) {
         int nodesInIntersection = 0;
-        for (N node : adapter.getNodes(firstType)) {
-            if (adapter.getTypes(node).contains(secondType)) {
+        for (N node : adapter.getIndexer().getNodes(firstType)) {
+            if (adapter.getIndexer().getDimensions(node).contains(secondType)) {
                 nodesInIntersection++;
             }
         }

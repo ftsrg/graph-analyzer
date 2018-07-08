@@ -1,5 +1,10 @@
 package hu.bme.mit.mba.modelmetrics.impl.simple;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
+import hu.bme.mit.mba.base.data.ListData;
+import hu.bme.mit.mba.modeladapters.ModelAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -7,11 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
-import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.modeladapters.ModelAdapter;
 
 
 public class ShortestPath<N> extends ListData<Integer> {
@@ -26,8 +26,8 @@ public class ShortestPath<N> extends ListData<Integer> {
 
     public <T> void calculate(final ModelAdapter<N, T> adapter) {
         clear();
-        for (N sourceNode : adapter.getNodes()) {
-            for (N targetNode : adapter.getNodes()) {
+        for (N sourceNode : adapter.getIndexer().getNodes()) {
+            for (N targetNode : adapter.getIndexer().getNodes()) {
                 if (sourceNode != targetNode) {
                     addDepth(calculate(adapter, sourceNode, targetNode));
                 }
@@ -39,7 +39,7 @@ public class ShortestPath<N> extends ListData<Integer> {
     public <T> void calculate(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
         clear();
         ListMultimap<Integer, Integer> pairs = determineRandomPairs(adapter, numberOfRandomPairs);
-        ArrayList<N> nodeList = new ArrayList<>(adapter.getNodes());
+        ArrayList<N> nodeList = new ArrayList<>(adapter.getIndexer().getNodes());
         N sourceNode;
         N targetNode;
         for (Integer sourceIndex : pairs.keySet()) {
@@ -52,7 +52,7 @@ public class ShortestPath<N> extends ListData<Integer> {
     }
 
     public <T> ListMultimap<Integer, Integer> determineRandomPairs(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
-        int numberOfNodes = adapter.getNumberOfNodes();
+        int numberOfNodes = adapter.getIndexer().getNumberOfNodes();
         checkNumberOfRandomPairs(numberOfNodes, numberOfRandomPairs);
         ListMultimap<Integer, Integer> pairs = ArrayListMultimap.create();
         Random random = new Random();
@@ -113,7 +113,7 @@ public class ShortestPath<N> extends ListData<Integer> {
             if (higherDepth(currentNode, depth)) {
                 break;
             }
-            for (N neighborNode : adapter.getOutgoingNeighbors(currentNode)) {
+            for (N neighborNode : adapter.getIndexer().getOutgoingNeighbors(currentNode)) {
                 if (neighborNode == targetNode) {
                     results.put(currentNode, 0);
                 }

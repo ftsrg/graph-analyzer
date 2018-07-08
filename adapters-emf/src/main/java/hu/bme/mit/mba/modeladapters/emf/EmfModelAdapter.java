@@ -9,15 +9,7 @@ import java.util.Iterator;
 
 public class EmfModelAdapter extends ModelAdapter<EObject, String> {
 
-    private EObject root;
-
-    @Override
-    public Iterator<EObject> getModelIterator() {
-        return root.eAllContents();
-    }
-
     public void init(EObject root) {
-        this.root = root;
         init(root.eAllContents());
     }
 
@@ -46,10 +38,6 @@ public class EmfModelAdapter extends ModelAdapter<EObject, String> {
         if (neighbor != null && reference != null) {
             indexer.addEdge(reference.getName(), object, neighbor);
         }
-    }
-
-    public EObject getRoot() {
-        return root;
     }
 
 }

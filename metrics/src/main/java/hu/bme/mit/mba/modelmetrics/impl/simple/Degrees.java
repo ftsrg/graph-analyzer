@@ -22,7 +22,7 @@ public class Degrees extends AbstractModelMetric<ListData<Integer>> {
 
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-        int degree = adapter.getDegree(element);
+        int degree = adapter.getIndexer().getDegree(element);
         data.add(degree);
     }
 

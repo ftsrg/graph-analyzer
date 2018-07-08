@@ -25,17 +25,17 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
         long interConnected = 0;
         long numberOfNeighbors = 0;
         double clusteringCoef = 0.0;
-        for (N neighbor1 : adapter.getNeighbors(element)) {
-            for (N neighbor2 : adapter.getNeighbors(element)) {
+        for (N neighbor1 : adapter.getIndexer().getNeighbors(element)) {
+            for (N neighbor2 : adapter.getIndexer().getNeighbors(element)) {
                 if (neighbor1 != neighbor2) {
-                    if (adapter.isAdjacent(neighbor1, neighbor2)) {
+                    if (adapter.getIndexer().isAdjacentUndirected(neighbor1, neighbor2)) {
                         interConnected++;
                     }
                 }
             }
         }
 
-        numberOfNeighbors = adapter.getNeighbors(element).size();
+        numberOfNeighbors = adapter.getIndexer().getNeighbors(element).size();
         if (numberOfNeighbors < 2) {
             clusteringCoef = 0.0;
         } else {

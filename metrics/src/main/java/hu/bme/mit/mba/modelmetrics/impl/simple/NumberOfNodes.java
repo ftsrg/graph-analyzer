@@ -22,7 +22,7 @@ public class NumberOfNodes extends AbstractModelMetric<ScalarData<Integer>> {
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        data.setValue(adapter.getNumberOfNodes());
+        data.setValue(adapter.getIndexer().getNumberOfNodes());
     }
 
     @Override

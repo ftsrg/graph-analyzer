@@ -21,7 +21,7 @@ public class NodeActivity extends AbstractModelMetric<ListData<Integer>> {
     }
 
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-        int numberOfTypes = adapter.getNumberOfTypes(element);
+        int numberOfTypes = adapter.getIndexer().getNumberOfTypes(element);
         data.add(numberOfTypes);
     }
 

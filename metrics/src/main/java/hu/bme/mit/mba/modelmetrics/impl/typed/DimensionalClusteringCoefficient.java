@@ -1,11 +1,15 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
-import java.util.*;
-
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import org.supercsv.io.ICsvMapWriter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListData<Double>> {
 
@@ -35,7 +39,7 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
     @Override
     public <N, T> void evaluate(final ModelAdapter<N, T> adapter) {
         clear();
-        for (N node : adapter.getNodes()) {
+        for (N node : adapter.getIndexer().getNodes()) {
             calculateFirstDefinition(adapter, node);
         }
     }
@@ -53,23 +57,23 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
         long numberOfPossibleConnections = 0;
         double coef = 0.0;
 
-        for (T dimension1 : adapter.getTypes(node)) {
-            numberOfNeighbors = adapter.getNeighbors(node, dimension1).size();
+        for (T dimension1 : adapter.getIndexer().getDimensions(node)) {
+            numberOfNeighbors = adapter.getIndexer().getNeighbors(node, dimension1).size();
             if (useHeuristic && numberOfNeighbors > maxNeighbours) {
                 coef = 0.0;
                 data.add(coef);
                 return coef;
             }
-            for (N neighbor1 : adapter.getNeighbors(node, dimension1)) {
-                for (N neighbor2 : adapter.getNeighbors(node, dimension1)) {
+            for (N neighbor1 : adapter.getIndexer().getNeighbors(node, dimension1)) {
+                for (N neighbor2 : adapter.getIndexer().getNeighbors(node, dimension1)) {
                     if (neighbor1 != neighbor2) {
                         Set<T> dimensions = new HashSet<>();
-                        dimensions.addAll(adapter.getTypes(neighbor1));
-                        dimensions.addAll(adapter.getTypes(neighbor1));
+                        dimensions.addAll(adapter.getIndexer().getDimensions(neighbor1));
+                        dimensions.addAll(adapter.getIndexer().getDimensions(neighbor1));
                         for (T dimension2 : dimensions) {
                             if (!dimension1.equals(dimension2)) {
                                 numberOfPossibleConnections++;
-                                if (adapter.isAdjacentUndirected(neighbor1, neighbor2, dimension2)) {
+                                if (adapter.getIndexer().isAdjacentUndirected(neighbor1, neighbor2, dimension2)) {
                                     interConnected++;
                                 }
                             }

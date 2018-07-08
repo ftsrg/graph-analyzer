@@ -23,15 +23,16 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
         int numOfDimensions = 0;
-        numOfDimensions = adapter.getNumberOfTypes();
+        numOfDimensions = adapter.getIndexer().getNumberOfTypes();
 
         double coef = 0.0;
         if (numOfDimensions == 1) {
             coef = 0.0;
         } else {
-            for (T type : adapter.getTypes(element)) {
-                int degree = adapter.getDegree(element, type);
-                coef += Math.pow(adapter.getDegree(element, type) / (double) adapter.getDegree(element), 2.0);
+            for (T type : adapter.getIndexer().getDimensions(element)) {
+                int dimDegree = adapter.getIndexer().getDegree(element, type);
+                int degree = adapter.getIndexer().getDegree(element);
+                coef += Math.pow(dimDegree / (double) degree, 2.0);
             }
             coef = 1 - coef;
             coef = coef * numOfDimensions / (numOfDimensions - 1);

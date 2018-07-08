@@ -19,8 +19,8 @@ public class EdgeOverlap extends AbstractModelMetric<MapData<String, Double>> {
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        for(T condType: adapter.getTypes()){
-            for(T type: adapter.getTypes()){
+        for(T condType: adapter.getIndexer().getDimensions()){
+            for(T type: adapter.getIndexer().getDimensions()){
                 if(type != condType){
                 evaluate(adapter, condType, type);
                 }

@@ -17,15 +17,15 @@ public class DimensionalDegree extends AbstractModelMetric<MappedListData<String
 
     @Override
     protected <N, T> void evaluateAll(final ModelAdapter<N, T> adapter) {
-        for (T type : adapter.getTypes()) {
-            for (N node : adapter.getNodes(type)) {
+        for (T type : adapter.getIndexer().getDimensions()) {
+            for (N node : adapter.getIndexer().getNodes(type)) {
                 evaluate(adapter, type, node);
             }
         }
     }
 
-    protected <N, T, M> void evaluate(ModelAdapter<N, T> typedAdapter, T type, N node) {
-        int degree = typedAdapter.getDegree(node, type);
+    protected <N, T> void evaluate(ModelAdapter<N, T> typedAdapter, T type, N node) {
+        int degree = typedAdapter.getIndexer().getDegree(node, type);
         data.put(type.toString(), degree);
     }
 

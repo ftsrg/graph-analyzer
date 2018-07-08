@@ -22,12 +22,12 @@ public class NumberOfEdges extends AbstractModelMetric<ScalarData<Integer>> {
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        data.setValue(adapter.getNumberOfEdges());
+        data.setValue(adapter.getIndexer().getNumberOfEdges());
     }
 
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
-        data.setValue(adapter.getDegree(element));
+        data.setValue(adapter.getIndexer().getDegree(element));
     }
 
     @Override

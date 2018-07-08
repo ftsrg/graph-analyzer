@@ -16,7 +16,7 @@ public class DimensionalDegreeEntropy extends AbstractModelMetric<ListData<Doubl
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        for (N element : adapter.getNodes()) {
+        for (N element : adapter.getIndexer().getNodes()) {
             evaluate(adapter, element);
         }
 
@@ -25,9 +25,9 @@ public class DimensionalDegreeEntropy extends AbstractModelMetric<ListData<Doubl
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
         double dde = 0;
-        double overallDegree = adapter.getDegree(element);
-        for(T type: adapter.getTypes(element)){
-            double ratio = adapter.getDegree(element, type) / overallDegree;
+        double overallDegree = adapter.getIndexer().getDegree(element);
+        for(T type: adapter.getIndexer().getDimensions(element)){
+            double ratio = adapter.getIndexer().getDegree(element, type) / overallDegree;
             if(ratio!=0){
             dde += ratio * Math.log(1/ratio);
             }

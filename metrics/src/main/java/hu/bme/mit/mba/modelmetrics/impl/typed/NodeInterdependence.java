@@ -1,14 +1,18 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
-import java.util.*;
-
 import com.google.common.collect.ListMultimap;
-
 import hu.bme.mit.mba.base.data.ListData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.simple.Path;
 import hu.bme.mit.mba.modelmetrics.impl.simple.ShortestPath;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
 
@@ -27,7 +31,7 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
 
         N sourceNode;
         N targetNode;
-        ArrayList<N> nodeList = new ArrayList<N>(adapter.getNodes());
+        ArrayList<N> nodeList = new ArrayList<N>(adapter.getIndexer().getNodes());
         for (Integer sourceIndex : pairs.keySet()) {
             sourceNode = nodeList.get(sourceIndex);
             for (Integer targetIndex : pairs.get(sourceIndex)) {
@@ -74,8 +78,8 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
 
     protected <N, T> Set<T> getCheckedDimensions(final ModelAdapter<N, T> adapter, final List<N> nodesInPath, final int sourceIndex, final int targetIndex) {
         Set<T> dimensions = new HashSet<>();
-        for (T dim : adapter.getTypes(nodesInPath.get(sourceIndex))) {
-            if (adapter.isAdjacent(nodesInPath.get(sourceIndex), nodesInPath.get(targetIndex), dim)) {
+        for (T dim : adapter.getIndexer().getDimensions(nodesInPath.get(sourceIndex))) {
+            if (adapter.getIndexer().isAdjacentDirected(nodesInPath.get(sourceIndex), nodesInPath.get(targetIndex), dim)) {
                 dimensions.add(dim);
             }
         }
@@ -103,15 +107,14 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
         clear();
-        for (N sourceNode : adapter.getNodes()) {
-            for (N targetNode : adapter.getNodes()) {
+        for (N sourceNode : adapter.getIndexer().getNodes()) {
+            for (N targetNode : adapter.getIndexer().getNodes()) {
                 if (sourceNode != targetNode) {
                     calculate(adapter, sourceNode, targetNode);
                 }
             }
         }
         shortestPathList.calculate(adapter);
-
     }
 
     @Override
@@ -129,4 +132,5 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
         }
         return values;
     }
+
 }

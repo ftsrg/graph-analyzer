@@ -9,21 +9,9 @@ import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.Transaction;
 
-import java.util.Iterator;
-
 public class Neo4jModelAdapter extends ModelAdapter<Node, String> {
 
-	private GraphDatabaseService graph;
-
-    @Override
-	public Iterator<Node> getModelIterator() {
-        try (Transaction tx = graph.beginTx()) {
-            return graph.getAllNodes().iterator();
-        }
-	}
-
 	public void init(GraphDatabaseService graph) {
-		this.graph = graph;
 		try (Transaction tx = graph.beginTx()) {
 			init(graph.getAllNodes());
 		}

@@ -435,80 +435,80 @@ public class ModelAdapterTest {
 
     protected <N, T> void degree(ModelAdapter<N, T> adapter, N node, int indegree, int outdegree) {
         notNull(node);
-        assertEquals(indegree, adapter.getIndegree(node), node.toString());
-        assertEquals(outdegree, adapter.getOutdegree(node), node.toString());
-        assertEquals(indegree + outdegree, adapter.getDegree(node), node.toString());
+        assertEquals(indegree, adapter.getIndexer().getIndegree(node), node.toString());
+        assertEquals(outdegree, adapter.getIndexer().getOutdegree(node), node.toString());
+        assertEquals(indegree + outdegree, adapter.getIndexer().getDegree(node), node.toString());
     }
 
     protected <N, T> void adjacent(ModelAdapter<N, T> adapter, N source, N target) {
         notNull(source, target);
         String message = String.format("%s and %s are not adjacent", source.toString(), target.toString());
-        assertTrue(message, adapter.isAdjacent(source, target));
-        assertTrue(message, adapter.isAdjacent(target, source));
+        assertTrue(message, adapter.getIndexer().isAdjacentUndirected(source, target));
+        assertTrue(message, adapter.getIndexer().isAdjacentUndirected(target, source));
     }
 
     protected <N, T> void nodes(ModelAdapter<N, T> adapter, int expected) {
-        assertEquals(adapter.getNumberOfNodes(), expected, "Check node");
-        assertEquals(adapter.getNodes().size(), expected, "Check node");
+        assertEquals(adapter.getIndexer().getNumberOfNodes(), expected, "Check node");
+        assertEquals(adapter.getIndexer().getNodes().size(), expected, "Check node");
     }
 
     protected <N, T> void edges(ModelAdapter<N, T> adapter, int expected) {
-        assertEquals(adapter.getNumberOfEdges(), expected, "Check edge");
+        assertEquals(adapter.getIndexer().getNumberOfEdges(), expected, "Check edge");
     }
 
     protected <N, T> void neighbor(ModelAdapter<N, T> adapter, N source, N target) {
         notNull(source, target);
         assertTrue(String.format("Check outgoing:  %s -> %s", source.toString(), target.toString()),
-                adapter.getOutgoingNeighbors(source).contains(target));
+                adapter.getIndexer().getOutgoingNeighbors(source).contains(target));
         assertTrue(String.format("Check incoming: %s <- %s", target.toString(), source.toString()),
-                adapter.getIncomingNeighbors(target).contains(source));
-        assertTrue(adapter.getNeighbors(source).contains(target));
-        assertTrue(adapter.getNeighbors(target).contains(source));
+                adapter.getIndexer().getIncomingNeighbors(target).contains(source));
+        assertTrue(adapter.getIndexer().getNeighbors(source).contains(target));
+        assertTrue(adapter.getIndexer().getNeighbors(target).contains(source));
         adjacent(adapter, source, target);
     }
 
     protected <N, T> void degree(ModelAdapter<N, T> adapter, N node, T type, int indegree, int outdegree) {
         notNull(node, type);
-        assertEquals(indegree, adapter.getIndegree(node, type), node.toString());
-        assertEquals(outdegree, adapter.getOutdegree(node, type), node.toString());
-        assertEquals(indegree + outdegree, adapter.getDegree(node, type), node.toString());
+        assertEquals(indegree, adapter.getIndexer().getIndegree(node, type), node.toString());
+        assertEquals(outdegree, adapter.getIndexer().getOutdegree(node, type), node.toString());
+        assertEquals(indegree + outdegree, adapter.getIndexer().getDegree(node, type), node.toString());
     }
 
     protected <N, T> void adjacent(ModelAdapter<N, T> adapter, T type, N source, N target) {
         notNull(source, target, type);
         assertTrue(String.format("Adjacent: %s %s %s", source.toString(), target.toString(), type.toString()),
-                adapter.isAdjacentUndirected(source, target, type));
-        assertTrue(adapter.isAdjacentUndirected(target, source, type));
+                adapter.getIndexer().isAdjacentUndirected(source, target, type));
+        assertTrue(adapter.getIndexer().isAdjacentUndirected(target, source, type));
     }
 
     protected <N, T> void neighbor(ModelAdapter<N, T> adapter, T type, N source, N target) {
         notNull(source, target, type);
-        assertTrue(adapter.getOutgoingNeighbors(source, type).contains(target));
-        assertTrue(adapter.getIncomingNeighbors(target, type).contains(source));
-        assertTrue(adapter.getNeighbors(source, type).contains(target));
-        assertTrue(adapter.getNeighbors(target, type).contains(source));
+        assertTrue(adapter.getIndexer().getOutgoing(source, type).contains(target));
+        assertTrue(adapter.getIndexer().getIncoming(target, type).contains(source));
+        assertTrue(adapter.getIndexer().getNeighbors(source, type).contains(target));
+        assertTrue(adapter.getIndexer().getNeighbors(target, type).contains(source));
         adjacent(adapter, type, source, target);
     }
 
     protected <N, T> void notNeighbor(ModelAdapter<N, T> adapter, T type, N source, N target) {
         notNull(source, target, type);
-        assertFalse(adapter.getOutgoingNeighbors(source, type).contains(target));
-        assertFalse(adapter.getIncomingNeighbors(target, type).contains(source));
+        assertFalse(adapter.getIndexer().getOutgoing(source, type).contains(target));
+        assertFalse(adapter.getIndexer().getIncoming(target, type).contains(source));
     }
 
     protected <N, T> void types(ModelAdapter<N, T> adapter, int expected, N node) {
         notNull(node);
-        assertEquals(adapter.getNumberOfTypes(node), expected);
+        assertEquals(adapter.getIndexer().getNumberOfTypes(node), expected);
     }
 
     protected <N, T> void types(ModelAdapter<N, T> adapter, int expected) {
-        assertEquals(adapter.getNumberOfTypes(), expected);
+        assertEquals(adapter.getIndexer().getNumberOfTypes(), expected);
     }
 
     protected <N, T> void nodes(ModelAdapter<N, T> adapter, T type, int expected) {
         notNull(type);
-        assertEquals(adapter.getNumberOfNodes(type), expected);
-        assertEquals(adapter.getNodes(type).size(), expected);
+        assertEquals(adapter.getIndexer().getNumberOfNodes(type), expected);
+        assertEquals(adapter.getIndexer().getNodes(type).size(), expected);
     }
 
 }

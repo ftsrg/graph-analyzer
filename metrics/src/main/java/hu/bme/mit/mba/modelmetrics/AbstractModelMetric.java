@@ -32,7 +32,7 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     protected abstract <N, T> void evaluateAll(ModelAdapter<N, T> adapter);
 
     protected <N, T> void evaluateEveryNode(final ModelAdapter<N, T> adapter) {
-        Iterator<N> iterator = adapter.getModelIterator();
+        Iterator<N> iterator = adapter.getIndexer().getModelIterator();
         while (iterator.hasNext()) {
             this.evaluate(adapter, iterator.next());
         }

@@ -91,7 +91,7 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
         // long interConnected = 0;
         // long numberOfNeighbors = 0;
-        for (T type : adapter.getTypes(element)) {
+        for (T type : adapter.getIndexer().getDimensions(element)) {
             evaluate(adapter, element, type);
         }
     }
@@ -99,15 +99,15 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
     protected <T, N, M> void evaluate(ModelAdapter<N, T> typedAdapter, N element, T type) {
         long interConnected = 0;
         long numberOfNeighbors = 0;
-        numberOfNeighbors = typedAdapter.getDegree(element, type);
+        numberOfNeighbors = typedAdapter.getIndexer().getDegree(element, type);
         if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
             data.put(type.toString(), 0.0);
             return;
         }
-        for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
-            for (N neighbor2 : typedAdapter.getNeighbors(element, type)) {
+        for (N neighbor1 : typedAdapter.getIndexer().getNeighbors(element, type)) {
+            for (N neighbor2 : typedAdapter.getIndexer().getNeighbors(element, type)) {
                 if (neighbor1 != neighbor2) {
-                    if (typedAdapter.isAdjacentUndirected(neighbor1, neighbor2, type)) {
+                    if (typedAdapter.getIndexer().isAdjacentUndirected(neighbor1, neighbor2, type)) {
                         interConnected++;
                     }
                 }

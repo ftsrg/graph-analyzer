@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelmetrics.impl.typed;
 import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import org.supercsv.io.ICsvMapWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,18 +64,18 @@ public class EdgeDimensionConnectivity extends AbstractModelMetric<MapData<Strin
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        for (T type : adapter.getTypes()) {
+        for (T type : adapter.getIndexer().getDimensions()) {
             evaluateT(adapter, type);
         }
     }
 
     protected <N, T> void evaluateT(ModelAdapter<N, T> adapter, T type) {
         int sumOfEdges = 0;
-        for (N node : adapter.getNodes(type)) {
-            sumOfEdges += adapter.getDegree(node, type);
+        for (N node : adapter.getIndexer().getNodes(type)) {
+            sumOfEdges += adapter.getIndexer().getDegree(node, type);
         }
         sumOfEdges /= 2;
-        data.put(type.toString(), (double) sumOfEdges / adapter.getNumberOfEdges());
+        data.put(type.toString(), (double) sumOfEdges / adapter.getIndexer().getNumberOfEdges());
     }
 
     @Override

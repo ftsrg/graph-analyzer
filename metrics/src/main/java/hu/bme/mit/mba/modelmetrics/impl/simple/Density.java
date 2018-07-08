@@ -17,8 +17,8 @@ public class Density extends AbstractModelMetric<ScalarData<Double>> {
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        int numOfNodes = adapter.getNumberOfNodes();
-        Double value = adapter.getNumberOfEdges() / (double) numOfNodes;
+        int numOfNodes = adapter.getIndexer().getNumberOfNodes();
+        Double value = adapter.getIndexer().getNumberOfEdges() / (double) numOfNodes;
         value /= numOfNodes - 1;
 
         data.setValue(value);

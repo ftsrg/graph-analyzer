@@ -17,8 +17,8 @@ public class DimensionActivity extends AbstractModelMetric<MapData<String, Integ
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        for (T type : adapter.getTypes()) {
-            data.put(type.toString(), adapter.getNumberOfNodes(type));
+        for (T type : adapter.getIndexer().getDimensions()) {
+            data.put(type.toString(), adapter.getIndexer().getNumberOfNodes(type));
         }
     }
 
