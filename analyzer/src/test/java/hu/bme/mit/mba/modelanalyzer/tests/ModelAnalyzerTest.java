@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelanalyzer.tests;
 import hu.bme.mit.mba.base.metrics.Metric;
 import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
 import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -48,13 +47,6 @@ public class ModelAnalyzerTest {
     public void testUse() {
         analyzer.use(NumberOfEdges);
         checkSize(1);
-
-        analyzer.clear();
-        checkSize(0);
-
-        analyzer.use(new NumberOfEdges());
-        checkSize(1);
-        checkMetric(NumberOfEdges);
     }
 
     @Test
@@ -109,21 +101,6 @@ public class ModelAnalyzerTest {
     public void testOmittingExistingMetric() {
         analyzer.use(NumberOfNodes).omit(NumberOfNodes);
         checkSize(0);
-    }
-
-    @Test
-    public void testOmitWithAll() {
-        analyzer.useAll().omit(NumberOfNodes);
-        checkSize(ModelMetricsEnum.values().length - 1);
-        AssertJUnit.assertNull(analyzer.getMetric(NumberOfNodes));
-
-        analyzer.clear().useAll().omit(NumberOfEdges);
-
-        checkSize(ModelMetricsEnum.values().length - 1);
-        AssertJUnit.assertNull(analyzer.getMetric(NumberOfEdges));
-
-        analyzer.clear().useAll().omit(NumberOfNodes).omit(NumberOfEdges);
-        checkSize(ModelMetricsEnum.values().length - 2);
     }
 
     @Test(enabled = false)

@@ -1,12 +1,13 @@
 package hu.bme.mit.mba.base;
 
+import com.google.common.collect.Lists;
+import hu.bme.mit.mba.base.metrics.Metric;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.Lists;
-
-import hu.bme.mit.mba.base.metrics.Metric;;
+;
 
 public abstract class Analyzer<K, V extends Metric> {
 
@@ -21,16 +22,6 @@ public abstract class Analyzer<K, V extends Metric> {
         return "Analyzer [metrics=" + metrics + "]";
     }
 
-    /**
-     * Removes every metric that were added to this class.
-     * 
-     * @return this
-     */
-    public Analyzer<K, V> clear() {
-        metrics.clear();
-        return this;
-    }
-
     public Map<K, V> getMetrics() {
         return metrics;
     }
@@ -40,7 +31,7 @@ public abstract class Analyzer<K, V extends Metric> {
      * Returns the values from <em>metrics</em> collection in the order of
      * insertion.
      * </p>
-     * 
+     *
      * @return metrics in insertion order
      */
     public List<V> getMetricsInOrder() {

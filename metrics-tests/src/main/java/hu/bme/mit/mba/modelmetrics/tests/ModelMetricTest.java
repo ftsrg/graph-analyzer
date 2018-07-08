@@ -52,9 +52,6 @@ public abstract class ModelMetricTest<D extends BaseData> {
         initModel(modelType);
 
         evaluateAndCheck(checker);
-
-        // reevaluate
-        evaluateAndCheck(checker);
     }
 
     @Test(dataProvider = "data")
@@ -67,12 +64,6 @@ public abstract class ModelMetricTest<D extends BaseData> {
         initData();
 
         evaluateAndCheck(checker, analyzer);
-
-        evaluateAndCheck(checker, analyzer, getMetric());
-
-        analyzer.clear();
-        analyzer.use(getMetric().instantiate());
-        evaluateAndCheck(checker, analyzer);
     }
 
     @Test(dataProvider = "data")
@@ -83,15 +74,6 @@ public abstract class ModelMetricTest<D extends BaseData> {
         metric = analyzer.getMetric(getMetric());
         initData();
 
-        evaluateAndCheck(checker, analyzer);
-        evaluateAndCheck(checker, analyzer, getMetric());
-
-        analyzer.clear();
-        analyzer.useAll();
-        metric = analyzer.getMetric(getMetric());
-        initData();
-
-        evaluateAndCheck(checker, analyzer, getMetric());
         evaluateAndCheck(checker, analyzer);
     }
 
@@ -117,11 +99,6 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer analyzer) {
         analyzer.evaluate(adapter);
-        checker.accept(data);
-    }
-
-    protected void evaluateAndCheck(Consumer<D> checker, ModelAnalyzer analyzer, ModelMetricsEnum metricType) {
-        analyzer.evaluate(adapter, getMetric());
         checker.accept(data);
     }
 

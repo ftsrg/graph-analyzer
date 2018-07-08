@@ -14,12 +14,6 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
 
     protected final Logger logger = Logger.getLogger(this.getClass());
 
-    @Override
-    public ModelAnalyzer clear() {
-        super.clear();
-        return this;
-    }
-
     /**
      * Adds the parameter metric (see {@link ModelMetricsEnum}) to the metrics
      * collection which will be used in the analysis. Throws
