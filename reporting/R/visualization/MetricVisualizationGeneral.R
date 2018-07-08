@@ -18,9 +18,9 @@ tsv
 
 source("R/metrics/MetricVisualization.R")
 source("R/metrics/BasicInformationVisualization.R")
-source("R/metrics/DimensionalEdgeVisualization.R")
+source("R/metrics/TypedEdgeVisualization.R")
 source("R/metrics/GeneralNodeVisualization.R")
-source("R/metrics/DimensionalNodeVisualization.R")
+source("R/metrics/TypedNodeVisualization.R")
 source("R/metrics/MetricVisualization.R")
 
 ################# Basic information #####################
@@ -33,16 +33,16 @@ BasicInformationVisualization(basic.information, figures.path)
 
 #########################################################
 
-############## Dimensional edge metrics #################
+############## Typed edge metrics #################
 edge.type <- subset(tsv, Category %in% c(#"NumberOfTypedEdges",
-  "NodeDimensionConnectivity",
-  "NodeExclusiveDimensionConnectivity",
-  "EdgeDimensionConnectivity"
+  "NodeTypeConnectivity",
+  "NodeExclusiveTypeConnectivity",
+  "EdgeTypeConnectivity"
 ))
 edge.type <- dcast.data.table(data = edge.type, file.name + GraphType + Instance ~ Category,
                               value.var = "Value")
 
-DimensionalEdgeVisualization(edge.type, basic.information, figures.path)
+TypedEdgeVisualization(edge.type, basic.information, figures.path)
 
 #########################################################
 
@@ -50,9 +50,9 @@ DimensionalEdgeVisualization(edge.type, basic.information, figures.path)
 node.type <- subset(tsv, Category %in% c(#"ClusteringCoefficientList",
 #  "DegreeList",
   "MultiplexParticipationCoefficient",
-  "DimensionalDegreeEntropy",
+  "TypedDegreeEntropy",
   "NodeActivity",
-  "DimensionalClusteringCoefficient"
+  "TypedClusteringCoefficient"
 ))
 node.type <- dcast.data.table(data = node.type, file.name + GraphType + Index ~ Category, value.var = "Value")
 GeneralNodeVisualization(node.type, figures.path)

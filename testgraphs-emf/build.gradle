@@ -1,0 +1,5 @@
+dependencies {
+    compile project(':testgraphs-graph')
+    compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.common', version: emfVersion
+    compile group: 'org.eclipse.emf', name: 'org.eclipse.emf.ecore', version: emfVersion
+}

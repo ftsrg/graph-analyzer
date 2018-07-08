@@ -1,7 +1,6 @@
-
 dependencies {
     compile project(':adapters-emf')
     compile project(':metrics')
     compile project(':metrics-tests')
-    compile project(':testmodels-emf')
+    compile project(':testgraphs-emf')
 }

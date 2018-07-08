@@ -8,15 +8,15 @@ library(combinat)
 figures.path <- "reports/figures/paper/"
 
 distribution.metrics <- c( "ClusteringCoefficientList",
-                           "DegreeList" , "DimensionActivity" ,
-                           "DimensionalClusteringCoefficientDef1" ,
-                           "DimensionalClusteringCoefficientDef2" ,
-                           "DimensionalClusteringCoefficientDef3" ,
-                          "EdgeDimensionConnectivity" ,
+                           "DegreeList" , "TypeActivity" ,
+                           "TypedClusteringCoefficientDef1" ,
+                           "TypedClusteringCoefficientDef2" ,
+                           "TypedClusteringCoefficientDef3" ,
+                          "EdgeTypeConnectivity" ,
                           "MultiplexParticipationCoefficient",
                           "NodeActivityList" ,
-                          "NodeDimensionConnectivity" ,
-                          "NodeExclusiveDimensionConnectivity",
+                          "NodeTypeConnectivity" ,
+                          "NodeExclusiveTypeConnectivity",
                           "NumberOfTypedEdges",
                           "PairwiseMultiplexity")
 

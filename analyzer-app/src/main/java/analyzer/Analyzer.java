@@ -1,7 +1,7 @@
 package analyzer;
 
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.ModelMetric;
+import hu.bme.mit.ga.metrics.AbstractGraphMetric;
+import hu.bme.mit.ga.metrics.GraphMetric;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
@@ -23,11 +23,11 @@ public class Analyzer {
         new NotNull()
     };
 
-    public static void showResult(ModelMetric metric) {
+    public static void showResult(GraphMetric metric) {
         System.out.println(String.format("Data of %s : %s", metric.getName(), metric.getData().toString()));
     }
 
-    public static void writeToTsv(List<AbstractModelMetric> metrics, String[] header, String filename) throws IOException {
+    public static void writeToTsv(List<AbstractGraphMetric> metrics, String[] header, String filename) throws IOException {
         ICsvMapWriter mapWriter = null;
 
         try {
@@ -36,7 +36,7 @@ public class Analyzer {
             // write the header
             mapWriter.writeHeader(header);
 
-            for (AbstractModelMetric metric : metrics) {
+            for (AbstractGraphMetric metric : metrics) {
                 List<Map<String, Object>> mapList = metric.getTsvMaps(header);
                 for (Map<String, Object> map : mapList) {
                     mapWriter.write(map, header, processors);

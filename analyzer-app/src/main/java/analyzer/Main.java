@@ -1,20 +1,20 @@
 package analyzer;
 
-import hu.bme.mit.mba.modeladapters.csv.CsvModelAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
-import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionActivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalClusteringCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegree;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegreeEntropy;
-import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeDimensionConnectivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeOverlap;
-import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.typed.NodeActivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.NumberOfTypedEdges;
-import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
+import hu.bme.mit.ga.adapters.csv.CsvGraphAdapter;
+import hu.bme.mit.ga.metrics.AbstractGraphMetric;
+import hu.bme.mit.ga.metrics.impl.simple.Density;
+import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
+import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
+import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficient;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegree;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegreeEntropy;
+import hu.bme.mit.ga.metrics.impl.typed.EdgeTypedConnectivity;
+import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
+import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
+import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
+import hu.bme.mit.ga.metrics.impl.typed.NumberOfTypedEdges;
+import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
 import org.supercsv.cellprocessor.constraint.NotNull;
 
 import java.io.IOException;
@@ -30,10 +30,10 @@ public class Main {
         final String edges = graph + "-edges.csv";
 
         final String[] header = new String[]{"Category", "Instance", "Index", "Value"};
-        List<AbstractModelMetric> modelMetrics = new ArrayList<>();
+        List<AbstractGraphMetric> modelMetrics = new ArrayList<>();
 
         // the adapter represents a bridge between model and metrics
-        CsvModelAdapter adapter = new CsvModelAdapter(new NotNull());
+        CsvGraphAdapter adapter = new CsvGraphAdapter(new NotNull());
 
         // adapter must be initialized, this will create an index which is necessary during the evaluation
         adapter.init(nodes, edges);
@@ -50,30 +50,30 @@ public class Main {
         d.evaluate(adapter);
         modelMetrics.add(d);
 
-        System.out.println("dimension activity");
-        DimensionActivity dimensionActivity = new DimensionActivity();
-        dimensionActivity.evaluate(adapter);
-        modelMetrics.add(dimensionActivity);
+        System.out.println("typed activity");
+        TypedActivity typedActivity = new TypedActivity();
+        typedActivity.evaluate(adapter);
+        modelMetrics.add(typedActivity);
 
-        System.out.println("dimensional degree");
-        DimensionalDegree dimensionalDegree = new DimensionalDegree();
-        dimensionalDegree.evaluate(adapter);
-        modelMetrics.add(dimensionalDegree);
+        System.out.println("typed degree");
+        TypedDegree typedDegree = new TypedDegree();
+        typedDegree.evaluate(adapter);
+        modelMetrics.add(typedDegree);
 
-        System.out.println("dimensional clustering coefficient");
-        DimensionalClusteringCoefficient dcc = new DimensionalClusteringCoefficient();
+        System.out.println("typed clustering coefficient");
+        TypedClusteringCoefficient dcc = new TypedClusteringCoefficient();
         dcc.evaluate(adapter);
         modelMetrics.add(dcc);
 
-        System.out.println("dimensional degree entropy");
-        DimensionalDegreeEntropy dde = new DimensionalDegreeEntropy();
+        System.out.println("typed degree entropy");
+        TypedDegreeEntropy dde = new TypedDegreeEntropy();
         dde.evaluate(adapter);
         modelMetrics.add(dde);
 
-        System.out.println("edge dimension connectivity");
-        EdgeDimensionConnectivity edgeDimensionConnectivity = new EdgeDimensionConnectivity();
-        edgeDimensionConnectivity.evaluate(adapter);
-        modelMetrics.add(edgeDimensionConnectivity);
+        System.out.println("edge type connectivity");
+        EdgeTypedConnectivity edgeTypedConnectivity = new EdgeTypedConnectivity();
+        edgeTypedConnectivity.evaluate(adapter);
+        modelMetrics.add(edgeTypedConnectivity);
 
         System.out.println("edge overlap");
         EdgeOverlap eo = new EdgeOverlap();

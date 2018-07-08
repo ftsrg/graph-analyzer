@@ -5,17 +5,17 @@ ImportsTSVToDataTable <- function(file.name, cont = T){
   
   ## removing every useless metric
   distribution.metrics <- c( "ClusteringCoefficientList",
-                             "DegreeList" , "DimensionActivity" ,
-                             "DimensionalClusteringCoefficientDef1" ,
-                             "DimensionalClusteringCoefficientDef2" ,
-                             "DimensionalClusteringCoefficientDef3" ,
-                             "DimensionalDegreeEntropy" ,
+                             "DegreeList" , "TypeActivity" ,
+                             "TypedClusteringCoefficientDef1" ,
+                             "TypedClusteringCoefficientDef2" ,
+                             "TypedClusteringCoefficientDef3" ,
+                             "TypedDegreeEntropy" ,
                              "EdgeOverlap" , 
-                             "EdgeDimensionConnectivity" ,
+                             "EdgeTypeConnectivity" ,
                              "MultiplexParticipationCoefficient",
                              "NodeActivityList" ,
-                             "NodeDimensionConnectivity" ,
-                             "NodeExclusiveDimensionConnectivity",
+                             "NodeTypeConnectivity" ,
+                             "NodeExclusiveTypeConnectivity",
                              "NumberOfTypedEdges",
                              "PairwiseMultiplexity"
                            )
@@ -32,7 +32,7 @@ ImportsTSVToDataTable <- function(file.name, cont = T){
   tsv[, Instance := gsub("-", "_", tsv$Instance)]
   
   ## normalization
-  raw <- subset(tsv, !(Category %in% c("DegreeList", "DimensionActivity", "NodeActivityList", "DimensionalDegreeList")))
+  raw <- subset(tsv, !(Category %in% c("DegreeList", "TypeActivity", "NodeActivityList", "TypedDegreeList")))
   
   basic.information <- subset(tsv, Category %in% c("Density", "NumberOfNodes",
                                                    "NumberOfEdges"))
@@ -48,33 +48,33 @@ ImportsTSVToDataTable <- function(file.name, cont = T){
   degreelist[, NumberOfEdges := NULL]
   raw <- merge(raw, degreelist, by = colnames(raw), all = T)
   
-  ## dimensional degree list
-  dimen.degreelist <- subset(tsv, Category %in% c("DimensionalDegreeList"))
-  dimen.degreelist <- merge(dimen.degreelist,
+  ## typeal degree list
+  type.degreelist <- subset(tsv, Category %in% c("TypedDegreeList"))
+  type.degreelist <- merge(type.degreelist,
                       basic.information[, c("file.name", "NumberOfNodes"), with = F],
                       by = c("file.name"))
-  dimen.degreelist[, Value := Value / NumberOfNodes]
-  dimen.degreelist[, NumberOfNodes := NULL]
-  raw <- merge(raw, dimen.degreelist, by = colnames(raw), all = T)
+  type.degreelist[, Value := Value / NumberOfNodes]
+  type.degreelist[, NumberOfNodes := NULL]
+  raw <- merge(raw, type.degreelist, by = colnames(raw), all = T)
   
-  ## dimension activity
-  dimensionactivity <- subset(tsv, Category %in% c("DimensionActivity"))
+  ## type activity
+  typeactivity <- subset(tsv, Category %in% c("TypeActivity"))
   ## ratio of nodes instead of their absolute values
-  dimensionactivity <- merge(dimensionactivity,
+  typeactivity <- merge(typeactivity,
                              basic.information[, c("file.name", "NumberOfNodes"), with = F],
                              by = c("file.name"))
-  dimensionactivity$Value <- dimensionactivity$Value / dimensionactivity$NumberOfNodes
-  dimensionactivity[, NumberOfNodes := NULL]
-  raw <- merge(raw, dimensionactivity, by = colnames(raw), all = T)
+  typeactivity$Value <- typeactivity$Value / typeactivity$NumberOfNodes
+  typeactivity[, NumberOfNodes := NULL]
+  raw <- merge(raw, typeactivity, by = colnames(raw), all = T)
   
   ## node activity
   nodeactivity <- subset(tsv, Category %in% c("NodeActivityList"))
-  ## how many dimensions do we have at all?
+  ## how many types do we have at all?
   number.of.typed.edges <- subset(tsv, Category %in% "NumberOfTypedEdges")
-  number.of.dimensions <- number.of.typed.edges[ ,list(numberofDimensions = length(Instance)), by= c("file.name")]
-  nodeactivity <- merge(nodeactivity, number.of.dimensions, by = c("file.name"))
-  nodeactivity$Value <- nodeactivity$Value / nodeactivity$numberofDimensions
-  nodeactivity[,numberofDimensions := NULL ]
+  number.of.types <- number.of.typed.edges[ ,list(numberofTypes = length(Instance)), by= c("file.name")]
+  nodeactivity <- merge(nodeactivity, number.of.types, by = c("file.name"))
+  nodeactivity$Value <- nodeactivity$Value / nodeactivity$numberofTypes
+  nodeactivity[,numberofTypes := NULL ]
   raw <- merge(raw, nodeactivity, by = colnames(raw), all = T)
   raw
 }

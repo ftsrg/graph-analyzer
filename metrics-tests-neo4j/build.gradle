@@ -1,7 +1,6 @@
-
 dependencies {
     compile project(':adapters-neo4j')
     compile project(':metrics')
     compile project(':metrics-tests')
-    compile project(':testmodels-neo4j')
+    compile project(':testgraphs-neo4j')
 }

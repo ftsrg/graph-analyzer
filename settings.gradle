@@ -22,9 +22,9 @@ include ':metrics-tests-emf'
 include ':metrics-tests-neo4j'
 
 include ':test-common'
-include ':testmodels-model'
-include ':testmodels-csv'
-include ':testmodels-emf'
-include ':testmodels-neo4j'
+include ':testgraphs-graph'
+include ':testgraphs-csv'
+include ':testgraphs-emf'
+include ':testgraphs-neo4j'
 
 include ':analyzer-app'

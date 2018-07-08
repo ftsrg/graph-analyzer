@@ -4,7 +4,7 @@
     <test name="Test">
         <classes>
             <class
-                name="hu.bme.mit.mba.modelanalyzer.tests.ModelAnalyzerTest" />
+                name="hu.bme.mit.mba.modelanalyzer.tests.GraphAnalyzerTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->
