@@ -1,7 +1,6 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
@@ -39,31 +38,6 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
         }
 
         data.add(coef);
-        updateTracing(element, coef);
-    }
-
-    @Override
-    public <N, T> void trace() {
-        tracing = new MapData<N, Double>();
-    }
-
-    @Override
-    public <N, T> MapData<N, Double> getTracing() {
-        return (MapData<N, Double>) tracing;
-    }
-
-    protected <N, T> void updateTracing(N node, Double value) {
-        if (notNullTracing()) {
-            getTracing().put(node, value);
-        }
-    }
-
-    protected <N, T> void reevaluate(ModelAdapter<N, T> adapter, T type, N node) {
-        if (!getTracing().containsKey(node)) {
-            updateTracing(node, 0.0);
-        } else {
-            evaluate(adapter, node);
-        }
     }
 
     @Override
@@ -81,5 +55,5 @@ public class MultiplexParticipationCoefficient extends AbstractModelMetric<ListD
         }
         return values;
     }
-    
+
 }

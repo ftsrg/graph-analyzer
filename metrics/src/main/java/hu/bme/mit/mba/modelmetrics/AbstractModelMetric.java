@@ -6,9 +6,7 @@ import hu.bme.mit.mba.modeladapters.ModelAdapter;
 
 import java.util.*;
 
-public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements TraceableModelMetric {
-
-    protected BaseData tracing;
+public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric<D> implements ModelMetric {
 
     public AbstractModelMetric(String defaultName, final D data) {
         super(defaultName);
@@ -18,9 +16,6 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     @Override
     public void clear() {
         super.clear();
-        if (tracing != null) {
-            tracing.clear();
-        }
     }
 
     @Override
@@ -43,22 +38,6 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
         }
     }
 
-    @Override
-    public <N, T> void trace() {
-        throw new UnsupportedOperationException("Tracing is not supported in metric " + name + ". To enable it, " + name
-                + " must override trace method.");
-    }
-
-    @Override
-    public <N, T> BaseData getTracing() {
-        return tracing;
-    }
-
-    protected boolean notNullTracing() {
-        return tracing != null;
-    }
-
     abstract public List<Map<String, Object>> getTsvMaps(String[] header);
-
 
 }

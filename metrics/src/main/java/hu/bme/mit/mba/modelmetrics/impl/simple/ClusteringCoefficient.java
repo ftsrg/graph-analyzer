@@ -1,7 +1,6 @@
 package hu.bme.mit.mba.modelmetrics.impl.simple;
 
 import hu.bme.mit.mba.base.data.ListData;
-import hu.bme.mit.mba.base.data.MapData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
@@ -14,11 +13,6 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
 
     public ClusteringCoefficient() {
         super("ClusteringCoefficientList", new ListData<>());
-    }
-
-    @Override
-    public <N, T> void trace() {
-        tracing = new MapData<N, Double>();
     }
 
     @Override
@@ -48,15 +42,6 @@ public class ClusteringCoefficient extends AbstractModelMetric<ListData<Double>>
             clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
         }
         data.add(clusteringCoef);
-
-        if (tracing != null) {
-            getTracing().put(element, clusteringCoef);
-        }
-    }
-
-    @Override
-    public <N, T> MapData<N, Double> getTracing() {
-        return (MapData<N, Double>) tracing;
     }
 
     @Override

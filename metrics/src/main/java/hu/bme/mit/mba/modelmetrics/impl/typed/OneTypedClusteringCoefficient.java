@@ -1,7 +1,6 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MappedListData;
-import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
@@ -103,7 +102,6 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
         numberOfNeighbors = typedAdapter.getDegree(element, type);
         if (bounded && numberOfNeighbors > maxNumberOfNeighbors) {
             data.put(type.toString(), 0.0);
-            putToTracing(element, type, 0.0);
             return;
         }
         for (N neighbor1 : typedAdapter.getNeighbors(element, type)) {
@@ -123,23 +121,6 @@ public class OneTypedClusteringCoefficient extends AbstractModelMetric<MappedLis
             clusteringCoef = interConnected / (double) (numberOfNeighbors * (numberOfNeighbors - 1));
         }
         data.put(type.toString(), clusteringCoef);
-        putToTracing(element, type, clusteringCoef);
-    }
-
-    protected <N, T> void putToTracing(N element, T type, double value) {
-        if (tracing != null) {
-            ((MatrixData<N, T, Double>) tracing).put(element, type, value);
-        }
-    }
-
-    @Override
-    public <N, T> void trace() {
-        tracing = new MatrixData<N, T, Double>();
-    }
-
-    @Override
-    public <N, T> MatrixData<N, T, Double> getTracing() {
-        return (MatrixData<N, T, Double>) tracing;
     }
 
     @Override

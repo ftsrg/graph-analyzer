@@ -1,7 +1,6 @@
 package hu.bme.mit.mba.modelmetrics.impl.typed;
 
 import hu.bme.mit.mba.base.data.MapData;
-import hu.bme.mit.mba.base.data.MatrixData;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.AbstractModelMetric;
 
@@ -19,23 +18,8 @@ public class DimensionActivity extends AbstractModelMetric<MapData<String, Integ
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
         for (T type : adapter.getTypes()) {
-            if (tracing != null) {
-                for (N node : adapter.getNodes(type)) {
-                    getTracing().put(node, type, 1);
-                }
-            }
             data.put(type.toString(), adapter.getNumberOfNodes(type));
         }
-    }
-
-    @Override
-    public <N, T> void trace() {
-        tracing = new MatrixData<N, T, Integer>();
-    }
-
-    @Override
-    public <N, T> MatrixData<N, T, Integer> getTracing() {
-        return (MatrixData<N, T, Integer>) tracing;
     }
 
     @Override
