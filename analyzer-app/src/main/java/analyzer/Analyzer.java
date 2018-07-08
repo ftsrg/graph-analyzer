@@ -1,7 +1,7 @@
 package analyzer;
 
-import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
-import hu.bme.mit.mba.modelmetrics.GraphMetric;
+import hu.bme.mit.ga.metrics.AbstractGraphMetric;
+import hu.bme.mit.ga.metrics.GraphMetric;
 import org.supercsv.cellprocessor.Optional;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;

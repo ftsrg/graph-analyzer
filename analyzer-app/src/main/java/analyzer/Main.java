@@ -1,20 +1,20 @@
 package analyzer;
 
-import hu.bme.mit.mba.modeladapters.csv.CsvGraphAdapter;
-import hu.bme.mit.mba.modelmetrics.AbstractGraphMetric;
-import hu.bme.mit.mba.modelmetrics.impl.simple.Density;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionActivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalClusteringCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegree;
-import hu.bme.mit.mba.modelmetrics.impl.typed.DimensionalDegreeEntropy;
-import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeDimensionConnectivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.EdgeOverlap;
-import hu.bme.mit.mba.modelmetrics.impl.typed.MultiplexParticipationCoefficient;
-import hu.bme.mit.mba.modelmetrics.impl.typed.NodeActivity;
-import hu.bme.mit.mba.modelmetrics.impl.typed.NumberOfTypedEdges;
-import hu.bme.mit.mba.modelmetrics.impl.typed.PairwiseMultiplexity;
+import hu.bme.mit.ga.adapters.csv.CsvGraphAdapter;
+import hu.bme.mit.ga.metrics.AbstractGraphMetric;
+import hu.bme.mit.ga.metrics.impl.simple.Density;
+import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
+import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
+import hu.bme.mit.ga.metrics.impl.typed.DimensionActivity;
+import hu.bme.mit.ga.metrics.impl.typed.DimensionalClusteringCoefficient;
+import hu.bme.mit.ga.metrics.impl.typed.DimensionalDegree;
+import hu.bme.mit.ga.metrics.impl.typed.DimensionalDegreeEntropy;
+import hu.bme.mit.ga.metrics.impl.typed.EdgeDimensionConnectivity;
+import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
+import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
+import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
+import hu.bme.mit.ga.metrics.impl.typed.NumberOfTypedEdges;
+import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
 import org.supercsv.cellprocessor.constraint.NotNull;
 
 import java.io.IOException;
