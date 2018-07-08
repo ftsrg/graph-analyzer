@@ -4,8 +4,6 @@ import hu.bme.mit.mba.base.data.BaseData;
 
 public interface Metric {
 
-    String getDefaultName();
-
     String getName();
 
     BaseData getData();

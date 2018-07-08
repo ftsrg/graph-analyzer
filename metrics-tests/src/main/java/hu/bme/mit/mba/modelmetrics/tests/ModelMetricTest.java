@@ -9,7 +9,6 @@ import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
 import hu.bme.mit.mba.tests.model.TestModel;
 import hu.bme.mit.mba.tests.model.TestModelTypes;
 import org.apache.log4j.Logger;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -44,11 +43,6 @@ public abstract class ModelMetricTest<D extends BaseData> {
     }
 
     protected abstract Object[] testCase(TestModelTypes modelType);
-
-    @DataProvider
-    public Object[][] incrementalData() {
-        return new Object[][] {};
-    }
 
     @Test(dataProvider = "data")
     public void testEvaluation(TestModelTypes modelType, Consumer<D> checker)
@@ -103,15 +97,6 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     protected void skippedModel(TestModelTypes modelType) {
         logger.warn("The model " + modelType + " is not evaluated");
-    }
-
-    @Test(dataProvider = "incrementalData")
-    public void testIncrementalEvaluation(TestModelTypes modelType, Consumer<D> checker) {
-    }
-
-    @AfterMethod
-    public void clear() {
-        testModel.clear();
     }
 
     protected void initModel(TestModelTypes modelType) throws IOException {

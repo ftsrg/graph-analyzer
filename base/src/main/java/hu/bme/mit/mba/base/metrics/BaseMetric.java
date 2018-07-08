@@ -14,11 +14,6 @@ public abstract class BaseMetric<D extends BaseData> implements Metric {
     }
 
     @Override
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @Override
     public String getName() {
         return name;
     }

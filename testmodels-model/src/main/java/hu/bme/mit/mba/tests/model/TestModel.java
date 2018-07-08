@@ -4,9 +4,7 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -41,20 +39,8 @@ public class TestModel {
         return adjacency;
     }
 
-    public void clear() {
-        adjacency.clear();
-    }
-
-    public Iterator<String> getNodeIterator() {
-        return nodes.iterator();
-    }
-
     public List<String> getNodes() {
         return nodes;
-    }
-
-    public Collection<String> getDimensions() {
-        return dimensions;
     }
 
 }
