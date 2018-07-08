@@ -1,9 +1,9 @@
 package hu.bme.mit.ga.metrics.tests.neo4j;
 
-import hu.bme.mit.ga.metrics.tests.DimensionActivityTest;
+import hu.bme.mit.ga.metrics.tests.TypedActivityTest;
 import hu.bme.mit.ga.tests.graph.TestGraphInstances;
 
-public class Neo4jDimensionActivityTest extends DimensionActivityTest {
+public class Neo4jTypedActivityTest extends TypedActivityTest {
 
     @Override
     protected void initModel(TestGraphInstances modelType) {

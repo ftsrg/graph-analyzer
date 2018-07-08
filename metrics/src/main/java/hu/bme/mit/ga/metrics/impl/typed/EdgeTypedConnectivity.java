@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EdgeDimensionConnectivity extends AbstractGraphMetric<MapData<String, Double>> {
+public class EdgeTypedConnectivity extends AbstractGraphMetric<MapData<String, Double>> {
 
-    public EdgeDimensionConnectivity() {
-        super("EdgeDimensionConnectivity", new MapData<>());
+    public EdgeTypedConnectivity() {
+        super("EdgeTypedConnectivity", new MapData<>());
     }
 
     // public void calculate(final String dimension, final Network<?> network) {
@@ -84,7 +84,7 @@ public class EdgeDimensionConnectivity extends AbstractGraphMetric<MapData<Strin
         for (String type : data.getValues().keySet()) {
             Double value = data.getValues().get(type);
             Map<String, Object> row = new HashMap<>();
-            row.put(header[0], "EdgeDimensionConnectivity");
+            row.put(header[0], "EdgeTypedConnectivity");
             row.put(header[1], type);
             row.put(header[2], null);
             row.put(header[3], value);

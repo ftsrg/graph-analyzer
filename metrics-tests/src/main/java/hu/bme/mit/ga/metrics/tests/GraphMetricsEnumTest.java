@@ -7,7 +7,7 @@ import hu.bme.mit.ga.metrics.impl.simple.Degrees;
 import hu.bme.mit.ga.metrics.impl.simple.Density;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionActivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
 import hu.bme.mit.ga.metrics.impl.typed.OneTypedClusteringCoefficient;
@@ -40,7 +40,7 @@ public class GraphMetricsEnumTest {
                     isSameInstance(metric, new Density());
                     break;
                 case DimensionActivity:
-                    isSameInstance(metric, new DimensionActivity());
+                    isSameInstance(metric, new TypedActivity());
                     break;
                 case MultiplexParticipationCoefficient:
                     isSameInstance(metric, new MultiplexParticipationCoefficient());

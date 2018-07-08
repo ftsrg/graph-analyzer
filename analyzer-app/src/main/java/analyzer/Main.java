@@ -5,11 +5,11 @@ import hu.bme.mit.ga.metrics.AbstractGraphMetric;
 import hu.bme.mit.ga.metrics.impl.simple.Density;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionActivity;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionalClusteringCoefficient;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionalDegree;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionalDegreeEntropy;
-import hu.bme.mit.ga.metrics.impl.typed.EdgeDimensionConnectivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficient;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegree;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegreeEntropy;
+import hu.bme.mit.ga.metrics.impl.typed.EdgeTypedConnectivity;
 import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
@@ -51,29 +51,29 @@ public class Main {
         modelMetrics.add(d);
 
         System.out.println("dimension activity");
-        DimensionActivity dimensionActivity = new DimensionActivity();
-        dimensionActivity.evaluate(adapter);
-        modelMetrics.add(dimensionActivity);
+        TypedActivity typedActivity = new TypedActivity();
+        typedActivity.evaluate(adapter);
+        modelMetrics.add(typedActivity);
 
         System.out.println("dimensional degree");
-        DimensionalDegree dimensionalDegree = new DimensionalDegree();
-        dimensionalDegree.evaluate(adapter);
-        modelMetrics.add(dimensionalDegree);
+        TypedDegree typedDegree = new TypedDegree();
+        typedDegree.evaluate(adapter);
+        modelMetrics.add(typedDegree);
 
         System.out.println("dimensional clustering coefficient");
-        DimensionalClusteringCoefficient dcc = new DimensionalClusteringCoefficient();
+        TypedClusteringCoefficient dcc = new TypedClusteringCoefficient();
         dcc.evaluate(adapter);
         modelMetrics.add(dcc);
 
         System.out.println("dimensional degree entropy");
-        DimensionalDegreeEntropy dde = new DimensionalDegreeEntropy();
+        TypedDegreeEntropy dde = new TypedDegreeEntropy();
         dde.evaluate(adapter);
         modelMetrics.add(dde);
 
         System.out.println("edge dimension connectivity");
-        EdgeDimensionConnectivity edgeDimensionConnectivity = new EdgeDimensionConnectivity();
-        edgeDimensionConnectivity.evaluate(adapter);
-        modelMetrics.add(edgeDimensionConnectivity);
+        EdgeTypedConnectivity edgeTypedConnectivity = new EdgeTypedConnectivity();
+        edgeTypedConnectivity.evaluate(adapter);
+        modelMetrics.add(edgeTypedConnectivity);
 
         System.out.println("edge overlap");
         EdgeOverlap eo = new EdgeOverlap();

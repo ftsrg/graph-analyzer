@@ -7,9 +7,9 @@ import hu.bme.mit.ga.metrics.impl.simple.Degrees;
 import hu.bme.mit.ga.metrics.impl.simple.Density;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionActivity;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionalDegree;
-import hu.bme.mit.ga.metrics.impl.typed.EdgeDimensionConnectivity;
+import hu.bme.mit.ga.metrics.impl.typed.EdgeTypedConnectivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegree;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
 import hu.bme.mit.ga.metrics.impl.typed.NumberOfTypedEdges;
@@ -75,15 +75,15 @@ public class CsvTest {
         showResult(mpc);
 
         System.out.println("dimension activity");
-        DimensionActivity dimensionActivity = new DimensionActivity();
-        dimensionActivity.evaluate(adapter);
-        showResult(dimensionActivity);
-        modelMetrics.add(dimensionActivity);
+        TypedActivity typedActivity = new TypedActivity();
+        typedActivity.evaluate(adapter);
+        showResult(typedActivity);
+        modelMetrics.add(typedActivity);
 
-        EdgeDimensionConnectivity edgeDimensionConnectivity = new EdgeDimensionConnectivity();
-        edgeDimensionConnectivity.evaluate(adapter);
-        showResult(edgeDimensionConnectivity);
-        modelMetrics.add(edgeDimensionConnectivity);
+        EdgeTypedConnectivity edgeTypedConnectivity = new EdgeTypedConnectivity();
+        edgeTypedConnectivity.evaluate(adapter);
+        showResult(edgeTypedConnectivity);
+        modelMetrics.add(edgeTypedConnectivity);
 
         Density d = new Density();
         d.evaluate(adapter);
@@ -105,9 +105,9 @@ public class CsvTest {
         numberOfEdges.evaluate(adapter);
         modelMetrics.add(numberOfTypedEdges);
 
-        DimensionalDegree dimensionalDegree = new DimensionalDegree();
-        dimensionalDegree.evaluate(adapter);
-        modelMetrics.add(dimensionalDegree);
+        TypedDegree typedDegree = new TypedDegree();
+        typedDegree.evaluate(adapter);
+        modelMetrics.add(typedDegree);
 
         writeToTsv(modelMetrics, header, filename);
 

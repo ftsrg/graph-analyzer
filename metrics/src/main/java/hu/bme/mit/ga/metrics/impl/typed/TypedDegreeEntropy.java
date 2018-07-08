@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DimensionalDegreeEntropy extends AbstractGraphMetric<ListData<Double>> {
-    public DimensionalDegreeEntropy() {
-        super("DimensionalDegreeEntropy", new ListData<Double>());
+public class TypedDegreeEntropy extends AbstractGraphMetric<ListData<Double>> {
+    public TypedDegreeEntropy() {
+        super("TypedDegreeEntropy", new ListData<Double>());
     }
 
     @Override
@@ -19,7 +19,6 @@ public class DimensionalDegreeEntropy extends AbstractGraphMetric<ListData<Doubl
         for (N element : adapter.getIndexer().getNodes()) {
             evaluate(adapter, element);
         }
-
     }
 
     @Override
@@ -42,7 +41,7 @@ public class DimensionalDegreeEntropy extends AbstractGraphMetric<ListData<Doubl
         int index = 0;
         for (Double value : data.getValues()) {
             Map<String, Object> row = new HashMap<>();
-            row.put(header[0], "DimensionalDegreeEntropy");
+            row.put(header[0], "TypedDegreeEntropy");
             row.put(header[1], null);
             row.put(header[2], index);
             row.put(header[3], value);

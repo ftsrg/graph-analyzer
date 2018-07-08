@@ -6,15 +6,15 @@ import hu.bme.mit.ga.metrics.impl.simple.Degrees;
 import hu.bme.mit.ga.metrics.impl.simple.Density;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionActivity;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionalDegreeEntropy;
+import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegreeEntropy;
 import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
 import hu.bme.mit.ga.metrics.impl.typed.OneTypedClusteringCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
 import hu.bme.mit.ga.metrics.GraphMetric;
-import hu.bme.mit.ga.metrics.impl.typed.DimensionalClusteringCoefficient;
+import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficient;
 
 public enum GraphMetricsEnum implements GraphMetricInitializer {
 
@@ -44,15 +44,15 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
 
     DimensionActivity {
         @Override
-        public Class<hu.bme.mit.ga.metrics.impl.typed.DimensionActivity> getMetric() {
-            return DimensionActivity.class;
+        public Class<TypedActivity> getMetric() {
+            return TypedActivity.class;
         }
 
     },
     DimensionalDegreeEntropy {
         @Override
-        public Class<hu.bme.mit.ga.metrics.impl.typed.DimensionalDegreeEntropy> getMetric() {
-            return DimensionalDegreeEntropy.class;
+        public Class<TypedDegreeEntropy> getMetric() {
+            return TypedDegreeEntropy.class;
         }
     },
     EdgeOverlap {
@@ -110,8 +110,8 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
     },
     DimensionalClusteringCoefficient {
         @Override
-        public Class<DimensionalClusteringCoefficient> getMetric() {
-            return DimensionalClusteringCoefficient.class;
+        public Class<TypedClusteringCoefficient> getMetric() {
+            return TypedClusteringCoefficient.class;
         }
     };
 

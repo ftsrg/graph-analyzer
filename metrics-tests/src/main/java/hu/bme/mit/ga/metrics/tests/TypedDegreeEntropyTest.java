@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import static hu.bme.mit.ga.base.testutils.ListDataTesterUtil.checkAppearance;
 import static hu.bme.mit.ga.base.testutils.ListDataTesterUtil.checkSize;
 
-public class DimensionalDegreeEntropyTest extends GraphMetricTest<ListData<Double>> {
+public class TypedDegreeEntropyTest extends GraphMetricTest<ListData<Double>> {
 
     @Override
     public GraphMetricsEnum getMetric() {

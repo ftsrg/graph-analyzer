@@ -12,7 +12,7 @@ import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim1;
 import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim2;
 import static hu.bme.mit.ga.tests.graph.TestGraphConstants.dim3;
 
-public class DimensionActivityTest extends GraphMetricTest<MapData<String, Integer>> {
+public class TypedActivityTest extends GraphMetricTest<MapData<String, Integer>> {
 
     @Override
     public GraphMetricsEnum getMetric() {

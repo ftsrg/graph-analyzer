@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DimensionalDegree extends AbstractGraphMetric<MappedListData<String, Integer>> {
+public class TypedDegree extends AbstractGraphMetric<MappedListData<String, Integer>> {
 
-    public DimensionalDegree() {
-        super("DimensionalDegreeList", new MappedListData<>());
+    public TypedDegree() {
+        super("TypedDegree", new MappedListData<>());
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DimensionalDegree extends AbstractGraphMetric<MappedListData<String
             int index = 0;
             for (Integer i : data.getValues().get(type)) {
                 Map<String, Object> value = new HashMap<>();
-                value.put(header[0], "DimensionalDegree");
+                value.put(header[0], "TypedDegree");
                 value.put(header[1], type);
                 value.put(header[2], index);
                 value.put(header[3], i);

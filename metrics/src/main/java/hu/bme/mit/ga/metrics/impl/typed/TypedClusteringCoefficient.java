@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class DimensionalClusteringCoefficient extends AbstractGraphMetric<ListData<Double>> {
+public class TypedClusteringCoefficient extends AbstractGraphMetric<ListData<Double>> {
 
     protected int maxNeighbours = 1000;
     protected boolean useHeuristic = false;
 
-    public DimensionalClusteringCoefficient() {
-        super("DimensionalClusteringCoefficient", new ListData<>());
+    public TypedClusteringCoefficient() {
+        super("TypedClusteringCoefficient", new ListData<>());
     }
 
     public int getMaxNeighbours() {
@@ -224,7 +224,7 @@ public class DimensionalClusteringCoefficient extends AbstractGraphMetric<ListDa
         int index = 0;
         for (Double v : data.getValues()) {
             Map<String, Object> value = new HashMap<>();
-            value.put(header[0], "DimensionalClusteringCoefficient");
+            value.put(header[0], "TypedClusteringCoefficient");
             value.put(header[1], null);
             value.put(header[2], index);
             value.put(header[3], v);

@@ -9,7 +9,7 @@ import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.ResourceIterable;
 import org.neo4j.graphdb.Transaction;
 
-public class Neo4JGraphAdapter extends GraphAdapter<Node, String> {
+public class Neo4jGraphAdapter extends GraphAdapter<Node, String> {
 
     public void init(GraphDatabaseService graph) {
         try (Transaction tx = graph.beginTx()) {

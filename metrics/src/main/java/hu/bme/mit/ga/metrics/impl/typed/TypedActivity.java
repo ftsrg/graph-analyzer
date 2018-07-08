@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DimensionActivity extends AbstractGraphMetric<MapData<String, Integer>> {
+public class TypedActivity extends AbstractGraphMetric<MapData<String, Integer>> {
 
-    public DimensionActivity() {
-        super("DimensionActivity", new MapData<>());
+    public TypedActivity() {
+        super("TypedActivity", new MapData<>());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class DimensionActivity extends AbstractGraphMetric<MapData<String, Integ
         final List<Map<String, Object>> values = new ArrayList<>();
         for (String type : data.getValues().keySet()) {
             Map<String, Object> value = new HashMap<>();
-            value.put(header[0], "DimensionActivity");
+            value.put(header[0], "TypedActivity");
             value.put(header[1], type);
             value.put(header[2], null);
             value.put(header[3], data.getValues().get(type));

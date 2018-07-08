@@ -13,10 +13,10 @@ import java.util.Map;
  * Takes values in [0,1] and computes the ratio of nodes of the network that
  * belong to a particular dimension.
  */
-public class NodeDimensionConnectivity extends AbstractGraphMetric<MapData<String, Double>> {
+public class NodeTypedConnectivity extends AbstractGraphMetric<MapData<String, Double>> {
 
-    public NodeDimensionConnectivity() {
-        super("NodeDimensionConnectivity", new MapData<>());
+    public NodeTypedConnectivity() {
+        super("NodeTypedConnectivity", new MapData<>());
     }
 
     // /**
@@ -111,7 +111,7 @@ public class NodeDimensionConnectivity extends AbstractGraphMetric<MapData<Strin
         for (String type : data.getValues().keySet()) {
             Double value = data.getValues().get(type);
             Map<String, Object> row = new HashMap<>();
-            row.put(header[0], "NodeDimensionConnectivity");
+            row.put(header[0], "NodeTypedConnectivity");
             row.put(header[1], type);
             row.put(header[2], null);
             row.put(header[3], value);

@@ -1,7 +1,7 @@
 package hu.bme.mit.ga.adapters.neo4j.tests;
 
 import hu.bme.mit.ga.adapters.GraphAdapter;
-import hu.bme.mit.ga.adapters.neo4j.Neo4JGraphAdapter;
+import hu.bme.mit.ga.adapters.neo4j.Neo4jGraphAdapter;
 import hu.bme.mit.ga.adapters.tests.GraphAdapterTest;
 import hu.bme.mit.ga.tests.graph.TestGraph;
 import hu.bme.mit.ga.tests.graph.TestGraphInstances;
@@ -11,9 +11,9 @@ import org.neo4j.graphdb.Node;
 
 import java.util.Map;
 
-public class Neo4JGraphAdapterTest extends GraphAdapterTest {
+public class Neo4jGraphAdapterTest extends GraphAdapterTest {
 
-    private Neo4JGraphAdapter neo4jAdapter;
+    private Neo4jGraphAdapter neo4jAdapter;
     private Map<String, Node> nodeMapping;
 
     @Override
@@ -23,7 +23,7 @@ public class Neo4JGraphAdapterTest extends GraphAdapterTest {
         GraphDatabaseService graph = converter.convert(testGraph);
         nodeMapping = converter.getNodeMapping();
 
-        neo4jAdapter = new Neo4JGraphAdapter();
+        neo4jAdapter = new Neo4jGraphAdapter();
         neo4jAdapter.init(graph);
         checker.run();
     }
