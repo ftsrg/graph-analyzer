@@ -1,7 +1,7 @@
 package hu.bme.mit.ga.metrics.impl.typed;
 
-import hu.bme.mit.ga.base.data.ListData;
 import hu.bme.mit.ga.adapters.GraphAdapter;
+import hu.bme.mit.ga.base.data.ListData;
 import hu.bme.mit.ga.metrics.AbstractGraphMetric;
 
 import java.util.ArrayList;
@@ -43,14 +43,7 @@ public class TypedClusteringCoefficient extends AbstractGraphMetric<ListData<Dou
         }
     }
 
-    //    public <N, T> void calculateSecondDefinition(final GraphAdapter<N, T> adapter) {
-//        clear();
-//        for (N node : adapter.getNodes()) {
-//            calculateSecondDefinition(adapter, node);
-//        }
-//    }
-    public <N, T> double calculateFirstDefinition(final GraphAdapter<N, T> adapter, final
-    N node) {
+    public <N, T> double calculateFirstDefinition(final GraphAdapter<N, T> adapter, final N node) {
         long interConnected = 0;
         long numberOfNeighbors = 0;
         long numberOfPossibleConnections = 0;
@@ -91,8 +84,15 @@ public class TypedClusteringCoefficient extends AbstractGraphMetric<ListData<Dou
         return coef;
     }
 
-//    public <N, T> double calculateSecondDefinition(final GraphAdapter<N, T> adapter, final
-//    N node) {
+
+//    public <N, T> void calculateSecondDefinition(final GraphAdapter<N, T> adapter) {
+//        clear();
+//        for (N node : adapter.getNodes()) {
+//            calculateSecondDefinition(adapter, node);
+//        }
+//    }
+
+//    public <N, T> double calculateSecondDefinition(final GraphAdapter<N, T> adapter, final N node) {
 //        long interConnected = 0;
 //        long numberOfPossibleConnections = 0;
 //        double coef = 0.0;
