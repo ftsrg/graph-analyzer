@@ -38,7 +38,6 @@ public class DimensionalClusteringCoefficient extends AbstractModelMetric<ListDa
 
     @Override
     public <N, T> void evaluate(final ModelAdapter<N, T> adapter) {
-        clear();
         for (N node : adapter.getIndexer().getNodes()) {
             calculateFirstDefinition(adapter, node);
         }

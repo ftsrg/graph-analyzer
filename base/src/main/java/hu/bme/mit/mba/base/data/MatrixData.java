@@ -11,11 +11,6 @@ public class MatrixData<R, C, V> implements BaseData {
         values = HashBasedTable.create();
     }
 
-    @Override
-    public void clear() {
-        values.clear();
-    }
-
     public V get(Object rowKey, Object columnKey) {
         return values.get(rowKey, columnKey);
     }

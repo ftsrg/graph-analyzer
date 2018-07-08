@@ -24,16 +24,6 @@ public abstract class BaseMetric<D extends BaseData> implements Metric {
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public void clear() {
-        data.clear();
-    }
-
-    @Override
     public D getData() {
         return data;
     }

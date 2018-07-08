@@ -14,18 +14,12 @@ public abstract class AbstractModelMetric<D extends BaseData> extends BaseMetric
     }
 
     @Override
-    public void clear() {
-        super.clear();
-    }
-
-    @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter, N element) {
         throw new UnsupportedOperationException("Cannot evaluate metric " + name + " on one element.");
     }
 
     @Override
     public <N, T> void evaluate(ModelAdapter<N, T> adapter) {
-        clear();
         evaluateAll(adapter);
     }
 

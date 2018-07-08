@@ -1,8 +1,9 @@
 package hu.bme.mit.mba.modelanalyzer.tests;
 
-import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfEdges;
-import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfNodes;
-
+import hu.bme.mit.mba.base.metrics.Metric;
+import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
+import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
+import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -11,10 +12,8 @@ import org.testng.AssertJUnit;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import hu.bme.mit.mba.base.metrics.Metric;
-import hu.bme.mit.mba.modelanalyzer.ModelAnalyzer;
-import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
-import hu.bme.mit.mba.modelmetrics.impl.simple.NumberOfEdges;
+import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfEdges;
+import static hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum.NumberOfNodes;
 
 public class ModelAnalyzerTest {
 
@@ -45,18 +44,6 @@ public class ModelAnalyzerTest {
         }
     }
 
-    @Test(enabled = false)
-    public void testSummaryMetrics() {
-        // analyzer.useSummary(new SummaryMetric<Integer, DegreeList);
-        Assert.fail("Not tested yet");
-    }
-
-    @Test(enabled = false)
-    public void testAggregatedMetrics() {
-        // analyzer.useSummary(new SummaryMetric<Integer, DegreeList<?>>());
-        Assert.fail("Not tested yet");
-    }
-
     @Test
     public void testUse() {
         analyzer.use(NumberOfEdges);
@@ -68,22 +55,6 @@ public class ModelAnalyzerTest {
         analyzer.use(new NumberOfEdges());
         checkSize(1);
         checkMetric(NumberOfEdges);
-    }
-
-    @Test
-    public void testUseWithName() {
-        String name = "CustomName";
-        analyzer.use(NumberOfEdges, name);
-        AssertJUnit.assertEquals(name, analyzer.getMetric(ModelMetricsEnum.NumberOfEdges).getName());
-
-        checkSize(1);
-        checkMetric(NumberOfEdges);
-
-        analyzer.clear();
-        analyzer.use(new NumberOfEdges(), name);
-        checkSize(1);
-        checkMetric(NumberOfEdges);
-        AssertJUnit.assertEquals(name, analyzer.getMetric(ModelMetricsEnum.NumberOfEdges).getName());
     }
 
     @Test

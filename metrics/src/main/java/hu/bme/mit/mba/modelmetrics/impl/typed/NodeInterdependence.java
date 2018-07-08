@@ -25,7 +25,6 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
 
 
     public <N, T> void calculate(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
-        clear();
         ListMultimap<Integer, Integer> pairs =
             shortestPathList.determineRandomPairs(adapter, numberOfRandomPairs);
 
@@ -106,7 +105,6 @@ public class NodeInterdependence extends AbstractModelMetric<ListData<Double>> {
 
     @Override
     protected <N, T> void evaluateAll(ModelAdapter<N, T> adapter) {
-        clear();
         for (N sourceNode : adapter.getIndexer().getNodes()) {
             for (N targetNode : adapter.getIndexer().getNodes()) {
                 if (sourceNode != targetNode) {

@@ -25,7 +25,6 @@ public class ShortestPath<N> extends ListData<Integer> {
     }
 
     public <T> void calculate(final ModelAdapter<N, T> adapter) {
-        clear();
         for (N sourceNode : adapter.getIndexer().getNodes()) {
             for (N targetNode : adapter.getIndexer().getNodes()) {
                 if (sourceNode != targetNode) {
@@ -37,7 +36,6 @@ public class ShortestPath<N> extends ListData<Integer> {
     }
 
     public <T> void calculate(final ModelAdapter<N, T> adapter, final int numberOfRandomPairs) {
-        clear();
         ListMultimap<Integer, Integer> pairs = determineRandomPairs(adapter, numberOfRandomPairs);
         ArrayList<N> nodeList = new ArrayList<>(adapter.getIndexer().getNodes());
         N sourceNode;

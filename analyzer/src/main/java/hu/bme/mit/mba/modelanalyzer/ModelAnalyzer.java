@@ -3,7 +3,6 @@ package hu.bme.mit.mba.modelanalyzer;
 import com.google.common.base.Preconditions;
 import hu.bme.mit.mba.base.Analyzer;
 import hu.bme.mit.mba.base.metrics.Metric;
-import hu.bme.mit.mba.base.metrics.SummaryMetric;
 import hu.bme.mit.mba.modeladapters.ModelAdapter;
 import hu.bme.mit.mba.modelmetrics.ModelMetric;
 import hu.bme.mit.mba.modelmetrics.impl.ModelMetricsEnum;
@@ -65,11 +64,6 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
         return this;
     }
 
-    public ModelAnalyzer use(final ModelMetric metric, final String name) {
-        metric.setName(name);
-        return use(metric);
-    }
-
     protected void useMetric(final ModelMetricsEnum metric, final String name) {
         checkNewMetric(metric);
         try {
@@ -85,9 +79,6 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
     }
 
     protected void addMetric(final ModelMetricsEnum metric, final ModelMetric metricObj, final String name) {
-        if (name != null) {
-            metricObj.setName(name);
-        }
         metrics.put(metric.toString(), metricObj);
         logger.info("Use metric for the analysis: " + metricObj.getName());
     }
@@ -113,14 +104,6 @@ public class ModelAnalyzer extends Analyzer<String, ModelMetric> {
     protected void checkEmptyMetrics() {
         checkState(metrics.isEmpty(),
                 "The ModelAnalyzer already contains metrics, so the useAll function cannot be used.");
-    }
-
-    private ModelAnalyzer useSummary(final SummaryMetric<?, ?> summary) {
-        // checkArgument(metrics.containsKey(metric.toString()),
-        // "The " + metric.toString() + " should be contained by the
-        // ModelAnalyzer");
-        // TODO
-        return this;
     }
 
     /**

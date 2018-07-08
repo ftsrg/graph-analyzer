@@ -1,10 +1,10 @@
 package hu.bme.mit.mba.base.data;
 
-import static com.google.common.base.Preconditions.checkState;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkState;
 
 public class ListData<V extends Number> implements BaseData {
 
@@ -20,11 +20,6 @@ public class ListData<V extends Number> implements BaseData {
 
     public boolean addAll(final Collection<? extends V> c) {
         return values.addAll(c);
-    }
-
-    @Override
-    public void clear() {
-        values.clear();
     }
 
     public V get(final int index) {

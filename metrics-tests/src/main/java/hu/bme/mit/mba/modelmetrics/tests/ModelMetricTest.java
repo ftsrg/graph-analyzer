@@ -111,7 +111,6 @@ public abstract class ModelMetricTest<D extends BaseData> {
 
     @AfterMethod
     public void clear() {
-        metric.clear();
         testModel.clear();
     }
 

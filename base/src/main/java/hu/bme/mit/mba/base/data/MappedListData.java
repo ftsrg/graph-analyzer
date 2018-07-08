@@ -20,11 +20,6 @@ public class MappedListData<K, V extends Number> implements BaseData {
         this.typedValues = typedValues;
     }
 
-    @Override
-    public void clear() {
-        typedValues.clear();
-    }
-
     public boolean put(K key, V value) {
         return typedValues.put(key, value);
     }

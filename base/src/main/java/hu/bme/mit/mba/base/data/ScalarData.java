@@ -13,11 +13,6 @@ public class ScalarData<V extends Number> implements BaseData {
     }
 
     @Override
-    public void clear() {
-        value = null;
-    }
-
-    @Override
     public String toString() {
         return "ScalarData [value=" + value + "]";
     }

@@ -15,11 +15,6 @@ public class MapData<K, V extends Number> implements BaseData {
         this.values = typedValues;
     }
 
-    @Override
-    public void clear() {
-        values.clear();
-    }
-
     public Map<K, V> getValues() {
         return values;
     }
