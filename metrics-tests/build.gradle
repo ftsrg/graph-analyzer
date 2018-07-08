@@ -4,5 +4,5 @@ dependencies {
     compile project(':analyzer')
     compile project(':metrics')
     compile project(':test-common')
-    compile project(':testmodels-model')
+    compile project(':testgraphs-graph')
 }

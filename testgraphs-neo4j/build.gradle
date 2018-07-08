@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':testmodels-model')
+    compile project(':testgraphs-graph')
     compile group: 'org.neo4j', name: 'neo4j-kernel', version: neo4jVersion
     compile group: 'org.neo4j', name: 'neo4j-kernel', version: neo4jVersion, classifier: 'tests'
     compile group: 'org.neo4j', name: 'neo4j-io', version: neo4jVersion, classifier: 'tests'
