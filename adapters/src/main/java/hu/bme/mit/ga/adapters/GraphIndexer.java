@@ -1,11 +1,14 @@
 package hu.bme.mit.ga.adapters;
 
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
+import org.objenesis.strategy.StdInstantiatorStrategy;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.HashMap;
@@ -16,15 +19,47 @@ import java.util.Set;
 
 public final class GraphIndexer<N, T> {
 
-    protected int numberOfEdges;
+    private int numberOfEdges;
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
     private Set<T> dimensions = new HashSet<>();
     private Set<N> nodes = new HashSet<>();
 
     public GraphIndexer() {
-        numberOfEdges = 0;
     }
+
+    public void persist(final String path) throws FileNotFoundException {
+        final Kryo kryo = new Kryo();
+        try (final Output output = new Output(new FileOutputStream(path))) {
+            kryo.writeObject(output, this);
+        }
+    }
+
+    public static GraphIndexer fromFile(final String path) throws FileNotFoundException {
+        final Kryo kryo = new Kryo();
+        kryo.setInstantiatorStrategy(new Kryo.DefaultInstantiatorStrategy(new StdInstantiatorStrategy()));
+        try (final Input input = new Input(new FileInputStream(path))) {
+            return kryo.readObject(input, GraphIndexer.class);
+        }
+    }
+
+    public void addEdge(final T type, final N sourceNode, final N targetNode) {
+        if (!nodes.contains(sourceNode)) {
+            nodes.add(sourceNode);
+        }
+        if (!nodes.contains(targetNode)) {
+            nodes.add(targetNode);
+        }
+        if (!outgoing.containsKey(type)) {
+            dimensions.add(type);
+            outgoing.put(type, ArrayListMultimap.create());
+            incoming.put(type, ArrayListMultimap.create());
+        }
+        outgoing.get(type).put(sourceNode, targetNode);
+        incoming.get(type).put(targetNode, sourceNode);
+        numberOfEdges++;
+    }
+
 
     public boolean isAdjacentDirected(final N source, final N target) {
         for (T d : dimensions) {
@@ -79,23 +114,6 @@ public final class GraphIndexer<N, T> {
         return getIndegree(element, type) + getOutdegree(element, type);
     }
 
-    public void addEdge(final T type, final N sourceNode, final N targetNode) {
-        if (!nodes.contains(sourceNode)) {
-            nodes.add(sourceNode);
-        }
-        if (!nodes.contains(targetNode)) {
-            nodes.add(targetNode);
-        }
-        if (!outgoing.containsKey(type)) {
-            dimensions.add(type);
-            outgoing.put(type, ArrayListMultimap.create());
-            incoming.put(type, ArrayListMultimap.create());
-        }
-        outgoing.get(type).put(sourceNode, targetNode);
-        incoming.get(type).put(targetNode, sourceNode);
-        numberOfEdges++;
-    }
-
     public int getNumberOfNodes() {
         return nodes.size();
     }
@@ -144,7 +162,7 @@ public final class GraphIndexer<N, T> {
     }
 
     public Set<N> getIncomingNeighbors(final N element) {
-        Set<N> neighbors = new HashSet();
+        Set<N> neighbors = new HashSet<>();
         for (T type : getDimensions()) {
             neighbors.addAll(getIncoming(element, type));
         }
@@ -152,7 +170,7 @@ public final class GraphIndexer<N, T> {
     }
 
     public Set<N> getOutgoingNeighbors(final N element) {
-        Set<N> neighbors = new HashSet();
+        Set<N> neighbors = new HashSet<>();
         for (T type : getDimensions()) {
             neighbors.addAll(getOutgoing(element, type));
         }
@@ -183,13 +201,6 @@ public final class GraphIndexer<N, T> {
 
     public Iterator<N> getModelIterator() {
         return getNodes().iterator();
-    }
-
-    public void persist(String path) throws FileNotFoundException {
-        final Kryo kryo = new Kryo();
-        try (final Output output = new Output(new FileOutputStream(path))) {
-            kryo.writeObject(output, this);
-        }
     }
 
 }

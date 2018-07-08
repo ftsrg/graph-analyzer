@@ -41,7 +41,6 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
                 if (typeOutgoing.containsEntry(n, n2) | typeOutgoing.containsEntry(n2, n)) {
                     intersection += 1;
                 }
-
             }
         }
         data.put(getKey(type, condType), intersection / edges);
