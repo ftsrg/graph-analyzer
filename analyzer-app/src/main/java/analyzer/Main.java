@@ -5,16 +5,19 @@ import hu.bme.mit.ga.metrics.AbstractGraphMetric;
 import hu.bme.mit.ga.metrics.impl.simple.Density;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
 import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
-import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficient;
-import hu.bme.mit.ga.metrics.impl.typed.TypedDegree;
-import hu.bme.mit.ga.metrics.impl.typed.TypedDegreeEntropy;
-import hu.bme.mit.ga.metrics.impl.typed.EdgeTypedConnectivity;
 import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
+import hu.bme.mit.ga.metrics.impl.typed.EdgeTypedConnectivity;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
 import hu.bme.mit.ga.metrics.impl.typed.NumberOfTypedEdges;
 import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
+import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficient;
+import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficientDef1;
+import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficientDef2;
+import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficientDef3;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegree;
+import hu.bme.mit.ga.metrics.impl.typed.TypedDegreeEntropy;
 import org.supercsv.cellprocessor.constraint.NotNull;
 
 import java.io.IOException;
@@ -60,10 +63,20 @@ public class Main {
         typedDegree.evaluate(adapter);
         modelMetrics.add(typedDegree);
 
-        System.out.println("typed clustering coefficient");
-        TypedClusteringCoefficient dcc = new TypedClusteringCoefficient();
-        dcc.evaluate(adapter);
-        modelMetrics.add(dcc);
+        System.out.println("typed clustering coefficient 1");
+        TypedClusteringCoefficient tc1 = new TypedClusteringCoefficientDef1();
+        tc1.evaluate(adapter);
+        modelMetrics.add(tc1);
+
+        System.out.println("typed clustering coefficient 2");
+        TypedClusteringCoefficient tc2 = new TypedClusteringCoefficientDef2();
+        tc2.evaluate(adapter);
+        modelMetrics.add(tc2);
+
+        System.out.println("typed clustering coefficient 3");
+        TypedClusteringCoefficient tc3 = new TypedClusteringCoefficientDef3();
+        tc3.evaluate(adapter);
+        modelMetrics.add(tc3);
 
         System.out.println("typed degree entropy");
         TypedDegreeEntropy dde = new TypedDegreeEntropy();

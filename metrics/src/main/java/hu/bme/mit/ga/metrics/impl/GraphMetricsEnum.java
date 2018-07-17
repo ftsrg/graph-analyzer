@@ -1,19 +1,10 @@
 package hu.bme.mit.ga.metrics.impl;
 
-import hu.bme.mit.ga.metrics.GraphMetricInitializer;
-import hu.bme.mit.ga.metrics.impl.simple.ClusteringCoefficient;
-import hu.bme.mit.ga.metrics.impl.simple.Degrees;
-import hu.bme.mit.ga.metrics.impl.simple.Density;
-import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges;
-import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes;
-import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
-import hu.bme.mit.ga.metrics.impl.typed.TypedDegreeEntropy;
-import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
-import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
-import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
-import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
 import hu.bme.mit.ga.metrics.GraphMetric;
-import hu.bme.mit.ga.metrics.impl.typed.TypedClusteringCoefficient;
+import hu.bme.mit.ga.metrics.GraphMetricInitializer;
+import hu.bme.mit.ga.metrics.impl.simple.*;
+import hu.bme.mit.ga.metrics.impl.typed.*;
+
 
 public enum GraphMetricsEnum implements GraphMetricInitializer {
 
@@ -99,12 +90,25 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
         }
 
     },
-    TypedClusteringCoefficient {
+    TypedClusteringCoefficientDef1 {
         @Override
-        public Class<TypedClusteringCoefficient> getMetric() {
-            return TypedClusteringCoefficient.class;
+        public Class<TypedClusteringCoefficientDef1> getMetric() {
+            return TypedClusteringCoefficientDef1.class;
+        }
+    },
+    TypedClusteringCoefficientDef2 {
+        @Override
+        public Class<TypedClusteringCoefficientDef2> getMetric() {
+            return TypedClusteringCoefficientDef2.class;
+        }
+    },
+    TypedClusteringCoefficientDef3 {
+        @Override
+        public Class<TypedClusteringCoefficientDef3> getMetric() {
+            return TypedClusteringCoefficientDef3.class;
         }
     };
+
 
     public static GraphMetricsEnum getEnum(GraphMetric metric) {
         for (GraphMetricsEnum m : values()) {
