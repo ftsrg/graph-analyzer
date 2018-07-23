@@ -52,7 +52,7 @@ public class CsvTest {
         CsvGraphAdapter adapter = new CsvGraphAdapter(new NotNull());
 
         // adapter must be initialized, this will create an index which is necessary during the evaluation
-        adapter.init("nodes.csv", "edges.csv");
+        adapter.init("test-nodes.csv", "test-edges.csv");
         System.out.println("initialized");
 
         // calculate metrics
