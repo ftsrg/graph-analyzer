@@ -1,4 +1,4 @@
-rootProject.name = "hu.bme.mit.mba"
+rootProject.name = "graph-analyzer"
 
 include ':adapters'
 include ':adapters-csv'
