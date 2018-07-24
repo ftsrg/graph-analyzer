@@ -9,6 +9,7 @@ import hu.bme.mit.ga.metrics.impl.typed.EdgeOverlap;
 import hu.bme.mit.ga.metrics.impl.typed.EdgeTypedConnectivity;
 import hu.bme.mit.ga.metrics.impl.typed.MultiplexParticipationCoefficient;
 import hu.bme.mit.ga.metrics.impl.typed.NodeActivity;
+import hu.bme.mit.ga.metrics.impl.typed.NodeTypedConnectivity;
 import hu.bme.mit.ga.metrics.impl.typed.NumberOfTypedEdges;
 import hu.bme.mit.ga.metrics.impl.typed.PairwiseMultiplexity;
 import hu.bme.mit.ga.metrics.impl.typed.TypedActivity;
@@ -83,7 +84,12 @@ public class Main {
         dde.evaluate(adapter);
         modelMetrics.add(dde);
 
-        System.out.println("edge type connectivity");
+        System.out.println("node typed connectivity");
+        NodeTypedConnectivity nodeTypedConnectivity = new NodeTypedConnectivity();
+        nodeTypedConnectivity.evaluate(adapter);
+        modelMetrics.add(nodeTypedConnectivity);
+
+        System.out.println("edge typed connectivity");
         EdgeTypedConnectivity edgeTypedConnectivity = new EdgeTypedConnectivity();
         edgeTypedConnectivity.evaluate(adapter);
         modelMetrics.add(edgeTypedConnectivity);

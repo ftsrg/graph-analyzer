@@ -59,7 +59,7 @@ PlotsECDFByFileNameOneSide <- function(dt,
 
 PlotsEcdfByFileNameGrid <- function(dt, plot.file.name,
                                     x = "Value",
-                                    col = "Iscontainment",
+                                    col,
                                     facetgrid = "Category",
                                     group = "file.name",
                                     scalex = F,
@@ -67,7 +67,7 @@ PlotsEcdfByFileNameGrid <- function(dt, plot.file.name,
   print(plot.file.name)
   pdf(plot.file.name, width = 12)
   base <- ggplot(as.data.frame(dt))
-  base <- base + stat_ecdf(aes_string(x = x, col = col, group = "file.name", linetype = "Iscontainment"), geom = "step") +
+  base <- base + stat_ecdf(aes_string(x = x, col = col, group = "file.name"), geom = "step") +
     facet_grid(facetgrid,drop  = T, scales = "free_y") +
     xlab('') +
     ylab(deCamelCase(title)) +
@@ -79,8 +79,7 @@ PlotsEcdfByFileNameGrid <- function(dt, plot.file.name,
 }
 
 PlotsBasicScatterplot <- function(dt, plot.file.name,
-                                  x,y,
-                                  col = "Iscontainment",
+                                  x, y, col,
                                   facetwrap = "Category",
                                   scalex = F, scaley = F){
   print(plot.file.name)
@@ -99,14 +98,13 @@ PlotsBasicScatterplot <- function(dt, plot.file.name,
 
 
 PlotsBasicScatterplotGrid <- function(dt, plot.file.name,
-                                  x,y,
-                                  col = "Iscontainment",
+                                  x, y, col,
                                   facetgrid = "Category",
                                   scalex = F, scaley = F){
   print(plot.file.name)
   pdf(plot.file.name, width = 12)
   base <- ggplot(as.data.frame(dt))
-  base <- base + geom_point(aes_string(x = x,y = y, col = col)) +
+  base <- base + geom_point(aes_string(x = x, y = y, col = col)) +
     facet_grid(facetgrid,drop  = T, scales = "free_y") +
     theme
   if(scalex) base <- base + scale_x_log10()
@@ -118,9 +116,9 @@ PlotsBasicScatterplotGrid <- function(dt, plot.file.name,
 
 PlotsScatterplotByFileName <- function(dt, plot.file.name, x, y,
                                        label = "file.name",
-                                    col = "GraphType",
-                                    scalex = T, scaley = T,
-                                    shape = NULL){
+                                       col = "GraphType",
+                                       scalex = T, scaley = T,
+                                       shape = NULL){
   pdf(plot.file.name)
   df <- as.data.frame(dt)
   base <- ggplot(df)

@@ -24,35 +24,38 @@ source("R/metrics/TypedNodeVisualization.R")
 source("R/metrics/MetricVisualization.R")
 
 ################# Basic information #####################
-basic.information <- subset(tsv, Category %in% c("Density",
-                                                 "NumberOfNodes",
-                                                 "NumberOfEdges"))
-basic.information <- dcast.data.table(basic.information, file.name + GraphType ~ Category,
-                                      value.var = "Value")
+basic.information <- subset(tsv, Category %in% c(
+  "Density",
+  "NumberOfNodes",
+  "NumberOfEdges"
+))
+basic.information <- dcast.data.table(basic.information, file.name + GraphType ~ Category, value.var = "Value")
 BasicInformationVisualization(basic.information, figures.path)
 
 #########################################################
 
 ############## Typed edge metrics #################
-edge.type <- subset(tsv, Category %in% c(#"NumberOfTypedEdges",
-  "NodeTypeConnectivity",
-  "NodeExclusiveTypeConnectivity",
-  "EdgeTypeConnectivity"
+edge.type <- subset(tsv, Category %in% c(
+#"NumberOfTypedEdges",
+  "NodeTypedConnectivity",
+  "EdgeTypedConnectivity"
 ))
-edge.type <- dcast.data.table(data = edge.type, file.name + GraphType + Instance ~ Category,
-                              value.var = "Value")
+edge.type <- dcast.data.table(data = edge.type, file.name + GraphType + Instance ~ Category, value.var = "Value")
 
 TypedEdgeVisualization(edge.type, basic.information, figures.path)
 
 #########################################################
 
 ############# General node metrics ######################
-node.type <- subset(tsv, Category %in% c(#"ClusteringCoefficientList",
+node.type <- subset(tsv, Category %in% c(
+#"ClusteringCoefficientList",
 #  "DegreeList",
   "MultiplexParticipationCoefficient",
   "TypedDegreeEntropy",
   "NodeActivity",
-  "TypedClusteringCoefficient"
+  "TypedClusteringCoefficientDef1",
+  "TypedClusteringCoefficientDef2",
+  "TypedClusteringCoefficientDef3"
 ))
 node.type <- dcast.data.table(data = node.type, file.name + GraphType + Index ~ Category, value.var = "Value")
 GeneralNodeVisualization(node.type, figures.path)

@@ -1,4 +1,3 @@
-library(ggplot2)
 library(data.table)
 library(plyr)
 library(reshape2)
@@ -7,21 +6,23 @@ library(combinat)
 #tsv <- fread("data/metrics_full.csv")
 figures.path <- "reports/figures/paper/"
 
-distribution.metrics <- c( "ClusteringCoefficientList",
-                           "DegreeList" , "TypeActivity" ,
+distribution.metrics <- c( "ClusteringCoefficientList" ,
+                           "DegreeList" , 
+                           "TypeActivity" ,
                            "TypedClusteringCoefficientDef1" ,
                            "TypedClusteringCoefficientDef2" ,
                            "TypedClusteringCoefficientDef3" ,
-                          "EdgeTypeConnectivity" ,
-                          "MultiplexParticipationCoefficient",
-                          "NodeActivityList" ,
-                          "NodeTypeConnectivity" ,
-                          "NodeExclusiveTypeConnectivity",
-                          "NumberOfTypedEdges",
-                          "PairwiseMultiplexity")
+                           "EdgeTypeConnectivity" ,
+                           "MultiplexParticipationCoefficient",
+                           "NodeActivityList" ,
+                           "NodeTypeConnectivity" ,
+                           "NodeExclusiveTypeConnectivity",
+                           "NumberOfTypedEdges",
+                           "PairwiseMultiplexity"
+                         )
 
 distribut <- subset(tsv, Category %in% distribution.metrics)
-distribut <- dcast.data.table(distribut, file.name + GraphType + Iscontainment + Instance + Index ~ Category, value.var = "Value")
+distribut <- dcast.data.table(distribut, file.name + GraphType + Instance + Index ~ Category, value.var = "Value")
 files <- unique(distribut$file.name)
 #base.of.com <- files[c(1:5, 41,44, 48, 49:51, 54:56,62:63, 70:73)]
 #tr <- files[c(1, 41, 49, 54, 62, 70)]
@@ -48,19 +49,6 @@ dm <- ddply(distance.matrix, .variables = c("first", "second"), .progress = "tex
   })
   dm <- do.call(rbind, l)
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ecdfComparison <- function(tmp, ind, plot.file.name){
@@ -103,12 +91,12 @@ ecdfComparison <- function(tmp, ind, plot.file.name){
 }
 
 distribut <- subset(tsv, Category %in% distribution.metrics)
-distribut <- dcast.data.table(distribut, file.name + GraphType + Iscontainment + Instance + Index ~ Category, value.var = "Value")
+distribut <- dcast.data.table(distribut, file.name + GraphType + Instance + Index ~ Category, value.var = "Value")
 
 l <- lapply(seq(6, length(distribut)), function(col.index){
   print(colnames(distribut)[col.index])
   tmp <- distribut[,
-                   c("file.name", "GraphType", "Iscontainment", "Instance", "Index", colnames(distribut)[col.index]),
+                   c("file.name", "GraphType", "Instance", "Index", colnames(distribut)[col.index]),
                    with = F]
   tmp <- as.data.frame(tmp)
   tmp <- tmp[!is.na(tmp[, 6]), ]
@@ -132,3 +120,4 @@ base <- ggplot(s)
 base + geom_tile(aes(x = variable, y = metric, fill = value)) +
   geom_text(aes(x = variable, y = metric, label = round(value)), color = 'white') +
   coord_flip()
+

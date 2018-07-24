@@ -4,23 +4,23 @@ ImportsTSVToDataTable <- function(file.name, cont = T){
   tsv <- fread(file.name, sep = "\t")
   
   ## removing every useless metric
-  distribution.metrics <- c( "ClusteringCoefficientList",
-                             "DegreeList" , "TypeActivity" ,
-                             "TypedClusteringCoefficientDef1" ,
-                             "TypedClusteringCoefficientDef2" ,
-                             "TypedClusteringCoefficientDef3" ,
-                             "TypedDegreeEntropy" ,
-                             "EdgeOverlap" , 
-                             "EdgeTypeConnectivity" ,
-                             "MultiplexParticipationCoefficient",
-                             "NodeActivityList" ,
-                             "NodeTypeConnectivity" ,
-                             "NodeExclusiveTypeConnectivity",
-                             "NumberOfTypedEdges",
-                             "PairwiseMultiplexity"
-                           )
-  tsv <- subset(tsv, Category %in% c(distribution.metrics, "Density", "NumberOfNodes",
-                                     "NumberOfEdges"))
+  # distribution.metrics <- c( "ClusteringCoefficientList",
+  #                            "DegreeList" , 
+  #                            "TypeActivity" ,
+  #                            "TypedClusteringCoefficientDef1" ,
+  #                            "TypedClusteringCoefficientDef2" ,
+  #                            "TypedClusteringCoefficientDef3" ,
+  #                            "TypedDegreeEntropy" ,
+  #                            "EdgeOverlap" , 
+  #                            "EdgeTypeCdonnectivity" ,
+  #                            "NodeTypedConnectivity" ,
+  #                            "MultiplexParticipationCoefficient",
+  #                            "NodeActivityList" ,
+  #                            "NumberOfTypedEdges",
+  #                            "PairwiseMultiplexity"
+  #                          )
+  #tsv <- subset(tsv, Category %in% c(distribution.metrics, "Density", "NumberOfNodes",
+  #                                   "NumberOfEdges"))
   
   #browser()
   tsv[, file.name := file.name]
