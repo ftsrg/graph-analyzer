@@ -16,6 +16,12 @@ To run the analysis, edit the `analyzer-app/src/Analyzer.groovy` file and issue 
 ./gradlew analyze
 ```
 
+Make sure the Gradle process has enough memory:
+
+```bash
+export GRADLE_OPTS=-Xmx12G
+```
+
 ## License
 
 This project is distributed under the Eclipse Public License 1.0. The project was supported by the MONDO EU FP7 project (EU ICT-611125) and is currently developed by the MTA-BME Lendület Research Group on Cyber-Physical Systems.
