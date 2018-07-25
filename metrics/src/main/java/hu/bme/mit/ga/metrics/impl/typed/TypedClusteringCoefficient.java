@@ -9,8 +9,8 @@ public abstract class TypedClusteringCoefficient extends AbstractGraphMetric<Lis
     protected int maxNeighbours = 1000;
     protected boolean useHeuristic = false;
 
-    public TypedClusteringCoefficient(String defaultName) {
-        super(defaultName, new ListData<>());
+    public TypedClusteringCoefficient(String name) {
+        super(name, new ListData<>());
     }
 
     public int getMaxNeighbours() {

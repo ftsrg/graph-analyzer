@@ -8,6 +8,14 @@ Analysis and metric visualisation toolkit for typed graphs, based on our [MODELS
 
 Java 8
 
+## Getting Started
+
+To run the analysis, edit the `analyzer-app/src/Analyzer.groovy` file and issue the following command:
+
+```bash
+./gradlew analyze
+```
+
 ## License
 
 This project is distributed under the Eclipse Public License 1.0. The project was supported by the MONDO EU FP7 project (EU ICT-611125) and is currently developed by the MTA-BME Lendület Research Group on Cyber-Physical Systems.

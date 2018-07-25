@@ -6,11 +6,9 @@ public abstract class BaseMetric<D extends BaseData> implements Metric {
 
     protected D data;
     protected String name;
-    protected String defaultName;
 
-    public BaseMetric(final String defaultName) {
-        this.defaultName = defaultName;
-        name = defaultName;
+    public BaseMetric(final String name) {
+        this.name = name;
     }
 
     @Override

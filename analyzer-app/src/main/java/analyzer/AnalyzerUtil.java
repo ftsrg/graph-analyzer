@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class Analyzer {
+public class AnalyzerUtil {
 
     public static final CellProcessor[] processors = new CellProcessor[]{
         new NotNull(),
@@ -27,7 +27,8 @@ public class Analyzer {
         System.out.println(String.format("Data of %s : %s", metric.getName(), metric.getData().toString()));
     }
 
-    public static void writeToTsv(List<AbstractGraphMetric> metrics, String[] header, String filename) throws IOException {
+    public static void writeToTsv(List<AbstractGraphMetric> metrics, String filename) throws IOException {
+        final String[] header = new String[] {"Category", "Instance", "Index", "Value"};
         ICsvMapWriter mapWriter = null;
 
         try {

@@ -10,14 +10,14 @@ import java.util.Map;
 
 public abstract class AbstractGraphMetric<D extends BaseData> extends BaseMetric<D> implements GraphMetric {
 
-    public AbstractGraphMetric(String defaultName, final D data) {
-        super(defaultName);
+    public AbstractGraphMetric(String name, final D data) {
+        super(name);
         this.data = data;
     }
 
     @Override
     public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
-        throw new UnsupportedOperationException("Cannot evaluate metric " + name + " on one element.");
+        throw new UnsupportedOperationException("Cannot evaluate metric " + getName() + " on one element.");
     }
 
     @Override
