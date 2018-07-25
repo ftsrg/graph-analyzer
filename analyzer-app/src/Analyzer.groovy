@@ -42,7 +42,7 @@ graphs.each { graph ->
     def calculatedMetrics = []
     def adapter = new CsvGraphAdapter(new NotNull())
     print("Loading graph...")
-    adapter.init("${graph}-nodes.csv", "${graph}-edges.csv")
+    adapter.init("graphs/${graph}-nodes.csv", "graphs/${graph}-edges.csv")
     println(" loaded")
 
     metrics.each { metric ->
@@ -51,5 +51,5 @@ graphs.each { graph ->
         calculatedMetrics += metric
     }
 
-    AnalyzerUtil.writeToTsv(calculatedMetrics, "${graph}.tsv");
+    AnalyzerUtil.writeToTsv(calculatedMetrics, "../reporting/tsvs/${graph}.tsv");
 }

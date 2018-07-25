@@ -11,7 +11,7 @@ figures.path <- "reports/"
 default.theme <- theme(legend.position = "bottom")
 
 # put the tsv files to the tsv directory
-tsvs <- list.files("tsv", pattern = ".tsv", full.names = T, recursive = T)
+tsvs <- list.files("tsvs/", pattern = ".tsv", full.names = T, recursive = T)
 l <- lapply(tsvs, ImportsTSVToDataTable, cont = F)
 tsv <- rbindlist(l)
 tsv

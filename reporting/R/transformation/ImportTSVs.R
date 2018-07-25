@@ -24,7 +24,7 @@ ImportsTSVToDataTable <- function(file.name, cont = T){
   
   #browser()
   tsv[, file.name := file.name]
-  tsv[, file.name := gsub(pattern = "tsv/", "", tsv$file.name)]
+  tsv[, file.name := gsub(pattern = "tsvs/", "", tsv$file.name)]
   tsv[, file.name := gsub(pattern = "\\.tsv", "", tsv$file.name)]
   
   tsv[, GraphType := file.name]
