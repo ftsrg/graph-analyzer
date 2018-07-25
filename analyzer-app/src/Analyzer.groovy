@@ -44,9 +44,11 @@ graphs.each { graph ->
     print("Loading graph...")
     adapter.init("graphs/${graph}-nodes.csv", "graphs/${graph}-edges.csv")
     println(" loaded")
+    println()
+    println("Calculating metrics:")
 
     metrics.each { metric ->
-        println(metric.getName())
+        println("- ${metric.getName()}")
         metric.evaluate(adapter)
         calculatedMetrics += metric
     }
