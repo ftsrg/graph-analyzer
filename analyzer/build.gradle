@@ -2,4 +2,5 @@ dependencies {
     compile project(':base')
     compile project(':metrics')
     testCompile project(':test-common')
+    compile group: 'log4j', name: 'log4j', version: log4jVersion
 }

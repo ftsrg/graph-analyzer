@@ -1,3 +1,23 @@
+install.packages('SparseM')
+library('SparseM')
+
+library(Matrix)
+
+nnodes <- 200000000 #200M node
+A <- Matrix(data=0, nnodes, nnodes, sparse=TRUE)
+B <- A*A
+A[1,2] <- 3
+A[1,] <- sparseVector(c(1, 1), c(1234, 4567), nnodes)
+
+library(SparseM)
+A.csr = as.matrix.csr(rep(0, nnodes))
+B.csr = as.matrix.csr(B)
+class(rbind(A.csr,B.csr))
+A
+B
+as.matrix(rbind(A.csr,B.csr))
+
+
 ImportsTSVToDataTable <- function(file.name, cont = T){
   gc()
   print(file.name)

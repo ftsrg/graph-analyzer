@@ -1,5 +1,4 @@
 dependencies {
     compile project(':base')
     compile group: 'net.sf.supercsv', name: 'super-csv', version: '2.4.0'
-    compile group: 'edu.mit.ll', name: 'graphulo', version: '3.0.0'
 }
