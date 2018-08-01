@@ -7,6 +7,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import org.objenesis.strategy.StdInstantiatorStrategy;
+import org.ujmp.core.Matrix;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +23,7 @@ public final class GraphIndexer<N, T> {
     private int numberOfEdges;
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
+    private Map<T, Matrix> adjacencyMatrix = new HashMap<>();
     private Set<T> types = new HashSet<>();
     private Set<N> nodes = new HashSet<>();
 
