@@ -1,8 +1,10 @@
 package hu.bme.mit.ga.metrics.impl.simple;
 
-import hu.bme.mit.ga.base.data.ListData;
 import hu.bme.mit.ga.adapters.GraphAdapter;
+import hu.bme.mit.ga.adapters.GraphIndexer;
+import hu.bme.mit.ga.base.data.ListData;
 import hu.bme.mit.ga.metrics.AbstractGraphMetric;
+import org.ujmp.core.Matrix;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,8 +22,23 @@ public class ClusteringCoefficient extends AbstractGraphMetric<ListData<Double>>
         evaluateEveryNode(adapter);
     }
 
+    protected <N, T> void evaluateAllWithMatrices(GraphAdapter<N, T> adapter) {
+        GraphIndexer indexer = adapter.getIndexer();
+        Matrix A = indexer.getAdjacencyMatrixUntyped();
+        Matrix result = A.mtimes(A).mtimes(A);
+        for (int i = 0; i < indexer.getSize(); i++) {
+            int degree = indexer.getDegree(indexer.getRowNodeMap().get(i));
+            if (degree == 0) {
+                data.add(0.0);
+            } else {
+                data.add(result.getAsDouble(i, i) / (degree * (degree - 1)));
+            }
+        }
+    }
+
     @Override
     public <N, T> void evaluate(GraphAdapter<N, T> adapter, N element) {
+
         long interConnected = 0;
         long numberOfNeighbors = 0;
         double clusteringCoef = 0.0;
