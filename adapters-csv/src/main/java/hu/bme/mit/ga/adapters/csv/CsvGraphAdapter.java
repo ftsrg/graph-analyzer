@@ -1,14 +1,17 @@
 package hu.bme.mit.ga.adapters.csv;
 
 import hu.bme.mit.ga.adapters.GraphAdapter;
+import hu.bme.mit.ga.adapters.GraphIndexer;
 import org.supercsv.cellprocessor.ParseLong;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapReader;
 import org.supercsv.prefs.CsvPreference;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +30,13 @@ public class CsvGraphAdapter<N> extends GraphAdapter<N, String> {
     }
 
     public void init(String nodeCsv, String relsCsv) throws IOException {
+        File file = new File(nodeCsv);
+        LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(file));
+        lineNumberReader.skip(Long.MAX_VALUE);
+        int numberOfNodes = lineNumberReader.getLineNumber();
+        lineNumberReader.close();
+        indexer = new GraphIndexer<>(numberOfNodes);
+
         final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), PREF);
         final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), PREF);
 

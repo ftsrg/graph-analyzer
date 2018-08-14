@@ -8,26 +8,43 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 import org.ujmp.core.Matrix;
+import org.ujmp.core.SparseMatrix;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public final class GraphIndexer<N, T> {
 
     private int numberOfEdges;
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
+
+
     private Map<T, Matrix> adjacencyMatrix = new HashMap<>();
+    private Map<N, Integer> nodeRowMap = new HashMap<>();
+
+
+    private Map<Integer, N> rowNodeMap = new HashMap<>();
+
+    private Matrix adjacencyMatrixUntyped;
+    private int size;
+    private int rowsAdded = 0;
     private Set<T> types = new HashSet<>();
     private Set<N> nodes = new HashSet<>();
 
     public GraphIndexer() {
+    }
+
+
+    public GraphIndexer(int size) {
+        this.size = size;
+        for (T type : types) {
+            SparseMatrix m1 = SparseMatrix.Factory.zeros(size, size);
+            adjacencyMatrix.put(type, m1);
+        }
+        adjacencyMatrixUntyped = SparseMatrix.Factory.zeros(size, size);
     }
 
     public void persist(final String path) throws FileNotFoundException {
@@ -45,21 +62,47 @@ public final class GraphIndexer<N, T> {
         }
     }
 
+
     public void addEdge(final T type, final N sourceNode, final N targetNode) {
         if (!nodes.contains(sourceNode)) {
-            nodes.add(sourceNode);
+            addNode(sourceNode);
         }
         if (!nodes.contains(targetNode)) {
-            nodes.add(targetNode);
+            // nodes.add(targetNode);
+            addNode(targetNode);
         }
         if (!outgoing.containsKey(type)) {
-            types.add(type);
-            outgoing.put(type, ArrayListMultimap.create());
-            incoming.put(type, ArrayListMultimap.create());
+            addType(type);
         }
         outgoing.get(type).put(sourceNode, targetNode);
         incoming.get(type).put(targetNode, sourceNode);
+        if(adjacencyMatrixUntyped!=null){
+            adjacencyMatrix.get(type).setAsDouble(1.0, nodeRowMap.get(sourceNode), nodeRowMap.get(targetNode));
+            adjacencyMatrix.get(type).setAsDouble(1.0, nodeRowMap.get(targetNode), nodeRowMap.get(sourceNode));
+
+            adjacencyMatrixUntyped.setAsDouble(1.0, nodeRowMap.get(sourceNode), nodeRowMap.get(targetNode));
+        adjacencyMatrixUntyped.setAsDouble(1.0, nodeRowMap.get(targetNode), nodeRowMap.get(sourceNode));
+        }
+
         numberOfEdges++;
+    }
+
+    public void addType(T type) {
+        types.add(type);
+        outgoing.put(type, ArrayListMultimap.create());
+        incoming.put(type, ArrayListMultimap.create());
+
+        SparseMatrix m1 = SparseMatrix.Factory.zeros(size, size);
+        adjacencyMatrix.put(type, m1);
+    }
+
+    public void addNode(N node) {
+        if (!nodeRowMap.containsKey(node)) {
+            rowsAdded += 1;
+            nodes.add(node);
+            nodeRowMap.put(node, rowsAdded - 1);
+            rowNodeMap.put(rowsAdded - 1, node); //?
+        }
     }
 
 
@@ -147,6 +190,10 @@ public final class GraphIndexer<N, T> {
         return new HashSet<>(incoming.get(type).get(node));
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public Multimap<N, N> getOutgoing(T type) {
         return outgoing.get(type);
     }
@@ -204,5 +251,22 @@ public final class GraphIndexer<N, T> {
     public Iterator<N> getModelIterator() {
         return getNodes().iterator();
     }
+
+    public Map<T, Matrix> getAdjacencyMatrix() {
+        return adjacencyMatrix;
+    }
+
+    public Matrix getAdjacencyMatrixUntyped() {
+        return adjacencyMatrixUntyped;
+    }
+
+    public Map<N, Integer> getNodeRowMap() {
+        return nodeRowMap;
+    }
+
+    public Map<Integer, N> getRowNodeMap() {
+        return rowNodeMap;
+    }
+
 
 }
