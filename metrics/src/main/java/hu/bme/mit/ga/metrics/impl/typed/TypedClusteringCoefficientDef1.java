@@ -1,6 +1,10 @@
 package hu.bme.mit.ga.metrics.impl.typed;
 
 import hu.bme.mit.ga.adapters.GraphAdapter;
+import hu.bme.mit.ga.adapters.GraphIndexer;
+import org.ujmp.core.Matrix;
+import org.ujmp.core.SparseMatrix;
+import org.ujmp.core.calculation.Calculation;
 
 import java.util.*;
 
@@ -48,6 +52,38 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         }
         data.add(coef);
     }
+
+    @Override
+    protected <N, T> void evaluateAll(final GraphAdapter<N, T> adapter) {
+        GraphIndexer indexer = adapter.getIndexer();
+        Matrix productSum = SparseMatrix.Factory.zeros(indexer.getSize(), indexer.getSize());
+        Matrix degrees = SparseMatrix.Factory.zeros(indexer.getSize(), 1);
+        for (T type1 : adapter.getIndexer().getTypes()) {
+            for (T type2 : adapter.getIndexer().getTypes()) {
+                if (type1 != type2) {
+                    Matrix A = (Matrix) indexer.getAdjacencyMatrix().get(type1);
+                    Matrix B = (Matrix) indexer.getAdjacencyMatrix().get(type2);
+                    productSum = productSum.plus(A.mtimes(B).mtimes(A));
+                    Matrix degreeVector = A.sum(Calculation.Ret.NEW, 1, false);
+                    degrees = degrees.plus(degreeVector.times(degreeVector.minus(1)));
+                }
+            }
+        }
+        for (int i = 0; i < indexer.getSize(); i++) {
+            double numerator = productSum.getAsDouble(i, i);
+            double denominator = degrees.getAsDouble(i, 0) * (indexer.getTypes().size() - 1);
+            if (denominator == 0) {
+                data.add(0.0);
+            } else {
+                data.add(numerator / denominator);
+            }
+        }
+    }
+
+//    @Override
+//    public <N, T> void evaluate(final GraphAdapter<N, T> adapter) {
+//        evaluateAll(adapter);
+//    }
 
     @Override
     public List<Map<String, Object>> getTsvMaps(String[] header) {
