@@ -13,29 +13,6 @@ public abstract class TypedClusteringCoefficient extends AbstractGraphMetric<Lis
         super(name, new ListData<>());
     }
 
-    public int getMaxNeighbours() {
-        return maxNeighbours;
-    }
-
-    public void setMaxNeighbours(int maxNeighbours) {
-        this.maxNeighbours = maxNeighbours;
-    }
-
-    public boolean isUseHeuristic() {
-        return useHeuristic;
-    }
-
-    public void setUseHeuristic(boolean useHeuristic) {
-        this.useHeuristic = useHeuristic;
-    }
-
-    @Override
-    public <N, T> void evaluate(final GraphAdapter<N, T> adapter) {
-        for (N node : adapter.getIndexer().getNodes()) {
-            evaluate(adapter, node);
-        }
-    }
-
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
         evaluateEveryNode(adapter);

@@ -13,7 +13,7 @@ public class TypedClusteringCoefficientDef2Test extends GraphMetricTest<ListData
 
     @Override
     public GraphMetricsEnum getMetric() {
-        return GraphMetricsEnum.TypedClusteringCoefficientDef2;
+        return GraphMetricsEnum.TypedClusteringCoefficientDef2E;
     }
 
     @Override

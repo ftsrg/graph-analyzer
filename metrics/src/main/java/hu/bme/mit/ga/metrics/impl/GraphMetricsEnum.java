@@ -90,24 +90,25 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
         }
 
     },
-    TypedClusteringCoefficientDef1 {
+    TypedClusteringCoefficientDef1E {
         @Override
         public Class<TypedClusteringCoefficientDef1> getMetric() {
             return TypedClusteringCoefficientDef1.class;
         }
     },
-    TypedClusteringCoefficientDef2 {
+    TypedClusteringCoefficientDef2E {
         @Override
         public Class<TypedClusteringCoefficientDef2> getMetric() {
             return TypedClusteringCoefficientDef2.class;
         }
     },
-    TypedClusteringCoefficientDef3 {
+    TypedClusteringCoefficientDef3E {
         @Override
         public Class<TypedClusteringCoefficientDef3> getMetric() {
             return TypedClusteringCoefficientDef3.class;
         }
-    };
+    }
+    ;
 
 
     public static GraphMetricsEnum getEnum(GraphMetric metric) {
