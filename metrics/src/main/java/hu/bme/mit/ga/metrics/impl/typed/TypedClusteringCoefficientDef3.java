@@ -7,7 +7,7 @@ import java.util.*;
 public class TypedClusteringCoefficientDef3 extends TypedClusteringCoefficient {
 
     public TypedClusteringCoefficientDef3() {
-        super("TypedClusteringCoefficientDef3E");
+        super("TypedClusteringCoefficientDef3");
     }
 
     @Override
@@ -66,7 +66,7 @@ public class TypedClusteringCoefficientDef3 extends TypedClusteringCoefficient {
         int index = 0;
         for (Double v : data.getValues()) {
             Map<String, Object> value = new HashMap<>();
-            value.put(header[0], "TypedClusteringCoefficientDef3E");
+            value.put(header[0], "TypedClusteringCoefficientDef3");
             value.put(header[1], null);
             value.put(header[2], index);
             value.put(header[3], v);
