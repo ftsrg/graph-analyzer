@@ -20,15 +20,16 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         Matrix productSum = SparseMatrix.Factory.zeros(indexer.getSize(), indexer.getSize());
         Matrix degrees = SparseMatrix.Factory.zeros(indexer.getSize(), 1);
         for (T type1 : adapter.getIndexer().getTypes()) {
+            Matrix A = (Matrix) indexer.getAdjacencyMatrix().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
-                    Matrix A = (Matrix) indexer.getAdjacencyMatrix().get(type1);
                     Matrix B = (Matrix) indexer.getAdjacencyMatrix().get(type2);
                     productSum = productSum.plus(A.mtimes(B).mtimes(A));
-                    Matrix degreeVector = A.sum(Calculation.Ret.NEW, 1, false);
-                    degrees = degrees.plus(degreeVector.times(degreeVector.minus(1)));
                 }
             }
+            Matrix degreeVector = A.sum(Calculation.Ret.NEW, 1, false);
+            degrees = degrees.plus(degreeVector.times(degreeVector.minus(1)));
+
         }
         for (int i = 0; i < indexer.getSize(); i++) {
             double numerator = productSum.getAsDouble(i, i);

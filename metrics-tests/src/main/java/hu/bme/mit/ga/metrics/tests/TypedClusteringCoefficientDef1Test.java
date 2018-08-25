@@ -82,7 +82,7 @@ public class TypedClusteringCoefficientDef1Test extends GraphMetricTest<ListData
                 checker = (data) -> {
                     checkSize(5, data);
                     checkAppearance(4, 0.0, data);
-                    checkAppearance(1, 1.0 / 2.0, data);
+                    checkAppearance(1, 1.0 / 4.0, data);
                 };
                 break;
             default:
