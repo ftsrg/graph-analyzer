@@ -21,8 +21,8 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     public TypedClusteringCoefficientDef1() {
         super("TypedClusteringCoefficientDef1");
     }
-    public enum Implementation {UJMP, OJALGO, EDGELIST};
-    Implementation implementation = Implementation.OJALGO;
+    public enum Implementation {UJMP, UJMP_EW, OJALGO, EDGELIST};
+    Implementation implementation = Implementation.UJMP_EW;
 
     protected <N, T> void evaluateAllOjalgo(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
@@ -66,6 +66,8 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             evaluateAllUjmp(adapter);
         } else if(implementation == Implementation.OJALGO) {
             evaluateAllOjalgo(adapter);
+        } else if(implementation == Implementation.UJMP_EW){
+            evaluateAllUjmpElementwise(adapter);
         }
     }
 
@@ -93,6 +95,32 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                 data.add(0.0);
             } else {
                 data.add(numerator / denominator);
+            }
+        }
+    }
+
+    protected <N, T> void evaluateAllUjmpElementwise(final GraphAdapter<N, T> adapter) {
+        GraphIndexer indexer = adapter.getIndexer();
+        Matrix productSum = SparseMatrix.Factory.zeros(indexer.getSize(), 1);
+        Matrix degrees = SparseMatrix.Factory.zeros(indexer.getSize(), 1);
+        for (T type1 : adapter.getIndexer().getTypes()) {
+            Matrix A = (Matrix) indexer.getAdjacencyMatrix().get(type1);
+            for (T type2 : adapter.getIndexer().getTypes()) {
+                if (type1 != type2) {
+                    Matrix B = (Matrix) indexer.getAdjacencyMatrix().get(type2);
+                    productSum = productSum.plus(A.mtimes(B).times(A).sum(Calculation.Ret.NEW, 1, false));
+                }
+            }
+            Matrix degreeVector = A.sum(Calculation.Ret.NEW, 1, false);
+            degrees = degrees.plus(degreeVector.times(degreeVector.minus(1)));
+        }
+        Matrix tcc = productSum.divide(degrees.times(indexer.getTypes().size() - 1));
+        for (int i = 0; i < indexer.getSize(); i++) {
+            double n = tcc.getAsDouble(i,0);
+            if (Double.isNaN(n)) {
+                data.add(0.0);
+            } else {
+                data.add(n);
             }
         }
     }
