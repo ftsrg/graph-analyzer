@@ -5,4 +5,5 @@ dependencies {
     compile group: 'org.ujmp', name: 'ujmp-core', version: '0.3.0'
 
     compile project(':test-common')
+    compile group: 'org.ojalgo', name: 'ojalgo', version: '46.0.0'
 }
