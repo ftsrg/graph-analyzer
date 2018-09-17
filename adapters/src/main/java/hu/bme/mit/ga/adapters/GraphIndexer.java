@@ -7,6 +7,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import org.objenesis.strategy.StdInstantiatorStrategy;
+import org.ojalgo.matrix.store.SparseStore;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
 
@@ -23,12 +24,15 @@ public final class GraphIndexer<N, T> {
 
 
     private Map<T, Matrix> adjacencyMatrix = new HashMap<>();
+
+    private Map<T, SparseStore<Double>> adjacencyMatrix2 = new HashMap<>();
     private Map<N, Integer> nodeRowMap = new HashMap<>();
 
 
     private Map<Integer, N> rowNodeMap = new HashMap<>();
 
     private Matrix adjacencyMatrixUntyped;
+
     private int size;
     private int rowsAdded = 0;
     private Set<T> types = new HashSet<>();
@@ -43,6 +47,8 @@ public final class GraphIndexer<N, T> {
         for (T type : types) {
             SparseMatrix m1 = SparseMatrix.Factory.zeros(size, size);
             adjacencyMatrix.put(type, m1);
+            SparseStore<Double> m2 = SparseStore.PRIMITIVE.make(size, size);
+            adjacencyMatrix2.put(type, m2);
         }
         adjacencyMatrixUntyped = SparseMatrix.Factory.zeros(size, size);
     }
@@ -79,7 +85,8 @@ public final class GraphIndexer<N, T> {
         if(adjacencyMatrixUntyped!=null){
             adjacencyMatrix.get(type).setAsDouble(1.0, nodeRowMap.get(sourceNode), nodeRowMap.get(targetNode));
             adjacencyMatrix.get(type).setAsDouble(1.0, nodeRowMap.get(targetNode), nodeRowMap.get(sourceNode));
-
+            adjacencyMatrix2.get(type).set(nodeRowMap.get(sourceNode),nodeRowMap.get(targetNode),(Number)1.0);
+            adjacencyMatrix2.get(type).set(nodeRowMap.get(targetNode),nodeRowMap.get(sourceNode),(Number)1.0);
             adjacencyMatrixUntyped.setAsDouble(1.0, nodeRowMap.get(sourceNode), nodeRowMap.get(targetNode));
         adjacencyMatrixUntyped.setAsDouble(1.0, nodeRowMap.get(targetNode), nodeRowMap.get(sourceNode));
         }
@@ -94,6 +101,10 @@ public final class GraphIndexer<N, T> {
 
         SparseMatrix m1 = SparseMatrix.Factory.zeros(size, size);
         adjacencyMatrix.put(type, m1);
+
+        SparseStore<Double> m2 = SparseStore.PRIMITIVE.make(size, size);
+        adjacencyMatrix2.put(type, m2);
+
     }
 
     public void addNode(N node) {
@@ -268,5 +279,12 @@ public final class GraphIndexer<N, T> {
         return rowNodeMap;
     }
 
+    public Map<T, SparseStore<Double>> getAdjacencyMatrix2() {
+        return adjacencyMatrix2;
+    }
+
+    public void setAdjacencyMatrix2(Map<T, SparseStore<Double>> adjacencyMatrix2) {
+        this.adjacencyMatrix2 = adjacencyMatrix2;
+    }
 
 }
