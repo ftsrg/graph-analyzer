@@ -53,6 +53,8 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
                     System.out.println(new Timestamp(new Date().getTime()) + " -> C = AB .* A");
                     AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
+
+                    System.out.println(new Timestamp(new Date().getTime()) + " -> sum = C * 1");
                     productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
                 }
             }
