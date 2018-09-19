@@ -46,9 +46,12 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                     System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s", type1, type2));
                     SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
                     SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                    System.out.println(new Timestamp(new Date().getTime()) + " -> A * B");
-                    final MatrixStore<Double> AB = A.multiply(B).get();
-                    System.out.println(new Timestamp(new Date().getTime()) + " -> A * B .* A");
+
+                    System.out.println(new Timestamp(new Date().getTime()) + " -> AB = A * B");
+                    SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+                    A.multiply(B).get().supplyTo(AB);
+
+                    System.out.println(new Timestamp(new Date().getTime()) + " -> C = AB .* A");
                     AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
                     productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
                 }
