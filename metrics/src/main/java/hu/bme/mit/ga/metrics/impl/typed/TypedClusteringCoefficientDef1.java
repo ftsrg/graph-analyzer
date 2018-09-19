@@ -4,8 +4,10 @@ import hu.bme.mit.ga.adapters.GraphAdapter;
 import hu.bme.mit.ga.adapters.GraphIndexer;
 import org.ojalgo.function.PrimitiveFunction;
 import org.ojalgo.function.aggregator.Aggregator;
-import org.ojalgo.matrix.store.*;
-import org.ojalgo.structure.Structure1D;
+import org.ojalgo.matrix.store.ElementsSupplier;
+import org.ojalgo.matrix.store.MatrixStore;
+import org.ojalgo.matrix.store.PrimitiveDenseStore;
+import org.ojalgo.matrix.store.SparseStore;
 import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation;
@@ -15,40 +17,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.ojalgo.function.PrimitiveFunction.ADD;
-import static org.ojalgo.function.PrimitiveFunction.MULTIPLY;
-import static org.ojalgo.function.PrimitiveFunction.SUBTRACT;
+import static org.ojalgo.function.PrimitiveFunction.*;
 
 public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
+
+    Implementation implementation = Implementation.OJALGO;
 
     public TypedClusteringCoefficientDef1() {
         super("TypedClusteringCoefficientDef1");
     }
-    public enum Implementation {UJMP, UJMP_EW, OJALGO, EDGELIST};
-    Implementation implementation = Implementation.OJALGO;
+
+    ;
 
     protected <N, T> void evaluateAllOjalgo(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         MatrixStore productSum = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
         PrimitiveDenseStore degrees = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
         PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        ones.operateOnAll(ADD,1).supplyTo(ones);
+        ones.operateOnAll(ADD, 1).supplyTo(ones);
         for (T type1 : adapter.getIndexer().getTypes()) {
-            MatrixStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
+            SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
-                    MatrixStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
-                    final ElementsSupplier<Double> tmpIntermediateA = A.multiply(B).operateOnMatching(MULTIPLY,A);
-                    productSum = tmpIntermediateA.get().reduceRows(Aggregator.SUM).get().add(productSum);
+                    SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
+                    SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+                    A.multiply(B).operateOnMatching(MULTIPLY, A).supplyTo(C);
+                    productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
                 }
             }
             MatrixStore<Double> degreeVector = A.multiply(ones);
             final ElementsSupplier<Double> tmpIntermediateA = degreeVector.operateOnMatching(SUBTRACT, ones);
-            final ElementsSupplier<Double> tmpIntermediateB = tmpIntermediateA.operateOnMatching(PrimitiveFunction.MULTIPLY,degreeVector);
-            final ElementsSupplier<Double> tmpIntermediateC = tmpIntermediateB.operateOnMatching(ADD,degrees);
+            final ElementsSupplier<Double> tmpIntermediateB = tmpIntermediateA.operateOnMatching(PrimitiveFunction.MULTIPLY, degreeVector);
+            final ElementsSupplier<Double> tmpIntermediateC = tmpIntermediateB.operateOnMatching(ADD, degrees);
             PrimitiveDenseStore degrees_tmp = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
             tmpIntermediateC.supplyTo(degrees_tmp);
-            degrees = degrees_tmp;
+            degrees = degrees_tmp.copy();
         }
         for (int i = 0; i < indexer.getSize(); i++) {
             double numerator = productSum.doubleValue(i, 0);
@@ -60,17 +63,17 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             }
         }
     }
+
     @Override
     protected <N, T> void evaluateAll(final GraphAdapter<N, T> adapter) {
-        if(implementation == Implementation.UJMP){
+        if (implementation == Implementation.UJMP) {
             evaluateAllUjmp(adapter);
-        } else if(implementation == Implementation.OJALGO) {
+        } else if (implementation == Implementation.OJALGO) {
             evaluateAllOjalgo(adapter);
-        } else if(implementation == Implementation.UJMP_EW){
+        } else if (implementation == Implementation.UJMP_EW) {
             evaluateAllUjmpElementwise(adapter);
         }
     }
-
 
     protected <N, T> void evaluateAllUjmp(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
@@ -116,7 +119,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         }
         Matrix tcc = productSum.divide(degrees.times(indexer.getTypes().size() - 1));
         for (int i = 0; i < indexer.getSize(); i++) {
-            double n = tcc.getAsDouble(i,0);
+            double n = tcc.getAsDouble(i, 0);
             if (Double.isNaN(n)) {
                 data.add(0.0);
             } else {
@@ -145,6 +148,8 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         }
         return values;
     }
+
+    public enum Implementation {UJMP, UJMP_EW, OJALGO, EDGELIST}
 
 
 }
