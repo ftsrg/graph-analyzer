@@ -26,12 +26,16 @@ import static org.ojalgo.function.PrimitiveFunction.SUBTRACT;
 
 public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
-    Implementation implementation = Implementation.OJALGO;
+    protected Implementation implementation;
 
-    public TypedClusteringCoefficientDef1() {
+    public TypedClusteringCoefficientDef1(Implementation implementation) {
         super("TypedClusteringCoefficientDef1");
+        this.implementation = implementation;
     }
 
+    public TypedClusteringCoefficientDef1() {
+        this(Implementation.OJALGO_EW);
+    }
 
     protected <N, T> void evaluateAllOjalgoElementwise(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();

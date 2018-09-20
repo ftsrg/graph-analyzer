@@ -15,11 +15,13 @@ def graphs = ['test']
 // The default configuration points to our research group's Slack.
 //reportUrl = "https://hooks.slack.com/services/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"
 
+def tcc1impl = TypedClusteringCoefficientDef1.Implementation.OJALGO_EW
+
 def metrics = [
     new Density(),
     new TypedActivity(),
     new TypedDegree(),
-    new TypedClusteringCoefficientDef1(),
+    new TypedClusteringCoefficientDef1(tcc1impl),
 //    new TypedClusteringCoefficientDef2(),
 //    new TypedClusteringCoefficientDef3(),
     new TypedDegreeEntropy(),
