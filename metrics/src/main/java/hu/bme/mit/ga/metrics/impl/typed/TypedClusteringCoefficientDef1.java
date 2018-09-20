@@ -59,7 +59,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
                     System.out.println(new Timestamp(new Date().getTime()) + " -> sum = C * 1");
                     //productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
-                    productSum = C.operateOnMatching(MULTIPLY, ones).get().add(productSum);
+                    productSum = C.multiply(ones).add(productSum);
                 }
             }
             MatrixStore<Double> degreeVector = A.multiply(ones);
