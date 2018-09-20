@@ -4,7 +4,6 @@ import hu.bme.mit.ga.adapters.GraphAdapter;
 import hu.bme.mit.ga.adapters.GraphIndexer;
 import org.ojalgo.array.Array1D;
 import org.ojalgo.function.PrimitiveFunction;
-import org.ojalgo.function.aggregator.Aggregator;
 import org.ojalgo.matrix.store.ElementsSupplier;
 import org.ojalgo.matrix.store.MatrixStore;
 import org.ojalgo.matrix.store.PrimitiveDenseStore;
@@ -59,7 +58,8 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                     AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
 
                     System.out.println(new Timestamp(new Date().getTime()) + " -> sum = C * 1");
-                    productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
+                    //productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
+                    productSum = C.operateOnMatching(MULTIPLY, ones).get().add(productSum);
                 }
             }
             MatrixStore<Double> degreeVector = A.multiply(ones);
