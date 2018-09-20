@@ -13,12 +13,16 @@ import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.ojalgo.function.PrimitiveFunction.*;
+import static org.ojalgo.function.PrimitiveFunction.ADD;
+import static org.ojalgo.function.PrimitiveFunction.MULTIPLY;
+import static org.ojalgo.function.PrimitiveFunction.SUBTRACT;
 
 public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
@@ -39,9 +43,18 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
+                    System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s", type1, type2));
                     SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
                     SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                    A.multiply(B).operateOnMatching(MULTIPLY, A).supplyTo(C);
+
+                    System.out.println(new Timestamp(new Date().getTime()) + " -> AB = A * B");
+                    SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+                    A.multiply(B).get().supplyTo(AB);
+
+                    System.out.println(new Timestamp(new Date().getTime()) + " -> C = AB .* A");
+                    AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
+
+                    System.out.println(new Timestamp(new Date().getTime()) + " -> sum = C * 1");
                     productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
                 }
             }
