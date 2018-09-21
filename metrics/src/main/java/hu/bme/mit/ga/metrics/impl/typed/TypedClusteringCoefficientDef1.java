@@ -13,15 +13,9 @@ import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static org.ojalgo.function.PrimitiveFunction.ADD;
-import static org.ojalgo.function.PrimitiveFunction.MULTIPLY;
-import static org.ojalgo.function.PrimitiveFunction.SUBTRACT;
+import static org.ojalgo.function.PrimitiveFunction.*;
 
 public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
@@ -93,7 +87,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                 if (type1 != type2) {
                     System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s", type1, type2));
                     SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
-                    productSum.modifyMatching(ADD,A.multiply(B).multiply(A).sliceDiagonal());
+                    productSum.modifyMatching(ADD, A.multiply(B).multiply(A).sliceDiagonal());
                 }
             }
             MatrixStore<Double> degreeVector = A.multiply(ones);
@@ -118,14 +112,22 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
     @Override
     protected <N, T> void evaluateAll(final GraphAdapter<N, T> adapter) {
-        if (implementation == Implementation.UJMP) {
-            evaluateAllUjmp(adapter);
-        } else if (implementation == Implementation.OJALGO) {
-            evaluateAllOjalgo(adapter);
-        } else if (implementation == Implementation.UJMP_EW) {
-            evaluateAllUjmpElementwise(adapter);
-        } else if(implementation == Implementation.OJALGO_EW){
-            evaluateAllOjalgoElementwise(adapter);
+        switch (implementation) {
+            case UJMP:
+                evaluateAllUjmp(adapter);
+                break;
+            case UJMP_EW:
+                evaluateAllOjalgoElementwise(adapter);
+                break;
+            case EDGELIST:
+                evaluateAllEdgeList(adapter);
+                break;
+            case OJALGO:
+                evaluateAllOjalgo(adapter);
+                break;
+            case OJALGO_EW:
+                evaluateAllOjalgoElementwise(adapter);
+                break;
         }
     }
 
@@ -184,6 +186,51 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         }
     }
 
+    protected <N, T> void evaluateAllEdgeList(final GraphAdapter<N, T> adapter) {
+        for (N node : adapter.getIndexer().getNodes()) {
+            evaluateEdgeList(adapter, node);
+        }
+
+    }
+
+    public <N, T> void evaluateEdgeList(final GraphAdapter<N, T> adapter, final N node) {
+        long interConnected = 0;
+        long numberOfNeighbors = 0;
+        long numberOfPossibleConnections = 0;
+        double coef = 0.0;
+
+        for (T type1 : adapter.getIndexer().getTypes(node)) {
+            numberOfNeighbors = adapter.getIndexer().getNeighbors(node, type1).size();
+            if (useHeuristic && numberOfNeighbors > maxNeighbours) {
+                coef = 0.0;
+                data.add(coef);
+                return;
+            }
+            numberOfPossibleConnections += numberOfNeighbors * (numberOfNeighbors - 1);
+            for (N neighbor1 : adapter.getIndexer().getNeighbors(node, type1)) {
+                for (N neighbor2 : adapter.getIndexer().getNeighbors(node, type1)) {
+                    if (neighbor1 != neighbor2) {
+                        Set<T> types = adapter.getIndexer().getTypes(neighbor1);
+                        for (T type2 : types) {
+                            if (type1 != type2) {
+                                if (adapter.getIndexer().isAdjacentUndirected(neighbor1, neighbor2, type2)) {
+                                    interConnected++;
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        if (numberOfPossibleConnections == 0) {
+            coef = 0.0;
+        } else {
+            coef = (double) interConnected / (double) numberOfPossibleConnections;
+        }
+        data.add(coef);
+    }
+
     @Override
     public <N, T> void evaluate(final GraphAdapter<N, T> adapter) {
         evaluateAll(adapter);
@@ -205,7 +252,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         return values;
     }
 
-    public enum Implementation {UJMP, UJMP_EW, OJALGO_EW, EDGELIST,OJALGO}
+    public enum Implementation {UJMP, UJMP_EW, OJALGO_EW, EDGELIST, OJALGO}
 
 
 }
