@@ -27,7 +27,7 @@ public class ClusteringCoefficient extends AbstractGraphMetric<ListData<Double>>
         Matrix A = indexer.getAdjacencyMatrixUntyped();
         Matrix result = A.mtimes(A).mtimes(A);
         for (int i = 0; i < indexer.getSize(); i++) {
-            int degree = indexer.getDegree(indexer.getRowNodeMap().get(i));
+            int degree = indexer.getDegree(indexer.getNodeRowMap().inverse().get(i));
             if (degree == 0) {
                 data.add(0.0);
             } else {

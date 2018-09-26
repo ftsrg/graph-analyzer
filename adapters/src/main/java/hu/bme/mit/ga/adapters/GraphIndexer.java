@@ -3,9 +3,7 @@ package hu.bme.mit.ga.adapters;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 import org.ojalgo.matrix.store.SparseStore;
 import org.ujmp.core.Matrix;
@@ -26,10 +24,8 @@ public final class GraphIndexer<N, T> {
     private Map<T, Matrix> adjacencyMatrix = new HashMap<>();
 
     private Map<T, SparseStore<Double>> adjacencyMatrix2 = new HashMap<>();
-    private Map<N, Integer> nodeRowMap = new HashMap<>();
 
-
-    private Map<Integer, N> rowNodeMap = new HashMap<>();
+    private BiMap<N,Integer> nodeRowMap = HashBiMap.create();
 
     private Matrix adjacencyMatrixUntyped;
 
@@ -112,7 +108,6 @@ public final class GraphIndexer<N, T> {
             rowsAdded += 1;
             nodes.add(node);
             nodeRowMap.put(node, rowsAdded - 1);
-            rowNodeMap.put(rowsAdded - 1, node); //?
         }
     }
 
@@ -271,12 +266,8 @@ public final class GraphIndexer<N, T> {
         return adjacencyMatrixUntyped;
     }
 
-    public Map<N, Integer> getNodeRowMap() {
+    public BiMap<N, Integer> getNodeRowMap() {
         return nodeRowMap;
-    }
-
-    public Map<Integer, N> getRowNodeMap() {
-        return rowNodeMap;
     }
 
     public Map<T, SparseStore<Double>> getAdjacencyMatrix2() {

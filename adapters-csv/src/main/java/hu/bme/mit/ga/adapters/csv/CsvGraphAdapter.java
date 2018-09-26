@@ -37,20 +37,7 @@ public class CsvGraphAdapter<N> extends GraphAdapter<N, String> {
         lineNumberReader.close();
         indexer = new GraphIndexer<>(numberOfNodes);
 
-        final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), PREF);
         final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), PREF);
-
-        // nodes
-        final String[] nodeHeader = {"id"};
-        final CellProcessor[] nodeProcessors = getProcessors("nodes");
-
-        final CsvIterator<N> iterator = new CsvIterator<>(nodeMapReader, nodeHeader, nodeProcessors);
-        List<N> nodes = new ArrayList<>();
-        while (iterator.hasNext()) {
-            final N id = iterator.next();
-            nodes.add(id);
-        }
-
         // edges
         final CellProcessor[] edgeProcessors = getProcessors("edges");
         final String[] edgeHeader = {"source_id", "type", "target_id"};
