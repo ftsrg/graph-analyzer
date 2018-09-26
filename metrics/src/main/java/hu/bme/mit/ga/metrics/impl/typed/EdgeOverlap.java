@@ -1,24 +1,43 @@
 package hu.bme.mit.ga.metrics.impl.typed;
 
 import com.google.common.collect.Multimap;
-import hu.bme.mit.ga.base.data.MapData;
 import hu.bme.mit.ga.adapters.GraphAdapter;
 import hu.bme.mit.ga.adapters.GraphIndexer;
+import hu.bme.mit.ga.base.data.MapData;
 import hu.bme.mit.ga.metrics.AbstractGraphMetric;
+import org.ojalgo.matrix.store.PrimitiveDenseStore;
+import org.ojalgo.matrix.store.SparseStore;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static org.ojalgo.function.PrimitiveFunction.ADD;
+import static org.ojalgo.function.PrimitiveFunction.MULTIPLY;
 
 public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
+    protected Implementation implementation;
+
+    public EdgeOverlap(Implementation implementation) {
+        super("EdgeOverlap", new MapData<>());
+        this.implementation = implementation;
+    }
+
     public EdgeOverlap() {
-        super("EdgeOverlap", new MapData<String, Double>());
+        this(Implementation.EDGELIST);
     }
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
+        switch (implementation) {
+            case OJALGO:
+                evaluateAllMatrix(adapter);
+                break;
+            case EDGELIST:
+                evaluateAllEdgeList(adapter);
+                break;
+        }
+    }
+
+    protected <N, T> void evaluateAllEdgeList(GraphAdapter<N, T> adapter) {
         for (T condType : adapter.getIndexer().getTypes()) {
             for (T type : adapter.getIndexer().getTypes()) {
                 if (type != condType) {
@@ -28,6 +47,28 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
         }
 
     }
+
+
+    protected <N, T> void evaluateAllMatrix(GraphAdapter<N, T> adapter) {
+        GraphIndexer<N, T> indexer = adapter.getIndexer();
+        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
+        ones.operateOnAll(ADD, 1).supplyTo(ones);
+        for (T condType : adapter.getIndexer().getTypes()) {
+            double d = indexer.getAdjacencyMatrix2().get(condType).multiply(ones).transpose().multiply(ones).get(0, 0);
+            for (T type : adapter.getIndexer().getTypes()) {
+                if (type != condType) {
+                    SparseStore A = adapter.getIndexer().getAdjacencyMatrix2().get(type);
+                    SparseStore B = adapter.getIndexer().getAdjacencyMatrix2().get(condType);
+                    SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+                    A.operateOnMatching(MULTIPLY, B).supplyTo(C);
+                    double n = C.multiply(ones).transpose().multiply(ones).get(0, 0);
+                    data.put(getKey(type, condType), n / d);
+                }
+            }
+        }
+
+    }
+
 
     private <T, N> void evaluate(GraphAdapter<N, T> adapter, T condType, T type) {
         GraphIndexer indexer = adapter.getIndexer();
@@ -65,5 +106,7 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
         }
         return values;
     }
+
+    public enum Implementation {OJALGO, EDGELIST}
 
 }
