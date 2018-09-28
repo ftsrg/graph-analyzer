@@ -112,7 +112,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         Map<String,MatrixStore> resultMap = typeList
             .stream().parallel().map(x -> evaluateForType(x, adapter)).reduce((a, b) -> {
                     Map<String, MatrixStore> list = new HashMap<>();
-                    list.put("numerator",a.get("triangles").add(b.get("triangles")));
+                    list.put("triangles",a.get("triangles").add(b.get("triangles")));
                     list.put("wedges",a.get("wedges").add(b.get("wedges")));
                     return list;
                 }
