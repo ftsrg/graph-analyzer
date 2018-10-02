@@ -48,7 +48,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
                     System.out.println(new Timestamp(new Date().getTime()) + " -> AB = A * B");
                     SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                    A.multiply(B).get().supplyTo(AB);
+                    A.multiply(B).supplyTo(AB);
 
                     System.out.println(new Timestamp(new Date().getTime()) + " -> C = AB .* A");
                     AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
@@ -79,19 +79,20 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     private <N, T> Map<String,MatrixStore> evaluateForType(T type1, final GraphAdapter<N, T> adapter) {
         GraphIndexer<N, T> indexer = adapter.getIndexer();
         PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        MatrixStore productSum = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
+        ones.operateOnAll(ADD, 1).supplyTo(ones);
         PrimitiveDenseStore degrees = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
         SparseStore<Double> A = indexer.getAdjacencyMatrix2().get(type1);
-        for (T type2 : indexer.getTypes()) {
-            if (type1 != type2) {
-                SparseStore<Double> B = indexer.getAdjacencyMatrix2().get(type2);
-                SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                A.multiply(B).get().supplyTo(AB);
-                AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
-                productSum = C.multiply(ones).add(productSum);
-            }
-        }
+        List<T> typeList = new ArrayList<>();
+        typeList.addAll(indexer.getTypes());
+        typeList.remove(type1);
+        MatrixStore productSum = typeList.stream().parallel().map(type2 -> {
+            SparseStore<Double> B = indexer.getAdjacencyMatrix2().get(type2);
+            SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+            SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+            A.multiply(B).supplyTo(AB);
+            AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
+            return C.multiply(ones);
+        }).reduce(PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1),(a,b) -> a.add(b)).get();
         MatrixStore<Double> degreeVector = A.multiply(ones);
         final ElementsSupplier<Double> tmpIntermediateA = degreeVector.operateOnMatching(SUBTRACT, ones);
         final ElementsSupplier<Double> tmpIntermediateB = tmpIntermediateA.operateOnMatching(PrimitiveFunction.MULTIPLY, degreeVector);
