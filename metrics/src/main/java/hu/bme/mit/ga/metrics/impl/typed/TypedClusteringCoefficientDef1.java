@@ -76,55 +76,60 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         }
     }
 
-    private <N, T> Map<String,MatrixStore> evaluateForType(T type1, final GraphAdapter<N, T> adapter) {
+    private <N, T> MatrixStore countTrianglesForTypePair(T type1, T type2, final GraphAdapter<N, T> adapter) {
         GraphIndexer<N, T> indexer = adapter.getIndexer();
         PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
         ones.operateOnAll(ADD, 1).supplyTo(ones);
-        PrimitiveDenseStore degrees = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
         SparseStore<Double> A = indexer.getAdjacencyMatrix2().get(type1);
-        List<T> typeList = new ArrayList<>();
-        typeList.addAll(indexer.getTypes());
-        typeList.remove(type1);
-        MatrixStore productSum = typeList.stream().parallel().map(type2 -> {
-            SparseStore<Double> B = indexer.getAdjacencyMatrix2().get(type2);
-            SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-            SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-            A.multiply(B).supplyTo(AB);
-            AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
-            return C.multiply(ones);
-        }).reduce(PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1),(a,b) -> a.add(b)).get();
+        SparseStore<Double> B = indexer.getAdjacencyMatrix2().get(type2);
+        SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+        SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
+        A.multiply(B).supplyTo(AB);
+        AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
+        return C.multiply(ones);
+    }
+
+    private <N, T> MatrixStore countWedgesForType(T type, final GraphAdapter<N, T> adapter) {
+        GraphIndexer indexer = adapter.getIndexer();
+        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
+        ones.operateOnAll(ADD, 1).supplyTo(ones);
+        SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type);
         MatrixStore<Double> degreeVector = A.multiply(ones);
+        PrimitiveDenseStore degrees = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
         final ElementsSupplier<Double> tmpIntermediateA = degreeVector.operateOnMatching(SUBTRACT, ones);
         final ElementsSupplier<Double> tmpIntermediateB = tmpIntermediateA.operateOnMatching(PrimitiveFunction.MULTIPLY, degreeVector);
         final ElementsSupplier<Double> tmpIntermediateC = tmpIntermediateB.operateOnAll(PrimitiveFunction.MULTIPLY, indexer.getTypes().size() - 1);
         tmpIntermediateC.supplyTo(degrees);
-        Map<String, MatrixStore> map = new HashMap<>();
-        map.put("triangles",productSum);
-        map.put("wedges", degrees);
-        return map;
+        return degrees;
     }
+
 
     protected <N, T> void evaluateAllOjalgoElementwiseStream(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         List<T> typeList = new ArrayList<>();
         typeList.addAll(indexer.getTypes());
-        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        ones.operateOnAll(ADD, 1).supplyTo(ones);
-        Map<String,MatrixStore> resultMap = typeList
-            .stream().parallel().map(x -> evaluateForType(x, adapter)).reduce((a, b) -> {
-                    Map<String, MatrixStore> list = new HashMap<>();
-                    list.put("triangles",a.get("triangles").add(b.get("triangles")));
-                    list.put("wedges",a.get("wedges").add(b.get("wedges")));
-                    return list;
+        List<List<T>> typePairs = new ArrayList<>();
+        for (T type1 : typeList) {
+            for (T type2 : typeList) {
+                if (type1 != type2) {
+                    typePairs.add(Lists.newArrayList(type1, type2));
                 }
+            }
+        }
+        MatrixStore wedges = typeList.stream().parallel().map(x -> countWedgesForType(x, adapter))
+            .reduce((a, b) -> a.add(b)).get();
+        MatrixStore triangles = typePairs
+            .stream().parallel().map(x -> countTrianglesForTypePair(x.get(0), x.get(1), adapter))
+            .reduce(PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1), (a, b) -> a.add(b)
             ).get();
+
         for (int i = 0; i < indexer.getSize(); i++) {
-            double triangles = resultMap.get("triangles").doubleValue(i, 0);
-            double wedges = resultMap.get("wedges").doubleValue(i, 0);
-            if (wedges == 0) {
+            double n_triangles = triangles.doubleValue(i, 0);
+            double n_wedges = wedges.doubleValue(i, 0);
+            if (n_wedges == 0) {
                 data.add(0.0);
             } else {
-                data.add(triangles / wedges);
+                data.add(n_triangles / n_wedges);
             }
         }
     }
@@ -167,6 +172,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
     @Override
     protected <N, T> void evaluateAll(final GraphAdapter<N, T> adapter) {
+        long start = System.currentTimeMillis();
         switch (implementation) {
             case UJMP:
                 evaluateAllUjmp(adapter);
@@ -186,6 +192,8 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             case STREAM:
                 evaluateAllOjalgoElementwiseStream(adapter);
         }
+        long end = System.currentTimeMillis();
+
     }
 
     protected <N, T> void evaluateAllUjmp(final GraphAdapter<N, T> adapter) {
