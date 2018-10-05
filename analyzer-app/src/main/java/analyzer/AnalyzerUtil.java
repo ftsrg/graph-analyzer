@@ -23,6 +23,13 @@ public class AnalyzerUtil {
         new NotNull()
     };
 
+    public static final CellProcessor[] perfProcessors = new CellProcessor[]{
+        new NotNull(),
+        new Optional(),
+        new Optional()
+    };
+
+
     public static void showResult(GraphMetric metric) {
         System.out.println(String.format("Data of %s : %s", metric.getName(), metric.getData().toString()));
     }
@@ -51,5 +58,31 @@ public class AnalyzerUtil {
         }
 
     }
+
+    public static void writePerformanceToTsv(List<AbstractGraphMetric> metrics, String filename) throws IOException {
+        final String[] header = new String[] {"metric", "algo", "t"};
+        ICsvMapWriter mapWriter = null;
+
+        try {
+            mapWriter = new CsvMapWriter(new FileWriter(filename), CsvPreference.TAB_PREFERENCE);
+
+            // write the header
+            mapWriter.writeHeader(header);
+
+            for (AbstractGraphMetric metric : metrics) {
+                List<Map<String, Object>> mapList = metric.getPerformanceData();
+                for (Map<String, Object> map : mapList) {
+                    mapWriter.write(map, header, perfProcessors);
+                }
+            }
+
+        } finally {
+            if (mapWriter != null) {
+                mapWriter.close();
+            }
+        }
+
+    }
+
 
 }

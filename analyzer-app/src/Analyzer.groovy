@@ -16,12 +16,14 @@ def graphs = ['test']
 //reportUrl = "https://hooks.slack.com/services/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"
 
 def tcc1impl = TypedClusteringCoefficientDef1.Implementation.STREAM
+def reps = 10
 
 def metrics = [
     new Density(),
     new TypedActivity(),
     new TypedDegree(),
     new TypedClusteringCoefficientDef1(tcc1impl),
+    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.OJALGO),
 //    new TypedClusteringCoefficientDef2(),
 //    new TypedClusteringCoefficientDef3(),
     new TypedDegreeEntropy(),
@@ -51,9 +53,12 @@ graphs.each { graph ->
 
     metrics.each { metric ->
         println("- ${metric.getName()}")
-        metric.evaluate(adapter)
+        reps.times {
+            metric.evaluate(adapter)
+        }
         calculatedMetrics += metric
     }
 
     AnalyzerUtil.writeToTsv(calculatedMetrics, "../reporting/tsvs/${graph}.tsv");
+    AnalyzerUtil.writePerformanceToTsv(calculatedMetrics, "../reporting/perf-tsvs/${graph}.tsv")
 }

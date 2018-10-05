@@ -18,4 +18,5 @@ public abstract class TypedClusteringCoefficient extends AbstractGraphMetric<Lis
         evaluateEveryNode(adapter);
         evaluate(adapter);
     }
+
 }

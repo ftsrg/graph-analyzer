@@ -20,13 +20,15 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
         super("EdgeOverlap", new MapData<>());
         this.implementation = implementation;
     }
-
     public EdgeOverlap() {
-        this(Implementation.EDGELIST);
+        super("EdgeOverlap", new MapData<>());
+        this.implementation = Implementation.EDGELIST;
     }
+
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
+        long start = System.currentTimeMillis();
         switch (implementation) {
             case OJALGO:
                 evaluateAllMatrix(adapter);
@@ -35,7 +37,18 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
                 evaluateAllEdgeList(adapter);
                 break;
         }
+        long end = System.currentTimeMillis();
+        addToPerformancemap(end-start);
     }
+
+    private void addToPerformancemap(long millis) {
+        Map<String,Object> performance = new HashMap<>();
+        performance.put("metric",this.name);
+        performance.put("algo",this.implementation.toString());
+        performance.put("t",millis);
+        performanceData.add(performance);
+    }
+
 
     protected <N, T> void evaluateAllEdgeList(GraphAdapter<N, T> adapter) {
         for (T condType : adapter.getIndexer().getTypes()) {

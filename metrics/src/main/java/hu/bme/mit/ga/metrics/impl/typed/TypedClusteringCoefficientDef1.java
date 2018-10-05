@@ -193,7 +193,14 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                 evaluateAllOjalgoElementwiseStream(adapter);
         }
         long end = System.currentTimeMillis();
-
+        addToPerformancemap(end-start);
+    }
+    private void addToPerformancemap(long millis) {
+        Map<String,Object> performance = new HashMap<>();
+        performance.put("metric",this.name);
+        performance.put("algo",this.implementation.toString());
+        performance.put("t",millis);
+        performanceData.add(performance);
     }
 
     protected <N, T> void evaluateAllUjmp(final GraphAdapter<N, T> adapter) {
@@ -316,6 +323,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         }
         return values;
     }
+
 
     public enum Implementation {UJMP, UJMP_EW, OJALGO_EW, EDGELIST, OJALGO, STREAM}
 
