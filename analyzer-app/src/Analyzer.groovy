@@ -15,27 +15,21 @@ def graphs = ['test']
 // The default configuration points to our research group's Slack.
 //reportUrl = "https://hooks.slack.com/services/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"
 
-def tcc1impl = TypedClusteringCoefficientDef1.Implementation.STREAM
-def reps = 10
+def reps = 3
 
 def metrics = [
-    new Density(),
-    new TypedActivity(),
-    new TypedDegree(),
-    new TypedClusteringCoefficientDef1(tcc1impl),
+    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.EDGELIST),
     new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.OJALGO),
-//    new TypedClusteringCoefficientDef2(),
-//    new TypedClusteringCoefficientDef3(),
-    new TypedDegreeEntropy(),
-    new NodeTypedConnectivity(),
-    new EdgeTypedConnectivity(),
-    new EdgeOverlap(),
-    new MultiplexParticipationCoefficient(),
-    new NodeActivity(),
-    new NumberOfEdges(),
-    new NumberOfNodes(),
-    new NumberOfTypedEdges(),
-    new PairwiseMultiplexity(),
+    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.OJALGO_EW),
+    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.UJMP),
+    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.UJMP_EW),
+    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.STREAM),
+    new TypedClusteringCoefficientDef2(TypedClusteringCoefficientDef2.Implementation.EDGELIST),
+    new TypedClusteringCoefficientDef2(TypedClusteringCoefficientDef2.Implementation.OJALGO_EW),
+    new TypedClusteringCoefficientDef2(TypedClusteringCoefficientDef2.Implementation.OJALGO_MMM),
+    new TypedClusteringCoefficientDef2(TypedClusteringCoefficientDef2.Implementation.OJALGO_EW_STREAM),
+    new EdgeOverlap(EdgeOverlap.Implementation.OJALGO),
+    new EdgeOverlap(EdgeOverlap.Implementation.EDGELIST)
 ]
 
 graphs.each { graph ->
