@@ -9,7 +9,6 @@ import org.ojalgo.matrix.store.MatrixStore;
 import org.ojalgo.matrix.store.PrimitiveDenseStore;
 import org.ojalgo.matrix.store.SparseStore;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 import static org.ojalgo.function.PrimitiveFunction.ADD;
@@ -22,6 +21,12 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         super("TypedClusteringCoefficientDef2");
         this.implementation = implementation;
     }
+
+    @Override
+    public String getName() {
+        return name + " " + implementation.name();
+    }
+
 
     public TypedClusteringCoefficientDef2() {
         this(Implementation.OJALGO_EW_STREAM);
@@ -44,17 +49,13 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
                         if (type1 != type3 && type3 != type2) {
                             SparseStore<Double> C = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type3);
 
-                            System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s x %s", type1, type2, type3));
                             SparseStore<Double> D = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
 
-                            System.out.println(new Timestamp(new Date().getTime()) + " -> AB = A * B");
                             SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
                             A.multiply(B).get().supplyTo(AB);
 
-                            System.out.println(new Timestamp(new Date().getTime()) + " -> D = AB .* C");
                             AB.operateOnMatching(MULTIPLY, C).supplyTo(D);
 
-                            System.out.println(new Timestamp(new Date().getTime()) + " -> sum = D * 1");
                             //productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
                             productSum = D.multiply(ones).add(productSum);
                         }
@@ -94,15 +95,11 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
 
         SparseStore<Double> D = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
 
-        System.out.println(new Timestamp(new Date().getTime()) + " -> AB = A * B");
         SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
         A.multiply(B).get().supplyTo(AB);
 
-        System.out.println(new Timestamp(new Date().getTime()) + " -> D = AB .* C");
         AB.operateOnMatching(MULTIPLY, C).supplyTo(D);
 
-        System.out.println(new Timestamp(new Date().getTime()) + " -> sum = D * 1");
-        //productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
         return D.multiply(ones);
 
 

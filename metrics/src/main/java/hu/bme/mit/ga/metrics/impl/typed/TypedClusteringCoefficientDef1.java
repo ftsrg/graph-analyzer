@@ -32,6 +32,12 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         this(Implementation.STREAM);
     }
 
+    @Override
+    public String getName() {
+        return name + " " + implementation.name();
+    }
+
+
     protected <N, T> void evaluateAllOjalgoElementwise(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         MatrixStore productSum = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
@@ -42,18 +48,14 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
-                    System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s", type1, type2));
                     SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
                     SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
 
-                    System.out.println(new Timestamp(new Date().getTime()) + " -> AB = A * B");
                     SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
                     A.multiply(B).supplyTo(AB);
 
-                    System.out.println(new Timestamp(new Date().getTime()) + " -> C = AB .* A");
                     AB.operateOnMatching(MULTIPLY, A).supplyTo(C);
 
-                    System.out.println(new Timestamp(new Date().getTime()) + " -> sum = C * 1");
                     productSum = C.multiply(ones).add(productSum);
                 }
             }
@@ -145,7 +147,6 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
-                    System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s", type1, type2));
                     SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
                     productSum.modifyMatching(ADD, A.multiply(B).multiply(A).sliceDiagonal());
                 }
@@ -193,13 +194,14 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                 evaluateAllOjalgoElementwiseStream(adapter);
         }
         long end = System.currentTimeMillis();
-        addToPerformancemap(end-start);
+        addToPerformancemap(end - start);
     }
+
     private void addToPerformancemap(long millis) {
-        Map<String,Object> performance = new HashMap<>();
-        performance.put("metric",this.name);
-        performance.put("algo",this.implementation.toString());
-        performance.put("t",millis);
+        Map<String, Object> performance = new HashMap<>();
+        performance.put("metric", this.name);
+        performance.put("algo", this.implementation.toString());
+        performance.put("t", millis);
         performanceData.add(performance);
     }
 
@@ -211,7 +213,6 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             Matrix A = (Matrix) indexer.getAdjacencyMatrix().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
-                    System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s", type1, type2));
                     Matrix B = (Matrix) indexer.getAdjacencyMatrix().get(type2);
                     productSum = productSum.plus(A.mtimes(B).mtimes(A));
                 }
@@ -239,7 +240,6 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             Matrix A = (Matrix) indexer.getAdjacencyMatrix().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
-                    System.out.println(new Timestamp(new Date().getTime()) + String.format(" Calculating clustering for types %s × %s", type1, type2));
                     Matrix B = (Matrix) indexer.getAdjacencyMatrix().get(type2);
                     productSum = productSum.plus(A.mtimes(B).times(A).sum(Calculation.Ret.NEW, 1, false));
                 }

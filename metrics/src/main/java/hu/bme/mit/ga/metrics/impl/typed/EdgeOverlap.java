@@ -24,6 +24,10 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
         super("EdgeOverlap", new MapData<>());
         this.implementation = Implementation.EDGELIST;
     }
+    @Override
+    public String getName() {
+        return name + " " + implementation.name();
+    }
 
 
     @Override
