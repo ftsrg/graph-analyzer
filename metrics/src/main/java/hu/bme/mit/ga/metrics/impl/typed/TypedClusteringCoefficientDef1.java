@@ -179,7 +179,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                 evaluateAllUjmp(adapter);
                 break;
             case UJMP_EW:
-                evaluateAllOjalgoElementwise(adapter);
+                evaluateAllUjmpElementwise(adapter);
                 break;
             case EDGELIST:
                 evaluateAllEdgeList(adapter);
