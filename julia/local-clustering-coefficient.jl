@@ -56,4 +56,4 @@ S2 = sparse(I, J, V, vertex_counter, vertex_counter)
 # Square
 println("S1 * S1")
 M = S1 * S2
-println(length(M))
+println(nnz(M))
