@@ -1,9 +1,4 @@
-###############################################################################
-# Julia script to read a graph as vertex/edge files and transform it
-# to a sparse adjacency matrix.
-# * Parameter1: Path to edge file
-# Example: julia graph-to-parse.jl test-vertices.csv test-edges.csv
-###############################################################################
+using SparseArrays
 
 EDGE_FILE1_PATH = "f1.txt"
 EDGE_FILE2_PATH = "f2.txt"
@@ -55,9 +50,6 @@ open(EDGE_FILE2_PATH) do f
     end
 end
 S2 = sparse(I, J, V, vertex_counter, vertex_counter)
-
-using SparseArrays
-
 
 ############################ IMPLEMENT OPERATIONS ############################
 
