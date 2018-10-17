@@ -51,5 +51,5 @@ graphs.each { graph ->
     }
 
     AnalyzerUtil.writeToTsv(calculatedMetrics, "../reporting/tsvs/${graph}.tsv");
-    AnalyzerUtil.writePerformanceToTsv(calculatedMetrics, "../reporting/perf-tsvs/${graph}.tsv")
+    AnalyzerUtil.writePerformanceToTsv(calculatedMetrics, graph, "../reporting/perf-tsvs/${graph}.tsv")
 }
