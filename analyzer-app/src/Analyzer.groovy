@@ -1,8 +1,5 @@
 import analyzer.AnalyzerUtil
 import hu.bme.mit.ga.adapters.csv.CsvGraphAdapter
-import hu.bme.mit.ga.metrics.impl.simple.Density
-import hu.bme.mit.ga.metrics.impl.simple.NumberOfEdges
-import hu.bme.mit.ga.metrics.impl.simple.NumberOfNodes
 import hu.bme.mit.ga.metrics.impl.typed.*
 import org.supercsv.cellprocessor.constraint.NotNull
 
@@ -21,9 +18,9 @@ def metrics = [
     new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.EDGELIST),
     new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.OJALGO),
     new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.OJALGO_EW),
+    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.OJALGO_EW_STREAM),
     new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.UJMP),
     new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.UJMP_EW),
-    new TypedClusteringCoefficientDef1(TypedClusteringCoefficientDef1.Implementation.STREAM),
     new TypedClusteringCoefficientDef2(TypedClusteringCoefficientDef2.Implementation.EDGELIST),
     new TypedClusteringCoefficientDef2(TypedClusteringCoefficientDef2.Implementation.OJALGO_EW),
     new TypedClusteringCoefficientDef2(TypedClusteringCoefficientDef2.Implementation.OJALGO_MMM),

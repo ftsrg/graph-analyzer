@@ -13,7 +13,6 @@ import org.ujmp.core.Matrix;
 import org.ujmp.core.SparseMatrix;
 import org.ujmp.core.calculation.Calculation;
 
-import java.sql.Timestamp;
 import java.util.*;
 
 import static org.ojalgo.function.PrimitiveFunction.*;
@@ -29,7 +28,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     }
 
     public TypedClusteringCoefficientDef1() {
-        this(Implementation.STREAM);
+        this(Implementation.OJALGO_EW_STREAM);
     }
 
     @Override
@@ -190,7 +189,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             case OJALGO_EW:
                 evaluateAllOjalgoElementwise(adapter);
                 break;
-            case STREAM:
+            case OJALGO_EW_STREAM:
                 evaluateAllOjalgoElementwiseStream(adapter);
         }
         long end = System.currentTimeMillis();
@@ -325,7 +324,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     }
 
 
-    public enum Implementation {UJMP, UJMP_EW, OJALGO_EW, EDGELIST, OJALGO, STREAM}
+    public enum Implementation {EDGELIST, UJMP, UJMP_EW, OJALGO, OJALGO_EW, OJALGO_EW_STREAM}
 
 
 }
