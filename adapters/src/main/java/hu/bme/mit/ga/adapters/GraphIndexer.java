@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.common.collect.*;
+import org.ejml.data.DMatrixSparseTriplet;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 import org.ojalgo.matrix.store.SparseStore;
 import org.ujmp.core.Matrix;
@@ -23,9 +24,11 @@ public final class GraphIndexer<N, T> {
 
     private Map<T, Matrix> adjacencyMatrix = new HashMap<>();
 
+    private Map<T, DMatrixSparseTriplet> adjacencyMatrixEjml = new HashMap<>();
+
     private Map<T, SparseStore<Double>> adjacencyMatrix2 = new HashMap<>();
 
-    private BiMap<N,Integer> nodeRowMap = HashBiMap.create();
+    private BiMap<N, Integer> nodeRowMap = HashBiMap.create();
 
     private Matrix adjacencyMatrixUntyped;
 
@@ -45,6 +48,8 @@ public final class GraphIndexer<N, T> {
             adjacencyMatrix.put(type, m1);
             SparseStore<Double> m2 = SparseStore.PRIMITIVE.make(size, size);
             adjacencyMatrix2.put(type, m2);
+            DMatrixSparseTriplet triplets = new DMatrixSparseTriplet(size, size, size);
+            adjacencyMatrixEjml.put(type, triplets);
         }
         adjacencyMatrixUntyped = SparseMatrix.Factory.zeros(size, size);
     }
@@ -70,7 +75,6 @@ public final class GraphIndexer<N, T> {
             addNode(sourceNode);
         }
         if (!nodes.contains(targetNode)) {
-            // nodes.add(targetNode);
             addNode(targetNode);
         }
         if (!outgoing.containsKey(type)) {
@@ -78,13 +82,19 @@ public final class GraphIndexer<N, T> {
         }
         outgoing.get(type).put(sourceNode, targetNode);
         incoming.get(type).put(targetNode, sourceNode);
-        if(adjacencyMatrixUntyped!=null){
-            adjacencyMatrix.get(type).setAsDouble(1.0, nodeRowMap.get(sourceNode), nodeRowMap.get(targetNode));
-            adjacencyMatrix.get(type).setAsDouble(1.0, nodeRowMap.get(targetNode), nodeRowMap.get(sourceNode));
-            adjacencyMatrix2.get(type).set(nodeRowMap.get(sourceNode),nodeRowMap.get(targetNode),(Number)1.0);
-            adjacencyMatrix2.get(type).set(nodeRowMap.get(targetNode),nodeRowMap.get(sourceNode),(Number)1.0);
-            adjacencyMatrixUntyped.setAsDouble(1.0, nodeRowMap.get(sourceNode), nodeRowMap.get(targetNode));
-        adjacencyMatrixUntyped.setAsDouble(1.0, nodeRowMap.get(targetNode), nodeRowMap.get(sourceNode));
+        if (adjacencyMatrixUntyped != null && adjacencyMatrixEjml != null) {
+            long sourceNodeInd = nodeRowMap.get(sourceNode);
+            long targetNodeInd = nodeRowMap.get(targetNode);
+            adjacencyMatrix.get(type).setAsDouble(1.0, sourceNodeInd, targetNodeInd);
+            adjacencyMatrix.get(type).setAsDouble(1.0, targetNodeInd, sourceNodeInd);
+            adjacencyMatrix2.get(type).set(sourceNodeInd, targetNodeInd, (Number) 1.0);
+            adjacencyMatrix2.get(type).set(targetNodeInd, sourceNodeInd, (Number) 1.0);
+            adjacencyMatrixUntyped.setAsDouble(1.0, sourceNodeInd, targetNodeInd);
+            adjacencyMatrixUntyped.setAsDouble(1.0, targetNodeInd, sourceNodeInd);
+            adjacencyMatrixEjml.get(type).set((int) sourceNodeInd, (int) targetNodeInd, 1);
+            adjacencyMatrixEjml.get(type).set((int) targetNodeInd, (int) sourceNodeInd, 1);
+            numberOfEdges+=0;
+
         }
 
         numberOfEdges++;
@@ -100,6 +110,9 @@ public final class GraphIndexer<N, T> {
 
         SparseStore<Double> m2 = SparseStore.PRIMITIVE.make(size, size);
         adjacencyMatrix2.put(type, m2);
+
+        DMatrixSparseTriplet triplets = new DMatrixSparseTriplet(size, size, 0);
+        adjacencyMatrixEjml.put(type, triplets);
 
     }
 
@@ -274,8 +287,9 @@ public final class GraphIndexer<N, T> {
         return adjacencyMatrix2;
     }
 
-    public void setAdjacencyMatrix2(Map<T, SparseStore<Double>> adjacencyMatrix2) {
-        this.adjacencyMatrix2 = adjacencyMatrix2;
+    public Map<T, DMatrixSparseTriplet> getAdjacencyMatrixEjml() {
+        return adjacencyMatrixEjml;
     }
+
 
 }

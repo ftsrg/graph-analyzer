@@ -3,6 +3,13 @@ package hu.bme.mit.ga.metrics.impl.typed;
 import com.google.common.collect.Lists;
 import hu.bme.mit.ga.adapters.GraphAdapter;
 import hu.bme.mit.ga.adapters.GraphIndexer;
+import org.ejml.data.DMatrixRMaj;
+import org.ejml.data.DMatrixSparseCSC;
+import org.ejml.data.DMatrixSparseTriplet;
+import org.ejml.ops.ConvertDMatrixStruct;
+import org.ejml.simple.SimpleMatrix;
+import org.ejml.sparse.csc.CommonOps_DSCC;
+import org.ejml.sparse.csc.mult.ImplSparseSparseMult_DSCC;
 import org.ojalgo.array.Array1D;
 import org.ojalgo.function.PrimitiveFunction;
 import org.ojalgo.matrix.store.ElementsSupplier;
@@ -28,12 +35,52 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     }
 
     public TypedClusteringCoefficientDef1() {
-        this(Implementation.OJALGO_EW_STREAM);
+        this(Implementation.EJML_EW);
     }
 
     @Override
     public String getName() {
         return name + " " + implementation.name();
+    }
+
+    protected <N, T> void evaluateAllEjmlElementwise(final GraphAdapter<N, T> adapter) {
+        GraphIndexer indexer = adapter.getIndexer();
+        int size = indexer.getSize();
+        SimpleMatrix productSum = new SimpleMatrix(size, 1);
+        SimpleMatrix degrees = new SimpleMatrix(size, 1);
+        SimpleMatrix ones = new SimpleMatrix(size, 1);
+        ones.fill(1);
+
+        for (T type1 : adapter.getIndexer().getTypes()) {
+            DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
+            DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
+            for (T type2 : adapter.getIndexer().getTypes()) {
+                if (type1 != type2) {
+                    DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
+                    DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
+                    DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
+                    DMatrixSparseCSC ABA = new DMatrixSparseCSC(size, size, 0);
+                    ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
+                    CommonOps_DSCC.elementMult(AB, A, ABA, null, null);
+                    DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
+                    CommonOps_DSCC.mult(ABA, ones.getMatrix(), rowSum);
+                    productSum = productSum.plus(SimpleMatrix.wrap(rowSum));
+                }
+            }
+            DMatrixRMaj degreeVector = new DMatrixRMaj(size, 1);
+            CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVector);
+            SimpleMatrix simpleDegreeVector = SimpleMatrix.wrap(degreeVector);
+            degrees = degrees.plus(simpleDegreeVector.elementMult(simpleDegreeVector.minus(1)));
+        }
+        for (int i = 0; i < indexer.getSize(); i++) {
+            double numerator = productSum.get(i, 0);
+            double denominator = degrees.get(i, 0) * (indexer.getTypes().size() - 1);
+            if (denominator == 0) {
+                data.add(0.0);
+            } else {
+                data.add(numerator / denominator);
+            }
+        }
     }
 
 
@@ -191,6 +238,10 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                 break;
             case OJALGO_EW_STREAM:
                 evaluateAllOjalgoElementwiseStream(adapter);
+                break;
+            case EJML_EW:
+                evaluateAllEjmlElementwise(adapter);
+                break;
         }
         long end = System.currentTimeMillis();
         addToPerformancemap(end - start);
@@ -324,7 +375,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     }
 
 
-    public enum Implementation {EDGELIST, UJMP, UJMP_EW, OJALGO, OJALGO_EW, OJALGO_EW_STREAM}
+    public enum Implementation {EDGELIST, UJMP, UJMP_EW, OJALGO, OJALGO_EW, OJALGO_EW_STREAM, EJML_EW}
 
 
 }

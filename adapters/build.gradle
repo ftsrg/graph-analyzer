@@ -5,6 +5,7 @@ dependencies {
     compile group: 'de.javakaffee', name: 'kryo-serializers', version: '0.42'
 
     compile group: 'org.ejml', name: 'ejml-dsparse', version: '0.36'
+    compile group: 'org.ejml', name: 'ejml-simple', version: '0.36'
     compile group: 'org.ojalgo', name: 'ojalgo', version: '46.2.0'
     compile group: 'org.ujmp', name: 'ujmp-core', version: '0.3.0'
 }
