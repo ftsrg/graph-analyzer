@@ -10,6 +10,7 @@ subprojects {
 
     repositories {
         jcenter()
+	maven { url "https://docs.inf.mit.bme.hu/graph-analyzer/" }
     }
 
     test {
