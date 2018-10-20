@@ -208,6 +208,7 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type3);
         DMatrixSparseCSC C = ConvertDMatrixStruct.convert(tripletsC, (DMatrixSparseCSC) null);
         DMatrixSparseCSC ABC = new DMatrixSparseCSC(size, size, 0);
+        ABC.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
         CommonOps_DSCC.elementMult(AB, C, ABC, null, null);
         DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
         CommonOps_DSCC.mult(ABC, ones.getMatrix(), rowSum);
@@ -264,6 +265,7 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
                             DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type3);
                             DMatrixSparseCSC C = ConvertDMatrixStruct.convert(tripletsC, (DMatrixSparseCSC) null);
                             DMatrixSparseCSC ABC = new DMatrixSparseCSC(size, size, 0);
+                            ABC.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
                             CommonOps_DSCC.elementMult(AB, C, ABC, null, null);
                             DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
                             CommonOps_DSCC.mult(ABC, ones.getMatrix(), rowSum);
@@ -277,8 +279,9 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
                     CommonOps_DSCC.mult(B, ones.getMatrix(), degreeVectorB);
 
                     DMatrixSparseCSC ABew = new DMatrixSparseCSC(size, size, 0);
-                    CommonOps_DSCC.elementMult(A, B, ABew, null, null);
+                    ABew.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
 
+                    CommonOps_DSCC.elementMult(A, B, ABew, null, null);
                     SimpleMatrix simpleDegreeVectorA = SimpleMatrix.wrap(degreeVectorA);
                     SimpleMatrix simpleDegreeVectorB = SimpleMatrix.wrap(degreeVectorB);
                     DMatrixRMaj degreeVectorAB = new DMatrixRMaj(size, 1);
