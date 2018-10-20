@@ -12,13 +12,13 @@ Java 8
 
 To run the analysis, edit the `analyzer-app/src/Analyzer.groovy` file and issue the following command:
 
-```bash
+```console
 ./gradlew analyze
 ```
 
 Make sure the Gradle process has enough memory:
 
-```bash
+```console
 export GRADLE_OPTS=-Xmx12G
 ```
 
