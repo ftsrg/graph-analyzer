@@ -85,6 +85,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
         DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
         DMatrixSparseCSC ABA = new DMatrixSparseCSC(size, size, 0);
+        ABA.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
         ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
         CommonOps_DSCC.elementMult(AB, A, ABA, null, null);
         DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
@@ -122,6 +123,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                     DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
                     DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
                     DMatrixSparseCSC ABA = new DMatrixSparseCSC(size, size, 0);
+                    ABA.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
                     ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
                     CommonOps_DSCC.elementMult(AB, A, ABA, null, null);
                     DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
@@ -144,6 +146,50 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             }
         }
     }
+
+    protected <N, T> void evaluateAllEjmlMMM(final GraphAdapter<N, T> adapter) {
+        GraphIndexer indexer = adapter.getIndexer();
+        int size = indexer.getSize();
+        SimpleMatrix productSum = new SimpleMatrix(size, 1);
+        SimpleMatrix degrees = new SimpleMatrix(size, 1);
+        SimpleMatrix ones = new SimpleMatrix(size, 1);
+        ones.fill(1);
+
+        for (T type1 : adapter.getIndexer().getTypes()) {
+            DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
+            DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
+            for (T type2 : adapter.getIndexer().getTypes()) {
+                if (type1 != type2) {
+                    DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
+                    DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
+                    DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
+                    DMatrixSparseCSC ABA = new DMatrixSparseCSC(size, size, 0);
+                    ABA.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
+                    ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
+                    CommonOps_DSCC.mult(AB, A, ABA, null, null);
+                    DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
+                    CommonOps_DSCC.extractDiag(ABA, rowSum);
+                    productSum = productSum.plus(SimpleMatrix.wrap(rowSum));
+                }
+            }
+            DMatrixRMaj degreeVector = new DMatrixRMaj(size, 1);
+            CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVector);
+            SimpleMatrix simpleDegreeVector = SimpleMatrix.wrap(degreeVector);
+            degrees = degrees.plus(simpleDegreeVector.elementMult(simpleDegreeVector.minus(1)));
+        }
+        for (int i = 0; i < indexer.getSize(); i++) {
+            double numerator = productSum.get(i, 0);
+            double denominator = degrees.get(i, 0) * (indexer.getTypes().size() - 1);
+            if (denominator == 0) {
+                data.add(0.0);
+            } else {
+                data.add(numerator / denominator);
+            }
+        }
+    }
+
+
+
 
 
     protected <N, T> void evaluateAllOjalgoElementwise(final GraphAdapter<N, T> adapter) {
@@ -307,6 +353,9 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
             case EJML_EW_STREAM:
                 evaluateAllEjmlElementwiseStream(adapter);
                 break;
+            case EJML_MMM:
+                evaluateAllEjmlMMM(adapter);
+                break;
         }
         long end = System.currentTimeMillis();
         addToPerformancemap(end - start);
@@ -322,23 +371,23 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
 
     protected <N, T> void evaluateAllUjmp(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
-        Matrix productSum = SparseMatrix.Factory.zeros(indexer.getSize(), indexer.getSize());
-        Matrix degrees = SparseMatrix.Factory.zeros(indexer.getSize(), 1);
+        Matrix triangles = SparseMatrix.Factory.zeros(indexer.getSize(), indexer.getSize());
+        Matrix wedges = SparseMatrix.Factory.zeros(indexer.getSize(), 1);
         for (T type1 : adapter.getIndexer().getTypes()) {
             Matrix A = (Matrix) indexer.getAdjacencyMatrix().get(type1);
             for (T type2 : adapter.getIndexer().getTypes()) {
                 if (type1 != type2) {
                     Matrix B = (Matrix) indexer.getAdjacencyMatrix().get(type2);
-                    productSum = productSum.plus(A.mtimes(B).mtimes(A));
+                    triangles = triangles.plus(A.mtimes(B).mtimes(A));
                 }
             }
             Matrix degreeVector = A.sum(Calculation.Ret.NEW, 1, false);
-            degrees = degrees.plus(degreeVector.times(degreeVector.minus(1)));
+            wedges = wedges.plus(degreeVector.times(degreeVector.minus(1)));
 
         }
         for (int i = 0; i < indexer.getSize(); i++) {
-            double numerator = productSum.getAsDouble(i, i);
-            double denominator = degrees.getAsDouble(i, 0) * (indexer.getTypes().size() - 1);
+            double numerator = triangles.getAsDouble(i, i);
+            double denominator = wedges.getAsDouble(i, 0) * (indexer.getTypes().size() - 1);
             if (denominator == 0) {
                 data.add(0.0);
             } else {
@@ -440,7 +489,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     }
 
 
-    public enum Implementation {EDGELIST, UJMP, UJMP_EW, OJALGO, OJALGO_EW, OJALGO_EW_STREAM, EJML_EW, EJML_EW_STREAM}
+    public enum Implementation {EDGELIST, UJMP, UJMP_EW, OJALGO, OJALGO_EW, OJALGO_EW_STREAM, EJML_EW, EJML_EW_STREAM, EJML_MMM}
 
 
 }
