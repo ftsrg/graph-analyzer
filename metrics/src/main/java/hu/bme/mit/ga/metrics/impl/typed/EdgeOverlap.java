@@ -112,7 +112,7 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
                     CommonOps_DSCC.elementMult(A,B,C, null, null);
                     DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
                     CommonOps_DSCC.sumRows(C,rowSum);
-                    double n = SimpleMatrix.wrap(rowSum).transpose().elementSum();
+                    double n = SimpleMatrix.wrap(rowSum).elementSum();
                     data.put(getKey(type, condType), n / d);
                 }
             }
