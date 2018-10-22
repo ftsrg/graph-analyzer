@@ -28,7 +28,7 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
     }
     public EdgeOverlap() {
         super("EdgeOverlap", new MapData<>());
-        this.implementation = Implementation.EDGELIST;
+        this.implementation = Implementation.EJML;
     }
     @Override
     public String getName() {
@@ -98,23 +98,21 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
     protected <N, T> void evaluateAllEjml(GraphAdapter<N, T> adapter) {
         GraphIndexer<N, T> indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
         for (T condType : adapter.getIndexer().getTypes()) {
-            DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(condType);
+            DMatrixSparseTriplet tripletsB =  indexer.getAdjacencyMatrixEjml().get(condType);
             DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
             DMatrixRMaj rowSumB = new DMatrixRMaj(size, 1);
-            CommonOps_DSCC.mult(B,ones.getMatrix(),rowSumB);
-            double d = SimpleMatrix.wrap(rowSumB).transpose().mult(ones).get(0);
+            CommonOps_DSCC.sumRows(B,rowSumB);
+            double d = SimpleMatrix.wrap(rowSumB).elementSum();
             for (T type : adapter.getIndexer().getTypes()) {
                 if (type != condType) {
-                    DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type);
+                    DMatrixSparseTriplet tripletsA = indexer.getAdjacencyMatrixEjml().get(type);
                     DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
                     DMatrixSparseCSC C = new DMatrixSparseCSC(size, size, 0);
                     CommonOps_DSCC.elementMult(A,B,C, null, null);
                     DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(C,ones.getMatrix(),rowSum);
-                    double n = SimpleMatrix.wrap(rowSum).transpose().mult(ones).get(0);
+                    CommonOps_DSCC.sumRows(C,rowSum);
+                    double n = SimpleMatrix.wrap(rowSum).transpose().elementSum();
                     data.put(getKey(type, condType), n / d);
                 }
             }

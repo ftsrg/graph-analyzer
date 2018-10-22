@@ -37,7 +37,7 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
 
 
     public TypedClusteringCoefficientDef2() {
-        this(Implementation.EJML_MMM);
+        this(Implementation.EJML_EW_STREAM);
     }
 
 
@@ -197,8 +197,6 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
     protected <N, T> SimpleMatrix countTrianglesForTypeTriadEjml(T type1, T type2, T type3, final GraphAdapter<N, T> adapter){
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
         DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
         DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
@@ -211,25 +209,23 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         ABC.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
         CommonOps_DSCC.elementMult(AB, C, ABC, null, null);
         DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
-        CommonOps_DSCC.mult(ABC, ones.getMatrix(), rowSum);
+        CommonOps_DSCC.sumRows(ABC, rowSum);
        return SimpleMatrix.wrap(rowSum);
     }
 
     protected <N, T> SimpleMatrix countWedgesForTypePairEjml(T type1, T type2, final GraphAdapter<N, T> adapter){
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
         DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
         DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
         DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
 
         DMatrixRMaj degreeVectorA = new DMatrixRMaj(size, 1);
-        CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVectorA);
+        CommonOps_DSCC.sumRows(A,  degreeVectorA);
 
         DMatrixRMaj degreeVectorB = new DMatrixRMaj(size, 1);
-        CommonOps_DSCC.mult(B, ones.getMatrix(), degreeVectorB);
+        CommonOps_DSCC.sumRows(B, degreeVectorB);
 
         DMatrixSparseCSC ABew = new DMatrixSparseCSC(size, size, 0);
         CommonOps_DSCC.elementMult(A, B, ABew, null, null);
@@ -237,7 +233,7 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         SimpleMatrix simpleDegreeVectorA = SimpleMatrix.wrap(degreeVectorA);
         SimpleMatrix simpleDegreeVectorB = SimpleMatrix.wrap(degreeVectorB);
         DMatrixRMaj degreeVectorAB = new DMatrixRMaj(size, 1);
-        CommonOps_DSCC.mult(ABew, ones.getMatrix(), degreeVectorAB);
+        CommonOps_DSCC.sumRows(ABew, degreeVectorAB);
         return simpleDegreeVectorA.elementMult(simpleDegreeVectorB).minus(SimpleMatrix.wrap(degreeVectorAB));
     }
 
@@ -248,8 +244,6 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         int size = indexer.getSize();
         SimpleMatrix productSum = new SimpleMatrix(size, 1);
         SimpleMatrix wedges = new SimpleMatrix(size, 1);
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
 
         for (T type1 : adapter.getIndexer().getTypes()) {
             DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
@@ -268,15 +262,15 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
                             ABC.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
                             CommonOps_DSCC.elementMult(AB, C, ABC, null, null);
                             DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
-                            CommonOps_DSCC.mult(ABC, ones.getMatrix(), rowSum);
+                            CommonOps_DSCC.sumRows(ABC, rowSum);
                             productSum = productSum.plus(SimpleMatrix.wrap(rowSum));
                         }
                     }
                     DMatrixRMaj degreeVectorA = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVectorA);
+                    CommonOps_DSCC.sumRows(A, degreeVectorA);
 
                     DMatrixRMaj degreeVectorB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(B, ones.getMatrix(), degreeVectorB);
+                    CommonOps_DSCC.sumRows(B, degreeVectorB);
 
                     DMatrixSparseCSC ABew = new DMatrixSparseCSC(size, size, 0);
                     ABew.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
@@ -285,7 +279,7 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
                     SimpleMatrix simpleDegreeVectorA = SimpleMatrix.wrap(degreeVectorA);
                     SimpleMatrix simpleDegreeVectorB = SimpleMatrix.wrap(degreeVectorB);
                     DMatrixRMaj degreeVectorAB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(ABew, ones.getMatrix(), degreeVectorAB);
+                    CommonOps_DSCC.sumRows(ABew, degreeVectorAB);
                     wedges = wedges.plus(simpleDegreeVectorA.elementMult(simpleDegreeVectorB).minus(SimpleMatrix.wrap(degreeVectorAB)));
                 }
             }
@@ -306,8 +300,6 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         int size = indexer.getSize();
         SimpleMatrix productSum = new SimpleMatrix(size, 1);
         SimpleMatrix wedges = new SimpleMatrix(size, 1);
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
 
         for (T type1 : adapter.getIndexer().getTypes()) {
             DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
@@ -330,10 +322,10 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
                         }
                     }
                     DMatrixRMaj degreeVectorA = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVectorA);
+                    CommonOps_DSCC.sumRows(A, degreeVectorA);
 
                     DMatrixRMaj degreeVectorB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(B, ones.getMatrix(), degreeVectorB);
+                    CommonOps_DSCC.sumRows(B, degreeVectorB);
 
                     DMatrixSparseCSC ABew = new DMatrixSparseCSC(size, size, 0);
                     CommonOps_DSCC.elementMult(A, B, ABew, null, null);
@@ -341,7 +333,7 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
                     SimpleMatrix simpleDegreeVectorA = SimpleMatrix.wrap(degreeVectorA);
                     SimpleMatrix simpleDegreeVectorB = SimpleMatrix.wrap(degreeVectorB);
                     DMatrixRMaj degreeVectorAB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(ABew, ones.getMatrix(), degreeVectorAB);
+                    CommonOps_DSCC.sumRows(ABew, degreeVectorAB);
                     wedges = wedges.plus(simpleDegreeVectorA.elementMult(simpleDegreeVectorB).minus(SimpleMatrix.wrap(degreeVectorAB)));
                 }
             }

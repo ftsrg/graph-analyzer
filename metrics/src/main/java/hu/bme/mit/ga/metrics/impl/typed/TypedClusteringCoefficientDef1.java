@@ -77,8 +77,6 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     protected <N, T> SimpleMatrix countTrianglesEjmlEw(T type1, T type2, final GraphAdapter<N, T> adapter ) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
         DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
         DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
@@ -89,18 +87,16 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
         CommonOps_DSCC.elementMult(AB, A, ABA, null, null);
         DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
-        CommonOps_DSCC.mult(ABA, ones.getMatrix(), rowSum);
+        CommonOps_DSCC.sumRows(ABA, rowSum);
         return SimpleMatrix.wrap(rowSum);
     }
     protected <N, T> SimpleMatrix countWedgesEjmlEw(T type1, final GraphAdapter<N, T> adapter ) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
         DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
         DMatrixRMaj degreeVector = new DMatrixRMaj(size, 1);
-        CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVector);
+        CommonOps_DSCC.sumRows(A, degreeVector);
         SimpleMatrix simpleDegreeVector = SimpleMatrix.wrap(degreeVector);
         return simpleDegreeVector.elementMult(simpleDegreeVector.minus(1));
     }
@@ -111,8 +107,6 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         int size = indexer.getSize();
         SimpleMatrix productSum = new SimpleMatrix(size, 1);
         SimpleMatrix degrees = new SimpleMatrix(size, 1);
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
 
         for (T type1 : adapter.getIndexer().getTypes()) {
             DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
@@ -127,12 +121,12 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                     ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
                     CommonOps_DSCC.elementMult(AB, A, ABA, null, null);
                     DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.mult(ABA, ones.getMatrix(), rowSum);
+                    CommonOps_DSCC.sumRows(ABA, rowSum);
                     productSum = productSum.plus(SimpleMatrix.wrap(rowSum));
                 }
             }
             DMatrixRMaj degreeVector = new DMatrixRMaj(size, 1);
-            CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVector);
+            CommonOps_DSCC.sumRows(A, degreeVector);
             SimpleMatrix simpleDegreeVector = SimpleMatrix.wrap(degreeVector);
             degrees = degrees.plus(simpleDegreeVector.elementMult(simpleDegreeVector.minus(1)));
         }
@@ -152,8 +146,6 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
         int size = indexer.getSize();
         SimpleMatrix productSum = new SimpleMatrix(size, 1);
         SimpleMatrix degrees = new SimpleMatrix(size, 1);
-        SimpleMatrix ones = new SimpleMatrix(size, 1);
-        ones.fill(1);
 
         for (T type1 : adapter.getIndexer().getTypes()) {
             DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
@@ -173,7 +165,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
                 }
             }
             DMatrixRMaj degreeVector = new DMatrixRMaj(size, 1);
-            CommonOps_DSCC.mult(A, ones.getMatrix(), degreeVector);
+            CommonOps_DSCC.sumRows(A, degreeVector);
             SimpleMatrix simpleDegreeVector = SimpleMatrix.wrap(degreeVector);
             degrees = degrees.plus(simpleDegreeVector.elementMult(simpleDegreeVector.minus(1)));
         }
