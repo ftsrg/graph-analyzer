@@ -18,6 +18,8 @@ import java.util.*;
 public final class GraphIndexer<N, T> {
 
     private int numberOfEdges;
+
+    private Map<T, Double> typedEdges = new HashMap<>();
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
 
@@ -31,6 +33,8 @@ public final class GraphIndexer<N, T> {
     private BiMap<N, Integer> nodeRowMap = HashBiMap.create();
 
     private Matrix adjacencyMatrixUntyped;
+
+    private DMatrixSparseTriplet adjacencyMatrixEjmlUntyped;
 
     private int size;
     private int rowsAdded = 0;
@@ -50,8 +54,11 @@ public final class GraphIndexer<N, T> {
             adjacencyMatrix2.put(type, m2);
             DMatrixSparseTriplet triplets = new DMatrixSparseTriplet(size, size, size);
             adjacencyMatrixEjml.put(type, triplets);
+            typedEdges.put(type, 0.0);
         }
         adjacencyMatrixUntyped = SparseMatrix.Factory.zeros(size, size);
+        adjacencyMatrixEjmlUntyped = new DMatrixSparseTriplet(size, size, 0);
+
     }
 
     public void persist(final String path) throws FileNotFoundException {
@@ -82,6 +89,7 @@ public final class GraphIndexer<N, T> {
         }
         outgoing.get(type).put(sourceNode, targetNode);
         incoming.get(type).put(targetNode, sourceNode);
+        typedEdges.replace(type, typedEdges.get(type) + 1);
         if (adjacencyMatrixUntyped != null && adjacencyMatrixEjml != null) {
             long sourceNodeInd = nodeRowMap.get(sourceNode);
             long targetNodeInd = nodeRowMap.get(targetNode);
@@ -89,11 +97,13 @@ public final class GraphIndexer<N, T> {
             adjacencyMatrix.get(type).setAsDouble(1.0, targetNodeInd, sourceNodeInd);
             adjacencyMatrix2.get(type).set(sourceNodeInd, targetNodeInd, (Number) 1.0);
             adjacencyMatrix2.get(type).set(targetNodeInd, sourceNodeInd, (Number) 1.0);
+            adjacencyMatrixEjmlUntyped.set((int) sourceNodeInd, (int) targetNodeInd, 1);
+            adjacencyMatrixEjmlUntyped.set((int) targetNodeInd, (int) sourceNodeInd, 1);
             adjacencyMatrixUntyped.setAsDouble(1.0, sourceNodeInd, targetNodeInd);
             adjacencyMatrixUntyped.setAsDouble(1.0, targetNodeInd, sourceNodeInd);
             adjacencyMatrixEjml.get(type).set((int) sourceNodeInd, (int) targetNodeInd, 1);
             adjacencyMatrixEjml.get(type).set((int) targetNodeInd, (int) sourceNodeInd, 1);
-            numberOfEdges+=0;
+            numberOfEdges += 0;
 
         }
 
@@ -102,6 +112,7 @@ public final class GraphIndexer<N, T> {
 
     public void addType(T type) {
         types.add(type);
+        typedEdges.putIfAbsent(type, 0.0);
         outgoing.put(type, ArrayListMultimap.create());
         incoming.put(type, ArrayListMultimap.create());
 
@@ -289,6 +300,14 @@ public final class GraphIndexer<N, T> {
 
     public Map<T, DMatrixSparseTriplet> getAdjacencyMatrixEjml() {
         return adjacencyMatrixEjml;
+    }
+
+    public Map<T, Double> getTypedEdges() {
+        return typedEdges;
+    }
+
+    public DMatrixSparseTriplet getAdjacencyMatrixEjmlUntyped() {
+        return adjacencyMatrixEjmlUntyped;
     }
 
 
