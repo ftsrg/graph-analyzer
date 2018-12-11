@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/FTSRG/graph-analyzer.svg)](https://travis-ci.org/FTSRG/graph-analyzer)
 
-Analysis and metric visualisation toolkit for typed graphs, based on our [MODELS 2016 paper](https://inf.mit.bme.hu/sites/default/files/publications/models2016-metrics.pdf) ([ACM DL](https://dl.acm.org/citation.cfm?id=2976786), [DBLP](http://dblp.uni-trier.de/rec/bibtex/conf/models/SzarnyasKSV16)).
+Analysis and metric visualisation toolkit for typed graphs, based on our [MODELS 2016 paper](https://inf.mit.bme.hu/sites/default/files/publications/models2016-metrics.pdf) ([ACM DL](https://dl.acm.org/citation.cfm?id=2976786), [DBLP](https://dblp.uni-trier.de/rec/html/conf/models/SzarnyasKSV16)).
 
 ## Prerequisites
 
@@ -12,13 +12,13 @@ Java 8
 
 To run the analysis, edit the `analyzer-app/src/Analyzer.groovy` file and issue the following command:
 
-```bash
+```console
 ./gradlew analyze
 ```
 
 Make sure [the Gradle process has enough memory](https://docs.gradle.org/current/userguide/build_environment.html#sec:configuring_jvm_memory) - the more the better.
 
-```bash
+```console
 export JAVA_OPTS=-Xmx4G
 ```
 
