@@ -10,17 +10,8 @@ import org.ejml.ops.ConvertDMatrixStruct;
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.sparse.csc.CommonOps_DSCC;
 import org.ejml.sparse.csc.mult.ImplSparseSparseMult_DSCC;
-import org.ojalgo.function.PrimitiveFunction;
-import org.ojalgo.matrix.store.ElementsSupplier;
-import org.ojalgo.matrix.store.MatrixStore;
-import org.ojalgo.matrix.store.PrimitiveDenseStore;
-import org.ojalgo.matrix.store.SparseStore;
-import org.ujmp.core.SparseMatrix;
 
 import java.util.*;
-
-import static org.ojalgo.function.PrimitiveFunction.ADD;
-import static org.ojalgo.function.PrimitiveFunction.MULTIPLY;
 
 public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
     protected Implementation implementation;
@@ -37,129 +28,10 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
 
 
     public TypedClusteringCoefficientDef2() {
-        this(Implementation.EJML_EW_STREAM);
+        this(Implementation.MATRIX_EW_STREAM);
     }
 
 
-    protected <N, T> void evaluateAllOjalgoElementwise(final GraphAdapter<N, T> adapter) {
-        GraphIndexer indexer = adapter.getIndexer();
-        MatrixStore productSum = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        PrimitiveDenseStore degrees = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        ones.operateOnAll(ADD, 1).supplyTo(ones);
-        for (T type1 : adapter.getIndexer().getTypes()) {
-            SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
-            for (T type2 : adapter.getIndexer().getTypes()) {
-                SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
-                if (type1 != type2) {
-
-                    for (T type3 : adapter.getIndexer().getTypes()) {
-                        if (type1 != type3 && type3 != type2) {
-                            SparseStore<Double> C = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type3);
-
-                            SparseStore<Double> D = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-
-                            SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                            A.multiply(B).get().supplyTo(AB);
-
-                            AB.operateOnMatching(MULTIPLY, C).supplyTo(D);
-
-                            //productSum = C.reduceRows(Aggregator.SUM).get().add(productSum);
-                            productSum = D.multiply(ones).add(productSum);
-                        }
-                    }
-                    MatrixStore<Double> degreeVectorA = A.multiply(ones);
-                    MatrixStore<Double> degreeVectorB = B.multiply(ones);
-                    SparseStore<Double> E = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                    A.operateOnMatching(MULTIPLY, B).supplyTo(E);
-                    final ElementsSupplier<Double> tmpIntermediateA = degreeVectorA.operateOnMatching(PrimitiveFunction.MULTIPLY, degreeVectorB);
-                    final ElementsSupplier<Double> tmpIntermediateB = tmpIntermediateA.operateOnMatching(PrimitiveFunction.SUBTRACT, E.multiply(ones));
-                    final ElementsSupplier<Double> tmpIntermediateC = tmpIntermediateB.operateOnMatching(ADD, degrees);
-                    PrimitiveDenseStore degrees_tmp = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-                    tmpIntermediateC.supplyTo(degrees_tmp);
-                    degrees = degrees_tmp.copy();
-                }
-            }
-        }
-        degrees.multiply(indexer.getTypes().size() - 2).supplyTo(degrees);
-        for (int i = 0; i < indexer.getSize(); i++) {
-            double numerator = productSum.doubleValue(i, 0);
-            double denominator = degrees.doubleValue(i, 0);
-            if (denominator == 0) {
-                data.add(0.0);
-            } else {
-                data.add(numerator / denominator + 0.0);
-            }
-        }
-    }
-
-    private <N, T> MatrixStore countTrianglesForTypeTriad(T type1, T type2, T type3, final GraphAdapter<N, T> adapter) {
-        GraphIndexer indexer = adapter.getIndexer();
-        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        ones.operateOnAll(ADD, 1).supplyTo(ones);
-        SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
-        SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
-        SparseStore<Double> C = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type3);
-
-        SparseStore<Double> D = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-
-        SparseStore<Double> AB = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-        A.multiply(B).get().supplyTo(AB);
-
-        AB.operateOnMatching(MULTIPLY, C).supplyTo(D);
-
-        return D.multiply(ones);
-
-
-    }
-
-    private <N, T> MatrixStore countWedgesForTypePairs(T type1, T type2, final GraphAdapter<N, T> adapter) {
-        GraphIndexer indexer = adapter.getIndexer();
-        PrimitiveDenseStore degrees = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        ones.operateOnAll(ADD, 1).supplyTo(ones);
-        SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
-        SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
-        MatrixStore<Double> degreeVectorA = A.multiply(ones);
-        MatrixStore<Double> degreeVectorB = B.multiply(ones);
-        SparseStore<Double> E = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-        A.operateOnMatching(MULTIPLY, B).supplyTo(E);
-        final ElementsSupplier<Double> tmpIntermediateA = degreeVectorA.operateOnMatching(PrimitiveFunction.MULTIPLY, degreeVectorB);
-        final ElementsSupplier<Double> tmpIntermediateB = tmpIntermediateA.operateOnMatching(PrimitiveFunction.SUBTRACT, E.multiply(ones));
-        tmpIntermediateB.supplyTo(degrees);
-        return degrees;
-    }
-
-    protected <N, T> void evaluateAllOjalgoElementwiseStream(final GraphAdapter<N, T> adapter) {
-        GraphIndexer indexer = adapter.getIndexer();
-        List<List<T>> typeTriadList = new ArrayList<>();
-        List<List<T>> typePairList = new ArrayList<>();
-        for (T type1 : (Set<T>) indexer.getTypes()) {
-            for (T type2 : (Set<T>) indexer.getTypes()) {
-                if (type1 != type2) {
-                    typePairList.add(Lists.newArrayList(type1, type2));
-                    for (T type3 : (Set<T>) indexer.getTypes()) {
-                        if (type3 != type2 && type3 != type1) {
-                            typeTriadList.add(Lists.newArrayList(type1, type2, type3));
-                        }
-                    }
-                }
-            }
-        }
-        MatrixStore productSum = typeTriadList.stream().parallel().map(x -> countTrianglesForTypeTriad(x.get(0), x.get(1), x.get(2), adapter)).reduce(PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1), (a, b) -> a.add(b)).get();
-        MatrixStore degrees = typePairList.stream().parallel().map(x -> countWedgesForTypePairs(x.get(0), x.get(1), adapter))
-            .reduce(PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1), (a, b) -> a.add(b));
-        degrees = degrees.multiply(indexer.getTypes().size() - 2);
-        for (int i = 0; i < indexer.getSize(); i++) {
-            double numerator = productSum.doubleValue(i, 0);
-            double denominator = degrees.doubleValue(i, 0);
-            if (denominator == 0) {
-                data.add(0.0);
-            } else {
-                data.add(numerator / denominator + 0.0);
-            }
-        }
-    }
     protected <N, T> void evaluateAllEjmlElementwiseStream(final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         List<List<T>> typeTriadList = new ArrayList<>();
@@ -177,10 +49,10 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
             }
         }
         SimpleMatrix wedges = typePairList.stream().parallel().map(x -> countWedgesForTypePairEjml(x.get(0), x.get(1), adapter))
-            .reduce(new SimpleMatrix(indexer.getSize(),1),(a, b) -> a.plus(b));
+            .reduce(new SimpleMatrix(indexer.getSize(), 1), (a, b) -> a.plus(b));
         SimpleMatrix triangles = typeTriadList
             .stream().parallel().map(x -> countTrianglesForTypeTriadEjml(x.get(0), x.get(1), x.get(2), adapter))
-            .reduce(new SimpleMatrix(indexer.getSize(),1), (a, b) -> a.plus(b)
+            .reduce(new SimpleMatrix(indexer.getSize(), 1), (a, b) -> a.plus(b)
             );
 
         for (int i = 0; i < indexer.getSize(); i++) {
@@ -194,35 +66,35 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         }
     }
 
-    protected <N, T> SimpleMatrix countTrianglesForTypeTriadEjml(T type1, T type2, T type3, final GraphAdapter<N, T> adapter){
+    protected <N, T> SimpleMatrix countTrianglesForTypeTriadEjml(T type1, T type2, T type3, final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
+        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
+        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type2);
         DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
         DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
         ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
-        DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type3);
+        DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type3);
         DMatrixSparseCSC C = ConvertDMatrixStruct.convert(tripletsC, (DMatrixSparseCSC) null);
         DMatrixSparseCSC ABC = new DMatrixSparseCSC(size, size, 0);
-        ABC.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
+        ABC.growMaxLength(Math.min(A.nz_length, B.nz_length), false);
         CommonOps_DSCC.elementMult(AB, C, ABC, null, null);
         DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
         CommonOps_DSCC.sumRows(ABC, rowSum);
-       return SimpleMatrix.wrap(rowSum);
+        return SimpleMatrix.wrap(rowSum);
     }
 
-    protected <N, T> SimpleMatrix countWedgesForTypePairEjml(T type1, T type2, final GraphAdapter<N, T> adapter){
+    protected <N, T> SimpleMatrix countWedgesForTypePairEjml(T type1, T type2, final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
+        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
+        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type2);
         DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
 
         DMatrixRMaj degreeVectorA = new DMatrixRMaj(size, 1);
-        CommonOps_DSCC.sumRows(A,  degreeVectorA);
+        CommonOps_DSCC.sumRows(A, degreeVectorA);
 
         DMatrixRMaj degreeVectorB = new DMatrixRMaj(size, 1);
         CommonOps_DSCC.sumRows(B, degreeVectorB);
@@ -235,162 +107,6 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
         DMatrixRMaj degreeVectorAB = new DMatrixRMaj(size, 1);
         CommonOps_DSCC.sumRows(ABew, degreeVectorAB);
         return simpleDegreeVectorA.elementMult(simpleDegreeVectorB).minus(SimpleMatrix.wrap(degreeVectorAB));
-    }
-
-
-
-    protected <N, T> void evaluateAllEjmlElementwise(final GraphAdapter<N, T> adapter) {
-        GraphIndexer indexer = adapter.getIndexer();
-        int size = indexer.getSize();
-        SimpleMatrix productSum = new SimpleMatrix(size, 1);
-        SimpleMatrix wedges = new SimpleMatrix(size, 1);
-
-        for (T type1 : adapter.getIndexer().getTypes()) {
-            DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
-            DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-            for (T type2 : adapter.getIndexer().getTypes()) {
-                if (type1 != type2) {
-                    DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
-                    DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
-                    DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
-                    ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
-                    for (T type3 : adapter.getIndexer().getTypes()) {
-                        if (type3 != type2 && type3 != type1) {
-                            DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type3);
-                            DMatrixSparseCSC C = ConvertDMatrixStruct.convert(tripletsC, (DMatrixSparseCSC) null);
-                            DMatrixSparseCSC ABC = new DMatrixSparseCSC(size, size, 0);
-                            ABC.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
-                            CommonOps_DSCC.elementMult(AB, C, ABC, null, null);
-                            DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
-                            CommonOps_DSCC.sumRows(ABC, rowSum);
-                            productSum = productSum.plus(SimpleMatrix.wrap(rowSum));
-                        }
-                    }
-                    DMatrixRMaj degreeVectorA = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.sumRows(A, degreeVectorA);
-
-                    DMatrixRMaj degreeVectorB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.sumRows(B, degreeVectorB);
-
-                    DMatrixSparseCSC ABew = new DMatrixSparseCSC(size, size, 0);
-                    ABew.growMaxLength(Math.min(A.nz_length,B.nz_length),false);
-
-                    CommonOps_DSCC.elementMult(A, B, ABew, null, null);
-                    SimpleMatrix simpleDegreeVectorA = SimpleMatrix.wrap(degreeVectorA);
-                    SimpleMatrix simpleDegreeVectorB = SimpleMatrix.wrap(degreeVectorB);
-                    DMatrixRMaj degreeVectorAB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.sumRows(ABew, degreeVectorAB);
-                    wedges = wedges.plus(simpleDegreeVectorA.elementMult(simpleDegreeVectorB).minus(SimpleMatrix.wrap(degreeVectorAB)));
-                }
-            }
-        }
-        for (int i = 0; i < indexer.getSize(); i++) {
-            double numerator = productSum.get(i, 0);
-            double denominator = wedges.get(i, 0) * (indexer.getTypes().size() - 2);
-            if (denominator == 0) {
-                data.add(0.0);
-            } else {
-                data.add(numerator / denominator);
-            }
-        }
-    }
-
-    protected <N, T> void evaluateAllEjmlMMM(final GraphAdapter<N, T> adapter) {
-        GraphIndexer indexer = adapter.getIndexer();
-        int size = indexer.getSize();
-        SimpleMatrix productSum = new SimpleMatrix(size, 1);
-        SimpleMatrix wedges = new SimpleMatrix(size, 1);
-
-        for (T type1 : adapter.getIndexer().getTypes()) {
-            DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type1);
-            DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-            for (T type2 : adapter.getIndexer().getTypes()) {
-                if (type1 != type2) {
-                    DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type2);
-                    DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
-                    DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
-                    ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
-                    for (T type3 : adapter.getIndexer().getTypes()) {
-                        if (type3 != type2 && type3 != type1) {
-                            DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getAdjacencyMatrixEjml().get(type3);
-                            DMatrixSparseCSC C = ConvertDMatrixStruct.convert(tripletsC, (DMatrixSparseCSC) null);
-                            DMatrixSparseCSC ABC = new DMatrixSparseCSC(size, size, 0);
-                            CommonOps_DSCC.mult(AB, C, ABC, null, null);
-                            DMatrixRMaj diag = new DMatrixRMaj(size, 1);
-                            CommonOps_DSCC.extractDiag(ABC, diag);
-                            productSum = productSum.plus(SimpleMatrix.wrap(diag));
-                        }
-                    }
-                    DMatrixRMaj degreeVectorA = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.sumRows(A, degreeVectorA);
-
-                    DMatrixRMaj degreeVectorB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.sumRows(B, degreeVectorB);
-
-                    DMatrixSparseCSC ABew = new DMatrixSparseCSC(size, size, 0);
-                    CommonOps_DSCC.elementMult(A, B, ABew, null, null);
-
-                    SimpleMatrix simpleDegreeVectorA = SimpleMatrix.wrap(degreeVectorA);
-                    SimpleMatrix simpleDegreeVectorB = SimpleMatrix.wrap(degreeVectorB);
-                    DMatrixRMaj degreeVectorAB = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.sumRows(ABew, degreeVectorAB);
-                    wedges = wedges.plus(simpleDegreeVectorA.elementMult(simpleDegreeVectorB).minus(SimpleMatrix.wrap(degreeVectorAB)));
-                }
-            }
-        }
-        for (int i = 0; i < indexer.getSize(); i++) {
-            double numerator = productSum.get(i, 0);
-            double denominator = wedges.get(i, 0) * (indexer.getTypes().size() - 2);
-            if (denominator == 0) {
-                data.add(0.0);
-            } else {
-                data.add(numerator / denominator);
-            }
-        }
-    }
-
-
-
-    protected <N, T> void evaluateAllOjalgoMMM(final GraphAdapter<N, T> adapter) {
-        GraphIndexer indexer = adapter.getIndexer();
-        PrimitiveDenseStore productSum = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        PrimitiveDenseStore degrees = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        ones.operateOnAll(ADD, 1).supplyTo(ones);
-        for (T type1 : adapter.getIndexer().getTypes()) {
-            SparseStore<Double> A = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type1);
-            for (T type2 : adapter.getIndexer().getTypes()) {
-                SparseStore<Double> B = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type2);
-                if (type1 != type2) {
-                    for (T type3 : adapter.getIndexer().getTypes()) {
-                        if (type1 != type3 && type3 != type2) {
-                            SparseStore<Double> C = (SparseStore<Double>) indexer.getAdjacencyMatrix2().get(type3);
-                            productSum.modifyMatching(ADD, A.multiply(B).multiply(C).sliceDiagonal());
-                        }
-                    }
-                    MatrixStore<Double> degreeVectorA = A.multiply(ones);
-                    MatrixStore<Double> degreeVectorB = B.multiply(ones);
-                    SparseStore<Double> E = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                    A.operateOnMatching(MULTIPLY, B).supplyTo(E);
-                    final ElementsSupplier<Double> tmpIntermediateA = degreeVectorA.operateOnMatching(PrimitiveFunction.MULTIPLY, degreeVectorB);
-                    final ElementsSupplier<Double> tmpIntermediateB = tmpIntermediateA.operateOnMatching(PrimitiveFunction.SUBTRACT, E.multiply(ones));
-                    final ElementsSupplier<Double> tmpIntermediateC = tmpIntermediateB.operateOnMatching(ADD, degrees);
-                    PrimitiveDenseStore degrees_tmp = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-                    tmpIntermediateC.supplyTo(degrees_tmp);
-                    degrees = degrees_tmp.copy();
-                }
-            }
-        }
-        degrees.multiply(indexer.getTypes().size() - 2).supplyTo(degrees);
-        for (int i = 0; i < indexer.getSize(); i++) {
-            double numerator = productSum.doubleValue(i, 0);
-            double denominator = degrees.doubleValue(i, 0);
-            if (denominator == 0) {
-                data.add(0.0);
-            } else {
-                data.add(numerator / denominator + 0.0);
-            }
-        }
     }
 
     private void addToPerformancemap(long millis) {
@@ -408,23 +124,9 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
             case EDGELIST:
                 evaluateAllEdgeList(adapter);
                 break;
-            case OJALGO_EW:
-                evaluateAllOjalgoElementwise(adapter);
-                break;
-            case OJALGO_MMM:
-                evaluateAllOjalgoMMM(adapter);
-                break;
-            case OJALGO_EW_STREAM:
-                evaluateAllOjalgoElementwiseStream(adapter);
-                break;
-            case EJML_EW:
-                evaluateAllEjmlElementwise(adapter);
-                break;
-            case EJML_EW_STREAM:
+            case MATRIX_EW_STREAM:
                 evaluateAllEjmlElementwiseStream(adapter);
                 break;
-            case EJML_MMM:
-                evaluateAllEjmlMMM(adapter);
         }
         long end = System.currentTimeMillis();
         addToPerformancemap(end - start);
@@ -510,7 +212,6 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
 
     }
 
-
-    public enum Implementation {OJALGO_EW, EDGELIST, OJALGO_MMM, OJALGO_EW_STREAM, EJML_EW, EJML_EW_STREAM, EJML_MMM}
+    public enum Implementation {EDGELIST, MATRIX_EW_STREAM}
 
 }

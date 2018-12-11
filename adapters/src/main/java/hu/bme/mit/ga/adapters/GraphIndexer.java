@@ -6,9 +6,6 @@ import com.esotericsoftware.kryo.io.Output;
 import com.google.common.collect.*;
 import org.ejml.data.DMatrixSparseTriplet;
 import org.objenesis.strategy.StdInstantiatorStrategy;
-import org.ojalgo.matrix.store.SparseStore;
-import org.ujmp.core.Matrix;
-import org.ujmp.core.SparseMatrix;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,17 +21,10 @@ public final class GraphIndexer<N, T> {
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
 
 
-    private Map<T, Matrix> adjacencyMatrix = new HashMap<>();
-
-    private Map<T, DMatrixSparseTriplet> adjacencyMatrixEjml = new HashMap<>();
-
-    private Map<T, SparseStore<Double>> adjacencyMatrix2 = new HashMap<>();
-
+    private Map<T, DMatrixSparseTriplet> adjacencyMatrix = new HashMap<>();
+    private DMatrixSparseTriplet adjacencyMatrixUntyped;
     private BiMap<N, Integer> nodeRowMap = HashBiMap.create();
 
-    private Matrix adjacencyMatrixUntyped;
-
-    private DMatrixSparseTriplet adjacencyMatrixEjmlUntyped;
 
     private int size;
     private int rowsAdded = 0;
@@ -47,18 +37,12 @@ public final class GraphIndexer<N, T> {
 
     public GraphIndexer(int size) {
         this.size = size;
+        adjacencyMatrixUntyped = new DMatrixSparseTriplet(size, size, size);
         for (T type : types) {
-            SparseMatrix m1 = SparseMatrix.Factory.zeros(size, size);
-            adjacencyMatrix.put(type, m1);
-            SparseStore<Double> m2 = SparseStore.PRIMITIVE.make(size, size);
-            adjacencyMatrix2.put(type, m2);
             DMatrixSparseTriplet triplets = new DMatrixSparseTriplet(size, size, size);
-            adjacencyMatrixEjml.put(type, triplets);
+            adjacencyMatrix.put(type, triplets);
             typedEdges.put(type, 0.0);
         }
-        adjacencyMatrixUntyped = SparseMatrix.Factory.zeros(size, size);
-        adjacencyMatrixEjmlUntyped = new DMatrixSparseTriplet(size, size, 0);
-
     }
 
     public void persist(final String path) throws FileNotFoundException {
@@ -78,33 +62,19 @@ public final class GraphIndexer<N, T> {
 
 
     public void addEdge(final T type, final N sourceNode, final N targetNode) {
-        if (!nodes.contains(sourceNode)) {
-            addNode(sourceNode);
-        }
-        if (!nodes.contains(targetNode)) {
-            addNode(targetNode);
-        }
         if (!outgoing.containsKey(type)) {
             addType(type);
         }
         outgoing.get(type).put(sourceNode, targetNode);
         incoming.get(type).put(targetNode, sourceNode);
         typedEdges.replace(type, typedEdges.get(type) + 1);
-        if (adjacencyMatrixUntyped != null && adjacencyMatrixEjml != null) {
+        if ( adjacencyMatrix != null) {
             long sourceNodeInd = nodeRowMap.get(sourceNode);
             long targetNodeInd = nodeRowMap.get(targetNode);
-            adjacencyMatrix.get(type).setAsDouble(1.0, sourceNodeInd, targetNodeInd);
-            adjacencyMatrix.get(type).setAsDouble(1.0, targetNodeInd, sourceNodeInd);
-            adjacencyMatrix2.get(type).set(sourceNodeInd, targetNodeInd, (Number) 1.0);
-            adjacencyMatrix2.get(type).set(targetNodeInd, sourceNodeInd, (Number) 1.0);
-            adjacencyMatrixEjmlUntyped.set((int) sourceNodeInd, (int) targetNodeInd, 1);
-            adjacencyMatrixEjmlUntyped.set((int) targetNodeInd, (int) sourceNodeInd, 1);
-            adjacencyMatrixUntyped.setAsDouble(1.0, sourceNodeInd, targetNodeInd);
-            adjacencyMatrixUntyped.setAsDouble(1.0, targetNodeInd, sourceNodeInd);
-            adjacencyMatrixEjml.get(type).set((int) sourceNodeInd, (int) targetNodeInd, 1);
-            adjacencyMatrixEjml.get(type).set((int) targetNodeInd, (int) sourceNodeInd, 1);
-            numberOfEdges += 0;
-
+            adjacencyMatrix.get(type).set((int) sourceNodeInd, (int) targetNodeInd, 1);
+            adjacencyMatrix.get(type).set((int) targetNodeInd, (int) sourceNodeInd, 1);
+            adjacencyMatrixUntyped.set((int) targetNodeInd, (int) sourceNodeInd, 1);
+            adjacencyMatrixUntyped.set((int) sourceNodeInd, (int) targetNodeInd, 1);
         }
 
         numberOfEdges++;
@@ -115,16 +85,8 @@ public final class GraphIndexer<N, T> {
         typedEdges.putIfAbsent(type, 0.0);
         outgoing.put(type, ArrayListMultimap.create());
         incoming.put(type, ArrayListMultimap.create());
-
-        SparseMatrix m1 = SparseMatrix.Factory.zeros(size, size);
-        adjacencyMatrix.put(type, m1);
-
-        SparseStore<Double> m2 = SparseStore.PRIMITIVE.make(size, size);
-        adjacencyMatrix2.put(type, m2);
-
         DMatrixSparseTriplet triplets = new DMatrixSparseTriplet(size, size, 0);
-        adjacencyMatrixEjml.put(type, triplets);
-
+        adjacencyMatrix.put(type, triplets);
     }
 
     public void addNode(N node) {
@@ -282,33 +244,20 @@ public final class GraphIndexer<N, T> {
         return getNodes().iterator();
     }
 
-    public Map<T, Matrix> getAdjacencyMatrix() {
-        return adjacencyMatrix;
-    }
-
-    public Matrix getAdjacencyMatrixUntyped() {
-        return adjacencyMatrixUntyped;
-    }
 
     public BiMap<N, Integer> getNodeRowMap() {
         return nodeRowMap;
     }
 
-    public Map<T, SparseStore<Double>> getAdjacencyMatrix2() {
-        return adjacencyMatrix2;
-    }
-
-    public Map<T, DMatrixSparseTriplet> getAdjacencyMatrixEjml() {
-        return adjacencyMatrixEjml;
+    public Map<T, DMatrixSparseTriplet> getAdjacencyMatrix() {
+        return adjacencyMatrix;
     }
 
     public Map<T, Double> getTypedEdges() {
         return typedEdges;
     }
-
-    public DMatrixSparseTriplet getAdjacencyMatrixEjmlUntyped() {
-        return adjacencyMatrixEjmlUntyped;
+    public DMatrixSparseTriplet getAdjacencyMatrixUntyped() {
+        return adjacencyMatrixUntyped;
     }
-
 
 }

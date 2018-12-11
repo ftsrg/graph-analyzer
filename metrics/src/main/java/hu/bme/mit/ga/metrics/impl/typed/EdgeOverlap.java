@@ -11,59 +11,23 @@ import org.ejml.data.DMatrixSparseTriplet;
 import org.ejml.ops.ConvertDMatrixStruct;
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.sparse.csc.CommonOps_DSCC;
-import org.ojalgo.matrix.store.PrimitiveDenseStore;
-import org.ojalgo.matrix.store.SparseStore;
 
 import java.util.*;
 
-import static org.ojalgo.function.PrimitiveFunction.ADD;
-import static org.ojalgo.function.PrimitiveFunction.MULTIPLY;
-
 public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
-    protected Implementation implementation;
 
-    public EdgeOverlap(Implementation implementation) {
-        super("EdgeOverlap", new MapData<>());
-        this.implementation = implementation;
-    }
     public EdgeOverlap() {
         super("EdgeOverlap", new MapData<>());
-        this.implementation = Implementation.EJML;
     }
+
     @Override
     public String getName() {
-        return name + " " + implementation.name();
+        return name ;
     }
 
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
-        long start = System.currentTimeMillis();
-        switch (implementation) {
-            case OJALGO:
-                evaluateAllMatrix(adapter);
-                break;
-            case EDGELIST:
-                evaluateAllEdgeList(adapter);
-                break;
-            case EJML:
-                evaluateAllEjml(adapter);
-                break;
-        }
-        long end = System.currentTimeMillis();
-        addToPerformancemap(end-start);
-    }
-
-    private void addToPerformancemap(long millis) {
-        Map<String,Object> performance = new HashMap<>();
-        performance.put("metric",this.name);
-        performance.put("algo",this.implementation.toString());
-        performance.put("t",millis);
-        performanceData.add(performance);
-    }
-
-
-    protected <N, T> void evaluateAllEdgeList(GraphAdapter<N, T> adapter) {
         for (T condType : adapter.getIndexer().getTypes()) {
             for (T type : adapter.getIndexer().getTypes()) {
                 if (type != condType) {
@@ -71,55 +35,7 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
                 }
             }
         }
-
     }
-
-
-    protected <N, T> void evaluateAllMatrix(GraphAdapter<N, T> adapter) {
-        GraphIndexer<N, T> indexer = adapter.getIndexer();
-        PrimitiveDenseStore ones = PrimitiveDenseStore.FACTORY.makeZero(indexer.getSize(), 1);
-        ones.operateOnAll(ADD, 1).supplyTo(ones);
-        for (T condType : adapter.getIndexer().getTypes()) {
-            double d = indexer.getAdjacencyMatrix2().get(condType).multiply(ones).transpose().multiply(ones).get(0, 0);
-            for (T type : adapter.getIndexer().getTypes()) {
-                if (type != condType) {
-                    SparseStore A = adapter.getIndexer().getAdjacencyMatrix2().get(type);
-                    SparseStore B = adapter.getIndexer().getAdjacencyMatrix2().get(condType);
-                    SparseStore<Double> C = SparseStore.PRIMITIVE.make(indexer.getSize(), indexer.getSize());
-                    A.operateOnMatching(MULTIPLY, B).supplyTo(C);
-                    double n = C.multiply(ones).transpose().multiply(ones).get(0, 0);
-                    data.put(getKey(type, condType), n / d);
-                }
-            }
-        }
-
-    }
-
-    protected <N, T> void evaluateAllEjml(GraphAdapter<N, T> adapter) {
-        GraphIndexer<N, T> indexer = adapter.getIndexer();
-        int size = indexer.getSize();
-        for (T condType : adapter.getIndexer().getTypes()) {
-            DMatrixSparseTriplet tripletsB =  indexer.getAdjacencyMatrixEjml().get(condType);
-            DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
-            DMatrixRMaj rowSumB = new DMatrixRMaj(size, 1);
-            CommonOps_DSCC.sumRows(B,rowSumB);
-            double d = SimpleMatrix.wrap(rowSumB).elementSum();
-            for (T type : adapter.getIndexer().getTypes()) {
-                if (type != condType) {
-                    DMatrixSparseTriplet tripletsA = indexer.getAdjacencyMatrixEjml().get(type);
-                    DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-                    DMatrixSparseCSC C = new DMatrixSparseCSC(size, size, 0);
-                    CommonOps_DSCC.elementMult(A,B,C, null, null);
-                    DMatrixRMaj rowSum = new DMatrixRMaj(size, 1);
-                    CommonOps_DSCC.sumRows(C,rowSum);
-                    double n = SimpleMatrix.wrap(rowSum).elementSum();
-                    data.put(getKey(type, condType), n / d);
-                }
-            }
-        }
-
-    }
-
 
     private <T, N> void evaluate(GraphAdapter<N, T> adapter, T condType, T type) {
         GraphIndexer indexer = adapter.getIndexer();
@@ -158,6 +74,5 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
         return values;
     }
 
-    public enum Implementation {OJALGO, EDGELIST, EJML}
 
 }
