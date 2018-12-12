@@ -1,16 +1,17 @@
 package hu.bme.mit.ga.adapters.csv;
 
 import hu.bme.mit.ga.adapters.GraphAdapter;
+import hu.bme.mit.ga.adapters.GraphIndexer;
 import org.supercsv.cellprocessor.ParseLong;
 import org.supercsv.cellprocessor.constraint.NotNull;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvMapReader;
 import org.supercsv.prefs.CsvPreference;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.LineNumberReader;
 import java.util.Map;
 
 public class CsvGraphAdapter<N> extends GraphAdapter<N, String> {
@@ -27,20 +28,23 @@ public class CsvGraphAdapter<N> extends GraphAdapter<N, String> {
     }
 
     public void init(String nodeCsv, String relsCsv) throws IOException {
+        File file = new File(nodeCsv);
+        LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(file));
+        lineNumberReader.skip(Long.MAX_VALUE);
+        int numberOfNodes = lineNumberReader.getLineNumber();
+        lineNumberReader.close();
+        indexer = new GraphIndexer<>(numberOfNodes);
         final CsvMapReader nodeMapReader = new CsvMapReader(new FileReader(nodeCsv), PREF);
-        final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), PREF);
-
-        // nodes
-        final String[] nodeHeader = {"id"};
         final CellProcessor[] nodeProcessors = getProcessors("nodes");
-
-        final CsvIterator<N> iterator = new CsvIterator<>(nodeMapReader, nodeHeader, nodeProcessors);
-        List<N> nodes = new ArrayList<>();
-        while (iterator.hasNext()) {
-            final N id = iterator.next();
-            nodes.add(id);
+        final String[] nodeHeader = {"node_id"};
+        Map<String, Object> nodeMap;
+        while (((nodeMap = nodeMapReader.read(nodeHeader, nodeProcessors)) != null)) {
+                N nodeId = (N) nodeMap.get("node_id");
+                if(nodeId != null){
+                indexer.addNode(nodeId);
+            }
         }
-
+        final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), PREF);
         // edges
         final CellProcessor[] edgeProcessors = getProcessors("edges");
         final String[] edgeHeader = {"source_id", "type", "target_id"};

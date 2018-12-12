@@ -65,17 +65,6 @@ public abstract class GraphMetricTest<D extends BaseData> {
         evaluateAndCheck(checker, analyzer);
     }
 
-    @Test(dataProvider = "data")
-    public void testEvaluationWithAnalyzerUsingAll(TestGraphInstances modelType, Consumer<D> checker) throws IOException {
-        initModel(modelType);
-        GraphAnalyzer analyzer = new GraphAnalyzer();
-        analyzer.useAll();
-        metric = analyzer.getMetric(getMetric());
-        initData();
-
-        evaluateAndCheck(checker, analyzer);
-    }
-
     protected void skippedModel(TestGraphInstances modelType) {
         logger.warn("The model " + modelType + " is not evaluated");
     }

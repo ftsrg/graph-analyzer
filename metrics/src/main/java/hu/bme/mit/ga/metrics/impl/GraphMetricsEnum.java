@@ -107,7 +107,8 @@ public enum GraphMetricsEnum implements GraphMetricInitializer {
         public Class<TypedClusteringCoefficientDef3> getMetric() {
             return TypedClusteringCoefficientDef3.class;
         }
-    };
+    }
+    ;
 
 
     public static GraphMetricsEnum getEnum(GraphMetric metric) {

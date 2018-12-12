@@ -16,10 +16,10 @@ To run the analysis, edit the `analyzer-app/src/Analyzer.groovy` file and issue 
 ./gradlew analyze
 ```
 
-Make sure the Gradle process has enough memory:
+Make sure [the Gradle process has enough memory](https://docs.gradle.org/current/userguide/build_environment.html#sec:configuring_jvm_memory) - the more the better.
 
 ```console
-export GRADLE_OPTS=-Xmx12G
+export JAVA_OPTS=-Xmx4G
 ```
 
 ## License

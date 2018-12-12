@@ -76,15 +76,6 @@ public class GraphAnalyzerTest {
         analyzer.useAll();
     }
 
-    @Test
-    public void testUseAll() {
-        analyzer.useAll();
-        checkSize(GraphMetricsEnum.values().length);
-
-        checkMetric(NumberOfNodes);
-        checkMetric(NumberOfEdges);
-    }
-
     @Test(expectedExceptions = IllegalStateException.class)
     public void testIncorrectOmit() {
         analyzer.omit(NumberOfNodes);

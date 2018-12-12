@@ -1,21 +1,30 @@
 package hu.bme.mit.ga.metrics.impl.typed;
 
 import com.google.common.collect.Multimap;
-import hu.bme.mit.ga.base.data.MapData;
 import hu.bme.mit.ga.adapters.GraphAdapter;
 import hu.bme.mit.ga.adapters.GraphIndexer;
+import hu.bme.mit.ga.base.data.MapData;
 import hu.bme.mit.ga.metrics.AbstractGraphMetric;
+import org.ejml.data.DMatrixRMaj;
+import org.ejml.data.DMatrixSparseCSC;
+import org.ejml.data.DMatrixSparseTriplet;
+import org.ejml.ops.ConvertDMatrixStruct;
+import org.ejml.simple.SimpleMatrix;
+import org.ejml.sparse.csc.CommonOps_DSCC;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
+
     public EdgeOverlap() {
-        super("EdgeOverlap", new MapData<String, Double>());
+        super("EdgeOverlap", new MapData<>());
     }
+
+    @Override
+    public String getName() {
+        return name ;
+    }
+
 
     @Override
     protected <N, T> void evaluateAll(GraphAdapter<N, T> adapter) {
@@ -26,7 +35,6 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
                 }
             }
         }
-
     }
 
     private <T, N> void evaluate(GraphAdapter<N, T> adapter, T condType, T type) {
@@ -65,5 +73,6 @@ public class EdgeOverlap extends AbstractGraphMetric<MapData<String, Double>> {
         }
         return values;
     }
+
 
 }
