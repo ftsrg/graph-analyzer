@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class CsvGraphAdapter<N> extends GraphAdapter<N, String> {
@@ -41,9 +39,9 @@ public class CsvGraphAdapter<N> extends GraphAdapter<N, String> {
         final String[] nodeHeader = {"node_id"};
         Map<String, Object> nodeMap;
         while (((nodeMap = nodeMapReader.read(nodeHeader, nodeProcessors)) != null)) {
-            N nodeId = (N) nodeMap.get("node_id");
-            if(nodeId!= null){
-            indexer.addNode(nodeId);
+                N nodeId = (N) nodeMap.get("node_id");
+                if(nodeId != null){
+                indexer.addNode(nodeId);
             }
         }
         final CsvMapReader edgeMapReader = new CsvMapReader(new FileReader(relsCsv), PREF);
