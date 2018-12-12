@@ -20,20 +20,17 @@ public final class GraphIndexer<N, T> {
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
 
-
-    private Map<T, DMatrixSparseTriplet> adjacencyMatrix = new HashMap<>();
+    private final Map<T, DMatrixSparseTriplet> adjacencyMatrix = new HashMap<>();
     private DMatrixSparseTriplet adjacencyMatrixUntyped;
-    private BiMap<N, Integer> nodeRowMap = HashBiMap.create();
-
+    private final BiMap<N, Integer> nodeRowMap = HashBiMap.create();
 
     private int size;
     private int rowsAdded = 0;
     private Set<T> types = new HashSet<>();
     private Set<N> nodes = new HashSet<>();
 
-    public GraphIndexer() {
-    }
-
+//    public GraphIndexer() {
+//    }
 
     public GraphIndexer(int size) {
         this.size = size;

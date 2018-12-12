@@ -1,6 +1,8 @@
 package hu.bme.mit.ga.adapters.neo4j;
 
+import com.google.common.collect.ImmutableList;
 import hu.bme.mit.ga.adapters.GraphAdapter;
+import hu.bme.mit.ga.adapters.GraphIndexer;
 import org.neo4j.graphdb.Direction;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
@@ -18,7 +20,12 @@ public class Neo4jGraphAdapter extends GraphAdapter<Node, String> {
     }
 
     protected void init(ResourceIterable<Node> nodes) {
-        for (Node node : nodes) {
+        final ImmutableList<Node> nodesList = ImmutableList.copyOf(nodes);
+        indexer = new GraphIndexer<>(nodesList.size());
+        for (Node node : nodesList) {
+            indexer.addNode(node);
+        }
+        for (Node node : nodesList) {
             for (Relationship relationship : node.getRelationships(Direction.OUTGOING)) {
                 Node neighbor = relationship.getOtherNode(node);
                 addEdge(node, relationship.getType(), neighbor);
