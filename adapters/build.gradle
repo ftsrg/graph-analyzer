@@ -4,5 +4,5 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: guavaVersion
     compile group: 'de.javakaffee', name: 'kryo-serializers', version: '0.42'
 
-    compile group: 'org.ejml', name: 'ejml-simple', version: '0.37'
+    compile group: 'org.ejml', name: 'ejml-simple', version: '0.37.1'
 }
