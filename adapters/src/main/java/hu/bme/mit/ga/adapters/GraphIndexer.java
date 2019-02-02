@@ -29,9 +29,6 @@ public final class GraphIndexer<N, T> {
     private Set<T> types = new HashSet<>();
     private Set<N> nodes = new HashSet<>();
 
-//    public GraphIndexer() {
-//    }
-
     public GraphIndexer(int size) {
         this.size = size;
         adjacencyMatrixUntyped = new DMatrixSparseTriplet(size, size, size);
@@ -41,22 +38,6 @@ public final class GraphIndexer<N, T> {
             typedEdges.put(type, 0.0);
         }
     }
-
-    public void persist(final String path) throws FileNotFoundException {
-        final Kryo kryo = new Kryo();
-        try (final Output output = new Output(new FileOutputStream(path))) {
-            kryo.writeObject(output, this);
-        }
-    }
-
-    public static GraphIndexer fromFile(final String path) throws FileNotFoundException {
-        final Kryo kryo = new Kryo();
-        kryo.setInstantiatorStrategy(new Kryo.DefaultInstantiatorStrategy(new StdInstantiatorStrategy()));
-        try (final Input input = new Input(new FileInputStream(path))) {
-            return kryo.readObject(input, GraphIndexer.class);
-        }
-    }
-
 
     public void addEdge(final T type, final N sourceNode, final N targetNode) {
         if (!outgoing.containsKey(type)) {
