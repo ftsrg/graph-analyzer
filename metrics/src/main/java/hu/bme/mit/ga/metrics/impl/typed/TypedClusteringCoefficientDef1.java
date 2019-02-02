@@ -67,9 +67,9 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     protected <N, T> SimpleMatrix countTrianglesEjmlEw(T type1, T type2, final GraphAdapter<N, T> adapter ) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type1);
+        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type2);
+        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type2);
         DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
         DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
         DMatrixSparseCSC ABA = new DMatrixSparseCSC(size, size, 0);
@@ -83,7 +83,7 @@ public class TypedClusteringCoefficientDef1 extends TypedClusteringCoefficient {
     protected <N, T> SimpleMatrix countWedgesEjmlEw(T type1, final GraphAdapter<N, T> adapter ) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type1);
+        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
         DMatrixRMaj degreeVector = new DMatrixRMaj(size, 1);
         CommonOps_DSCC.sumRows(A, degreeVector);

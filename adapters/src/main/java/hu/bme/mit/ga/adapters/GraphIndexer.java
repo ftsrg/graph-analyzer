@@ -1,16 +1,17 @@
 package hu.bme.mit.ga.adapters;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import org.ejml.data.DMatrixSparseTriplet;
-import org.objenesis.strategy.StdInstantiatorStrategy;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public final class GraphIndexer<N, T> {
 
@@ -20,8 +21,8 @@ public final class GraphIndexer<N, T> {
     private Map<T, Multimap<N, N>> outgoing = new HashMap<>();
     private Map<T, Multimap<N, N>> incoming = new HashMap<>();
 
-    private final Map<T, DMatrixSparseTriplet> adjacencyMatrix = new HashMap<>();
-    private DMatrixSparseTriplet adjacencyMatrixUntyped;
+    private final Map<T, DMatrixSparseTriplet> typedAdjacencyMatrixTriplets = new HashMap<>();
+    private DMatrixSparseTriplet untypedAdjacencyMatrixTriplets;
     private final BiMap<N, Integer> nodeRowMap = HashBiMap.create();
 
     private int size;
@@ -31,10 +32,10 @@ public final class GraphIndexer<N, T> {
 
     public GraphIndexer(int size) {
         this.size = size;
-        adjacencyMatrixUntyped = new DMatrixSparseTriplet(size, size, size);
+        untypedAdjacencyMatrixTriplets = new DMatrixSparseTriplet(size, size, size);
         for (T type : types) {
             DMatrixSparseTriplet triplets = new DMatrixSparseTriplet(size, size, size);
-            adjacencyMatrix.put(type, triplets);
+            typedAdjacencyMatrixTriplets.put(type, triplets);
             typedEdges.put(type, 0.0);
         }
     }
@@ -46,13 +47,13 @@ public final class GraphIndexer<N, T> {
         outgoing.get(type).put(sourceNode, targetNode);
         incoming.get(type).put(targetNode, sourceNode);
         typedEdges.replace(type, typedEdges.get(type) + 1);
-        if ( adjacencyMatrix != null) {
+        if ( typedAdjacencyMatrixTriplets != null) {
             long sourceNodeInd = nodeRowMap.get(sourceNode);
             long targetNodeInd = nodeRowMap.get(targetNode);
-            adjacencyMatrix.get(type).set((int) sourceNodeInd, (int) targetNodeInd, 1);
-            adjacencyMatrix.get(type).set((int) targetNodeInd, (int) sourceNodeInd, 1);
-            adjacencyMatrixUntyped.set((int) targetNodeInd, (int) sourceNodeInd, 1);
-            adjacencyMatrixUntyped.set((int) sourceNodeInd, (int) targetNodeInd, 1);
+            typedAdjacencyMatrixTriplets.get(type).addItem((int) sourceNodeInd, (int) targetNodeInd, 1);
+            typedAdjacencyMatrixTriplets.get(type).addItem((int) targetNodeInd, (int) sourceNodeInd, 1);
+            untypedAdjacencyMatrixTriplets.addItem((int) targetNodeInd, (int) sourceNodeInd, 1);
+            untypedAdjacencyMatrixTriplets.addItem((int) sourceNodeInd, (int) targetNodeInd, 1);
         }
 
         numberOfEdges++;
@@ -64,7 +65,7 @@ public final class GraphIndexer<N, T> {
         outgoing.put(type, ArrayListMultimap.create());
         incoming.put(type, ArrayListMultimap.create());
         DMatrixSparseTriplet triplets = new DMatrixSparseTriplet(size, size, 0);
-        adjacencyMatrix.put(type, triplets);
+        typedAdjacencyMatrixTriplets.put(type, triplets);
     }
 
     public void addNode(N node) {
@@ -227,15 +228,15 @@ public final class GraphIndexer<N, T> {
         return nodeRowMap;
     }
 
-    public Map<T, DMatrixSparseTriplet> getAdjacencyMatrix() {
-        return adjacencyMatrix;
+    public Map<T, DMatrixSparseTriplet> getTypedAdjacencyMatrixTriplets() {
+        return typedAdjacencyMatrixTriplets;
     }
 
     public Map<T, Double> getTypedEdges() {
         return typedEdges;
     }
     public DMatrixSparseTriplet getAdjacencyMatrixUntyped() {
-        return adjacencyMatrixUntyped;
+        return untypedAdjacencyMatrixTriplets;
     }
 
 }

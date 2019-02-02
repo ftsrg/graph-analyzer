@@ -69,13 +69,13 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
     protected <N, T> SimpleMatrix countTrianglesForTypeTriadEjml(T type1, T type2, T type3, final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type1);
+        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type2);
+        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type2);
         DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
         DMatrixSparseCSC AB = new DMatrixSparseCSC(size, size, 0);
         ImplSparseSparseMult_DSCC.mult(A, B, AB, null, null);
-        DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type3);
+        DMatrixSparseTriplet tripletsC = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type3);
         DMatrixSparseCSC C = ConvertDMatrixStruct.convert(tripletsC, (DMatrixSparseCSC) null);
         DMatrixSparseCSC ABC = new DMatrixSparseCSC(size, size, 0);
         ABC.growMaxLength(Math.min(A.nz_length, B.nz_length), false);
@@ -88,9 +88,9 @@ public class TypedClusteringCoefficientDef2 extends TypedClusteringCoefficient {
     protected <N, T> SimpleMatrix countWedgesForTypePairEjml(T type1, T type2, final GraphAdapter<N, T> adapter) {
         GraphIndexer indexer = adapter.getIndexer();
         int size = indexer.getSize();
-        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type1);
+        DMatrixSparseTriplet tripletsA = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type1);
         DMatrixSparseCSC A = ConvertDMatrixStruct.convert(tripletsA, (DMatrixSparseCSC) null);
-        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getAdjacencyMatrix().get(type2);
+        DMatrixSparseTriplet tripletsB = (DMatrixSparseTriplet) indexer.getTypedAdjacencyMatrixTriplets().get(type2);
         DMatrixSparseCSC B = ConvertDMatrixStruct.convert(tripletsB, (DMatrixSparseCSC) null);
 
         DMatrixRMaj degreeVectorA = new DMatrixRMaj(size, 1);
